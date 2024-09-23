@@ -109,11 +109,11 @@ const calculateResult = () => {
               <select v-model="editable.activity" id="activity" name="activity"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 <option value=1>Basal Metabolic Rate</option>
-                <option value=1.2>Sedentary</option>
-                <option value=1.375>Lightly Active</option>
-                <option value=1.55>Moderately Active</option>
-                <option value=1.725>Active</option>
-                <option value=1.9>Very Active</option>
+                <option value=1.2>Sedentary: little or no exercise</option>
+                <option value=1.375>Lightl: exercise 1-3 times/week</option>
+                <option value=1.55>Moderate: exercise 4-5 times/week</option>
+                <option value=1.725>Active: daily exercise or intense exercise 3-4 times/week</option>
+                <option value=1.9>Very Active: intense exercise 6-7 times/week</option>
               </select>
             </div>
           </div>
@@ -133,8 +133,8 @@ const calculateResult = () => {
 
   <div>
     <div class="border-b border-gray-900/10">
-      <h3 class="text-xl font-bold">Result: <span v-if="result.value">{{ Math.round(result.value) }}</span><span
-          v-else>Pending</span></h3>
+      <h3 class="text-xl font-bold mb-3">Result: <span v-if="result.value">{{ Math.round(result.value) }}
+          Calories</span><span v-else>Pending</span></h3>
     </div>
     <div v-if="result.value">
       {{ editable.gender }}:( (10*{{ Math.round(editable.weight / 2.205) }} [kg]) + (6.25*{{
