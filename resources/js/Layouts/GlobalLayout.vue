@@ -33,9 +33,9 @@ defineProps({
       </div>
     </header>
 
-    <main class="flex-1 mt-20">
+    <main class="flex-1 mt-10">
       <GuestLayout>
-        <slot />
+        <slot></slot>
       </GuestLayout>
     </main>
 
