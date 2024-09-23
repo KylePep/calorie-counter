@@ -1,6 +1,8 @@
 <script setup>
-import NavBar from "@/Components/NavBar.vue";
 import { Head } from "@inertiajs/vue3";
+import GuestLayout from "./GuestLayout.vue";
+import GuestNav from "@/Components/GuestNav.vue";
+import AuthenticatedNav from "@/Components/AuthenticatedNav.vue";
 
 defineProps({
   canLogin: {
@@ -18,21 +20,27 @@ defineProps({
 
 <template>
   <div class="relative flex flex-col bg-gray-100 min-h-screen" style="scrollbar-gutter: stable;">
-    <nav class="sticky top-0 z-10 bg-white shadow-xl mb-10">
-      <NavBar v-if="$page.url == '/' || $page.url == '/calculator'" :canLogin="canLogin" :canRegister="canRegister" />
+    <nav class="sticky top-0 z-10 bg-white shadow-xl">
+      <GuestNav v-if="!$page.props.auth.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
+      <AuthenticatedNav v-else></AuthenticatedNav>
     </nav>
 
-    <header>
+    <Head :title="$props.head" content="description required" :head-key="$props.head" />
 
-      <Head :title="$props.head" />
+    <header class="bg-white shadow mb-10" v-if="$slots.header">
+      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <slot name="header"></slot>
+      </div>
     </header>
 
     <main class="flex-1">
-      <slot />
+      <GuestLayout>
+        <slot />
+      </GuestLayout>
     </main>
 
     <footer>
-      <div class="border-t-2  border-black/25 ms-10 me-8 text-center py-4 font-bold text-xl text-black/25">
+      <div class="border-t-2  border-black/25 ms-10 mt-10 me-8 text-center py-4 font-bold text-xl text-black/25">
         Footer
       </div>
     </footer>

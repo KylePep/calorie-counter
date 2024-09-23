@@ -17,6 +17,10 @@ defineProps({
 
   <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Calculator">
 
+    <template #header>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Calculator</h2>
+    </template>
+
     <div class="mt-6 space-y-6 max-w-xl mx-auto min-h-screen text-center text-black/75">
       <CalorieCalculator />
 
