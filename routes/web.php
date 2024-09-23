@@ -10,7 +10,7 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register')
     ]);
-});
+})->name('Welcome');
 
 Route::get('/calculator', function () {
     return Inertia::render('Calculator', [

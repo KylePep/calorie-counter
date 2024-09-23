@@ -52,7 +52,7 @@ const calculateResult = () => {
             <div class="mt-2 relative">
               <input v-model="editable.age" type="text" name="age" id="age" placeholder="ages 15 - 80"
                 inputmode="numeric" pattern="^[0-9]*$"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-center">
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 text-center">
               <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Age</span>
             </div>
           </div>
@@ -62,12 +62,12 @@ const calculateResult = () => {
             <div class="flex justify-around">
               <div class="flex items-center gap-x-3">
                 <input v-model="editable.gender" id="gender-male" name="gender" type="radio" value="Male"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                  class="h-4 w-4 border-gray-300 text-gray-600 focus:ring-gray-600" />
                 <label for="gender-male" class="block text-sm font-medium leading-6 text-gray-900">Male</label>
               </div>
               <div class="flex items-center gap-x-3">
                 <input v-model="editable.gender" id="gender-female" name="gender" type="radio" value="Female"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                  class="h-4 w-4 border-gray-300 text-gray-600 focus:ring-gray-600" />
                 <label for="gender-female" class="block text-sm font-medium leading-6 text-gray-900">Female</label>
               </div>
             </div>
@@ -127,12 +127,12 @@ const calculateResult = () => {
 
     <div class="mt-6 flex items-center justify-end gap-x-6">
       <button type="submit"
-        class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Calculate</button>
+        class="rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Calculate</button>
     </div>
   </form>
 
   <div>
-    <div class="border-b border-gray-900/10">
+    <div class="border-b mb-3 border-gray-900/10">
       <h3 class="text-xl font-bold mb-3">Result: <span v-if="result.value">{{ Math.round(result.value) }}
           Calories</span><span v-else>Pending</span></h3>
     </div>
