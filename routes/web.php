@@ -8,10 +8,16 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'name' => 'Kyle Peppersack'
+        'canRegister' => Route::has('register')
     ]);
 });
+
+Route::get('/calculator', function () {
+    return Inertia::render('Calculator', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register')
+    ]);
+})->name('calculator');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
