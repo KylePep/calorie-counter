@@ -27,13 +27,13 @@ defineProps({
 
     <Head :title="$props.head" content="description required" :head-key="$props.head" />
 
-    <header class="bg-white shadow mb-10" v-if="$slots.header">
+    <header class="bg-white shadow" v-if="$slots.header">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <slot name="header"></slot>
       </div>
     </header>
 
-    <main class="flex-1">
+    <main class="flex-1 mt-20">
       <GuestLayout>
         <slot />
       </GuestLayout>

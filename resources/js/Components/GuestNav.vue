@@ -31,7 +31,7 @@ const showingNavigationDropdown = ref(false);
           <!-- Logo -->
           <div class="shrink-0 flex items-center">
             <Link href="/">
-            <ApplicationLogo class="block h-9 w-auto fill-current text-black" />
+            <ApplicationLogo class="block w-auto fill-current text-black/75 text-5xl" />
             </Link>
           </div>
 

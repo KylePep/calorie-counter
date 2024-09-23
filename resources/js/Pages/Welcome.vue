@@ -18,11 +18,11 @@ defineProps({
 
     <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Welcome">
 
-        <template #header>
+        <!-- <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Welcome</h2>
-        </template>
+        </template> -->
 
-        <section class="space-y-3 text-center">
+        <section class="space-y-3 text-center ">
 
             <h1 class="text-3xl">Welcome to <strong>Calorie Counter</strong></h1>
             <h2>Be sure to log in to keep log in so you can calculate your calorie goals and begin keeping track!</h2>
