@@ -35,6 +35,36 @@ const calorieCountCells = ref(20)
         </template>
 
         <div class="pb-12 ">
+            <div class="space-y-4">
+                <p>
+                    {{ $page.props.foodData.description }}
+                </p>
+                <p>
+                    {{ $page.props.foodData.brandOwner }}
+
+                </p>
+                <p>
+                    Serving Size:
+                    {{ $page.props.foodData.servingSize }}
+
+                    {{ $page.props.foodData.servingSizeUnit }}
+                </p>
+                <p>
+                    Food Category:
+                    {{ $page.props.foodData.brandedFoodCategory }}
+
+                </p>
+
+                <ul>
+                    <li>Nutrients</li>
+                    <li class="my-2" v-for="(value, name, index) in $page.props.foodData.labelNutrients">
+                        {{ name }}: {{ value.value }}
+                    </li>
+                </ul>
+                <p>
+                    {{ $page.props.foodData.ingredients }}
+                </p>
+            </div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <p>
                     Here's how it's going: {{ calorieCount }}, Your goal is 2000 calories

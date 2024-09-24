@@ -1,5 +1,6 @@
 <script setup>
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
+import { onMounted } from "vue";
 
 defineProps({
     canLogin: {
@@ -9,6 +10,10 @@ defineProps({
         type: Boolean,
     }
 });
+
+onMounted(() => {
+
+})
 
 </script>
 
