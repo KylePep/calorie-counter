@@ -50,7 +50,11 @@ onMounted(() => {
 
 <template>
 
-  <!-- {{ foodDataItems.foods[0] }} -->
+  Total Hits: {{ foodDataItems.totalHits }}
+  Current Page: {{ foodDataItems.currentPage }}
+  Total Pages: {{ foodDataItems.totalPages }}
+  Page List: {{ foodDataItems.pageList }}
+  <!-- {{ foodDataItems.foods[1] }} -->
 
   <p class="mt-6">Search?</p>
   <label for="" class="block font-bold">USDA</label>
@@ -70,11 +74,17 @@ onMounted(() => {
   </div>
 
   <div v-if="foodDataItems" class="space-y-4 grid grid-cols-2 gap-3">
-    <div v-for="food in foodDataItems.foods" :key="food.fdcId" class="grid grid-cols-2 bg-gray-300 rounded text-sm">
+    <div v-for="food in foodDataItems.foods" :key="food.fdcId" class="grid grid-cols-2 bg-gray-300 rounded text-sm p-3">
       <div>
         <!-- <p>
           {{ food.fdcId }}
         </p> -->
+        <!-- <p>Calories {{ (food.foodNutrients[0].value * 4) + (food.foodNutrients[1].value * 9) +
+          (food.foodNutrients[2].value * 4)
+          }}</p> -->
+        <p>
+          Calories {{ Math.round(food.foodNutrients[3].value * (food.servingSize * .01)) }}
+        </p>
         <p>
           {{ food.brandName }} by {{ food.brandOwner }}
         </p>
@@ -100,8 +110,9 @@ onMounted(() => {
       <ul class="">
         <li>Nutrients</li>
         <li class="my-2" v-for="foodItem in food.foodNutrients">
-          <div v-if="foodItem.value != 0">
-            {{ foodItem.nutrientName }}: {{ foodItem.value }} {{ foodItem.unitName }}
+          <div v-if="foodItem.value" class="lowercase">
+            {{ foodItem.nutrientName }}: {{ Math.round(foodItem.value * (food.servingSize * .01)) }}{{
+              foodItem.unitName }}
             <span v-if="foodItem.percentDailyValue"> - {{
               foodItem.percentDailyValue
             }}%</span>
