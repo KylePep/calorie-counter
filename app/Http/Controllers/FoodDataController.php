@@ -10,15 +10,20 @@ class FoodDataController extends Controller
     public function getFoodData(Request $request)
     {
 
+
         $apiKey = env('FOOD_DATA_API_KEY');
 
         $query = $request->input('query');
+        $pageNumber = $request->input('pageNumber',1);
+        $pageSize = $request->input('pageSize', 10);
 
         $url = 'https://api.nal.usda.gov/fdc/v1/foods/search';
 
         $params = [
             'query' => $query,
             'dataType' => 'Branded',
+            'pageSize'=> $pageSize,
+            'pageNumber'=> $pageNumber,
             'api_key' => $apiKey,
         ];
 
@@ -28,17 +33,8 @@ class FoodDataController extends Controller
         if($response->successful()){
             return $response->json();
         } else  {
-            // Get the status code and response body for more details
             $statusCode = $response->status();
-            $errorBody = $response->body(); // or use $response->json() if the error response is in JSON format
-
-            // Optionally, you can log the error for further analysis
-            // \Log::error('Food Data API request failed', [
-            //     'status' => $statusCode,
-            //     'response' => $errorBody,
-            // ]);
-
-            // Return a more detailed error response to the frontend
+            $errorBody = $response->body(); 
             return response()->json([
                 'error' => 'Failed to fetch Food Data',
                 'status' => $statusCode,
