@@ -29,7 +29,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function(){
-    Route::get('/food', [FoodController::class, 'index'])->name('food.index');
+    Route::get('/food', [FoodController::class, 'index'])->name('food');
 });
 
 Route::middleware('auth')->group(function () {
