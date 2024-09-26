@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
