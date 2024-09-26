@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class AccountController extends Controller
 {
@@ -13,7 +17,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Account/Index', [
+            'status' => session('status'),
+        ]);
     }
 
     /**
@@ -29,7 +35,18 @@ class AccountController extends Controller
      */
     public function store(StoreAccountRequest $request)
     {
-        //
+        $attributes = $request->validate([
+            'goal' => ['required'],
+            'age' => ['required'],
+            'gender' => ['required', Rule::in(['Male', 'Female'])],
+            'height' => ['required'],
+            'weight' => ['required'],
+            'activity' => ['required'],
+        ]);
+
+        $Account = Auth::user()->account->create($attributes);
+
+        return redirect('/dashboard');
     }
 
     /**

@@ -22,7 +22,7 @@ defineProps({
     <GlobalLayout head="Profile">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
-            <NavLink :href="route('profile.index')">
+            <NavLink :href="route('account.index')">
                 Return
             </NavLink>
         </template>

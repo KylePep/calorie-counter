@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class FoodDataController extends Controller
 {
-    public function getFoodData(Request $request)
+    public function __invoke(Request $request)
     {
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
@@ -15,7 +16,7 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::get('/food-data', [FoodDataController::class,'getFoodData']);
+Route::get('/food-data', FoodDataController::class);
 
 Route::get('/calculator', function () {
     return Inertia::render('Calculator', [
@@ -32,9 +33,13 @@ Route::middleware('auth')->group(function(){
     Route::get('/food', [FoodController::class, 'index'])->name('food');
 });
 
+Route::middleware('auth')->group(function(){
+    Route::get('/account', [AccountController::class, 'index'])->name('account.index');
+});
+
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

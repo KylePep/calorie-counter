@@ -2,26 +2,19 @@
 import FoodList from "@/Components/FoodList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+
+const props = defineProps(['account'])
 
 const calorieCount = ref(0)
 const calorieGoal = ref(3200)
 const cellCount = ref(calorieGoal.value / 100)
 const calorieCountRows = ref(Math.ceil(calorieGoal.value / 1000))
 
-// function normalizeGoal() {
-//     return Math.round(calorieGoal.value / 50) * 50;
-// }
 
 function increaseCount(n) {
     calorieCount.value += n
 }
-
-// onMounted(() => {
-//     // normalizeGoal()
-//     // calorieCountRows.value = calorieGoal.value / 1000
-//     // cellCount.value = calorieGoal.value / 50
-// })
 
 </script>
 
@@ -37,6 +30,10 @@ function increaseCount(n) {
         </template>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
+            <div v-if="props.account">
+                Yo you have an account {{ props.account }}
+            </div>
+
             <p>
                 Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories -- rows {{
                     calorieCountRows }} -- cells {{
