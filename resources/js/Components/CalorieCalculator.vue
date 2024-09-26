@@ -132,17 +132,17 @@ const calculateResult = () => {
   </form>
 
   <div>
-    <div class="border-b mb-3 border-gray-900/10">
+    <div class="py-3">
       <h3 class="text-xl font-bold mb-3">Result: <span v-if="result.value">{{ Math.round(result.value) }}
           Calories</span><span v-else>Pending</span></h3>
     </div>
-    <div v-if="result.value">
+    <!-- <div v-if="result.value">
       {{ editable.gender }}:( (10*{{ Math.round(editable.weight / 2.205) }} [kg]) + (6.25*{{
         Math.round((editable.heightFeet * 12 +
           editable.heightInches) * 2.54) }}
       [cm]) – (5*{{ editable.age
       }}) {{ editable.gender == 'Female' ? '-161' : '+5' }} ) * {{ editable.activity }}
-    </div>
+    </div> -->
   </div>
 
 </template>

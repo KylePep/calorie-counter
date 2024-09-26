@@ -21,11 +21,18 @@ defineProps({
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Calculator</h2>
     </template>
 
-    <div class="mt-6 space-y-6 max-w-xl mx-auto min-h-screen text-center text-black/75">
-      <CalorieCalculator />
+    <div class="flex justify-center max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-      <section class="space-y-3 py-10">
-        <h1 class="text-xl">This calculator uses the Mifflin-St Jeor formula</h1>
+      <section class="space-y-6 text-center text-black/75">
+        <CalorieCalculator />
+      </section>
+
+    </div>
+
+    <template #side>
+      <div class=" lg:border-s border-black/25 space-y-3 px-12 text-sm">
+
+        <h1 class=" font-bold">This calculator uses the Mifflin-St Jeor formula</h1>
 
         <p>
           Females: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) – 161
@@ -35,7 +42,7 @@ defineProps({
           Males: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) + 5
         </p>
         <div class="">
-          <h2 class="text-lg">
+          <h2 class="">
             Multiply by scale factor for activity level:
 
           </h2>
@@ -64,8 +71,8 @@ defineProps({
           </ul>
 
         </div>
-      </section>
-    </div>
+      </div>
+    </template>
   </GlobalLayout>
 
 

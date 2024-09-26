@@ -15,6 +15,7 @@ interface FoodNutrient {
 
 interface BrandedFoodItem {
   fdcId: number;
+  gtinUpc: number;
   description: string;
   brandName: string;
   brandOwner: string;
@@ -52,6 +53,10 @@ const fetchFoodData = async (page = 1) => {
   try {
 
     let query = form.query.replace(/"/g, '').trim();
+
+    if (/^\d+$/.test(query)) {
+      query = '00' + query;
+    }
 
     query = `"${query}"`;
 

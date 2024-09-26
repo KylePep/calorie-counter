@@ -28,15 +28,19 @@ defineProps({
     <Head :title="$props.head" content="description required" :head-key="$props.head" />
 
     <header class="bg-white shadow" v-if="$slots.header">
-      <div class="flex space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <slot name="header"></slot>
       </div>
     </header>
 
-    <main class="flex-1 mt-10">
-      <GuestLayout>
+    <main class="grid grid-cols-4 flex-1 mt-10">
+      <GuestLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
         <slot></slot>
       </GuestLayout>
+      <div class="col-span-4 lg:col-span-1 col-start-2 lg:col-start-4">
+        <slot v-if="$slots.side" name="side">
+        </slot>
+      </div>
     </main>
 
     <footer>

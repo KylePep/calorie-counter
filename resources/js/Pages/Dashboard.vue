@@ -36,36 +36,34 @@ function increaseCount(n) {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
         </template>
 
-        <div class="pb-12 ">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
+            <p>
+                Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories -- rows {{
+                    calorieCountRows }} -- cells {{
+                    cellCount }}
+            </p>
+            <div class=" z-10 bg-white p-1 text-center border-4 rounded-lg border-black/25"
+                :class="calorieCount < calorieGoal ? 'sticky top-16' : ''">
 
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <p>
-                    Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories -- rows {{
-                        calorieCountRows }} -- cells {{
-                        cellCount }}
-                </p>
-                <div class=" z-10 bg-white p-1 text-center border-4 rounded-lg border-black/25"
-                    :class="calorieCount < calorieGoal ? 'sticky top-16' : ''">
-
-                    <div v-for="row in calorieCountRows" :key="row" class="  grid grid-rows-1 grid-flow-col gap-1 mb-1">
-                        <!-- {{ row * 1000 }} -->
-                        <div v-for="index in 10" :key="index"
-                            :class="[((row - 1) * 10 + index) * 100 <= calorieCount ? 'bg-green-500 text-transparent' : 'bg-gray-300 text-black/50', index + ((row - 1) * 10) <= cellCount ? '' : 'bg-black/25 text-transparent']"
-                            class="min-h-10 text-sm flex flex-col justify-center">
-                            100
-                        </div>
+                <div v-for="row in calorieCountRows" :key="row" class="  grid grid-rows-1 grid-flow-col gap-1 mb-1">
+                    <!-- {{ row * 1000 }} -->
+                    <div v-for="index in 10" :key="index"
+                        :class="[((row - 1) * 10 + index) * 100 <= calorieCount ? 'bg-green-500 text-transparent' : 'bg-gray-300 text-black/50', index + ((row - 1) * 10) <= cellCount ? '' : 'bg-black/25 text-transparent']"
+                        class="min-h-10 text-sm flex flex-col justify-center">
+                        100
                     </div>
                 </div>
+            </div>
 
-                <div v-if="calorieCount > calorieGoal"
-                    class="sticky top-16 z-20 grid grid-rows-2 grid-flow-col gap-1 bg-white p-1 text-center border-4 rounded-lg border-black/25">
-                    <div v-for="index in 40" :key="index"
-                        :class="[index * 50 + calorieGoal <= calorieCount ? 'bg-yellow-500' : 'bg-gray-300']"
-                        class="min-h-10">
-                    </div>
+            <div v-if="calorieCount > calorieGoal"
+                class="sticky top-16 z-20 grid grid-rows-2 grid-flow-col gap-1 bg-white p-1 text-center border-4 rounded-lg border-black/25">
+                <div v-for="index in 40" :key="index"
+                    :class="[index * 50 + calorieGoal <= calorieCount ? 'bg-yellow-500' : 'bg-gray-300']"
+                    class="min-h-10">
                 </div>
+            </div>
 
-                <!-- <p class="mt-6">Favorites</p>
+            <!-- <p class="mt-6">Favorites</p>
                 <div class="columns-2 sm:column-3 gap-2 p-2 text-center border-4 rounded-lg border-black/25 ">
                     <div @click="calorieCount += item.size" v-for="item, index in foodItems" :key="item"
                         :class="item.calH"
@@ -79,8 +77,7 @@ function increaseCount(n) {
                     </div>
                 </div> -->
 
-                <FoodList :calorieCount="calorieCount" @increase-by="increaseCount" />
-            </div>
+            <FoodList :calorieCount="calorieCount" @increase-by="increaseCount" />
         </div>
     </GlobalLayout>
 
