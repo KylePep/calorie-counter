@@ -1,8 +1,8 @@
 <script setup>
+import FoodList from "@/Components/FoodList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
 import { onMounted, ref } from "vue";
-import FoodList from './FoodList.vue'
 
 const calorieCount = ref(0)
 const calorieGoal = ref(3200)

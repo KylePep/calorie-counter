@@ -4,6 +4,7 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
+import NavLink from "@/Components/NavLink.vue";
 
 
 defineProps({
@@ -21,6 +22,9 @@ defineProps({
     <GlobalLayout head="Profile">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
+            <NavLink :href="route('profile.index')">
+                Return
+            </NavLink>
         </template>
 
         <div class="py-12">

@@ -18,9 +18,9 @@ const showingNavigationDropdown = ref(false);
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        <Link href="/">
-                        <ApplicationLogo class="block w-auto fill-current text-black/75 text-5xl" />
-                        </Link>
+                        <NavLink :href="route('dashboard')">
+                            <ApplicationLogo class="block w-auto fill-current text-black/75 text-5xl" />
+                        </NavLink>
                     </div>
 
                     <!-- Navigation Links -->
@@ -31,6 +31,9 @@ const showingNavigationDropdown = ref(false);
                         </NavLink>
                         <NavLink :href="route('calculator')" :active="route().current('calculator')">
                             Calculator
+                        </NavLink>
+                        <NavLink :href="route('calculator')" :active="route().current('calculator')">
+                            Food
                         </NavLink>
                     </div>
                 </div>
@@ -56,7 +59,7 @@ const showingNavigationDropdown = ref(false);
                             </template>
 
                             <template #content>
-                                <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                <DropdownLink :href="route('profile.index')"> Profile </DropdownLink>
                                 <DropdownLink :href="route('logout')" method="post" as="button">
                                     Log Out
                                 </DropdownLink>
@@ -95,6 +98,9 @@ const showingNavigationDropdown = ref(false);
                 <ResponsiveNavLink :href="route('calculator')" :active="route().current('dashboard')">
                     Calculator
                 </ResponsiveNavLink>
+                <ResponsiveNavLink :href="route('calculator')" :active="route().current('dashboard')">
+                    Food
+                </ResponsiveNavLink>
             </div>
 
             <!-- Responsive Settings Options -->
@@ -107,7 +113,7 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('profile.index')"> Profile </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Log Out
                     </ResponsiveNavLink>
