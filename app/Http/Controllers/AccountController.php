@@ -35,7 +35,7 @@ class AccountController extends Controller
      */
     public function store(StoreAccountRequest $request)
     {
-        $attributes = $request->validate([
+        $validated  = $request->validate([
             'goal' => ['required'],
             'age' => ['required'],
             'gender' => ['required', Rule::in(['Male', 'Female'])],
@@ -43,8 +43,12 @@ class AccountController extends Controller
             'weight' => ['required'],
             'activity' => ['required'],
         ]);
+        
+            // Get the signed-in user
+            $user = $request->user();
 
-        $Account = Auth::user()->account->create($attributes);
+            // Create the account for the authenticated user
+            $account = $user->account()->create($validated);
 
         return redirect('/dashboard');
     }

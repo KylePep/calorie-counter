@@ -11,7 +11,7 @@ class StoreAccountRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'goal' => ['required'],
+            'age' => ['required', 'integer'],
+            'gender' => ['required', 'in:Male,Female'],
+            'height' => ['required', 'numeric'],
+            'weight' => ['required', 'integer'],
+            'activity' => ['required', 'numeric'],
         ];
     }
 }
