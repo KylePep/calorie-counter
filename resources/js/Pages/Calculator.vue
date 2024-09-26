@@ -41,8 +41,9 @@ defineProps({
         <p>
           Males: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) + 5
         </p>
+
         <div class="">
-          <h2 class="">
+          <h2 class="mb-2 font-semibold">
             Multiply by scale factor for activity level:
 
           </h2>

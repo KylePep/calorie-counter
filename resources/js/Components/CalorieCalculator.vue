@@ -133,16 +133,14 @@ const calculateResult = () => {
 
   <div>
     <div class="py-3">
-      <h3 class="text-xl font-bold mb-3">Result: <span v-if="result.value">{{ Math.round(result.value) }}
-          Calories</span><span v-else>Pending</span></h3>
+      <h3 class="text-xl font-bold mb-3">Result:
+        <span v-if="result.value">{{ Math.round(result.value) }}
+          Calories <button :title="`Set ${Math.round(result.value)} as calorie goal.`"
+            class="ms-4 text-sm mdi mdi-plus-thick bg-gray-600 hover:bg-gray-500  rounded-full px-3 py-1 text-white">
+            Set Goal</button>
+        </span><span v-else>Pending</span>
+      </h3>
     </div>
-    <!-- <div v-if="result.value">
-      {{ editable.gender }}:( (10*{{ Math.round(editable.weight / 2.205) }} [kg]) + (6.25*{{
-        Math.round((editable.heightFeet * 12 +
-          editable.heightInches) * 2.54) }}
-      [cm]) – (5*{{ editable.age
-      }}) {{ editable.gender == 'Female' ? '-161' : '+5' }} ) * {{ editable.activity }}
-    </div> -->
   </div>
 
 </template>
