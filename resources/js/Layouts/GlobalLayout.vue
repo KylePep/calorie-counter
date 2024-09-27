@@ -37,7 +37,7 @@ defineProps({
       <GuestLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
         <slot></slot>
       </GuestLayout>
-      <div class="col-span-4 lg:col-span-1 col-start-2 lg:col-start-4">
+      <div class="col-span-2 lg:col-span-1 col-start-2 lg:col-start-4">
         <slot v-if="$slots.side" name="side">
         </slot>
       </div>

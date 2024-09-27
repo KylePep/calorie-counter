@@ -6,6 +6,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,9 +20,13 @@ Route::get('/', function () {
 Route::get('/food-data', FoodDataController::class);
 
 Route::get('/calculator', function () {
+    $user = Auth::user();
+
+        $account = $user->account;
     return Inertia::render('Calculator', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register')
+        'canRegister' => Route::has('register'),
+            'account' => $account,
     ]);
 })->name('calculator');
 

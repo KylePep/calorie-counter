@@ -7,7 +7,7 @@ import { ref } from "vue";
 const props = defineProps(['account'])
 
 const calorieCount = ref(0)
-const calorieGoal = ref(3200)
+const calorieGoal = ref(props.account.goal)
 const cellCount = ref(calorieGoal.value / 100)
 const calorieCountRows = ref(Math.ceil(calorieGoal.value / 1000))
 
@@ -30,14 +30,17 @@ function increaseCount(n) {
         </template>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
-            <div v-if="props.account">
+            <!-- <div v-if="props.account">
                 Yo you have an account {{ props.account }}
-            </div>
+            </div> -->
 
             <p>
-                Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories -- rows {{
+                Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
+            <p>
+                -- rows {{
                     calorieCountRows }} -- cells {{
                     cellCount }}
+            </p>
             </p>
             <div class=" z-10 bg-white p-1 text-center border-4 rounded-lg border-black/25"
                 :class="calorieCount < calorieGoal ? 'sticky top-16' : ''">

@@ -8,6 +8,9 @@ defineProps({
   },
   canRegister: {
     type: Boolean,
+  },
+  account: {
+    type: Object,
   }
 });
 </script>
@@ -24,13 +27,13 @@ defineProps({
     <div class="flex justify-center max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
       <section class="space-y-6 text-center text-black/75">
-        <CalorieCalculator />
+        <CalorieCalculator :account="account" />
       </section>
 
     </div>
 
     <template #side>
-      <div class=" lg:border-s border-black/25 space-y-3 px-12 text-sm">
+      <div class=" border-t lg:border-t-0 lg:border-s border-black/25 space-y-3 px-0 lg:px-12 pt-12 lg:pt-0 text-sm">
 
         <h1 class=" font-bold">This calculator uses the Mifflin-St Jeor formula</h1>
 

@@ -2,18 +2,24 @@
 import { useForm } from "@inertiajs/vue3";
 import { reactive, ref } from "vue";
 
+const props = defineProps({
+  account: {
+    type: Object,
+  }
+})
+
 const result = reactive({})
 
 const form = useForm({
-  gender: 'Male',
-  weight: 160,
-  heightFeet: 5,
-  heightInches: 10,
-  height: 0,
-  age: 25,
-  activity: '1.55',
+  gender: props.account.gender || 'Male',
+  weight: props.account.weight || 160,
+  heightFeet: Math.floor(props.account.height / 2.54 / 12) || 5,
+  heightInches: props.account.height / 2.54 % 12 || 10,
+  height: props.account.height,
+  age: props.account.age || 25,
+  activity: props.account.activity || '1.55',
   genderMod: '-161',
-  goal: 2000,
+  goal: props.account.goal || 2000,
 });
 
 const calculateResult = () => {
@@ -29,7 +35,7 @@ const calculateResult = () => {
 
   const basicResult = weightResult + heightResult - ageResult + genderMod
 
-  const activityResult = basicResult * form.activity
+  const activityResult = Math.round(basicResult * form.activity)
 
   form.height = height
   form.goal = activityResult
@@ -51,6 +57,7 @@ const updateAccount = () => {
 
 
 <template>
+  {{ props.account.gender + ',' + props.account.weight }}
 
   <form @submit.prevent="updateAccount" id="calorie">
     <div class="space-y-3">
@@ -62,7 +69,7 @@ const updateAccount = () => {
       </div>
 
 
-      <div class="border-b border-gray-900/10 pb-12">
+      <div class="pb-12">
 
         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-6">
@@ -129,7 +136,7 @@ const updateAccount = () => {
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 <option value=1>Basal Metabolic Rate</option>
                 <option value=1.2>Sedentary: little or no exercise</option>
-                <option value=1.375>Lightl: exercise 1-3 times/week</option>
+                <option value=1.375>Light: exercise 1-3 times/week</option>
                 <option value=1.55>Moderate: exercise 4-5 times/week</option>
                 <option value=1.725>Active: daily exercise or intense exercise 3-4 times/week</option>
                 <option value=1.9>Very Active: intense exercise 6-7 times/week</option>
