@@ -44,11 +44,15 @@ class AccountController extends Controller
             'activity' => ['required'],
         ]);
         
-            // Get the signed-in user
-            $user = $request->user();
-
+        // Get the signed-in user
+        $user = $request->user();
+        
+        if (!$user->account){
             // Create the account for the authenticated user
             $account = $user->account()->create($validated);
+        } else {
+            $user->account->update($validated);
+        }
 
         return redirect('/dashboard');
     }
