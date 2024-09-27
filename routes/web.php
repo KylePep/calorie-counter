@@ -20,9 +20,17 @@ Route::get('/', function () {
 Route::get('/food-data', FoodDataController::class);
 
 Route::get('/calculator', function () {
+
     $user = Auth::user();
 
-        $account = $user->account;
+    $account = $user ? $user->account : [
+        'gender' => 'Male',
+        'weight' => 160,
+        'height' => 177.8, 
+        'age' => 25,
+        'activity' => '1.55',
+        'goal' => 2000,
+    ];
     return Inertia::render('Calculator', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -42,7 +50,7 @@ Route::middleware('auth')->group(function(){
 Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'index'])->name('account.index');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
-    Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
+    Route::patch('/account/{account}', [AccountController::class, 'update'])->name('account.update');
 });
 
 Route::middleware('auth')->group(function () {

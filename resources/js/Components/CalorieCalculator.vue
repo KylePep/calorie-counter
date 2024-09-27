@@ -14,6 +14,7 @@ const result = reactive({})
 
 const gender = computed(() => props.account?.gender ?? 'Male');
 const weight = computed(() => props.account?.weight ?? 160);
+const height = computed(() => props.account?.height ?? 177.8)
 const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
 const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
 const age = computed(() => props.account?.age ?? 25);
@@ -23,6 +24,7 @@ const goal = computed(() => props.account?.goal ?? 2000);
 const form = useForm({
   gender: gender.value,
   weight: weight.value,
+  height: height.value,
   heightFeet: heightFeet.value,
   heightInches: heightInches.value,
   age: age.value,
@@ -66,7 +68,6 @@ const updateAccount = () => {
 
 
 <template>
-  {{ gender + ',' + weight }}
 
   <form @submit.prevent="updateAccount" id="calorie">
     <div class="space-y-3">

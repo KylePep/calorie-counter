@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -84,7 +85,18 @@ class AccountController extends Controller
      */
     public function update(UpdateAccountRequest $request, Account $account)
     {
-        //
+        $validated = $request->validate([
+            'goal' => [],
+            'age' => [],
+            'gender' => [Rule::in(['Male', 'Female'])],
+            'height' => [],
+            'weight' => [],
+            'activity' => [],
+        ]);
+
+        $account->update($validated);
+
+        return Redirect::route('account.index');
     }
 
     /**

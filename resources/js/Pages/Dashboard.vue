@@ -33,9 +33,9 @@ function increaseCount(n) {
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
             <div v-if="!props.account" class="pb-3">
-                Please complete setting up your account to begin tracking your progress! or begin by
+                Please complete setting up your account to begin tracking your progress or begin by
                 <Link class="font-bold" :href="route('calculator')">
-                calculating your goal
+                calculating your goal!
                 </Link>
             </div>
 

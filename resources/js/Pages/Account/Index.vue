@@ -2,22 +2,24 @@
 import InputLabel from "@/Components/InputLabel.vue";
 import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import { Link, useForm } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
 
 
-defineProps({
+const props = defineProps({
   status: {
     type: String,
   },
   account: {
-    type: Object
+    type: Object,
   }
 });
 
+const goal = computed(() => props.account?.goal ?? 2000);
+
 const form = useForm({
-  calorieGoal: 2000,
+  goal: goal.value,
 });
 
 </script>
@@ -58,17 +60,23 @@ const form = useForm({
             Current Calorie Goal:
           </h1>
           <div>
-            -- Calorie Goal --
+            {{ account.goal }}
           </div>
-          <div class="flex justify-center space-x-6">
-            <Link :href="route('calculator')">Recalculate</Link>
-            <div class="flex items-center">
-              <InputLabel for="calorieGoal" value="CalorieGoal" class="hidden">Manually Enter Goal</InputLabel>
-              <TextInput id="calorieGoal" type="text" class=" block w-full" v-model="form.name" required autofocus
-                placeholder="Change Goal"></TextInput>
-              <PrimaryButton class="ms-4">Update</PrimaryButton>
+          <form action="" class="pb-3 pt-12 ">
+            <div class="flex flex-col space-y-6 max-w-sm mx-auto">
+              <InputLabel for="goal" value="Manually Enter Goal">Manually Enter Goal</InputLabel>
+
+              <input v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
+                inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000"
+                class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-lg sm:leading-6 text-center">
+
+              <PrimaryButton class=" mx-auto">Change</PrimaryButton>
             </div>
-          </div>
+
+          </form>
+          <p>or</p>
+          <NavLink :href="route('calculator')">Recalculate</NavLink>
+
         </section>
 
         <section class="text-center">
