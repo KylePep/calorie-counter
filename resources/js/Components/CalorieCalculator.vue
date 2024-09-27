@@ -1,25 +1,34 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
 import { reactive, ref } from "vue";
 
 const props = defineProps({
   account: {
     type: Object,
+    default: () => null,
   }
 })
 
 const result = reactive({})
 
+const gender = computed(() => props.account?.gender ?? 'Male');
+const weight = computed(() => props.account?.weight ?? 160);
+const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
+const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
+const age = computed(() => props.account?.age ?? 25);
+const activity = computed(() => props.account?.activity ?? '1.55');
+const goal = computed(() => props.account?.goal ?? 2000);
+
 const form = useForm({
-  gender: props.account.gender || 'Male',
-  weight: props.account.weight || 160,
-  heightFeet: Math.floor(props.account.height / 2.54 / 12) || 5,
-  heightInches: props.account.height / 2.54 % 12 || 10,
-  height: props.account.height,
-  age: props.account.age || 25,
-  activity: props.account.activity || '1.55',
+  gender: gender.value,
+  weight: weight.value,
+  heightFeet: heightFeet.value,
+  heightInches: heightInches.value,
+  age: age.value,
+  activity: activity.value,
   genderMod: '-161',
-  goal: props.account.goal || 2000,
+  goal: goal.value,
 });
 
 const calculateResult = () => {
@@ -57,7 +66,7 @@ const updateAccount = () => {
 
 
 <template>
-  {{ props.account.gender + ',' + props.account.weight }}
+  {{ gender + ',' + weight }}
 
   <form @submit.prevent="updateAccount" id="calorie">
     <div class="space-y-3">

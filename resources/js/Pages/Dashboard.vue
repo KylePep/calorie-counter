@@ -2,12 +2,14 @@
 import FoodList from "@/Components/FoodList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps(['account'])
 
+const goal = computed(() => props.account?.goal ?? 2000);
+
 const calorieCount = ref(0)
-const calorieGoal = ref(props.account.goal)
+const calorieGoal = ref(goal)
 const cellCount = ref(calorieGoal.value / 100)
 const calorieCountRows = ref(Math.ceil(calorieGoal.value / 1000))
 
@@ -30,9 +32,12 @@ function increaseCount(n) {
         </template>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
-            <!-- <div v-if="props.account">
-                Yo you have an account {{ props.account }}
-            </div> -->
+            <div v-if="!props.account" class="pb-3">
+                Please complete setting up your account to begin tracking your progress! or begin by
+                <Link class="font-bold" :href="route('calculator')">
+                calculating your goal
+                </Link>
+            </div>
 
             <p>
                 Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories

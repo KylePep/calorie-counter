@@ -17,8 +17,14 @@ class AccountController extends Controller
      */
     public function index()
     {
+
+        $user = Auth::user();
+
+        $account = $user->account;
+
         return Inertia::render('Account/Index', [
             'status' => session('status'),
+            'account' => $account,
         ]);
     }
 

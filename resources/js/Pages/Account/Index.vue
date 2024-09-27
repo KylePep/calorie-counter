@@ -4,13 +4,16 @@ import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import { useForm } from "@inertiajs/vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 
 
 defineProps({
   status: {
     type: String,
   },
+  account: {
+    type: Object
+  }
 });
 
 const form = useForm({
@@ -35,6 +38,22 @@ const form = useForm({
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-12">
 
         <section class="text-center">
+          <h1 class="text-xl">Stats</h1>
+          <div v-if="account">
+            <ul>
+              <li>Age: {{ account.age }}</li>
+              <li>Gender: {{ account.gender }}</li>
+              <li>Height: {{ account.height }}</li>
+              <li>Weight: {{ account.weight }}</li>
+              <li>activity: {{ account.activity }}</li>
+            </ul>
+          </div>
+          <div v-else>
+            Please fill out stats
+          </div>
+        </section>
+
+        <section class="text-center">
           <h1 class="text-xl">
             Current Calorie Goal:
           </h1>
@@ -42,7 +61,7 @@ const form = useForm({
             -- Calorie Goal --
           </div>
           <div class="flex justify-center space-x-6">
-            <button>Recalculate</button>
+            <Link :href="route('calculator')">Recalculate</Link>
             <div class="flex items-center">
               <InputLabel for="calorieGoal" value="CalorieGoal" class="hidden">Manually Enter Goal</InputLabel>
               <TextInput id="calorieGoal" type="text" class=" block w-full" v-model="form.name" required autofocus
