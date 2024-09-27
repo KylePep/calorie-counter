@@ -54,7 +54,7 @@ const calculateResult = () => {
   result.value = activityResult
 }
 
-const updateAccount = () => {
+const createOrUpdateAccount = () => {
   form.post(route('account.store'), {
     preserveScroll: true,
     onSuccess: () => form.reset(),
@@ -69,7 +69,7 @@ const updateAccount = () => {
 
 <template>
 
-  <form @submit.prevent="updateAccount" id="calorie">
+  <form @submit.prevent="createOrUpdateAccount" id="calorie">
     <div class="space-y-3">
       <div>
         <h2 class="text-2xl font-semibold leading-7 text-gray-900">Calorie Calculator</h2>

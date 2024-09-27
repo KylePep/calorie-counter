@@ -22,6 +22,16 @@ const form = useForm({
   goal: goal.value,
 });
 
+const updateAccount = () => {
+  form.put(route('account.update', props.account.id), {
+    preserveScroll: true,
+    onSuccess: () => form.reset(),
+    onError: (errors) => {
+      console.log(errors); // Log validation errors
+    },
+  });
+};
+
 </script>
 
 <template>
@@ -62,7 +72,7 @@ const form = useForm({
           <div>
             {{ account.goal }}
           </div>
-          <form action="" class="pb-3 pt-12 ">
+          <form @submit.prevent="updateAccount" class="pb-3 pt-12 ">
             <div class="flex flex-col space-y-6 max-w-sm mx-auto">
               <InputLabel for="goal" value="Manually Enter Goal">Manually Enter Goal</InputLabel>
 
