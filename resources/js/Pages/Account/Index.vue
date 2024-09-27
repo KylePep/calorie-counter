@@ -25,9 +25,12 @@ const form = useForm({
 const updateAccount = () => {
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
-    onSuccess: () => form.reset(),
+    onSuccess: () => {
+      form.reset();
+      form.goal = goal;
+    },
     onError: (errors) => {
-      console.log(errors); // Log validation errors
+      console.log(errors);
     },
   });
 };
