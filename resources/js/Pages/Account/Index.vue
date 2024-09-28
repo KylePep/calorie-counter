@@ -3,8 +3,8 @@ import InputLabel from "@/Components/InputLabel.vue";
 import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import { useForm } from "@inertiajs/vue3";
-import { computed } from "vue";
+import { Link, useForm } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
 
 
 const props = defineProps({
@@ -16,11 +16,36 @@ const props = defineProps({
   }
 });
 
+const editGoalEnable = ref(false);
+
 const goal = computed(() => props.account?.goal ?? 2000);
 
 const form = useForm({
   goal: goal.value,
+  // gender: null,
+  // weight: null,
+  // height: null,
+  // age: null,
+  // activity: null,
 });
+
+const createOrUpdateAccount = () => {
+  const data = {
+    gender: 'Male',
+    weight: 160,
+    height: 177.8,
+    age: 25,
+    activity: '1.55',
+  }
+
+  form.post(route('account.store'), data, {
+    preserveScroll: true,
+    onSuccess: () => form.reset(),
+    onError: (errors) => {
+      console.log(errors); // Log validation errors
+    },
+  });
+};
 
 const updateAccount = () => {
   form.put(route('account.update', props.account.id), {
@@ -69,26 +94,65 @@ const updateAccount = () => {
         </section>
 
         <section class="text-center">
-          <h1 class="text-xl">
-            Current Calorie Goal:
-          </h1>
-          <div>
-            {{ account.goal }}
-          </div>
-          <form @submit.prevent="updateAccount" class="pb-3 pt-12 ">
-            <div class="flex flex-col space-y-6 max-w-sm mx-auto">
-              <InputLabel for="goal" value="Manually Enter Goal">Manually Enter Goal</InputLabel>
-
-              <input v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
-                inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000"
-                class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-lg sm:leading-6 text-center">
-
-              <PrimaryButton class=" mx-auto">Change</PrimaryButton>
+          <div v-if="account?.goal">
+            <h1 class="text-xl">
+              Current Calorie Goal:
+            </h1>
+            <div class="text-3xl">
+              {{ account?.goal }}
             </div>
+          </div>
 
-          </form>
-          <p>or</p>
-          <NavLink :href="route('calculator')">Recalculate</NavLink>
+          <div v-else>
+            <h1 class="text-xl">
+              Create a calorie goal:
+            </h1>
+
+            <Link :href="route('calculator')" class="block mt-6">Calculate goal</Link>
+            <p>or</p>
+            <form @submit.prevent="createOrUpdateAccount" class="pb-3 mt-3 ">
+              <div class="flex flex-col space-y-6 max-w-sm mx-auto">
+                <div>
+
+                  <InputLabel for="goal" value="Enter manually" class="mb-3">Enter manually</InputLabel>
+
+                  <input v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
+                    inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000"
+                    class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-lg sm:leading-6 text-center">
+                </div>
+
+                <PrimaryButton class=" mx-auto">Save</PrimaryButton>
+              </div>
+
+            </form>
+
+
+          </div>
+
+          <button v-if="account?.goal" @click="editGoalEnable = !editGoalEnable"
+            class="items-center px-4 py-2 bg-gray-800 hover:bg-gray-700  border border-transparent rounded-md font-semibold text-xs text-white uppercase mt-6">{{
+              !editGoalEnable ? 'Change Goal?' : 'Cancel' }}</button>
+          <div v-if="editGoalEnable" class="flex flex-col justify-center items-center">
+
+            <NavLink :href="route('calculator')" class="mt-6">Recalculate</NavLink>
+            <p>or</p>
+            <form @submit.prevent="updateAccount" class="pb-3 mt-3 ">
+              <div class="flex flex-col space-y-6 max-w-sm mx-auto">
+                <div>
+
+                  <InputLabel for="goal" value="Manually Change Goal" class="mb-3">Manually Change Goal</InputLabel>
+
+                  <input v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
+                    inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000"
+                    class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-lg sm:leading-6 text-center">
+                </div>
+
+                <PrimaryButton class=" mx-auto">Save</PrimaryButton>
+              </div>
+
+            </form>
+          </div>
+
 
         </section>
 
