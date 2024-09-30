@@ -4,7 +4,7 @@ import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 
 const props = defineProps({
@@ -74,6 +74,12 @@ const updateAccount = () => {
   });
 };
 
+onMounted(() => {
+  document.getElementById('scrollContainer').scrollLeft = 1000
+
+})
+
+
 </script>
 
 <template>
@@ -91,7 +97,7 @@ const updateAccount = () => {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-12">
 
-        <section class="text-center">
+        <!-- <section class="text-center">
           <h1 class="text-xl">Stats</h1>
           <div v-if="account">
             <ul>
@@ -105,7 +111,7 @@ const updateAccount = () => {
           <div v-else>
             Please fill out stats
           </div>
-        </section>
+        </section> -->
 
         <section class="text-center">
           <div v-if="account?.goal">
@@ -178,17 +184,19 @@ const updateAccount = () => {
           <div>
             Calorie Progress 13993 : 14000
           </div>
-          {{ new Date(calorieDays[0].created_at).getDay() }}
-          <div v-if="calorieDays" class="flex justify-around min-h-40 border border-black/25 border-2 rounded">
+          <div v-if="calorieDays" id="scrollContainer"
+            class="flex min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap snap-x ">
             <div v-for="index in 7 - calorieDays.length"
-              class="bg-gray-300 w-full p-3 flex flex-col justify-around m-1 rounded">
+              class="inline-block min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
               <h1>
                 {{ getDayOfWeek(calorieDays[0].created_at, index + 1) }}
               </h1>
-              No results to show
+              <p class="text-wrap">
+                No results to show
+              </p>
             </div>
             <div v-for="calorieDay in calorieDays" :key="calorieDay.id"
-              class="bg-gray-300 w-full p-3 flex flex-col justify-around m-1 rounded">
+              class="inline-block min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
               <h1>
                 {{ getDayOfWeek(calorieDay.created_at, 0) }}
               </h1>

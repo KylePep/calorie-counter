@@ -12,6 +12,20 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  /* width: 0; */
+  height: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 60%);
+  border-radius: 4px;
+}
+
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
