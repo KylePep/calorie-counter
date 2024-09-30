@@ -4,7 +4,7 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
 import { computed, ref } from "vue";
 
-const props = defineProps(['account'])
+const props = defineProps(['account', 'calorieDay'])
 
 const goal = computed(() => props.account?.goal ?? 2000);
 
@@ -30,6 +30,17 @@ function increaseCount(n) {
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
         </template>
+
+        <p class="text-3xl text-green-500 mx-4">
+            CalorieDay: {{ props.calorieDay.created_at }}
+        <ul class="list-disc">
+            <li>On visiting the dashboard page, CreateOrGet CalorieDay for the current day.</li>
+            <li>Upon clicking on a food item, a put request will be done to increase the calorieCount and insert it into
+                it's
+                foodItem array.</li>
+            <li>FoodList needs the ability to convert USDA foodData items into user FoodItems</li>
+        </ul>
+        </p>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
             <div v-if="!props.account" class="pb-3">

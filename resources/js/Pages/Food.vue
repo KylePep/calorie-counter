@@ -18,6 +18,14 @@ import { Head } from "@inertiajs/vue3";
 
     <div class="space-y-12 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
+      <p class="text-3xl text-green-500 mx-4">
+      <ul class="list-disc">
+        <li>Get FoodItems created by the user</li>
+        <li>Maybe get abbreviated versions of FoodDataItems were the last 10 are saved within the account</li>
+        <li>Need the ability to create foodItems</li>
+      </ul>
+      </p>
+
       <section>
         <h1 class="text-xl font-bold pb-3">Your Favorite Foods</h1>
         <div class="min-h-40 border border-black/25 border-2 rounded bg-gray-300 flex">

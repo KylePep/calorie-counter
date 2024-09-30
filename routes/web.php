@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/food-data', FoodDataController::class);
 
-Route::get('/calculator', function () {
+Route::get('/calculator', function () { //TODO - Move to CalculatorController
 
     $user = Auth::user();
 

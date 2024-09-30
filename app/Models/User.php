@@ -49,4 +49,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Account::class);
     }
+
+    public function calorieDays()
+    {
+        return $this->hasMany(CalorieDay::class);
+    }
+
 }
