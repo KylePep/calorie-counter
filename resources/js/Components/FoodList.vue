@@ -117,8 +117,12 @@ const fetchFoodData = async (page = 1) => {
   <div class="columns-2 sm:column-3 gap-2 p-2 text-center border-4 rounded-lg border-black/25 ">
 
     <div v-if="!foodDataItems"
-      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow h-40">
+      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow h-40 rounded">
       Search for an item to begin counting calories!
+    </div>
+    <div v-if="foodDataItems?.foods.length == 0"
+      class="break-inside-avoid relative flex flex-col justify-center w-full text-gray-300 text-xl font-bold bg-gray-800 mb-6 p-3 shadow h-40 rounded">
+      No results found
     </div>
 
     <div @click="$emit('increaseBy', Math.round(item.foodNutrients[3].value * (item.servingSize * .01)))"

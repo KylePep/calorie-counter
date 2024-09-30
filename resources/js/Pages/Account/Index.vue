@@ -22,11 +22,6 @@ const goal = computed(() => props.account?.goal ?? 2000);
 
 const form = useForm({
   goal: goal.value,
-  // gender: null,
-  // weight: null,
-  // height: null,
-  // age: null,
-  // activity: null,
 });
 
 const createOrUpdateAccount = () => {
@@ -42,7 +37,7 @@ const createOrUpdateAccount = () => {
     preserveScroll: true,
     onSuccess: () => form.reset(),
     onError: (errors) => {
-      console.log(errors); // Log validation errors
+      console.log(errors);
     },
   });
 };
@@ -161,6 +156,54 @@ const updateAccount = () => {
           <div>
             Past 7 days of history
           </div>
+          <div>
+            Calorie Progress 13993 : 14000
+          </div>
+
+          <ul class="text-3xl text-green-500">
+            <li>
+              -Display all of the last 7 calorie counts
+            </li>
+            <li>
+              Model Name: CalorieCount
+            </li>
+
+            <li>
+              -ID
+            </li>
+
+            <li>
+              CountDate
+            </li>
+
+            <li>
+              -Calorie Count
+            </li>
+
+            <li>
+              -Calorie Goal
+            </li>
+
+            <li>
+              -Food Item Array [
+              <ul>
+                <li>--ID</li>
+                <li>--Calories</li>
+                <li>--Nutrients</li>
+              </ul>
+              ]
+            </li>
+          </ul>
+
+          <div class="flex justify-around min-h-40 border border-black/25 border-2 rounded">
+            <div v-for="index in 7" :key="index" class="bg-gray-300 p-3 flex flex-col justify-around m-1 rounded">
+              <h2>
+                Calorie: 1999
+              </h2>
+              <i class="mdi mdi-information text-xl hover:text-black/75"></i>
+            </div>
+          </div>
+
         </section>
 
       </div>
