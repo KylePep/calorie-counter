@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
@@ -46,6 +47,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/food', [FoodController::class, 'index'])->name('food');
 });
 
+Route::middleware('auth')->group(function(){
+    Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'index'])->name('account.index');

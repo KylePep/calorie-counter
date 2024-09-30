@@ -27,7 +27,7 @@ class DashboardController extends Controller
             
             if (!$CalorieDay){
                 $CalorieDay = $user->calorieDays()->create([
-                    'goal' => $account->goal || 2000,
+                    'goal' => $account->goal ?? 2000,
                     'count' => 0,
                     'user_id' => $user->id,
                     'food_items' => json_encode([]) // Convert array to JSON

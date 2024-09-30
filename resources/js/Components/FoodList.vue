@@ -125,8 +125,7 @@ const fetchFoodData = async (page = 1) => {
       No results found
     </div>
 
-    <div @click="$emit('increaseBy', Math.round(item.foodNutrients[3].value * (item.servingSize * .01)))"
-      v-for="item in foodDataItems?.foods" :key="item.fdcId"
+    <div @click="$emit('increaseBy', item)" v-for="item in foodDataItems?.foods" :key="item.fdcId"
       class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow h-40">
       <!-- <img class="object-cover object-center h-full "
         src="https://i.pinimg.com/564x/83/00/f9/8300f96bc390b6f44540a92b77b93365.jpg" alt=""> -->

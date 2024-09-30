@@ -2,20 +2,34 @@
 import FoodList from "@/Components/FoodList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
+import axios from "axios";
 import { computed, ref } from "vue";
 
 const props = defineProps(['account', 'calorieDay'])
+const calorieDay = ref(props.calorieDay)
 
-const goal = computed(() => props.account?.goal ?? 2000);
+const goal = computed(() => calorieDay.value?.goal ?? 2000);
+const calorieCount = computed(() => calorieDay.value?.count ?? 0);
 
-const calorieCount = ref(0)
 const calorieGoal = ref(goal)
 const cellCount = ref(calorieGoal.value / 100)
 const calorieCountRows = ref(Math.ceil(calorieGoal.value / 1000))
 
 
-function increaseCount(n) {
-    calorieCount.value += n
+async function updateCalorieDay(foodItem) {
+    const data = {
+        goal: calorieDay.value.goal,
+        count: Math.round(foodItem.foodNutrients[3].value * (foodItem.servingSize * .01)),
+        food_items: [foodItem.description]
+    };
+
+    try {
+        const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
+        calorieDay.value = res.data
+    } catch (error) {
+
+    }
+
 }
 
 </script>
@@ -32,12 +46,7 @@ function increaseCount(n) {
         </template>
 
         <p class="text-3xl text-green-500 mx-4">
-            CalorieDay: {{ props.calorieDay.created_at }}
         <ul class="list-disc">
-            <li>On visiting the dashboard page, CreateOrGet CalorieDay for the current day.</li>
-            <li>Upon clicking on a food item, a put request will be done to increase the calorieCount and insert it into
-                it's
-                foodItem array.</li>
             <li>FoodList needs the ability to convert USDA foodData items into user FoodItems</li>
         </ul>
         </p>
@@ -93,7 +102,7 @@ function increaseCount(n) {
                     </div>
                 </div> -->
 
-            <FoodList :calorieCount="calorieCount" @increase-by="increaseCount" />
+            <FoodList :calorieCount="calorieCount" @increase-by="updateCalorieDay" />
         </div>
     </GlobalLayout>
 

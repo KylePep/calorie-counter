@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
 
 class CalorieDayController extends Controller
 {
@@ -70,6 +71,12 @@ class CalorieDayController extends Controller
         $existingFoodItems = json_decode($calorieDay->food_items,true) ?? [];
         $calorieDay->food_items = json_encode(array_merge($existingFoodItems, $validated['food_items']));
 
+        $calorieDay->save();
+
+        // return Inertia::location(route('dashboard'))->with('calorieDay', $calorieDay);
+        // return Inertia::render('Dashboard', [
+        //     'calorieDay' => $calorieDay,
+        // ]);
         return $calorieDay;
 
     }
