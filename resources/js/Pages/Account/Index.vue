@@ -13,8 +13,13 @@ const props = defineProps({
   },
   account: {
     type: Object,
+  },
+  calorieDays: {
+    type: Object
   }
 });
+
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const editGoalEnable = ref(false);
 
@@ -23,6 +28,20 @@ const goal = computed(() => props.account?.goal ?? 2000);
 const form = useForm({
   goal: goal.value,
 });
+
+const getDayOfWeek = (date, mod) => {
+  let newDay = date;
+  if (isNaN(newDay)) {
+    newDay = new Date(date).getDay();
+    console.log('newDate')
+  }
+
+  if (newDay + mod > 6) {
+    newDay = 0;
+  }
+  newDay += mod;
+  return daysOfWeek[newDay]
+}
 
 const createOrUpdateAccount = () => {
   const data = {
@@ -159,46 +178,22 @@ const updateAccount = () => {
           <div>
             Calorie Progress 13993 : 14000
           </div>
-
-          <ul class="text-3xl text-green-500">
-            <li>
-              -Display all of the last 7 calorie counts
-            </li>
-            <li>
-              Model Name: CalorieCount
-            </li>
-
-            <li>
-              -ID
-            </li>
-
-            <li>
-              CountDate
-            </li>
-
-            <li>
-              -Calorie Count
-            </li>
-
-            <li>
-              -Calorie Goal
-            </li>
-
-            <li>
-              -Food Item Array [
-              <ul>
-                <li>--ID</li>
-                <li>--Calories</li>
-                <li>--Nutrients</li>
-              </ul>
-              ]
-            </li>
-          </ul>
-
-          <div class="flex justify-around min-h-40 border border-black/25 border-2 rounded">
-            <div v-for="index in 7" :key="index" class="bg-gray-300 p-3 flex flex-col justify-around m-1 rounded">
+          {{ new Date(calorieDays[0].created_at).getDay() }}
+          <div v-if="calorieDays" class="flex justify-around min-h-40 border border-black/25 border-2 rounded">
+            <div v-for="index in 7 - calorieDays.length"
+              class="bg-gray-300 w-full p-3 flex flex-col justify-around m-1 rounded">
+              <h1>
+                {{ getDayOfWeek(calorieDays[0].created_at, index + 1) }}
+              </h1>
+              No results to show
+            </div>
+            <div v-for="calorieDay in calorieDays" :key="calorieDay.id"
+              class="bg-gray-300 w-full p-3 flex flex-col justify-around m-1 rounded">
+              <h1>
+                {{ getDayOfWeek(calorieDay.created_at, 0) }}
+              </h1>
               <h2>
-                Calorie: 1999
+                Calories: {{ calorieDay.count }}
               </h2>
               <i class="mdi mdi-information text-xl hover:text-black/75"></i>
             </div>

@@ -73,7 +73,7 @@ async function updateCalorieDay(foodItem) {
                 <div v-for="row in calorieCountRows" :key="row" class="  grid grid-rows-1 grid-flow-col gap-1 mb-1">
                     <!-- {{ row * 1000 }} -->
                     <div v-for="index in 10" :key="index"
-                        :class="[((row - 1) * 10 + index) * 100 <= calorieCount ? 'bg-green-500 text-transparent' : 'bg-gray-300 text-black/50', index + ((row - 1) * 10) <= cellCount ? '' : 'bg-black/25 text-transparent']"
+                        :class="[((row - 1) * 10 + index) * 100 <= calorieCount && index + ((row - 1) * 10) <= cellCount ? 'bg-green-500 text-transparent' : 'bg-gray-300 text-black/50', index + ((row - 1) * 10) <= cellCount ? '' : 'bg-black/25 text-transparent']"
                         class="min-h-10 text-sm flex flex-col justify-center">
                         100
                     </div>

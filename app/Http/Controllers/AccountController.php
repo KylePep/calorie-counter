@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -19,13 +20,19 @@ class AccountController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
+        $user = User::find(Auth::id());
 
         $account = $user->account;
+
+        $calorieDays = $user->calorieDays()
+        ->orderBy('created_at', 'asc') 
+        ->take(7) 
+        ->get();
 
         return Inertia::render('Account/Index', [
             'status' => session('status'),
             'account' => $account,
+            'calorieDays' => $calorieDays,
         ]);
     }
 
