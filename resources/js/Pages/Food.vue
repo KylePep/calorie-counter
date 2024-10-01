@@ -3,9 +3,9 @@ import FoodList from "@/Components/FoodList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { computed } from "vue";
-import FavoriteFoodList from './FavoriteFoodList.vue'
 import YourFoodsList from "@/Components/YourFoodsList.vue";
-import CreateFood from './CreateFood.vue'
+import CreateFood from "@/Components/CreateFood.vue";
+import FavoriteFoodList from "@/Components/FavoriteFoodList.vue";
 
 const props = defineProps(['with_fdcId', 'without_fdcId'])
 

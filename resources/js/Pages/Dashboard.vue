@@ -1,12 +1,12 @@
 <script setup>
+import CreateFood from "@/Components/CreateFood.vue";
+import FavoriteFoodList from "@/Components/FavoriteFoodList.vue";
 import FoodList from "@/Components/FoodList.vue";
 import YourFoodsList from "@/Components/YourFoodsList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
 import axios from "axios";
 import { computed, ref } from "vue";
-import FavoriteFoodList from "./FavoriteFoodList.vue";
-import CreateFood from "./CreateFood.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId'])
 
