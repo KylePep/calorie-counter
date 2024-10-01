@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\FoodItem;
 use App\Http\Requests\StoreFoodItemRequest;
 use App\Http\Requests\UpdateFoodItemRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class FoodItemController extends Controller
 {
@@ -29,7 +31,28 @@ class FoodItemController extends Controller
      */
     public function store(StoreFoodItemRequest $request)
     {
-        //
+        $user = User::find(Auth::id());
+        
+        // $attributes = $request->validate([
+        //     'title' => ['required'],
+        //     'salary' => ['required'],
+        //     'location' => ['required'],
+        //     'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
+        //     'url' => ['required', 'active_url'],
+        //     'tags' => ['nullable'],
+        // ]);
+
+        // $attributes['featured'] = $request->has('featured');
+
+        // $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
+
+        // if ($attributes['tags'] ?? false) {
+        //     foreach (explode(',', $attributes['tags']) as $tag) {
+        //         $job->tag($tag);
+        //     }
+        // }
+
+        // return redirect('/');
     }
 
     /**

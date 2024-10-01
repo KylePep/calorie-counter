@@ -1,7 +1,43 @@
 <script setup>
+import Checkbox from "@/Components/Checkbox.vue";
 import FoodList from "@/Components/FoodList.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
+
+const props = defineProps(['foodItems'])
+
+const showCreateForm = ref(false);
+
+const form = useForm({
+  fdcId: '',
+  description: 'Banana Bread',
+  brandName: 'calorie',
+  brandOwner: 'counter',
+  servingSize: 1,
+  servingSizeUnit: 'g',
+  foodCategory: 'Food',
+  calories: 100,
+  foodNutrients: ['calorie', 'protein'],
+  ingredients: ['banana', 'bread'],
+});
+
+const createFoodItem = () => {
+  form.post(route('food.store'), {
+    preserveScroll: true,
+    onSuccess: () => form.reset(),
+    onError: (errors) => {
+      console.log(errors); // Log validation errors
+    },
+  });
+};
+
+
+
 </script>
 
 
@@ -18,25 +54,76 @@ import { Head } from "@inertiajs/vue3";
 
     <div class="space-y-12 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-      <p class="text-3xl text-green-500 mx-4">
-      <ul class="list-disc">
-        <li>Get FoodItems created by the user</li>
-        <li>Maybe get abbreviated versions of FoodDataItems were the last 10 are saved within the account</li>
-        <li>Need the ability to create foodItems</li>
-      </ul>
-      </p>
+      <section>
+        <PrimaryButton v-if="!showCreateForm" @click="showCreateForm = !showCreateForm">
+          Create New Food
+        </PrimaryButton>
+        <form v-if="showCreateForm" @submit.prevent="createFoodItem" action="" class="grid grid-cols-3 gap-3">
+          <div>
+            <InputLabel value="Name"></InputLabel>
+            <TextInput v-model="form.description"></TextInput>
+          </div>
+          <div>
+            <InputLabel value="Brand Name"></InputLabel>
+            <TextInput v-model="form.brandName"></TextInput>
+          </div>
+          <div>
+            <InputLabel value="Brand Owner"></InputLabel>
+            <TextInput v-model="form.brandOwner"></TextInput>
+          </div>
+          <div>
+            <InputLabel value="Calories"></InputLabel>
+            <TextInput v-model="form.calories"></TextInput>
+          </div>
+          <div>
+            <InputLabel value="Serving Size"></InputLabel>
+            <TextInput v-model="form.servingSize"></TextInput>
+          </div>
+          <div class="flex items-center space-x-12">
+            <div class="flex space-x-4">
+              <Checkbox v-model="form.servingSizeUnit" checked />
+              <InputLabel value="G"></InputLabel>
+            </div>
+            <div class="flex space-x-4">
+              <Checkbox v-model="form.servingSizeUnit" />
+              <InputLabel value="L"></InputLabel>
+            </div>
+          </div>
+          <div>
+            <InputLabel value="Category"></InputLabel>
+            <TextInput v-model="form.foodCategory"></TextInput>
+          </div>
+          <div>
+            <InputLabel value="Nutrients"></InputLabel>
+            <TextInput v-model="form.foodNutrients"></TextInput>
+          </div>
+          <div>
+            <InputLabel value="Ingredients"></InputLabel>
+            <TextInput v-model="form.ingredients"></TextInput>
+          </div>
+
+          <div class="flex justify-end col-span-3 gap-4">
+            <PrimaryButton>
+              Create
+            </PrimaryButton>
+            <SecondaryButton type="button" @click="showCreateForm = !showCreateForm">
+              Cancel
+            </SecondaryButton>
+          </div>
+        </form>
+      </section>
 
       <section>
         <h1 class="text-xl font-bold pb-3">Your Favorite Foods</h1>
         <div class="min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap ">
-          <div v-for="index in 5" :key="index"
+          <div v-for="foodItem in props.foodItems" :key="index"
             class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded m-2">
             <div class="flex flex-col min-h-36 justify-around">
               <p>
-                item {{ index }}
+                {{ foodItem.description }}
               </p>
               <p>
-                Banana
+                calories: {{ foodItem.calories }}
               </p>
             </div>
           </div>

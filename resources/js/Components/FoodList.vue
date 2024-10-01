@@ -35,10 +35,6 @@ interface FoodSearchResponse {
   foods: BrandedFoodItem[];
 }
 
-const props = defineProps({
-  calorieCount: Number,
-});
-
 defineEmits(['increaseBy'])
 
 const form = useForm({
@@ -46,7 +42,6 @@ const form = useForm({
 });
 
 const foodDataItems = ref<FoodSearchResponse | null>(null);
-
 
 
 const fetchFoodData = async (page = 1) => {
@@ -73,6 +68,11 @@ const fetchFoodData = async (page = 1) => {
   } catch (error) {
     console.error(error, '[Error fetching food data]')
   }
+}
+
+const favoriteItem = (item) => {
+  //Create a new foodItem out of the food data response
+  console.log(item)
 }
 
 </script>
@@ -126,9 +126,7 @@ const fetchFoodData = async (page = 1) => {
     </div>
 
     <div @click="$emit('increaseBy', item)" v-for="item in foodDataItems?.foods" :key="item.fdcId"
-      class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow h-40">
-      <!-- <img class="object-cover object-center h-full "
-        src="https://i.pinimg.com/564x/83/00/f9/8300f96bc390b6f44540a92b77b93365.jpg" alt=""> -->
+      class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow">
       <div class=" text-gray-800 font-bold drop-shadow-2xl"> {{
         item.description
       }}
@@ -139,6 +137,10 @@ const fetchFoodData = async (page = 1) => {
       <div class=" text-gray-800 font-bold text-7xl drop-shadow-2xl"> {{
         Math.round(item.foodNutrients[3].value * (item.servingSize * .01))
       }}
+      </div>
+      <div class="flex justify-end">
+        <i @click="favoriteItem(item)"
+          class="mdi mdi-star text-xl bg-gray-600 text-white rounded-xl hover:bg-gray-800 px-2"></i>
       </div>
     </div>
   </div>

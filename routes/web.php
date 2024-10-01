@@ -5,6 +5,7 @@ use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
+use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -43,15 +44,13 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::middleware('auth')->group(function(){
-    Route::get('/food', [FoodController::class, 'index'])->name('food');
-});
-
-Route::middleware('auth')->group(function(){
-    Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
-});
-
 Route::middleware('auth')->group(function () {
+
+    Route::get('/food', [FoodController::class, 'index'])->name('food.index');
+    Route::post('/food', [FoodController::class, 'store'])->name('food.store');
+
+    Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
+
     Route::get('/account', [AccountController::class, 'index'])->name('account.index');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
