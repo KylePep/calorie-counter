@@ -6,6 +6,7 @@ import { Head, } from '@inertiajs/vue3';
 import axios from "axios";
 import { computed, ref } from "vue";
 import FavoriteFoodList from "./FavoriteFoodList.vue";
+import CreateFood from "./CreateFood.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId'])
 
@@ -95,6 +96,10 @@ async function updateCalorieDay(foodItem) {
             </div>
 
             <section>
+                <CreateFood />
+            </section>
+
+            <section>
                 <YourFoodsList :without_fdcId="without_fdcId" />
             </section>
 
@@ -103,7 +108,7 @@ async function updateCalorieDay(foodItem) {
             </section>
 
             <section>
-                <FoodList :calorieCount="calorieCount" @increase-by="updateCalorieDay" />
+                <FoodList @increase-by="updateCalorieDay" />
             </section>
 
         </div>
