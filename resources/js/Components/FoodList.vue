@@ -2,9 +2,10 @@
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { useForm } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import { ref } from "vue";
+// import { Inertia } from '@inertiajs/vue3';
 
 interface FoodNutrient {
   value: number;
@@ -70,9 +71,24 @@ const fetchFoodData = async (page = 1) => {
   }
 }
 
-const favoriteItem = (item) => {
-  //Create a new foodItem out of the food data response
-  console.log(item)
+async function favoriteItem(foodItem) {
+  const data = {
+    ...foodItem,
+    calories: Math.round(foodItem.foodNutrients[3].value * (foodItem.servingSize * 0.01))
+  };
+
+  try {
+    // Post the food item data to your backend
+    const res = await axios.post(route('food.store'), data);
+
+    // On success, reload only the relevant props to update the UI reactively
+    router.reload({
+      only: ['with_fdcId', 'without_fdcId'],  // Only reload the updated data
+    });
+
+  } catch (error) {
+    console.error(error);  // Handle any error (optional)
+  }
 }
 
 </script>
@@ -135,7 +151,7 @@ const favoriteItem = (item) => {
         </p>
       </div>
       <div class=" text-gray-800 font-bold text-7xl drop-shadow-2xl"> {{
-        Math.round(item.foodNutrients[3].value * (item.servingSize * .01))
+        Math.round(item.foodNutrients[3]?.value * (item.servingSize * .01))
       }}
       </div>
       <div class="flex justify-end">

@@ -16,11 +16,14 @@ class FoodController extends Controller
     {
         $user = User::find(Auth::id());
 
-        $foodItems = $user->foodItems;
+        $groupedFoodItems = $user->foodItems->groupBy(function ($item) {
+            return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
+        });
 
         return Inertia::render('Food', [
             'status' => session('status'),
-            'foodItems' => $foodItems,
+            'with_fdcId' => $groupedFoodItems->get('with_fdcId', []), 
+            'without_fdcId' => $groupedFoodItems->get('without_fdcId', [])
         ]);
     }
 
@@ -54,7 +57,14 @@ class FoodController extends Controller
             'ingredients' => json_encode($attributes['ingredients']) // Convert array to JSON
         ]);
 
-        return redirect('/food');
+        $groupedFoodItems = $user->foodItems->groupBy(function ($item) {
+            return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
+        });
+
+        return redirect()->route('food.index')->with([
+            'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
+            'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
+        ]);
     }
 
     public function update(UpdateFoodItemRequest $request, FoodItem $foodItem)
