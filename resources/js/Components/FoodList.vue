@@ -35,7 +35,7 @@ interface FoodSearchResponse {
   foods: BrandedFoodItem[];
 }
 
-defineEmits(['increaseBy'])
+defineEmits(['increase-by'])
 
 const form = useForm({
   query: '',
@@ -140,7 +140,7 @@ async function favoriteItem(foodItem) {
       No results found
     </div>
 
-    <div @click="$emit('increaseBy', item)" v-for="item in foodDataItems?.foods" :key="item.fdcId"
+    <div @click="$emit('increase-by', item)" v-for="item in foodDataItems?.foods" :key="item.fdcId"
       class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow">
       <div class=" text-gray-800 font-bold drop-shadow-2xl"> {{
         item.description
@@ -154,7 +154,7 @@ async function favoriteItem(foodItem) {
       }}
       </div>
       <div class="flex justify-end">
-        <button @click.stop="favoriteItem(item)" @click="favoriteItem(item)"
+        <button @click.stop="favoriteItem(item)"
           class="mdi mdi-star text-xl bg-gray-600 text-white rounded-xl hover:bg-gray-800 px-2"></button>
       </div>
     </div>
