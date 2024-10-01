@@ -5,7 +5,6 @@ import TextInput from "@/Components/TextInput.vue";
 import { router, useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import { ref } from "vue";
-// import { Inertia } from '@inertiajs/vue3';
 
 interface FoodNutrient {
   value: number;
@@ -155,8 +154,8 @@ async function favoriteItem(foodItem) {
       }}
       </div>
       <div class="flex justify-end">
-        <i @click="favoriteItem(item)"
-          class="mdi mdi-star text-xl bg-gray-600 text-white rounded-xl hover:bg-gray-800 px-2"></i>
+        <button @click.stop="favoriteItem(item)" @click="favoriteItem(item)"
+          class="mdi mdi-star text-xl bg-gray-600 text-white rounded-xl hover:bg-gray-800 px-2"></button>
       </div>
     </div>
   </div>
