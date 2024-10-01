@@ -33,10 +33,16 @@ class DashboardController extends Controller
                     'food_items' => json_encode([]) // Convert array to JSON
                 ]);
             }
+
+            $groupedFoodItems = $user->foodItems->groupBy(function ($item) {
+                return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
+            });
         
         return Inertia::render('Dashboard', [
             'account' => $account,
             'calorieDay' => $CalorieDay,
+            'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
+            'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
         ]);
     }
 }

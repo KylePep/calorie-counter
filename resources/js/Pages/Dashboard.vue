@@ -1,11 +1,17 @@
 <script setup>
 import FoodList from "@/Components/FoodList.vue";
+import YourFoodsList from "@/Components/YourFoodsList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
 import axios from "axios";
 import { computed, ref } from "vue";
+import FavoriteFoodList from "./FavoriteFoodList.vue";
 
-const props = defineProps(['account', 'calorieDay'])
+const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId'])
+
+const with_fdcId = computed(() => props.with_fdcId);
+const without_fdcId = computed(() => props.without_fdcId);
+
 const calorieDay = ref(props.calorieDay)
 
 const goal = computed(() => calorieDay.value?.goal ?? 2000);
@@ -88,21 +94,18 @@ async function updateCalorieDay(foodItem) {
                 </div>
             </div>
 
-            <!-- <p class="mt-6">Favorites</p>
-                <div class="columns-2 sm:column-3 gap-2 p-2 text-center border-4 rounded-lg border-black/25 ">
-                    <div @click="calorieCount += item.size" v-for="item, index in foodItems" :key="item"
-                        :class="item.calH"
-                        class="break-inside-avoid relative flex justify-center w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow">
-                        <img class="object-cover object-center h-full "
-                            src="https://i.pinimg.com/564x/83/00/f9/8300f96bc390b6f44540a92b77b93365.jpg" alt="">
-                        <div class="absolute inset-y-1/4 text-gray-800 font-bold text-7xl drop-shadow-2xl"> {{
-                            item.size
-                        }}
-                        </div>
-                    </div>
-                </div> -->
+            <section>
+                <YourFoodsList :without_fdcId="without_fdcId" />
+            </section>
 
-            <FoodList :calorieCount="calorieCount" @increase-by="updateCalorieDay" />
+            <section>
+                <FavoriteFoodList :with_fdcId="with_fdcId" />
+            </section>
+
+            <section>
+                <FoodList :calorieCount="calorieCount" @increase-by="updateCalorieDay" />
+            </section>
+
         </div>
     </GlobalLayout>
 
