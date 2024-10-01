@@ -18,9 +18,10 @@ return new class extends Migration
             $table->integer('goal');
             $table->integer('age');
             $table->string('gender');
-            $table->string('height');
+            $table->integer('height');
             $table->integer('weight');
             $table->string('activity');
+            $table->string('timezone');
             $table->timestamps();
         });
     }

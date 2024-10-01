@@ -16,12 +16,15 @@ class FoodController extends Controller
     {
         $user = User::find(Auth::id());
 
+        $account = $user->account;
+
         $groupedFoodItems = $user->foodItems->groupBy(function ($item) {
             return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
         });
 
         return Inertia::render('Food', [
             'status' => session('status'),
+            'account' => $account,
             'with_fdcId' => $groupedFoodItems->get('with_fdcId', []), 
             'without_fdcId' => $groupedFoodItems->get('without_fdcId', [])
         ]);

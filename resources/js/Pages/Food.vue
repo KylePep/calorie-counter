@@ -7,7 +7,7 @@ import YourFoodsList from "@/Components/YourFoodsList.vue";
 import CreateFood from "@/Components/CreateFood.vue";
 import FavoriteFoodList from "@/Components/FavoriteFoodList.vue";
 
-const props = defineProps(['with_fdcId', 'without_fdcId'])
+const props = defineProps(['account', 'with_fdcId', 'without_fdcId'])
 
 const with_fdcId = computed(() => props.with_fdcId);
 const without_fdcId = computed(() => props.without_fdcId);
@@ -28,15 +28,21 @@ const without_fdcId = computed(() => props.without_fdcId);
 
     <div class="space-y-12 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-      <section>
+      <section v-if="!props.account">
+        <div class="font-bold text-2xl">
+          Unlock more features by completing account setup!
+        </div>
+      </section>
+
+      <section v-if="props.account">
         <CreateFood />
       </section>
 
-      <section>
+      <section v-if="props.account">
         <YourFoodsList :without_fdcId="without_fdcId" />
       </section>
 
-      <section>
+      <section v-if="props.account">
         <FavoriteFoodList :with_fdcId="with_fdcId" />
       </section>
 

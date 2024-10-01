@@ -31,6 +31,7 @@ const form = useForm({
   activity: activity.value,
   genderMod: '-161',
   goal: goal.value,
+  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 });
 
 const calculateResult = () => {
@@ -55,6 +56,8 @@ const calculateResult = () => {
 }
 
 const createOrUpdateAccount = () => {
+
+  console.log(form.height, isNaN('form.height'))
   form.post(route('account.store'), {
     preserveScroll: true,
     onSuccess: () => form.reset(),

@@ -4,6 +4,7 @@ import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
+import { data } from "autoprefixer";
 import { computed, onMounted, ref } from "vue";
 
 
@@ -18,8 +19,35 @@ const props = defineProps({
     type: Object
   }
 });
-
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+const getDayOfWeek = (date, mod) => {
+  let localDate = new Date(date); // Ensure the date is converted correctly.
+
+  let newDay = localDate.getDay();
+
+  if (mod) {
+    let dayDifference = 6 - mod
+    newDay -= dayDifference;
+    if (newDay < 0) {
+      newDay += 7;
+    }
+  }
+
+  return daysOfWeek[newDay]; // Map the number to the day name.
+};
+
+const calorieDays = ref(props.calorieDays);
+const totalDays = 7;
+
+const combinedDays = computed(() => {
+  const placeholdersCount = totalDays - calorieDays.value.length;
+  const placeholders = Array.from({ length: placeholdersCount }, () => ({ isPlaceholder: true }));
+
+  return [...placeholders, ...calorieDays.value];
+});
+
+
 
 const editGoalEnable = ref(false);
 
@@ -29,30 +57,21 @@ const form = useForm({
   goal: goal.value,
 });
 
-const getDayOfWeek = (date, mod) => {
-  let newDay = date;
-  if (isNaN(newDay)) {
-    newDay = new Date(date).getDay();
-    console.log('newDate')
-  }
 
-  if (newDay + mod > 6) {
-    newDay = 0;
-  }
-  newDay += mod;
-  return daysOfWeek[newDay]
-}
 
 const createOrUpdateAccount = () => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const data = {
     gender: 'Male',
     weight: 160,
     height: 177.8,
     age: 25,
     activity: '1.55',
+    timezone: timezone,
   }
 
-  form.post(route('account.store'), data, {
+  form.post(route('account.store', data), {
     preserveScroll: true,
     onSuccess: () => form.reset(),
     onError: (errors) => {
@@ -75,7 +94,10 @@ const updateAccount = () => {
 };
 
 onMounted(() => {
-  document.getElementById('scrollContainer').scrollLeft = 1000
+  const scrollContainer = document.getElementById('scrollContainer')
+  if (scrollContainer) {
+    scrollContainer.scrollLeft = 1000
+  }
 
 })
 
@@ -176,7 +198,13 @@ onMounted(() => {
 
         </section>
 
-        <section class="text-center">
+        <!-- <section>
+          <div v-for="calorieDay in calorieDays" :key="calorieDay.id">
+            {{ new Date(calorieDay.created_at) }}
+          </div>
+        </section> -->
+
+        <section v-if="props.account" class="text-center">
           <h1>History</h1>
           <div>
             Past 7 days of history
@@ -184,27 +212,29 @@ onMounted(() => {
           <div>
             Calorie Progress 13993 : 14000
           </div>
-          <div v-if="calorieDays" id="scrollContainer"
-            class="flex min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap snap-x ">
-            <div v-for="index in 7 - calorieDays.length"
-              class="inline-block min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
-              <h1>
-                {{ getDayOfWeek(calorieDays[0].created_at, index + 1) }}
-              </h1>
-              <p class="text-wrap">
-                No results to show
-              </p>
+          <div v-if="calorieDays?.length" id="scrollContainer"
+            class="flex  gap-1  min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap snap-x">
+
+
+            <div v-for="(day, index) in combinedDays" :key="index"
+              class="min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
+
+              <template v-if="day.isPlaceholder">
+                <!-- For placeholders, calculate the day based on their index and the last real day -->
+                <p class="text-wrap">
+                  Day: {{ getDayOfWeek(calorieDays[0].created_at, index) }}
+                  <br>
+                  No results to show
+                </p>
+              </template>
+              <template v-else>
+                <!-- For real entries, just convert the existing created_at date -->
+                <p>Day: {{ getDayOfWeek(day.created_at) }}</p>
+                <h2>Calories: {{ day.count }}</h2>
+              </template>
+
             </div>
-            <div v-for="calorieDay in calorieDays" :key="calorieDay.id"
-              class="inline-block min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
-              <h1>
-                {{ getDayOfWeek(calorieDay.created_at, 0) }}
-              </h1>
-              <h2>
-                Calories: {{ calorieDay.count }}
-              </h2>
-              <i class="mdi mdi-information text-xl hover:text-black/75"></i>
-            </div>
+
           </div>
 
         </section>

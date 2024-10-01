@@ -50,12 +50,13 @@ class AccountController extends Controller
     public function store(StoreAccountRequest $request)
     {
         $validated  = $request->validate([
-            'goal' => ['required'],
-            'age' => ['required'],
+            'goal' => ['required', 'integer'],
+            'age' => ['required', 'integer'],
             'gender' => ['required', Rule::in(['Male', 'Female'])],
-            'height' => ['required'],
-            'weight' => ['required'],
-            'activity' => ['required'],
+            'height' => ['required', 'numeric'],
+            'weight' => ['required', 'integer'],
+            'activity' => ['required', 'string'],
+            'timezone' => ['required', 'string'],
         ]);
         
         // Get the signed-in user
@@ -99,6 +100,7 @@ class AccountController extends Controller
             'height' => [],
             'weight' => [],
             'activity' => [],
+            'timezone' => [],
         ]);
 
         $account->update($validated);
