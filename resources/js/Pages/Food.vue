@@ -29,7 +29,7 @@ import { Head } from "@inertiajs/vue3";
       <section>
         <h1 class="text-xl font-bold pb-3">Your Favorite Foods</h1>
         <div class="min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap ">
-          <div v-for="index in 10" :key="index"
+          <div v-for="index in 5" :key="index"
             class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded m-2">
             <div class="flex flex-col min-h-36 justify-around">
               <p>
