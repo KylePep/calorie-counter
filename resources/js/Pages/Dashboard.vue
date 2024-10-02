@@ -4,6 +4,7 @@ import FavoriteFoodList from "@/Components/FavoriteFoodList.vue";
 import FoodList from "@/Components/FoodList.vue";
 import YourFoodsList from "@/Components/YourFoodsList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
+import Pop from "@/utils/Pop.js";
 import { Head, } from '@inertiajs/vue3';
 import axios from "axios";
 import { computed, ref } from "vue";
@@ -42,6 +43,7 @@ async function updateCalorieDayUSDA(foodItem) {
     try {
         const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
         calorieDay.value = res.data
+        Pop.success(`+ ${data.count} Calories`)
     } catch (error) {
 
     }
@@ -56,6 +58,7 @@ async function updateCalorieDayFoodItem(foodItem) {
     try {
         const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
         calorieDay.value = res.data
+        Pop.success(`+ ${data.count} Calories`)
     } catch (error) {
 
     }

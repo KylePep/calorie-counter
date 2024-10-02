@@ -26,7 +26,7 @@ const getDayOfWeek = (date, mod) => {
 
   let newDay = localDate.getDay();
 
-  if (mod) {
+  if (mod != undefined) {
     let dayDifference = 6 - mod
     newDay -= dayDifference;
     if (newDay < 0) {
@@ -220,16 +220,17 @@ onMounted(() => {
               class="min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
 
               <template v-if="day.isPlaceholder">
-                <!-- For placeholders, calculate the day based on their index and the last real day -->
-                <p class="text-wrap">
-                  Day: {{ getDayOfWeek(calorieDays[0].created_at, index) }}
-                  <br>
-                  No results to show
-                </p>
+                <div class="text-wrap">
+                  <p class="font-bold text-lg">
+                    {{ getDayOfWeek(calorieDays[0].created_at, index) }}
+                  </p>
+                  <p>
+                    No results to show
+                  </p>
+                </div>
               </template>
               <template v-else>
-                <!-- For real entries, just convert the existing created_at date -->
-                <p>Day: {{ getDayOfWeek(day.created_at) }}</p>
+                <p class="font-bold text-lg">{{ getDayOfWeek(day.created_at) }}</p>
                 <h2>Calories: {{ day.count }}</h2>
               </template>
 
