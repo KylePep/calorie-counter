@@ -7,6 +7,7 @@ import TextInput from "@/Components/TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 import InputError from "./InputError.vue";
+import Pop from "@/utils/Pop.js";
 
 const showCreateForm = ref(false);
 
@@ -26,9 +27,10 @@ const form = useForm({
 const createFoodItem = () => {
   form.post(route('food.store'), {
     onSuccess: () => {
+      Pop.success(`${form.description} created`)
       Inertia.reload({
-        only: ['with_fdcId', 'without_fdcId'],  // Only reload the relevant props
-        preserveScroll: true,  // Optional: keeps the scroll position
+        only: ['with_fdcId', 'without_fdcId'],
+        preserveScroll: true,
       })
       console.log('made it here')
       form.reset()

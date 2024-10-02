@@ -3,6 +3,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
+import Pop from "@/utils/Pop.js";
 import { Link, useForm } from "@inertiajs/vue3";
 import { data } from "autoprefixer";
 import { computed, onMounted, ref } from "vue";
@@ -84,6 +85,7 @@ const updateAccount = () => {
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
+      Pop.success('Goal updated + This will take effect on a new day')
       form.reset();
       form.goal = goal;
     },

@@ -1,4 +1,5 @@
 <script setup>
+import Pop from "@/utils/Pop.js";
 import { useForm } from "@inertiajs/vue3";
 import { computed } from "vue";
 import { reactive, ref } from "vue";
@@ -57,10 +58,12 @@ const calculateResult = () => {
 
 const createOrUpdateAccount = () => {
 
-  console.log(form.height, isNaN('form.height'))
   form.post(route('account.store'), {
     preserveScroll: true,
-    onSuccess: () => form.reset(),
+    onSuccess: () => {
+      form.reset()
+      Pop.success('New Goal Set!')
+    },
     onError: (errors) => {
       console.log(errors); // Log validation errors
     },
