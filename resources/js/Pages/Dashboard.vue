@@ -85,13 +85,8 @@ async function updateCalorieDayFoodItem(foodItem) {
                     </Link>
                 </div>
 
-                <p>
+                <p class="text-xl font-bold">
                     Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
-                <p>
-                    -- rows {{
-                        calorieCountRows }} -- cells {{
-                        cellCount }}
-                </p>
                 </p>
             </section>
 

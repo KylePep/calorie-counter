@@ -18,7 +18,7 @@ class FoodController extends Controller
 
         $account = $user->account;
 
-        $groupedFoodItems = $user->foodItems->groupBy(function ($item) {
+        $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
             return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
         });
 
