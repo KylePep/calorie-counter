@@ -8,6 +8,7 @@ import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 import InputError from "./InputError.vue";
 import Pop from "@/utils/Pop.js";
+import NumberInput from "./NumberInput.vue";
 
 const showCreateForm = ref(false);
 
@@ -20,8 +21,8 @@ const form = useForm({
   servingSizeUnit: 'g',
   foodCategory: '',
   calories: 0,
-  foodNutrients: [],
-  ingredients: [],
+  foodNutrients: '',
+  ingredients: '',
 });
 
 const createFoodItem = () => {
@@ -78,23 +79,23 @@ const createFoodItem = () => {
     </div>
     <div>
       <InputLabel value="Calories"></InputLabel>
-      <TextInput v-model="form.calories" required></TextInput>
+      <NumberInput v-model="form.calories" required></NumberInput>
       <InputError :message="form.errors.calories"></InputError>
 
     </div>
     <div>
       <InputLabel value="Serving Size"></InputLabel>
-      <TextInput v-model="form.servingSize" required></TextInput>
+      <NumberInput v-model="form.servingSize" required></NumberInput>
       <InputError :message="form.errors.servingSize"></InputError>
 
     </div>
     <div class="flex items-center space-x-12">
       <div class="flex space-x-4">
-        <Checkbox v-model="form.servingSizeUnit" checked />
+        <Checkbox v-model="form.servingSizeUnit" :checked="true" />
         <InputLabel value="G"></InputLabel>
       </div>
       <div class="flex space-x-4">
-        <Checkbox v-model="form.servingSizeUnit" />
+        <Checkbox v-model="form.servingSizeUnit" :checked="false" />
         <InputLabel value="L"></InputLabel>
       </div>
     </div>
