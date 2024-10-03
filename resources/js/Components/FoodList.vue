@@ -4,36 +4,9 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { router, useForm } from "@inertiajs/vue3";
 import axios from "axios";
-import { ref } from "vue";
-
-interface FoodNutrient {
-  value: number;
-  nutrientName: string;
-  unitName: string;
-  percentDailyValue: string;
-}
-
-interface BrandedFoodItem {
-  fdcId: number;
-  gtinUpc: number;
-  description: string;
-  brandName: string;
-  brandOwner: string;
-  servingSize: number;
-  servingSizeUnit: string;
-  foodCategory: string;
-  labelNutrients: object;
-  marketCountry: string;
-  ingredients: string;
-  foodNutrients: FoodNutrient[];
-}
-
-interface FoodSearchResponse {
-  totalHits: number;
-  currentPage: number;
-  totalPages: number;
-  foods: BrandedFoodItem[];
-}
+import { computed, reactive, ref } from "vue";
+import { FoodSearchResponse } from "../models/FoodSearchResponse.js";
+import { BrandedFoodItem } from "../models/BrandedFoodItem.js";
 
 defineEmits(['increase-by'])
 
@@ -41,8 +14,19 @@ const form = useForm({
   query: '',
 });
 
-const foodDataItems = ref<FoodSearchResponse | null>(null);
+const usdaResponse = reactive({
+  /** @type {FoodSearchResponse} */
+  foodSearchResponse: new FoodSearchResponse({
+    totalHits: 0,
+    currentPage: 0,
+    totalPages: 0,
+  }),
+  /** @type {BrandedFoodItem[]} */
+  foods: []
+})
 
+const foodSearchResponse = computed(() => usdaResponse.foodSearchResponse)
+const foods = computed(() => usdaResponse.foods)
 
 const fetchFoodData = async (page = 1) => {
   try {
@@ -63,7 +47,10 @@ const fetchFoodData = async (page = 1) => {
       },
     });
 
-    foodDataItems.value = response.data
+    const foodSearchResponse = new FoodSearchResponse(response.data)
+    const foods = response.data.foods.map(f => new BrandedFoodItem(f))
+    usdaResponse.foodSearchResponse = foodSearchResponse
+    usdaResponse.foods = foods
 
   } catch (error) {
     console.error(error, '[Error fetching food data]')
@@ -110,20 +97,20 @@ async function favoriteItem(foodItem) {
     </form>
   </div>
 
-  <div v-if="foodDataItems" class="flex justify-between items-center mb-3">
-    <button @click="fetchFoodData(foodDataItems.currentPage - 1)" :disabled="foodDataItems.currentPage <= 1"
-      :class="foodDataItems.currentPage <= 1 ? 'text-black/25' : 'hover:bg-gray-200 text-black/75'"
+  <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
+    <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)" :disabled="foodSearchResponse.currentPage <= 1"
+      :class="foodSearchResponse.currentPage <= 1 ? 'text-black/25' : 'hover:bg-gray-200 text-black/75'"
       class="bg-gray-300 py-1 px-3 rounded">
       Previous
     </button>
 
-    <p class="font-semibold text-black/50">Total Hits: {{ foodDataItems.totalHits }}</p>
-    <p class="font-semibold text-black/50">Current Page: {{ foodDataItems.currentPage }}</p>
-    <p class="font-semibold text-black/50">Total Pages: {{ foodDataItems.totalPages }}</p>
+    <p class="font-semibold text-black/50">Total Hits: {{ foodSearchResponse.totalHits }}</p>
+    <p class="font-semibold text-black/50">Current Page: {{ foodSearchResponse.currentPage }}</p>
+    <p class="font-semibold text-black/50">Total Pages: {{ foodSearchResponse.totalPages }}</p>
 
-    <button @click="fetchFoodData(foodDataItems.currentPage + 1)"
-      :disabled="foodDataItems.currentPage >= foodDataItems.totalPages"
-      :class="foodDataItems.currentPage >= foodDataItems.totalPages ? 'text-black/25' : 'hover:bg-gray-200 text-black/75'"
+    <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
+      :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
+      :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-black/25' : 'hover:bg-gray-200 text-black/75'"
       class="bg-gray-300  py-1 px-3 rounded">
       Next
     </button>
@@ -131,16 +118,16 @@ async function favoriteItem(foodItem) {
 
   <div class="columns-2 sm:column-3 gap-2 p-2 text-center border-4 rounded-lg border-black/25 ">
 
-    <div v-if="!foodDataItems"
+    <div v-if="!foodSearchResponse.currentPage"
       class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow h-40 rounded">
       Search for an item to begin counting calories!
     </div>
-    <div v-if="foodDataItems?.foods.length == 0"
+    <div v-if="foodSearchResponse.currentPage && foods.length == 0"
       class="break-inside-avoid relative flex flex-col justify-center w-full text-gray-300 text-xl font-bold bg-gray-800 mb-6 p-3 shadow h-40 rounded">
       No results found
     </div>
 
-    <div @click="$emit('increase-by', item)" v-for="item in foodDataItems?.foods" :key="item.fdcId"
+    <div @click="$emit('increase-by', item)" v-for="item in foods" :key="item.fdcId"
       class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow">
       <div class=" text-gray-800 font-bold drop-shadow-2xl"> {{
         item.description

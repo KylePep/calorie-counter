@@ -1,4 +1,5 @@
 <script setup>
+import ConsumedList from "@/Components/ConsumedList.vue";
 import CreateFood from "@/Components/CreateFood.vue";
 import FavoriteFoodList from "@/Components/FavoriteFoodList.vue";
 import FoodList from "@/Components/FoodList.vue";
@@ -115,17 +116,8 @@ async function updateCalorieDayFoodItem(foodItem) {
                 </div>
             </section>
 
-            <section v-if="props.account">
-                <h1 class="text-xl font-bold pb-3">Eaten</h1>
-                <div
-                    class=" p-2 pb-0 grid grid-rows-3 grid-flow-col gird- text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap gap-1">
-                    <div v-for="item in dayItems" :key="item" class="inline-block bg-gray-300 rounded-lg px-2">
-                        <p class="max-h-10 overflow-hidden font-bold">
-                            {{ item }}
-                        </p>
-
-                    </div>
-                </div>
+            <section v-if="props.account && dayItems.length">
+                <ConsumedList :dayItems="dayItems" />
             </section>
 
             <section v-if="props.account">
