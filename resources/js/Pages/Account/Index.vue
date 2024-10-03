@@ -5,8 +5,8 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Pop from "@/utils/Pop.js";
 import { Link, useForm } from "@inertiajs/vue3";
-import { data } from "autoprefixer";
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
+import CalorieHistory from './CalorieHistory.vue'
 
 
 const props = defineProps({
@@ -20,34 +20,8 @@ const props = defineProps({
     type: Object
   }
 });
-const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-const getDayOfWeek = (date, mod) => {
-  let localDate = new Date(date); // Ensure the date is converted correctly.
-
-  let newDay = localDate.getDay();
-
-  if (mod != undefined) {
-    let dayDifference = 6 - mod
-    newDay -= dayDifference;
-    if (newDay < 0) {
-      newDay += 7;
-    }
-  }
-
-  return daysOfWeek[newDay]; // Map the number to the day name.
-};
 
 const calorieDays = ref(props.calorieDays);
-const totalDays = 7;
-
-const combinedDays = computed(() => {
-  const placeholdersCount = totalDays - calorieDays.value.length;
-  const placeholders = Array.from({ length: placeholdersCount }, () => ({ isPlaceholder: true }));
-
-  return [...placeholders, ...calorieDays.value];
-});
-
 
 
 const editGoalEnable = ref(false);
@@ -94,15 +68,6 @@ const updateAccount = () => {
     },
   });
 };
-
-onMounted(() => {
-  const scrollContainer = document.getElementById('scrollContainer')
-  if (scrollContainer) {
-    scrollContainer.scrollLeft = 1000
-  }
-
-})
-
 
 </script>
 
@@ -207,38 +172,7 @@ onMounted(() => {
         </section> -->
 
         <section v-if="props.account" class="text-center">
-          <h1>History</h1>
-          <div>
-            Past 7 days of history
-          </div>
-          <div>
-            Calorie Progress 13993 : 14000
-          </div>
-          <div v-if="calorieDays?.length" id="scrollContainer"
-            class="flex  gap-1  min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap snap-x">
-
-
-            <div v-for="(day, index) in combinedDays" :key="index"
-              class="min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
-
-              <template v-if="day.isPlaceholder">
-                <div class="text-wrap">
-                  <p class="font-bold text-lg">
-                    {{ getDayOfWeek(calorieDays[0].created_at, index) }}
-                  </p>
-                  <p>
-                    No results to show
-                  </p>
-                </div>
-              </template>
-              <template v-else>
-                <p class="font-bold text-lg">{{ getDayOfWeek(day.created_at) }}</p>
-                <h2>Calories: {{ day.count }}</h2>
-              </template>
-
-            </div>
-
-          </div>
+          <CalorieHistory :calorieDays="calorieDays" />
 
         </section>
 
