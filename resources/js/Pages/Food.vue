@@ -4,7 +4,7 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { computed } from "vue";
 import YourFoodsList from "@/Components/FoodComponents/YourFoodsList.vue";
-import CreateFood from "@/Components/CreateFood.vue";
+import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import FavoriteFoodList from "@/Components/FoodComponents/FavoriteFoodList.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId'])
@@ -39,11 +39,11 @@ const without_fdcId = computed(() => props.without_fdcId);
       </section>
 
       <section v-if="props.account">
-        <YourFoodsList :without_fdcId="without_fdcId" />
+        <YourFoodsList size="lg" :without_fdcId="without_fdcId" />
       </section>
 
       <section v-if="props.account">
-        <FavoriteFoodList :with_fdcId="with_fdcId" />
+        <FavoriteFoodList size="lg" :with_fdcId="with_fdcId" />
       </section>
 
       <section>

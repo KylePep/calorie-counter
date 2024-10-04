@@ -1,9 +1,7 @@
-<script setup lang="ts">
+<script setup>
 defineEmits(['increaseBy'])
 
-defineProps<{
-  with_fdcId: any;
-}>()
+const props = defineProps(['with_fdcId', 'size']);
 
 </script>
 
@@ -11,7 +9,7 @@ defineProps<{
   <h1 class="text-xl font-bold pb-3">Favorite Foods</h1>
 
   <div class="min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap ">
-    <div @click="$emit('increaseBy', foodItem)" v-for="foodItem in with_fdcId" :key="foodItem.id"
+    <div @click="$emit('increaseBy', foodItem)" v-for="foodItem in props.with_fdcId" :key="foodItem.id"
       class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded m-2">
       <div class="flex flex-col min-h-36 justify-around">
         <p class="text-wrap">
@@ -22,7 +20,7 @@ defineProps<{
         </p>
       </div>
     </div>
-    <div v-if="with_fdcId.length == 0"
+    <div v-if="props.with_fdcId.length == 0"
       class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded m-2">
       <div class="flex flex-col min-h-36 justify-around">
         <p>

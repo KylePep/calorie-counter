@@ -19,21 +19,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-
-        $user = User::find(Auth::id());
-
-        $account = $user->account;
-
-        $calorieDays = $user->calorieDays() //TODO - Return only calorieDays that date back within 7 days
-        ->orderBy('created_at', 'asc') 
-        ->take(7) 
-        ->get();
-
-        return Inertia::render('Account/Index', [
-            'status' => session('status'),
-            'account' => $account,
-            'calorieDays' => $calorieDays,
-        ]);
+        //
     }
 
     /**
@@ -77,7 +63,20 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        $user = User::find(Auth::id());
+
+        $account = $user->account;
+
+        $calorieDays = $user->calorieDays() //TODO - Return only calorieDays that date back within 7 days
+        ->orderBy('created_at', 'asc') 
+        ->take(7) 
+        ->get();
+
+        return Inertia::render('Account/Show', [
+            'status' => session('status'),
+            'account' => $account,
+            'calorieDays' => $calorieDays,
+        ]);
     }
 
     /**

@@ -6,7 +6,7 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Pop from "@/utils/Pop.js";
 import { Link, useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
-import CalorieHistory from './CalorieHistory.vue'
+import CalorieHistory from './Partials/CalorieHistory.vue'
 
 
 const props = defineProps({

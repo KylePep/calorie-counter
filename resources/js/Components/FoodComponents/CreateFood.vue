@@ -6,9 +6,9 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
-import InputError from "./InputError.vue";
+import InputError from "@/Components/InputError.vue";
 import Pop from "@/utils/Pop.js";
-import NumberInput from "./NumberInput.vue";
+import NumberInput from "@/Components/NumberInput.vue";
 
 const showCreateForm = ref(false);
 
@@ -50,16 +50,6 @@ const createFoodItem = () => {
   </PrimaryButton>
   <form v-if="showCreateForm" @submit.prevent="createFoodItem" action="" class="grid grid-cols-3 gap-3">
 
-    <!-- 'fdcId' => ['nullable'],
-            'description' => ['required'],
-            'brandName' => ['nullable'],
-            'brandOwner' => ['nullable'],
-            'servingSize' => ['required'],
-            'servingSizeUnit' => ['required'],
-            'foodCategory' => ['required'],
-            'calories' => ['required'],
-            'foodNutrients' => ['nullable'], //array
-            'ingredients' => ['nullable'], //array -->
     <div>
       <InputLabel value="Name"></InputLabel>
       <TextInput v-model="form.description" required></TextInput>

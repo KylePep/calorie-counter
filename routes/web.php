@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
 
-    Route::get('/account', [AccountController::class, 'index'])->name('account.index');
+    Route::get('/account', [AccountController::class, 'show'])->name('account.show');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
 });
