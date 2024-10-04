@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
     //GetorCreate CalorieDay 
 
-    public function index()
+    public function index() //TODO - This creates a resource, calorieDay, that isn't a 'dashboard', fix that
     {
         $user = User::find(Auth::id());
 

@@ -1,5 +1,5 @@
 <script setup>
-import CalorieCalculator from "@/Components/CalorieCalculator.vue";
+import CalorieCalculator from "@/Pages/Calculator/Partials/CalorieCalculator.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 
 defineProps({

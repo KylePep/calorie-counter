@@ -1,9 +1,9 @@
 <script setup>
 import ConsumedList from "@/Components/ConsumedList.vue";
 import CreateFood from "@/Components/CreateFood.vue";
-import FavoriteFoodList from "@/Components/FavoriteFoodList.vue";
-import FoodList from "@/Components/FoodList.vue";
-import YourFoodsList from "@/Components/YourFoodsList.vue";
+import FavoriteFoodList from "@/Components/FoodComponents/FavoriteFoodList.vue";
+import FoodList from "@/Components/FoodComponents/FoodList.vue";
+import YourFoodsList from "@/Components/FoodComponents/YourFoodsList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Pop from "@/utils/Pop.js";
 import { Head, } from '@inertiajs/vue3';

@@ -11,12 +11,6 @@ const appName = import.meta.env.VITE_APP_NAME || 'CalorieCount';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    // resolve: (name) => {
-    //     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-    //     let page = pages[`./Pages/${name}.vue`]
-    //     page.default.layout = name.startsWith('Public/') ? undefined : AuthenticatedLayout
-    //     return page
-    // },
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })

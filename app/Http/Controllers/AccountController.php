@@ -24,7 +24,7 @@ class AccountController extends Controller
 
         $account = $user->account;
 
-        $calorieDays = $user->calorieDays()
+        $calorieDays = $user->calorieDays() //TODO - Return only calorieDays that date back within 7 days
         ->orderBy('created_at', 'asc') 
         ->take(7) 
         ->get();
@@ -64,7 +64,7 @@ class AccountController extends Controller
         
         if (!$user->account){
             // Create the account for the authenticated user
-            $account = $user->account()->create($validated);
+            $user->account()->create($validated);
         } else {
             $user->account->update($validated);
         }

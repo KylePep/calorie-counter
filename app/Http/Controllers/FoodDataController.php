@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\foodSearchResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -34,11 +33,6 @@ class FoodDataController extends Controller
         if($response->successful()){
             return $response->json();
 
-            // $responseData = $response->json();
-
-            // $foodSearchResponse = foodSearchResponse::fromApiResponse($responseData);
-
-            // return response()->json($foodSearchResponse);
         } else  {
             $statusCode = $response->status();
             $errorBody = $response->body(); 

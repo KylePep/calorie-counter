@@ -5,8 +5,8 @@ import TextInput from "@/Components/TextInput.vue";
 import { router, useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import { computed, reactive, ref } from "vue";
-import { FoodSearchResponse } from "../models/FoodSearchResponse.js";
-import { BrandedFoodItem } from "../models/BrandedFoodItem.js";
+import { FoodSearchResponse } from "../../models/FoodSearchResponse.js";
+import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
 
 defineEmits(['increase-by'])
 
@@ -56,6 +56,7 @@ const fetchFoodData = async (page = 1) => {
     console.error(error, '[Error fetching food data]')
   }
 }
+
 
 async function favoriteItem(foodItem) {
   const data = {

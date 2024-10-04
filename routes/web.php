@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
-use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,31 +19,15 @@ Route::get('/', function () {
 
 Route::get('/food-data', FoodDataController::class);
 
-Route::get('/calculator', function () { //TODO - Move to CalculatorController
+Route::get('/calculator', [CalculatorController::class, 'create'])->name('calculator');
 
-    $user = Auth::user();
-
-    $account = $user ? $user->account : [
-        'gender' => 'Male',
-        'weight' => 160,
-        'height' => 177.8, 
-        'age' => 25,
-        'activity' => '1.55',
-        'goal' => 2000,
-    ];
-    return Inertia::render('Calculator', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-            'account' => $account,
-    ]);
-})->name('calculator');
-
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware(['verified'])
+        ->name('dashboard');
+    
     Route::get('/food', [FoodController::class, 'index'])->name('food.index');
     Route::post('/food', [FoodController::class, 'store'])->name('food.store');
 
