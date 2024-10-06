@@ -1,9 +1,7 @@
 <script setup lang="ts">
 defineEmits(['increaseBy'])
 
-defineProps<{
-  without_fdcId: any;
-}>()
+const props = defineProps(['without_fdcId', 'size'])
 </script>
 
 <template>
