@@ -5,7 +5,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
-import { nextTick, ref } from "vue";
+import { computed, nextTick, ref } from "vue";
 import InputError from "@/Components/InputError.vue";
 import Pop from "@/utils/Pop.js";
 import NumberInput from "@/Components/NumberInput.vue";
@@ -44,6 +44,14 @@ const form = useForm({
   ingredients: '',
 });
 
+const unitName = computed(() => {
+  return {
+    g: 'Gram(s)',
+    u: 'Unit(s)',
+    l: 'Liter(s)'
+  }[form.servingSizeUnit]
+})
+
 const createFoodItem = () => {
   form.post(route('food.store'), {
     onSuccess: () => {
@@ -77,6 +85,12 @@ const closeModal = () => {
 
   <Modal :show="confirmingFoodDetails" @close="closeModal">
     <form @submit.prevent="createFoodItem" action="" class="p-6 space-y-3">
+
+      <h1 class="text-center text-xl font-bold">Create a Food</h1>
+      <h2 class="text-center text-sm max-w-xs mx-auto">Complete this form, then use your new food to help track your
+        calories!
+      </h2>
+
       <div class="flex  ">
         <div class="basis-3/5 me-3">
           <InputLabel value="Name or description"></InputLabel>
@@ -101,9 +115,11 @@ const closeModal = () => {
 
         <div class="flex basis-2/5">
 
-          <div class="w-full">
+          <div class="w-full relative">
             <InputLabel value="Serving Size"></InputLabel>
             <NumberInput v-model="form.servingSize" class="w-full" required></NumberInput>
+            <span class="absolute right-0 bottom-0 pb-3 pe-3 font-bold text-black/50 uppercase text-xs">{{ unitName
+              }}</span>
             <InputError :message="form.errors.servingSize"></InputError>
           </div>
 
@@ -113,6 +129,8 @@ const closeModal = () => {
               <button type="button" @click="form.servingSizeUnit = 'g'"
                 class="rounded-l-lg px-3 py-2 border-r border-white"
                 :class="[form.servingSizeUnit == 'g' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">G</button>
+              <button type="button" @click="form.servingSizeUnit = 'u'" class="border-r border-white px-3 py-2  "
+                :class="[form.servingSizeUnit == 'u' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">U</button>
               <button type="button" @click="form.servingSizeUnit = 'l'" class=" rounded-r-lg px-3 py-2  "
                 :class="[form.servingSizeUnit == 'l' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">L</button>
             </div>
@@ -176,7 +194,7 @@ const closeModal = () => {
           Cancel
         </SecondaryButton>
         <PrimaryButton>
-          Create new food
+          Create
         </PrimaryButton>
       </div>
     </form>

@@ -1,9 +1,8 @@
 <script setup>
 import ConsumedList from "@/Components/FoodComponents/ConsumedList.vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
-import FavoriteFoodList from "@/Components/FoodComponents/FavoriteFoodList.vue";
 import FoodList from "@/Components/FoodComponents/FoodList.vue";
-import YourFoodsList from "@/Components/FoodComponents/YourFoodsList.vue";
+import ItemsDisplay from "@/Components/ItemsDisplay.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Pop from "@/utils/Pop.js";
 import { Head, } from '@inertiajs/vue3';
@@ -125,11 +124,11 @@ async function updateCalorieDayFoodItem(foodItem) {
             </section>
 
             <section v-if="props.account">
-                <YourFoodsList size="sm" :without_fdcId="without_fdcId" @increase-by="updateCalorieDayFoodItem" />
+                <ItemsDisplay size="sm" :list="without_fdcId" @increase-by="updateCalorieDayFoodItem" />
             </section>
 
             <section v-if="props.account">
-                <FavoriteFoodList size="sm" :with_fdcId="with_fdcId" @increase-by="updateCalorieDayFoodItem" />
+                <ItemsDisplay size="sm" :list="with_fdcId" @increase-by="updateCalorieDayFoodItem" />
             </section>
 
             <section>
