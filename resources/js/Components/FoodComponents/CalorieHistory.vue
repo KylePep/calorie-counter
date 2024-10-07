@@ -1,8 +1,8 @@
 <template>
-  <h1>History</h1>
-  <div>
+  <!-- <h1>History</h1> -->
+  <!-- <div>
     Last 7 days of tracking
-  </div>
+  </div> -->
   <!-- <div>
     Calorie Progress 13993 : 14000
   </div> -->
@@ -21,7 +21,7 @@
 
   </div>
 
-  <div v-if="sevenDayHistory?.length" id="scrollContainer"
+  <!-- <div v-if="sevenDayHistory?.length" id="scrollContainer"
     class="flex  gap-1  min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap snap-x">
 
 
@@ -40,14 +40,14 @@
         </div>
       </template>
 
-      <template v-else>
+<template v-else>
         <p class="font-bold text-lg">{{ day.dayOfTheWeek }}</p>
         <h2>Calories: {{ day.count }}</h2>
         <h3>Goal: {{ day.goal }}</h3>
       </template>
 
-    </div>
-  </div>
+</div>
+</div> -->
 
 </template>
 

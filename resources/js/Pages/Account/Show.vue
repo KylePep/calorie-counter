@@ -6,7 +6,8 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Pop from "@/utils/Pop.js";
 import { Link, useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
-import CalorieHistory from './Partials/CalorieHistory.vue'
+import CalorieHistory from '../../Components/FoodComponents/CalorieHistory.vue'
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 
 const props = defineProps({
@@ -143,14 +144,17 @@ const getDayOfWeek = (date) => {
 
           </div>
 
-          <button v-if="account?.goal" @click="editGoalEnable = !editGoalEnable"
+          <button v-if="account?.goal && !editGoalEnable" @click="editGoalEnable = !editGoalEnable"
             class="items-center px-4 py-2 bg-gray-800 hover:bg-gray-700  border border-transparent rounded-md font-semibold text-xs text-white uppercase mt-6">{{
-              !editGoalEnable ? 'Change Goal?' : 'Cancel' }}</button>
+              !editGoalEnable ? 'Change Goal?' : 'Save' }}</button>
+          <PrimaryButton type="submit" form="updateAccount" v-if="editGoalEnable" class="mt-6">
+            Save
+          </PrimaryButton>
           <div v-if="editGoalEnable" class="flex flex-col justify-center items-center">
 
             <NavLink :href="route('calculator')" class="mt-6">Recalculate</NavLink>
             <p>or</p>
-            <form @submit.prevent="updateAccount" class="pb-3 mt-3 ">
+            <form @submit.prevent="updateAccount" id="updateAccount" class="pb-3 mt-3 ">
               <div class="flex flex-col space-y-6 max-w-sm mx-auto">
                 <div>
 
@@ -161,34 +165,13 @@ const getDayOfWeek = (date) => {
                     class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-lg sm:leading-6 text-center">
                 </div>
 
-                <PrimaryButton class=" mx-auto">Save</PrimaryButton>
+                <SecondaryButton type="button" @click="editGoalEnable = !editGoalEnable" class=" mx-auto">Cancel
+                </SecondaryButton>
               </div>
 
             </form>
           </div>
 
-
-        </section>
-
-        <section>
-          <!-- <div v-for="(day, index) in calorieDays" :key="index"
-            class="min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
-
-          
-
-            <div>
-              <p class="font-bold text-lg">{{ getDayOfWeek(new Date(day.created_at).getDay()) }}, {{ new
-                Date(day.created_at).toLocaleDateString() }}</p>
-              <h2>Calories: {{ day.count }}</h2>
-              <h3>Goal: {{ day.goal }}</h3>
-              <p v-for="(item, index) in day.food_items" :key="index">{{ item }}</p>
-            </div>
-
-          </div> -->
-        </section>
-
-        <section v-if="props.account" class="text-center">
-          <CalorieHistory :calorieDays="calorieDays" />
 
         </section>
 

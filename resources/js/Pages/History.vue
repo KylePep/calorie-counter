@@ -1,6 +1,6 @@
 <script setup>
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import CalorieHistory from "./Account/Partials/CalorieHistory.vue";
+import CalorieHistory from "../Components/FoodComponents/CalorieHistory.vue";
 
 const props = defineProps({
   account: {
@@ -29,7 +29,6 @@ const props = defineProps({
 
       <section v-if="props.account" class="text-center">
         <CalorieHistory :calorieDays="calorieDays" />
-
       </section>
 
     </div>

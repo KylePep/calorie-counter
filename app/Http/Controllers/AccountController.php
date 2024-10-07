@@ -104,7 +104,7 @@ class AccountController extends Controller
 
         $account->update($validated);
 
-        return Redirect::route('account.index');
+        return Redirect::route('account.show');
     }
 
     /**
