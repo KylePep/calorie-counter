@@ -6,6 +6,7 @@ use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware(['verified'])
         ->name('dashboard');
+
+    Route::get('/history', [HistoryController::class, 'index'])
+        ->name('history');
     
     Route::get('/food', [FoodController::class, 'index'])->name('food.index');
     Route::post('/food', [FoodController::class, 'store'])->name('food.store');
