@@ -47,27 +47,31 @@ class FoodController extends Controller
             'ingredients' => ['nullable'], //array
         ]);
 
-        $user->foodItems()->create([
+        $foodItem = $user->foodItems()->create([
             'fdcId' => $attributes['fdcId'],
             'description' => $attributes['description'],
-            'brandName' => $attributes['brandName'],
-            'brandOwner' => $attributes['brandOwner'],
+            'brandName' => $attributes['brandName'] ?? 'N/A',
+            'brandOwner' => $attributes['brandOwner'] ?? 'N/A',
             'servingSize' => $attributes['servingSize'],
             'servingSizeUnit' => $attributes['servingSizeUnit'],
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => json_encode($attributes['foodNutrients']), // Convert array to JSON
-            'ingredients' => json_encode($attributes['ingredients']) // Convert array to JSON
+            'ingredients' => json_encode($attributes['ingredients']) //This is needs to be a string
         ]);
 
-        $groupedFoodItems = $user->foodItems->groupBy(function ($item) {
-            return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
-        });
+        // $groupedFoodItems = $user->foodItems->groupBy(function ($item) {
+        //     return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
+        // });
 
-        return redirect()->route('food.index')->with([
-            'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
-            'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
+        return back()->with([
+            'success' => 'Food item created successfully!',
+            'foodItem' => $foodItem,
         ]);
+        // return redirect()->route('food.index')->with([
+        //     'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
+        //     'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
+        // ]);
     }
 
     public function update(UpdateFoodItemRequest $request, FoodItem $foodItem)

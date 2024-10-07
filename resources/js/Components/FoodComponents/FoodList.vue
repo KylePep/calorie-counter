@@ -7,6 +7,7 @@ import axios from "axios";
 import { computed, reactive, ref } from "vue";
 import { FoodSearchResponse } from "../../models/FoodSearchResponse.js";
 import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
+import Pop from "@/utils/Pop.js";
 
 defineEmits(['increase-by'])
 
@@ -72,6 +73,7 @@ async function favoriteItem(foodItem) {
     router.reload({
       only: ['with_fdcId', 'without_fdcId'],  // Only reload the updated data
     });
+    Pop.success(`${foodItem.description} added to favorites`)
 
   } catch (error) {
     console.error(error);  // Handle any error (optional)

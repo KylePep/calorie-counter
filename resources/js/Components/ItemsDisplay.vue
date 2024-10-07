@@ -45,7 +45,6 @@ const currentSizeClass = computed(() => {
 
   <div class="flex justify-between mb-3">
     <slot />
-    {{ maxSize }}
 
     <div class="flex items-center space-x-2 ">
       <button @click="currentSize = 'sm'"
