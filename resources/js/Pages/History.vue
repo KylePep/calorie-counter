@@ -27,7 +27,8 @@ const props = defineProps({
 
     <div class="space-y-12 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-      <section v-if="props.account" class="text-center">
+      <section v-if="props.account">
+        <h3 class="mb-4 text-2xl font-bold">Calorie Day History</h3>
         <CalorieHistory :calorieDays="calorieDays" />
       </section>
 
