@@ -1,13 +1,29 @@
 <template>
   <h1>History</h1>
   <div>
-    Past 7 days of history
+    Last 7 days of tracking
   </div>
-  <div>
+  <!-- <div>
     Calorie Progress 13993 : 14000
+  </div> -->
+
+  <div v-for="(day, index) in calorieDays" :key="index"
+    class="min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
+
+    <div>
+      <p class="font-bold text-lg">{{ getDayOfWeek(new Date(day.created_at).getDay()) }}, {{ new
+        Date(day.created_at).toLocaleDateString() }}</p>
+      <h2>Calories: {{ day.count }}</h2>
+      <h3>Goal: {{ day.goal }}</h3>
+      <p v-for="item in dayItems(day)" class="inline-block bg-gray-200 rounded-md mx-1 my-1 px-1 lowercase text-sm">{{
+        item }}</p>
+    </div>
+
   </div>
+
   <div v-if="sevenDayHistory?.length" id="scrollContainer"
     class="flex  gap-1  min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap snap-x">
+
 
 
     <div v-for="(day, index) in sevenDayHistory" :key="index"
@@ -84,18 +100,29 @@ export default {
     });
 
 
+    // onMounted(() => {
 
-    onMounted(() => {
+    //   const scrollContainer = document.getElementById('scrollContainer')
+    //   if (scrollContainer) {
+    //     scrollContainer.scrollLeft = 1000
+    //   }
 
-      const scrollContainer = document.getElementById('scrollContainer')
-      if (scrollContainer) {
-        scrollContainer.scrollLeft = 1000
-      }
-
-    })
+    // })
 
     return {
+      calorieDays: computed(() => props.calorieDays),
       consecutiveDates,
+      getDayOfWeek,
+
+      dayItems(calorieDay) {
+        if (calorieDay.food_items.length == 0) {
+          return []
+        } else {
+          return calorieDay.food_items
+            .split('"')
+            .filter((item, index) => index % 2 !== 0 && item.trim());
+        }
+      },
 
       sevenDayHistory: computed(() => {
         let daysHistory = [];

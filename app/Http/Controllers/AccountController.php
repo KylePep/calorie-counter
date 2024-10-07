@@ -68,7 +68,7 @@ class AccountController extends Controller
         $account = $user->account;
 
         $calorieDays = $user->calorieDays() //TODO - Return only calorieDays that date back within 7 days
-        ->orderBy('created_at', 'asc') 
+        ->orderBy('created_at', 'desc') 
         ->take(7) 
         ->get();
 

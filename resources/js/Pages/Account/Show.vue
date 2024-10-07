@@ -69,6 +69,11 @@ const updateAccount = () => {
   });
 };
 
+const getDayOfWeek = (date) => {
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return daysOfWeek[date];
+};
+
 </script>
 
 <template>
@@ -165,11 +170,22 @@ const updateAccount = () => {
 
         </section>
 
-        <!-- <section>
-          <div v-for="calorieDay in calorieDays" :key="calorieDay.id">
-            {{ new Date(calorieDay.created_at) }}
-          </div>
-        </section> -->
+        <section>
+          <!-- <div v-for="(day, index) in calorieDays" :key="index"
+            class="min-h-40 min-w-40 bg-gray-300 p-3 justify-between m-1 scroll-ml-1 snap-start rounded">
+
+          
+
+            <div>
+              <p class="font-bold text-lg">{{ getDayOfWeek(new Date(day.created_at).getDay()) }}, {{ new
+                Date(day.created_at).toLocaleDateString() }}</p>
+              <h2>Calories: {{ day.count }}</h2>
+              <h3>Goal: {{ day.goal }}</h3>
+              <p v-for="(item, index) in day.food_items" :key="index">{{ item }}</p>
+            </div>
+
+          </div> -->
+        </section>
 
         <section v-if="props.account" class="text-center">
           <CalorieHistory :calorieDays="calorieDays" />
