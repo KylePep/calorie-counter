@@ -66,6 +66,10 @@ async function favoriteItem(foodItem) {
   };
 
   try {
+    const confirmFavorite = await Pop.confirm(`add ${foodItem.description} to favorite foods? `)
+    if (!confirmFavorite) {
+      return
+    }
     // Post the food item data to your backend
     const res = await axios.post(route('food.store'), data);
 

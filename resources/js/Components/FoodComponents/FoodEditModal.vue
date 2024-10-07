@@ -74,11 +74,12 @@ const closeModal = () => {
 };
 
 async function deleteItem() {
-  const confirmDelete = await Pop.confirm(`Delete this food Item, ${form.description}? This cannot be undone.`)
+  const confirmDelete = await Pop.confirm(`Delete ${form.description}?`)
   if (!confirmDelete) {
     return
   }
   form.delete(route('food.destroy', props.foodItem.id), {
+    preserveScroll: true,
     onSuccess: () => {
       Pop.success(`${form.description} deleted`)
       form.reset()
@@ -91,11 +92,12 @@ async function deleteItem() {
 }
 
 async function updateItem() {
-  const confirmUpdate = await Pop.confirm(`update this food Item, ${form.description}? This cannot be undone.`)
+  const confirmUpdate = await Pop.confirm(`Update ${form.description}? `)
   if (!confirmUpdate) {
     return
   }
   form.put(route('food.update', props.foodItem.id), {
+    preserveScroll: true,
     onSuccess: () => {
       Pop.success(`${form.description} updated`)
       form.reset()
