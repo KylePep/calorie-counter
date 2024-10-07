@@ -54,11 +54,15 @@ const closeModal = () => {
       </section>
 
       <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="without_fdcId" @item-Activated="setActive" />
+        <ItemsDisplay size="lg" :list="without_fdcId" @item-Activated="setActive">
+          <h1 class="text-xl font-bold">Your Foods</h1>
+        </ItemsDisplay>
       </section>
 
       <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="with_fdcId" @item-Activated="setActive" />
+        <ItemsDisplay size="lg" :list="with_fdcId" @item-Activated="setActive">
+          <h1 class="text-xl font-bold">Favorite Foods</h1>
+        </ItemsDisplay>
       </section>
 
       <section>

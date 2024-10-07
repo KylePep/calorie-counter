@@ -6,6 +6,7 @@ import PrimaryButton from "../PrimaryButton.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
+import Pop from "@/utils/Pop.js";
 
 const emit = defineEmits(['closeModal']);
 
@@ -72,8 +73,25 @@ const closeModal = () => {
   form.reset();
 };
 
-const deleteItem = () => {
-  console.log('delete', form)
+async function deleteItem() {
+  const confirmDelete = await Pop.confirm(`Delete this food Item, ${form.description}? This cannot be undone.`)
+  if (!confirmDelete) {
+    return
+  }
+  form.delete(route('food.destroy', props.foodItem.id), {
+    onSuccess: () => {
+      Pop.success(`${form.description} deleted`)
+      // Inertia.reload({
+      //   only: ['with_fdcId', 'without_fdcId'],
+      //   preserveScroll: true,
+      // })
+      form.reset()
+      closeModal()
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 }
 
 const updateItem = () => {

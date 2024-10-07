@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateFoodItemRequest;
 use App\Models\FoodItem;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class FoodController extends Controller
@@ -72,5 +73,19 @@ class FoodController extends Controller
     public function update(UpdateFoodItemRequest $request, FoodItem $foodItem)
     {
         //
+    }
+
+    public function destroy(Request $request, FoodItem $foodItem)
+    {
+        $user = User::find(Auth::id());
+        // $user = User::user();
+
+        if($user->foodItems()->where('id', $foodItem->id)->exists()){
+            $foodItem->delete();
+            return redirect()->back()->with('success', 'Food item deleted');
+        } else {
+            return redirect()->back()->with('error', 'Unauthorized or item not found');
+        }
+
     }
 }

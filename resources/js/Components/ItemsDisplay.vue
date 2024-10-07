@@ -7,9 +7,9 @@ const props = defineProps(['list', 'size']);
 const currentSize = ref(props.size)
 
 const maxSize = computed(() => {
-  if (props.list.length < 3 && props.list.length > 0) {
+  if (props.list.length < 5 && props.list.length > 0) {
     return 'sm'
-  } else if (props.list.length < 6) {
+  } else if (props.list.length < 8) {
     return 'lg'
   } else {
     return 'xl'
@@ -42,8 +42,10 @@ const currentSizeClass = computed(() => {
 
 <template>
 
+
   <div class="flex justify-between mb-3">
-    <h1 class="text-xl font-bold">Favorite Foods</h1>
+    <slot />
+    {{ maxSize }}
 
     <div class="flex items-center space-x-2 ">
       <button @click="currentSize = 'sm'"
