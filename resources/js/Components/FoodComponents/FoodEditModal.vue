@@ -81,10 +81,6 @@ async function deleteItem() {
   form.delete(route('food.destroy', props.foodItem.id), {
     onSuccess: () => {
       Pop.success(`${form.description} deleted`)
-      // Inertia.reload({
-      //   only: ['with_fdcId', 'without_fdcId'],
-      //   preserveScroll: true,
-      // })
       form.reset()
       closeModal()
     },
@@ -94,8 +90,21 @@ async function deleteItem() {
   });
 }
 
-const updateItem = () => {
-  console.log('update')
+async function updateItem() {
+  const confirmUpdate = await Pop.confirm(`update this food Item, ${form.description}? This cannot be undone.`)
+  if (!confirmUpdate) {
+    return
+  }
+  form.put(route('food.update', props.foodItem.id), {
+    onSuccess: () => {
+      Pop.success(`${form.description} updated`)
+      form.reset()
+      closeModal()
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 }
 
 </script>

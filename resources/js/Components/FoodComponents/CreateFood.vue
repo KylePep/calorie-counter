@@ -47,12 +47,9 @@ const createFoodItem = () => {
   form.post(route('food.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`)
-      Inertia.reload({
-        only: ['with_fdcId', 'without_fdcId'],
-        preserveScroll: true,
-      })
       console.log('made it here')
       form.reset()
+      closeModal()
     },
     onError: (errors) => {
       console.log(errors); // Log validation errors
