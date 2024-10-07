@@ -124,11 +124,11 @@ async function updateCalorieDayFoodItem(foodItem) {
             </section>
 
             <section v-if="props.account">
-                <ItemsDisplay size="sm" :list="without_fdcId" @increase-by="updateCalorieDayFoodItem" />
+                <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem" />
             </section>
 
             <section v-if="props.account">
-                <ItemsDisplay size="sm" :list="with_fdcId" @increase-by="updateCalorieDayFoodItem" />
+                <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem" />
             </section>
 
             <section>

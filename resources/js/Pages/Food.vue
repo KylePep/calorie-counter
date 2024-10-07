@@ -2,14 +2,30 @@
 import FoodList from "@/Components/FoodComponents/FoodList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head } from "@inertiajs/vue3";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import ItemsDisplay from "@/Components/ItemsDisplay.vue";
+import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
 
-const props = defineProps(['account', 'with_fdcId', 'without_fdcId'])
+const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
+
+
 
 const with_fdcId = computed(() => props.with_fdcId);
 const without_fdcId = computed(() => props.without_fdcId);
+
+const showEditForm = ref(false);
+const ActiveFoodItem = ref({})
+
+function setActive(foodItem) {
+  showEditForm.value = true;
+  ActiveFoodItem.value = foodItem;
+  console.log('[ACTIVE FOOD]', ActiveFoodItem.value)
+}
+const closeModal = () => {
+  showEditForm.value = false;
+  ActiveFoodItem.value = {};
+}
 
 </script>
 
@@ -38,17 +54,17 @@ const without_fdcId = computed(() => props.without_fdcId);
       </section>
 
       <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="without_fdcId" />
+        <ItemsDisplay size="lg" :list="without_fdcId" @item-Activated="setActive" />
       </section>
 
       <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="with_fdcId" />
+        <ItemsDisplay size="lg" :list="with_fdcId" @item-Activated="setActive" />
       </section>
 
       <section>
         <FoodList />
       </section>
-
+      <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 
     </div>
 

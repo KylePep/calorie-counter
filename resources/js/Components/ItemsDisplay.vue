@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 
-defineEmits(['increaseBy'])
+defineEmits(['itemActivated'])
 
 const props = defineProps(['list', 'size']);
 const currentSize = ref(props.size)
@@ -61,7 +61,7 @@ const currentSizeClass = computed(() => {
   <div
     class="grid grid-flow-col gap-3 min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap"
     :class="currentSizeClass">
-    <div @click="$emit('increaseBy', foodItem)" v-for="foodItem in props.list" :key="foodItem.id"
+    <div @click="$emit('itemActivated', foodItem)" v-for="foodItem in props.list" :key="foodItem.id"
       class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded ">
       <div class="flex flex-col min-h-36 justify-around">
         <p class="text-wrap">
