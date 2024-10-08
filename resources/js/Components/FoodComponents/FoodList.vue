@@ -8,11 +8,16 @@ import { computed, reactive, ref } from "vue";
 import { FoodSearchResponse } from "../../models/FoodSearchResponse.js";
 import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
 import Pop from "@/utils/Pop.js";
+import Dropdown from "../Dropdown.vue";
+import Checkbox from "../Checkbox.vue";
+import SecondaryButton from "../SecondaryButton.vue";
 
 defineEmits(['increase-by'])
 
 const form = useForm({
   query: '',
+  type: 'Branded',
+  requireAllWords: true
 });
 
 const usdaResponse = reactive({
@@ -34,17 +39,18 @@ const fetchFoodData = async (page = 1) => {
 
     let query = form.query.replace(/"/g, '').trim();
 
-    if (/^\d+$/.test(query)) {
-      query = '00' + query;
-    }
+    // if (/^\d+$/.test(query)) {
+    //   query = '00' + query;
+    // }
 
-    query = `"${query}"`;
+    // query = `"${query}"`;
 
     const response = await axios.get('/food-data', {
       params: {
         query: query,
         pageNumber: page,
         pageSize: 10,
+        dataType: form.type
       },
     });
 
@@ -88,19 +94,57 @@ async function favoriteItem(foodItem) {
 
 <template>
   <label for="" class="block font-bold hidden">Search for food</label>
-  <div class="flex mb-3 mt-6">
-    <form @submit.prevent="fetchFoodData(1)" class="flex items-center">
+  <div class="mb-3 mt-6">
+    <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-4 ">
       <div>
         <TextInput id="query" type="text" class=" block w-full" v-model="form.query" required autofocus />
         <InputError class="mt-2" :message="form.errors.query" />
       </div>
 
-      <div class="flex justify-end">
-        <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+      <div class="flex ">
+        <PrimaryButton class="ms-4 w-full justify-center" :class="{ 'opacity-25': form.processing }"
+          :disabled="form.processing">
           Search <i class="ps-3 mdi mdi-magnify"></i>
         </PrimaryButton>
       </div>
-      <p class="px-3 text-sm">* get as close to the products name as possible</p>
+
+
+      <div class=" flex justify-center">
+        <Dropdown align="left" width="48">
+
+          <template #trigger>
+            <span class="flex rounded-md">
+              <button type="button"
+                class="flex justify-between items-center min-w-48 h-10 px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                <p>
+                  Type:
+                </p>
+                <span class="flex-1 text-center">
+                  {{ form.type }}
+                </span>
+              </button>
+            </span>
+          </template>
+
+          <template #content>
+            <div class="flex flex-col text-start">
+              <button class="text-start " :class="[form.type == 'Branded' ? 'bg-red-500' : '']" type="button"
+                @click="form.type = 'Branded'">Branded</button>
+              <button class="text-start" :class="[form.type == 'Foundation' ? 'bg-red-500' : '']" type="button"
+                @click="form.type = 'Foundation'">Foundational</button>
+              <button class="text-start" :class="[form.type == 'SR Legacy' ? 'bg-red-500' : '']" type="button"
+                @click="form.type = 'SR Legacy'">Legacy</button>
+            </div>
+          </template>
+
+        </Dropdown>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <Checkbox class="h-6 w-6" :value="form.requireAllWords" :checked="true" /><span class="font-bold">Require All
+          Words</span>
+      </div>
+
     </form>
   </div>
 

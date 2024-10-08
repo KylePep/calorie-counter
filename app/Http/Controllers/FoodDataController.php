@@ -16,12 +16,13 @@ class FoodDataController extends Controller
         $query = $request->input('query');
         $pageNumber = $request->input('pageNumber',1);
         $pageSize = $request->input('pageSize', 10);
+        $dataType = $request->input('dataType', 'Branded');
 
         $url = 'https://api.nal.usda.gov/fdc/v1/foods/search';
 
         $params = [
             'query' => $query,
-            'dataType' => 'Branded',
+            'dataType' => $dataType,
             'pageSize'=> $pageSize,
             'pageNumber'=> $pageNumber,
             'api_key' => $apiKey,
