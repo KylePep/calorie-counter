@@ -23,16 +23,21 @@ const calorieGoal = ref(goal)
 const cellCount = ref(calorieGoal.value / 100)
 const calorieCountRows = ref(Math.ceil(calorieGoal.value / 1000))
 
-// const dayItems = computed(() => {
-//     if (calorieDay.value.length == 0) {
-//         return []
-//     } else {
-//         return calorieDay.value.food_items
-//             .split('"')
-//             .filter((item, index) => index % 2 !== 0 && item.trim());
-//     }
-// })
+async function removeAndSubtractFoodItem(foodItem) {
+    const data = {
+        remove: true,
+        goal: calorieDay.value.goal,
+        count: foodItem.count,
+        food_items: [{ description: foodItem.description, count: foodItem.count }]
+    };
+    try {
+        const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
+        calorieDay.value = res.data
+        Pop.success(`removed ${food_items.description}`)
+    } catch (error) {
 
+    }
+}
 
 async function updateCalorieDayUSDA(foodItem) {
     const totalCalories = Math.round(foodItem.foodNutrients[3].value * (foodItem.servingSize * .01))
@@ -118,7 +123,7 @@ async function updateCalorieDayFoodItem(foodItem) {
             </section>
 
             <section v-if="props.account && calorieDay.food_items.length">
-                <ConsumedList :dayItems="calorieDay.food_items" />
+                <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
             </section>
 
             <section v-if="props.account">

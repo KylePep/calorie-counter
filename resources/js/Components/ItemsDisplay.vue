@@ -7,7 +7,7 @@ const props = defineProps(['list', 'size']);
 const currentSize = ref(props.size)
 
 const maxSize = computed(() => {
-  if (props.list.length < 5 && props.list.length > 0) {
+  if (props.list.length < 5 && props.list.length >= 0) {
     return 'sm'
   } else if (props.list.length < 8) {
     return 'lg'

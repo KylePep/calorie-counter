@@ -66,10 +66,50 @@ class CalorieDayController extends Controller
         ]);
 
         $calorieDay->goal = $validated['goal'] ?? $calorieDay->goal;
-        $calorieDay->count += $validated['count'] ?? 0;
+        $existingFoodItems = json_decode($calorieDay->food_items, true) ?? [];
 
-        $existingFoodItems = json_decode($calorieDay->food_items,true) ?? [];
-        $calorieDay->food_items = json_encode(array_merge($existingFoodItems, $validated['food_items']));
+        if ($request->remove && isset($validated['food_items'])) {
+            
+            $existingFoodItems = json_decode($calorieDay->food_items, true) ?? [];
+
+            
+            if (!empty($existingFoodItems)) {
+                
+                $itemToRemove = $validated['food_items'][0];
+                $itemFound = false; 
+
+                // Find and remove the matching item
+                foreach ($existingFoodItems as $index => $item) {
+                    if (
+                        isset($item['description'], $itemToRemove['description']) &&
+                        $item['description'] === $itemToRemove['description'] 
+                    ) {
+                        // Remove the item from the array
+                        unset($existingFoodItems[$index]);
+                        $itemFound = true; // Set flag to true when item is found
+                        break; // Stop after removing the first match
+                    }
+                }
+
+                if (!$itemFound) {
+                    
+                    return response()->json([
+                        'error' => 'Food item not found for removal.',
+                    ], 404);
+                }
+    
+                // Re-index the array to maintain correct indexes after removal
+                $existingFoodItems = array_values($existingFoodItems);
+            }
+    
+            // Re-encode back to JSON
+            $calorieDay->food_items = json_encode($existingFoodItems);
+            $calorieDay->count -= $validated['count'] ?? 0;
+        } else {
+            $calorieDay->food_items = json_encode(array_merge($existingFoodItems, $validated['food_items']));
+            $calorieDay->count += $validated['count'] ?? 0;
+        }
+
 
         $calorieDay->save();
         $calorieDay->food_items = json_decode($calorieDay->food_items, true);
