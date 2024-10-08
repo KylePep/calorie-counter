@@ -72,11 +72,7 @@ class CalorieDayController extends Controller
         $calorieDay->food_items = json_encode(array_merge($existingFoodItems, $validated['food_items']));
 
         $calorieDay->save();
-
-        // return Inertia::location(route('dashboard'))->with('calorieDay', $calorieDay);
-        // return Inertia::render('Dashboard', [
-        //     'calorieDay' => $calorieDay,
-        // ]);
+        $calorieDay->food_items = json_decode($calorieDay->food_items, true);
         return $calorieDay;
 
     }

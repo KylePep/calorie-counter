@@ -21,6 +21,12 @@ class HistoryController extends Controller
         ->orderBy('created_at', 'desc') 
         ->get();
 
+          // Decode food_items for each CalorieDay in the collection
+        $calorieDays->transform(function ($calorieDay) {
+            $calorieDay->food_items = json_decode($calorieDay->food_items, true);
+            return $calorieDay;
+        });
+
         return Inertia::render('History', [
             'account' => $account,
             'calorieDays' => $calorieDays,

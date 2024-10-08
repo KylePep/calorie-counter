@@ -29,8 +29,15 @@
 
         <div>
           <h3 class="font-bold">Food Eaten</h3>
-          <p v-for="item in dayItems(day)" class="inline-block bg-gray-300 rounded-lg px-2 mx-1 lowercase text-sm">{{
-            item }}</p>
+          <p v-for="item in day.food_items" class="inline-block bg-gray-300 rounded-lg px-2 mx-1 lowercase text-sm">
+            <template v-if="item.description">
+              {{ item.description }} - {{ item.count }}
+            </template>
+            <!-- //TODO - Remove after data purification -->
+            <template v-else>
+              {{ item }}
+            </template>
+          </p>
         </div>
       </div>
     </div>

@@ -23,22 +23,24 @@ const calorieGoal = ref(goal)
 const cellCount = ref(calorieGoal.value / 100)
 const calorieCountRows = ref(Math.ceil(calorieGoal.value / 1000))
 
-const dayItems = computed(() => {
-    if (calorieDay.value.length == 0) {
-        return []
-    } else {
-        return calorieDay.value.food_items
-            .split('"')
-            .filter((item, index) => index % 2 !== 0 && item.trim());
-    }
-})
+// const dayItems = computed(() => {
+//     if (calorieDay.value.length == 0) {
+//         return []
+//     } else {
+//         return calorieDay.value.food_items
+//             .split('"')
+//             .filter((item, index) => index % 2 !== 0 && item.trim());
+//     }
+// })
 
 
 async function updateCalorieDayUSDA(foodItem) {
+    const totalCalories = Math.round(foodItem.foodNutrients[3].value * (foodItem.servingSize * .01))
+
     const data = {
         goal: calorieDay.value.goal,
-        count: Math.round(foodItem.foodNutrients[3].value * (foodItem.servingSize * .01)),
-        food_items: [foodItem.description]
+        count: totalCalories,
+        food_items: [{ description: foodItem.description, count: totalCalories }]
     }
     try {
         const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
@@ -53,7 +55,7 @@ async function updateCalorieDayFoodItem(foodItem) {
     const data = {
         goal: calorieDay.value.goal,
         count: foodItem.calories,
-        food_items: [foodItem.description]
+        food_items: [{ description: foodItem.description, count: foodItem.calories }]
     };
     try {
         const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
@@ -115,8 +117,8 @@ async function updateCalorieDayFoodItem(foodItem) {
                 </div>
             </section>
 
-            <section v-if="props.account && dayItems.length">
-                <ConsumedList :dayItems="dayItems" />
+            <section v-if="props.account && calorieDay.food_items.length">
+                <ConsumedList :dayItems="calorieDay.food_items" />
             </section>
 
             <section v-if="props.account">

@@ -1,6 +1,7 @@
 <script setup>
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import CalorieHistory from "../Components/FoodComponents/CalorieHistory.vue";
+import { Head } from "@inertiajs/vue3";
 
 const props = defineProps({
   account: {
@@ -16,8 +17,8 @@ const props = defineProps({
 
 <template>
 
-  <Head title="Dashboard">
-    <meta type="description" content="Profile's Food" head-key="Food">
+  <Head title="History">
+    <meta type="description" content="Calorie History" head-key="Food">
   </Head>
 
   <GlobalLayout>

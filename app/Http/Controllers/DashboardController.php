@@ -45,6 +45,9 @@ class DashboardController extends Controller
                         'user_id' => $user->id,
                         'food_items' => json_encode([]) // Convert array to JSON
                     ]);
+                } else {
+                    // Decode the food_items JSON into an array before sending it to the view
+                    $CalorieDay->food_items = json_decode($CalorieDay->food_items, true);
                 }
     
                 $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
