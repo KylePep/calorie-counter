@@ -22,7 +22,7 @@ const iconClass = computed(() => {
     <button
       class="group min-w-8 relative flex items-center justify-end text-xl bg-gray-600 text-white rounded-xl hover:bg-gray-800 ps-2 transition ease-in-out">
       <span
-        class="absolute group-hover:relative px-1 left-0 group-hover:-translate-x-0 group-hover:text-white text-transparent ease-in-out text-sm me-1 translate-x-10 delay-0 group-hover:delay-300 transition">
+        class=" px-1 left-0 group-hover:-translate-x-0 group-hover:text-white text-transparent ease-in-out text-sm me-1 translate-x-10 delay-0 group-hover:delay-300 transition">
         <slot />
       </span>
       <span :class="iconClass"

@@ -57,13 +57,6 @@ const fetchFoodData = async (page = 1) => {
       query = newArray.join(' ');
       console.log(query)
     }
-    // else {
-    //   if (/^\d+$/.test(query)) {
-    //     query = '00' + query;
-    //   }
-
-    //   query = `"${query}"`;
-    // }
 
 
     const response = await axios.get('/food-data', {
@@ -89,7 +82,7 @@ const fetchFoodData = async (page = 1) => {
 async function favoriteItem(foodItem) {
   const data = {
     ...foodItem,
-    calories: Math.round(foodItem.foodNutrients[3].value * (foodItem.servingSize * 0.01))
+    calories: foodItem.calories
   };
 
   try {
@@ -192,33 +185,15 @@ async function favoriteItem(foodItem) {
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2 text-center border-4 rounded-lg border-black/25">
 
     <div v-if="!foodSearchResponse.currentPage"
-      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow h-40 rounded">
+      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold hover:bg-gray-200 bg-gray-300 p-3 shadow h-40 rounded">
       Search for an item to begin counting calories!
     </div>
     <div v-if="foodSearchResponse.currentPage && foods.length == 0"
-      class="break-inside-avoid relative flex flex-col justify-center w-full text-gray-300 text-xl font-bold bg-gray-800 mb-6 p-3 shadow h-40 rounded">
+      class="break-inside-avoid relative flex flex-col justify-center w-full text-gray-300 text-xl font-bold bg-gray-800 p-3 shadow h-40 rounded">
       No results found
     </div>
 
     <UsdaFoodCard :food-items="foods" @increase-by="handleIncreaseBy" @extraButton="favoriteItem" />
 
-    <!-- <div @click="$emit('increase-by', item)" v-for="item in foods" :key="item.fdcId"
-      class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow">
-      <div class=" text-gray-800 font-bold drop-shadow-2xl"> {{
-        item.description
-      }}
-        <p class="text-xs">
-          ( {{ item.brandName }} by {{ item.brandOwner }} )
-        </p>
-      </div>
-      <div class=" text-gray-800 font-bold text-7xl drop-shadow-2xl"> {{
-        Math.round(item.foodNutrients[3]?.value * (item.servingSize * .01))
-      }}
-      </div>
-      <div class="flex justify-end">
-        <button @click.stop="favoriteItem(item)"
-          class="mdi mdi-star text-xl bg-gray-600 text-white rounded-xl hover:bg-gray-800 px-2"></button>
-      </div>
-    </div> -->
   </div>
 </template>
