@@ -6,6 +6,7 @@ import { computed, ref } from "vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import ItemsDisplay from "@/Components/ItemsDisplay.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
+import UsdaFoodCard from "@/Components/FoodComponents/UsdaFoodCard.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
 

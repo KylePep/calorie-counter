@@ -11,6 +11,7 @@ import Pop from "@/utils/Pop.js";
 import Dropdown from "../Dropdown.vue";
 import Checkbox from "../Checkbox.vue";
 import SecondaryButton from "../SecondaryButton.vue";
+import UsdaFoodCard from "./UsdaFoodCard.vue";
 
 defineEmits(['increase-by'])
 
@@ -39,11 +40,19 @@ const fetchFoodData = async (page = 1) => {
 
     let query = form.query.replace(/"/g, '').trim();
 
-    // if (/^\d+$/.test(query)) {
-    //   query = '00' + query;
+    if (form.requireAllWords) {
+      let newArray = query.split(' ').map(a => '+' + a);
+      query = newArray.join(' ');
+      console.log(query)
+    }
+    // else {
+    //   if (/^\d+$/.test(query)) {
+    //     query = '00' + query;
+    //   }
+
+    //   query = `"${query}"`;
     // }
 
-    // query = `"${query}"`;
 
     const response = await axios.get('/food-data', {
       params: {
@@ -141,7 +150,7 @@ async function favoriteItem(foodItem) {
       </div>
 
       <div class="flex items-center space-x-2">
-        <Checkbox class="h-6 w-6" :value="form.requireAllWords" :checked="true" /><span class="font-bold">Require All
+        <Checkbox class="h-6 w-6" v-model:checked="form.requireAllWords" /><span class="font-bold">Require All
           Words</span>
       </div>
 
@@ -167,7 +176,7 @@ async function favoriteItem(foodItem) {
     </button>
   </div>
 
-  <div class="columns-2 sm:column-3 gap-2 p-2 text-center border-4 rounded-lg border-black/25 ">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2 text-center border-4 rounded-lg border-black/25">
 
     <div v-if="!foodSearchResponse.currentPage"
       class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow h-40 rounded">
@@ -178,7 +187,9 @@ async function favoriteItem(foodItem) {
       No results found
     </div>
 
-    <div @click="$emit('increase-by', item)" v-for="item in foods" :key="item.fdcId"
+    <UsdaFoodCard :food-items="foods" />
+
+    <!-- <div @click="$emit('increase-by', item)" v-for="item in foods" :key="item.fdcId"
       class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow">
       <div class=" text-gray-800 font-bold drop-shadow-2xl"> {{
         item.description
@@ -195,6 +206,6 @@ async function favoriteItem(foodItem) {
         <button @click.stop="favoriteItem(item)"
           class="mdi mdi-star text-xl bg-gray-600 text-white rounded-xl hover:bg-gray-800 px-2"></button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>

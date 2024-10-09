@@ -3,6 +3,6 @@ export class FoodNutrient {
     this.value = data.value;
     this.nutrientName = data.nutrientName;
     this.unitName = data.unitName;
-    this.percentDailyValue = data.percentDailyValue;
+    this.percentDailyValue = data.percentDailyValue ?? 0;
   }
 }
