@@ -1,7 +1,22 @@
 <script setup>
 import { computed, ref } from "vue";
+import FoodCard from "./FoodComponents/FoodCard.vue";
 
-defineEmits(['itemActivated'])
+const emit = defineEmits(['itemActivated'])
+
+function emitItemActivated(item) {
+  emit('itemActivated', item);
+}
+
+function handleExtraButton(item, action) {
+  if (action == 'edit') {
+
+  } else if (action == 'add') {
+
+  } else {
+
+  }
+}
 
 const props = defineProps(['list', 'size']);
 const currentSize = ref(props.size)
@@ -62,17 +77,7 @@ const currentSizeClass = computed(() => {
   <div
     class="grid grid-flow-col gap-3 min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap"
     :class="currentSizeClass">
-    <div @click="$emit('itemActivated', foodItem)" v-for="foodItem in props.list" :key="foodItem.id"
-      class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded ">
-      <div class="flex flex-col min-h-36 justify-around">
-        <p class="text-wrap">
-          {{ foodItem.description }}
-        </p>
-        <p>
-          calories: {{ foodItem.calories }}
-        </p>
-      </div>
-    </div>
+    <FoodCard :foodItems="props.list" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
     <div v-if="props.list.length == 0"
       class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded ">
       <div class="flex flex-col min-h-36 justify-around">

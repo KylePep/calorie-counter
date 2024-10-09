@@ -13,7 +13,11 @@ import Checkbox from "../Checkbox.vue";
 import SecondaryButton from "../SecondaryButton.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 
-defineEmits(['increase-by'])
+const emit = defineEmits(['increase-by'])
+
+function handleIncreaseBy(item) {
+  emit('increase-by', item); // Re-emit the event upwards
+}
 
 const form = useForm({
   query: '',
@@ -196,7 +200,7 @@ async function favoriteItem(foodItem) {
       No results found
     </div>
 
-    <UsdaFoodCard :food-items="foods" />
+    <UsdaFoodCard :food-items="foods" @increase-by="handleIncreaseBy" @extraButton="favoriteItem" />
 
     <!-- <div @click="$emit('increase-by', item)" v-for="item in foods" :key="item.fdcId"
       class="break-inside-avoid relative flex flex-col justify-between w-full hover:bg-gray-200 bg-gray-300 mb-6 p-3 shadow">

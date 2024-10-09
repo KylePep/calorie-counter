@@ -40,7 +40,7 @@ async function removeAndSubtractFoodItem(foodItem) {
 }
 
 async function updateCalorieDayUSDA(foodItem) {
-    const totalCalories = Math.round(foodItem.foodNutrients[3].value * (foodItem.servingSize * .01))
+    const totalCalories = foodItem.calories
 
     const data = {
         goal: calorieDay.value.goal,

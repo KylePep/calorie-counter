@@ -3,8 +3,26 @@ import FoodCardButton from "./FoodCardButton.vue";
 
 const props = defineProps(['foodItems']);
 
+const emit = defineEmits(['increase-by', 'extraButton'])
+
+function emitIncreaseBy(item) {
+  if (item.gtinUpc) {
+    item.calories = getBrandedCalories(item)
+  } else {
+    item.calories = getCalories(item)
+  }
+  emit('increase-by', item);
+}
+
+function extraButton(item, purpose) {
+  emit('extraButton', item, purpose);
+}
+
 const getCalories = (item) => {
   const energy = item.foodNutrients.find(fn => fn.nutrientName == 'Energy' && fn.unitName == 'KCAL');
+  if (!energy) {
+    return 0
+  }
   return energy.value;
 }
 
@@ -21,7 +39,7 @@ const getBrandedCalories = (item) => {
 
 
 
-  <div @click="$emit('increase-by', item)" v-for="item in foodItems" :key="item.fdcId">
+  <div v-for="item in foodItems" :key="item.fdcId">
 
     <section
       class="flex flex-col break-inside-avoid hover:bg-gray-200 bg-gray-300  rounded-t border-4 border-black/25 pb-3 min-h-40">
@@ -37,13 +55,13 @@ const getBrandedCalories = (item) => {
           </template>
         </div>
 
-        <FoodCardButton icon="pencil">Edit</FoodCardButton>
-        <FoodCardButton icon="star">Favorite</FoodCardButton>
-        <FoodCardButton icon="plus">Add</FoodCardButton>
+        <FoodCardButton @click.stop="extraButton(item, 'edit')" icon="pencil">Edit</FoodCardButton>
+        <FoodCardButton @click.stop="extraButton(item, 'favorite')" icon="star">Favorite</FoodCardButton>
+        <FoodCardButton @click.stop="emitIncreaseBy(item)" icon="plus">Add</FoodCardButton>
 
       </div>
 
-      <div class="text-gray-800 font-bold p-3 drop-shadow-2xl my-auto">
+      <div @click="emitIncreaseBy(item)" class="text-gray-800 font-bold p-3 drop-shadow-2xl my-auto">
         <h1 class="font-bold" :class="[item.gtinUpc ? 'text-base' : 'text-lg']">{{ item.description }}</h1>
         <p class="text-xs" v-if="item.gtinUpc && item.brandOwner">
           ( {{ item.brandName + [item.brandName ? ' by' : ''] }} {{ item.brandOwner }} )
