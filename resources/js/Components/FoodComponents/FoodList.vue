@@ -35,6 +35,14 @@ const usdaResponse = reactive({
 const foodSearchResponse = computed(() => usdaResponse.foodSearchResponse)
 const foods = computed(() => usdaResponse.foods)
 
+const typeName = computed(() => {
+  return {
+    "SR Legacy": 'Legacy',
+    Foundation: 'Foundation',
+    Branded: 'Branded'
+  }[form.type]
+})
+
 const fetchFoodData = async (page = 1) => {
   try {
 
@@ -129,20 +137,21 @@ async function favoriteItem(foodItem) {
                   Type:
                 </p>
                 <span class="flex-1 text-center">
-                  {{ form.type }}
+                  {{ typeName }}
                 </span>
               </button>
             </span>
           </template>
 
           <template #content>
-            <div class="flex flex-col text-start">
-              <button class="text-start " :class="[form.type == 'Branded' ? 'bg-red-500' : '']" type="button"
-                @click="form.type = 'Branded'">Branded</button>
-              <button class="text-start" :class="[form.type == 'Foundation' ? 'bg-red-500' : '']" type="button"
+            <div class="flex flex-col p-2">
+              <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'Branded'">Branded</button>
+              <button class="text-start p-1"
+                :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
                 @click="form.type = 'Foundation'">Foundational</button>
-              <button class="text-start" :class="[form.type == 'SR Legacy' ? 'bg-red-500' : '']" type="button"
-                @click="form.type = 'SR Legacy'">Legacy</button>
+              <button class="text-start p-1" :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'SR Legacy'">Legacy</button>
             </div>
           </template>
 
