@@ -108,57 +108,63 @@ async function favoriteItem(foodItem) {
 
 <template>
   <label for="" class="block font-bold hidden">Search for food</label>
+
   <div class="mb-3 mt-6">
-    <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-4 ">
-      <div>
-        <TextInput id="query" type="text" class=" block w-full" v-model="form.query" required autofocus />
-        <InputError class="mt-2" :message="form.errors.query" />
+    <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-1 sm:grid-cols-2">
+      <div class="flex justify-between border-2 border-black/25 bg-black/25 rounded">
+        <div class="flex-1">
+          <TextInput id="query" type="text" class=" block w-full" v-model="form.query" required autofocus />
+          <InputError class="mt-2" :message="form.errors.query" />
+        </div>
+
+        <div class="flex ">
+          <PrimaryButton class=" w-full justify-center" :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing">
+            Search <i class="ps-3 mdi mdi-magnify"></i>
+          </PrimaryButton>
+        </div>
       </div>
 
-      <div class="flex ">
-        <PrimaryButton class="ms-4 w-full justify-center" :class="{ 'opacity-25': form.processing }"
-          :disabled="form.processing">
-          Search <i class="ps-3 mdi mdi-magnify"></i>
-        </PrimaryButton>
+      <div class="flex justify-start space-x-2 border-2 border-black/25 rounded">
+        <div class=" flex justify-center">
+          <Dropdown align="left" width="100">
+
+            <template #trigger>
+              <span class="flex rounded-md">
+                <button type="button"
+                  class="flex justify-between items-center h-10 px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                  <p>
+                    Type:
+                  </p>
+                  <span class="flex-1 text-center">
+                    {{ typeName }}
+                  </span>
+                </button>
+              </span>
+            </template>
+
+            <template #content>
+              <div class="flex flex-col p-2">
+                <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
+                  type="button" @click="form.type = 'Branded'">Branded</button>
+                <button class="text-start p-1"
+                  :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
+                  @click="form.type = 'Foundation'">Foundational</button>
+                <button class="text-start p-1"
+                  :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']" type="button"
+                  @click="form.type = 'SR Legacy'">Legacy</button>
+              </div>
+            </template>
+
+          </Dropdown>
+        </div>
+
+        <div class="flex justify-between items-center ">
+          <Checkbox class="h-6 w-6" v-model:checked="form.requireAllWords" /><span class="ms-3 text-xs">Require All
+            Words</span>
+        </div>
       </div>
 
-
-      <div class=" flex justify-center">
-        <Dropdown align="left" width="48">
-
-          <template #trigger>
-            <span class="flex rounded-md">
-              <button type="button"
-                class="flex justify-between items-center min-w-48 h-10 px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                <p>
-                  Type:
-                </p>
-                <span class="flex-1 text-center">
-                  {{ typeName }}
-                </span>
-              </button>
-            </span>
-          </template>
-
-          <template #content>
-            <div class="flex flex-col p-2">
-              <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'Branded'">Branded</button>
-              <button class="text-start p-1"
-                :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
-                @click="form.type = 'Foundation'">Foundational</button>
-              <button class="text-start p-1" :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'SR Legacy'">Legacy</button>
-            </div>
-          </template>
-
-        </Dropdown>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <Checkbox class="h-6 w-6" v-model:checked="form.requireAllWords" /><span class="font-bold">Require All
-          Words</span>
-      </div>
 
     </form>
   </div>

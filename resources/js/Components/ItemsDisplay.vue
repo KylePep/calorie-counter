@@ -75,7 +75,7 @@ const currentSizeClass = computed(() => {
   </div>
 
   <div
-    class="grid grid-flow-col gap-3 min-h-40 p-2 text-center border-4 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap"
+    class="grid grid-flow-col gap-3 min-h-40 p-2 text-center border-2 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap"
     :class="currentSizeClass">
     <FoodCard :foodItems="props.list" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
     <div v-if="props.list.length == 0"

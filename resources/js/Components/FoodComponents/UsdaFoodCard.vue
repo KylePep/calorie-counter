@@ -1,5 +1,5 @@
 <script setup>
-import FoodCardButton from "./FoodCardButton.vue";
+import UsdaFoodCardButton from "./UsdaFoodCardButton.vue";
 
 const props = defineProps(['foodItems']);
 
@@ -60,9 +60,9 @@ const getBrandedCalories = (item) => {
           </template>
         </div>
 
-        <FoodCardButton @click.stop="extraButton(item, 'edit')" icon="pencil">Edit</FoodCardButton>
-        <FoodCardButton @click.stop="extraButton(item, 'favorite')" icon="star">Favorite</FoodCardButton>
-        <FoodCardButton @click.stop="emitIncreaseBy(item)" icon="plus">Add</FoodCardButton>
+        <UsdaFoodCardButton @click.stop="extraButton(item, 'edit')" icon="pencil">Edit</UsdaFoodCardButton>
+        <UsdaFoodCardButton @click.stop="extraButton(item, 'favorite')" icon="star">Favorite</UsdaFoodCardButton>
+        <UsdaFoodCardButton @click.stop="emitIncreaseBy(item)" icon="plus">Add</UsdaFoodCardButton>
 
       </div>
 
@@ -78,7 +78,7 @@ const getBrandedCalories = (item) => {
     <section
       class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-4 border-t-0 border-black/25 bg-gray-300">
       <div v-for="block in Math.round([item.gtinUpc ? getBrandedCalories(item) : getCalories(item)] / 50) "
-        class="bg-gray-700 h-4 border-2 border-black rounded-sm">
+        class="bg-gray-400 h-4 border-2 border-black/25 rounded-sm">
       </div>
     </section>
 

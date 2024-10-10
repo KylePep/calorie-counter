@@ -12,6 +12,15 @@ export default {
 
     theme: {
         extend: {
+            animation: {
+                'infinite-scroll': 'infinite-scroll 15s linear infinite',
+            },
+            keyframes: {
+                'infinite-scroll': {
+                    from: { transform: 'translateX(50%)' },
+                    to: { transform: 'translateX(-50%)' },
+                }
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

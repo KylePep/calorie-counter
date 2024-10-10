@@ -20,14 +20,14 @@ function emitExtraButton(item, action) {
 
 <template>
 
-  <div class="" v-for="item in foodItems" :key="item">
+  <div class="flex flex-col " v-for="item in foodItems" :key="item">
 
     <section @click="emitItemActivated(item)"
-      class=" break-inside-avoid hover:bg-gray-200 bg-gray-300  rounded-t border-4 border-black/25 pb-3 min-h-40 w-80">
+      class=" break-inside-avoid hover:bg-gray-200 bg-gray-300 flex-1 rounded-t border-2 border-black/25 pb-3  w-80">
 
       <div class="grid grid-cols-3 gap-1 bg-gray-200 justify-between items-end px-1 border-b-2 border-black/25">
 
-        <div class=" text-gray-800 font-bold text-3xl drop-shadow-2xl ">
+        <div class=" text-gray-800 font-bold text-lg drop-shadow-2xl ">
           {{ item.calories }}
         </div>
 
@@ -38,15 +38,16 @@ function emitExtraButton(item, action) {
 
       </div>
 
-      <div class="text-gray-800 font-bold p-3 drop-shadow-2xl my-auto">
-        <h1 class="font-bold text-wrap">{{ item.description }}</h1>
+      <div class="text-gray-800 font-bold p-3 drop-shadow-2xl ">
+        <h1 class="font-bold text-wrap text-xs">{{ item.description }}</h1>
       </div>
 
     </section>
 
     <section
-      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 w-80 p-1 border-4 border-t-0 border-black/25 bg-gray-300">
-      <div v-for="block in Math.round(item.calories / 50) " class="bg-gray-700 h-4 border-2 border-black rounded-sm">
+      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 w-80 p-1 border-2 border-t-0 border-black/25 bg-gray-300">
+      <div v-for="block in Math.round(item.calories / 50) " title="50 Calories"
+        class="bg-gray-400 h-2 border-2 border-black/25 rounded-sm">
       </div>
     </section>
 
