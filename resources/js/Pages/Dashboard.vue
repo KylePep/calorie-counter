@@ -102,7 +102,7 @@ async function updateCalorieDayFoodItem(foodItem) {
                     <li>--This can be the purpose of the edit button, Need click usda item, run usda get -> item id
                     </li>
                 </ul>
-                <ul>
+                <!-- <ul>
                     <h1 class="font-bold">
                         Wishlist
                     </h1>
@@ -110,7 +110,7 @@ async function updateCalorieDayFoodItem(foodItem) {
                     <li>-New data object where you can assemble several food Items, from usda and your own.</li>
                     <li>History configurable, sortable by month etc</li>
                     <li></li>
-                </ul>
+                </ul> -->
             </section>
 
             <section>

@@ -17,7 +17,6 @@ const confirmingFoodDetailsEdit = computed(() => props.showModal);
 const foodData = computed(() => props.foodItem)
 
 watch(foodData, (newfoodData) => {
-  console.log(`foodItem is ${newfoodData.description}`);
   setForm();
 })
 
@@ -54,13 +53,7 @@ const setForm = () => {
     form.calories = props.foodItem.calories || 0,
     form.ingredients = props.foodItem.ingredients || '',
 
-    form.foodNutrients = form.foodNutrients.map(nutrient => {
-      const nutrientValue = props.foodItem[nutrient.nutrientName]?.value || 0;
-      return {
-        ...nutrient,
-        value: nutrientValue
-      };
-    });
+    form.foodNutrients = props.foodItem.foodNutrients
 }
 
 watch(props.foodItem, setForm)
@@ -114,7 +107,6 @@ async function updateItem() {
 
 <template>
   <Modal :show="confirmingFoodDetailsEdit" @close="closeModal">
-
     <FoodDetailsForm :formData="form" @cancel="closeModal">
       <SecondaryButton type="button" @click="closeModal">
         Cancel

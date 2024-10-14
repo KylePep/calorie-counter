@@ -22,6 +22,12 @@ class FoodController extends Controller
             return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
         });
 
+        foreach($groupedFoodItems as $group => $items){
+            foreach($items as $item){
+                $item->foodNutrients = json_decode($item->foodNutrients, true);
+            }
+        }
+
         return Inertia::render('Food', [
             'status' => session('status'),
             'account' => $account,
@@ -91,7 +97,7 @@ class FoodController extends Controller
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => json_encode($attributes['foodNutrients']), // Convert array to JSON
-            'ingredients' => json_encode($attributes['ingredients']) //This is needs to be a string
+            'ingredients' => $attributes['ingredients'] //This is needs to be a string
         ]);
 
         return back()->with([

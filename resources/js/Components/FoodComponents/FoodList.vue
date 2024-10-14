@@ -110,7 +110,7 @@ async function favoriteItem(foodItem) {
   <label for="" class="block font-bold hidden">Search for food</label>
 
   <div class="mb-3 mt-6">
-    <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-1 sm:grid-cols-2">
+    <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="flex justify-between border-2 border-black/25 bg-black/25 rounded">
         <div class="flex-1">
           <TextInput id="query" type="text" class=" block w-full" v-model="form.query" required autofocus />
@@ -125,8 +125,8 @@ async function favoriteItem(foodItem) {
         </div>
       </div>
 
-      <div class="flex sm:justify-between pe-2 space-x-2 border-2 border-black/25 rounded">
-        <div class=" flex justify-center">
+      <div class="grid grid-cols-2 p-1">
+        <div class=" flex justify-start">
           <Dropdown align="left" width="100">
 
             <template #trigger>
@@ -159,7 +159,7 @@ async function favoriteItem(foodItem) {
           </Dropdown>
         </div>
 
-        <div class="flex justify-between items-center ">
+        <div class="flex justify-center items-center ">
           <Checkbox class="h-6 w-6" v-model:checked="form.requireAllWords" /><span class="ms-3 text-xs">Require All
             Words</span>
         </div>
@@ -171,18 +171,18 @@ async function favoriteItem(foodItem) {
 
   <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
     <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)" :disabled="foodSearchResponse.currentPage <= 1"
-      :class="foodSearchResponse.currentPage <= 1 ? 'text-black/25' : 'hover:bg-gray-200 text-black/75'"
+      :class="foodSearchResponse.currentPage <= 1 ? 'text-black/25' : 'hover:bg-gray-600 bg-gray-500 text-white'"
       class="bg-gray-300 py-1 px-3 rounded">
       Previous
     </button>
 
-    <p class="font-semibold text-black/50">Total Hits: {{ foodSearchResponse.totalHits }}</p>
-    <p class="font-semibold text-black/50">Current Page: {{ foodSearchResponse.currentPage }}</p>
-    <p class="font-semibold text-black/50">Total Pages: {{ foodSearchResponse.totalPages }}</p>
+    <p class="text-xs sm:text-base font-semibold text-black/50"> Hits: {{ foodSearchResponse.totalHits }}</p>
+    <p class="text-xs sm:text-base font-semibold text-black/50"> Page: {{ foodSearchResponse.currentPage }} - {{
+      foodSearchResponse.totalPages }} </p>
 
     <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
       :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
-      :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-black/25' : 'hover:bg-gray-200 text-black/75'"
+      :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-black/25' : 'hover:bg-gray-600 bg-gray-500 text-white'"
       class="bg-gray-300  py-1 px-3 rounded">
       Next
     </button>

@@ -98,6 +98,7 @@ function handleExtraButton(item, action) {
       <section>
         <FoodList />
       </section>
+
       <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 
     </div>
