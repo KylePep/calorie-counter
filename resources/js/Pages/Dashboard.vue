@@ -95,7 +95,7 @@ async function updateCalorieDayFoodItem(foodItem) {
                     <li>Nutrients are not represented on/within form</li>
                     <li>Buttons on FoodCards do not function</li>
                     <li>-Edit</li>
-                    <li>-Delete</li>
+                    <li class="line-through text-gray-400">-Delete</li>
                     <li>-Add</li>
                     <li>UsdaFoodCard missing function</li>
                     <li>-Edit</li>

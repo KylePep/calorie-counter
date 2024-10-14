@@ -106,9 +106,7 @@ class FoodController extends Controller
 
         if($user->foodItems()->where('id', $foodItem->id)->exists()){
             $foodItem->delete();
-            return  response()->json(['message' => 'Food item deleted successfully']);
         } 
-        return response()->json(['message' => 'Food item not found'], 404);
-        
+        return redirect()->back();
     }
 }

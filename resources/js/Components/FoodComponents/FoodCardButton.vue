@@ -20,7 +20,7 @@ const iconClass = computed(() => {
   <div class=" group flex justify-end items-center h-full">
 
     <button
-      class="group min-w-8 relative flex items-center justify-end text-xl bg-gray-500 text-white rounded-xl hover:bg-gray-600 ps-2 transition ease-in-out">
+      class="group min-w-8 relative flex items-center justify-end text-xl bg-gray-500 text-white rounded-xl group-hover:bg-gray-600 ps-2 transition ease-in-out">
       <span
         class="text-xs px-1 left-0 group-hover:-translate-x-0 group-hover:text-white text-transparent ease-in-out text-sm me-1 translate-x-10 delay-0 group-hover:delay-300 transition">
         <slot />

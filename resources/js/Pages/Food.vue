@@ -1,7 +1,7 @@
 <script setup>
 import FoodList from "@/Components/FoodComponents/FoodList.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import ItemsDisplay from "@/Components/ItemsDisplay.vue";
@@ -28,20 +28,23 @@ const closeModal = () => {
   ActiveFoodItem.value = {};
 }
 
-async function deleteFoodItem(item) {
-  try {
-    const confirmDelete = await Pop.confirm(`Delete ${item.description}?`)
-    if (!confirmDelete) {
-      return
-    }
-    const res = await axios.delete(route('food.destroy', item.id))
-    console.log(res.data)
-    with_fdcId = with_fdcId.value.filter((fi) => fi.id != item.id)
-    without_fdcId = without_fdcId.value.filter((fi) => fi.id != item.id)
-    Pop.success(`${item.description} deleted`)
-  } catch (error) {
-    console.log(error)
+async function deleteFoodItem(foodItem) {
+
+  const form = useForm(foodItem)
+
+  const confirmDelete = await Pop.confirm(`Delete ${form.description}?`)
+  if (!confirmDelete) {
+    return
   }
+  form.delete(route('food.destroy', foodItem.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`${form.description} deleted`)
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 }
 
 function handleExtraButton(item, action) {
