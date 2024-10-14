@@ -42,12 +42,12 @@ async function removeAndSubtractFoodItem(foodItem) {
 async function updateCalorieDayUSDA(foodItem) {
     const totalCalories = foodItem.calories
 
-    const data = {
-        goal: calorieDay.value.goal,
-        count: totalCalories,
-        food_items: [{ description: foodItem.description, count: totalCalories }]
-    }
     try {
+        const data = {
+            goal: calorieDay.value.goal,
+            count: totalCalories,
+            food_items: [{ description: foodItem.description, count: totalCalories }]
+        }
         const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
         calorieDay.value = res.data
         Pop.success(`+ ${data.count} Calories`)
@@ -57,12 +57,12 @@ async function updateCalorieDayUSDA(foodItem) {
 
 }
 async function updateCalorieDayFoodItem(foodItem) {
-    const data = {
-        goal: calorieDay.value.goal,
-        count: foodItem.calories,
-        food_items: [{ description: foodItem.description, count: foodItem.calories }]
-    };
     try {
+        const data = {
+            goal: calorieDay.value.goal,
+            count: foodItem.calories,
+            food_items: [{ description: foodItem.description, count: foodItem.calories }]
+        };
         const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
         calorieDay.value = res.data
         Pop.success(`+ ${data.count} Calories`)
@@ -86,6 +86,32 @@ async function updateCalorieDayFoodItem(foodItem) {
         </template>
 
         <div class="space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
+
+            <section class="space-y-4">
+                <ul>
+                    <h1 class="font-bold">
+                        Known Issues:
+                    </h1>
+                    <li>Nutrients are not represented on/within form</li>
+                    <li>Buttons on FoodCards do not function</li>
+                    <li>-Edit</li>
+                    <li>-Delete</li>
+                    <li>-Add</li>
+                    <li>UsdaFoodCard missing function</li>
+                    <li>-Edit</li>
+                    <li>--This can be the purpose of the edit button, Need click usda item, run usda get -> item id
+                    </li>
+                </ul>
+                <ul>
+                    <h1 class="font-bold">
+                        Wishlist
+                    </h1>
+                    <li>Meals</li>
+                    <li>-New data object where you can assemble several food Items, from usda and your own.</li>
+                    <li>History configurable, sortable by month etc</li>
+                    <li></li>
+                </ul>
+            </section>
 
             <section>
                 <div v-if="!props.account" class="pb-3">

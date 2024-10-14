@@ -2,20 +2,14 @@
 import { computed, ref } from "vue";
 import FoodCard from "./FoodComponents/FoodCard.vue";
 
-const emit = defineEmits(['itemActivated'])
+const emit = defineEmits(['itemActivated', 'extraButton'])
 
 function emitItemActivated(item) {
   emit('itemActivated', item);
 }
 
 function handleExtraButton(item, action) {
-  if (action == 'edit') {
-
-  } else if (action == 'add') {
-
-  } else {
-
-  }
+  emit('extraButton', item, action)
 }
 
 const props = defineProps(['list', 'size']);

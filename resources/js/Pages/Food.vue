@@ -6,7 +6,8 @@ import { computed, ref } from "vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import ItemsDisplay from "@/Components/ItemsDisplay.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
-import UsdaFoodCard from "@/Components/FoodComponents/UsdaFoodCard.vue";
+import Pop from "@/utils/Pop.js";
+import axios from "axios";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
 
@@ -21,11 +22,36 @@ const ActiveFoodItem = ref({})
 function setActive(foodItem) {
   showEditForm.value = true;
   ActiveFoodItem.value = foodItem;
-  console.log('[ACTIVE FOOD]', ActiveFoodItem.value)
 }
 const closeModal = () => {
   showEditForm.value = false;
   ActiveFoodItem.value = {};
+}
+
+async function deleteFoodItem(item) {
+  try {
+    const confirmDelete = await Pop.confirm(`Delete ${item.description}?`)
+    if (!confirmDelete) {
+      return
+    }
+    const res = await axios.delete(route('food.destroy', item.id))
+    console.log(res.data)
+    with_fdcId = with_fdcId.value.filter((fi) => fi.id != item.id)
+    without_fdcId = without_fdcId.value.filter((fi) => fi.id != item.id)
+    Pop.success(`${item.description} deleted`)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function handleExtraButton(item, action) {
+  if (action == 'edit') {
+    setActive(item)
+  } else if (action == 'add') {
+    return
+  } else {
+    deleteFoodItem(item)
+  }
 }
 
 </script>
@@ -55,13 +81,13 @@ const closeModal = () => {
       </section>
 
       <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="without_fdcId" @item-Activated="setActive">
+        <ItemsDisplay size="lg" :list="without_fdcId" @item-Activated="setActive" @extra-button="handleExtraButton">
           <h1 class="text-xl font-bold">Your Foods</h1>
         </ItemsDisplay>
       </section>
 
       <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="with_fdcId" @item-Activated="setActive">
+        <ItemsDisplay size="lg" :list="with_fdcId" @item-Activated="setActive" @extra-button="handleExtraButton">
           <h1 class="text-xl font-bold">Favorite Foods</h1>
         </ItemsDisplay>
       </section>

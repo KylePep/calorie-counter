@@ -125,7 +125,7 @@ async function favoriteItem(foodItem) {
         </div>
       </div>
 
-      <div class="flex justify-start space-x-2 border-2 border-black/25 rounded">
+      <div class="flex sm:justify-between pe-2 space-x-2 border-2 border-black/25 rounded">
         <div class=" flex justify-center">
           <Dropdown align="left" width="100">
 
