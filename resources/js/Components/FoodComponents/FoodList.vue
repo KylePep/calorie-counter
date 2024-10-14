@@ -111,9 +111,9 @@ async function favoriteItem(foodItem) {
 
   <div class="mb-3 mt-6">
     <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="flex justify-between border-2 border-black/25 bg-black/25 rounded">
+      <div class="flex justify-between items-center">
         <div class="flex-1">
-          <TextInput id="query" type="text" class=" block w-full" v-model="form.query" required autofocus />
+          <TextInput id="query" type="text" class=" block w-full p-2 text-sm" v-model="form.query" required autofocus />
           <InputError class="mt-2" :message="form.errors.query" />
         </div>
 

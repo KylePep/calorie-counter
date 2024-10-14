@@ -92,7 +92,7 @@ async function updateCalorieDayFoodItem(foodItem) {
                     <h1 class="font-bold">
                         Known Issues:
                     </h1>
-                    <li>Nutrients are not represented on/within form</li>
+                    <li class="line-through text-gray-400">Nutrients are not represented on/within form</li>
                     <li>Buttons on FoodCards do not function</li>
                     <li>-Edit</li>
                     <li class="line-through text-gray-400">-Delete</li>
