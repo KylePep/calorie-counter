@@ -13,7 +13,7 @@
           <h2 class="text-lg">Calories: {{ day.count }}</h2>
           <h3 class="text-lg">Goal: {{ day.goal }}</h3>
           <div>
-            <Link :href="route('dashboard')"
+            <Link :href="route('calorieDay.show', day)"
               class="mdi mdi-pencil px-4 py-1 bg-gray-500 hover:bg-gray-600 text-white rounded-lg"> Edit</Link>
           </div>
         </div>

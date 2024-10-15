@@ -12,7 +12,7 @@ import axios from "axios";
 import { computed, ref } from "vue";
 import CalorieDisplay from '../Components/FoodComponents/CalorieDisplay.vue'
 
-const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId'])
+const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId']);
 
 const with_fdcId = computed(() => props.with_fdcId);
 const without_fdcId = computed(() => props.without_fdcId);
@@ -132,7 +132,8 @@ function handleExtraButton(item, action, type) {
                 </div>
 
                 <p v-else class="text-xl font-bold">
-                    Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
+                    Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories {{ new
+                        Date().toLocaleDateString() }}
                 </p>
             </section>
 

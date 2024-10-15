@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/food/{foodItem}', [FoodController::class, 'update'])->name('food.update');
     Route::delete('/food/{foodItem}', [FoodController::class, 'destroy'])->name('food.destroy');
 
+    Route::get('/calorie-day/{calorieDay}', [CalorieDayController::class, 'show'])->name('calorieDay.show');
     Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
 
     Route::get('/account', [AccountController::class, 'show'])->name('account.show');

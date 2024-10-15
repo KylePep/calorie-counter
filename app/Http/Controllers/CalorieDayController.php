@@ -42,7 +42,30 @@ class CalorieDayController extends Controller
      */
     public function show(CalorieDay $calorieDay)
     {
-        //
+
+        $user = User::find(Auth::id());
+
+        $account = $user->account;
+
+
+        $calorieDay->food_items = json_decode($calorieDay->food_items, true);
+
+        $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
+            return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
+        });
+
+        foreach($groupedFoodItems as $group => $items){
+            foreach($items as $item){
+                $item->foodNutrients = json_decode($item->foodNutrients, true);
+            }
+        }
+
+        return Inertia::render('CalorieDay', [
+            'account' => $account,
+            'calorieDay' => $calorieDay,
+            'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
+            'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
+        ]);
     }
 
     /**
