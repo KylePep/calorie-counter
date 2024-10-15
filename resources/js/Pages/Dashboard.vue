@@ -112,7 +112,7 @@ function handleExtraButton(item, action, type) {
                     <li class="line-through text-gray-400">Scrolling text needs adjustment on consumed list</li>
                     <li class="line-through text-gray-400">Consumed List cursor-pointer</li>
                     <li>Profile should have recorded account details editable</li>
-                    <li>FoodList no search, remove hover</li>
+                    <li class="line-through text-gray-400">FoodList no search, remove hover</li>
                 </ul>
                 <ul class="list-disc">
                     <h1 class="font-bold">

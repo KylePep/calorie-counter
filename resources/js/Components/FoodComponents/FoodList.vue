@@ -198,7 +198,7 @@ async function favoriteItem(foodItem) {
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2 text-center border-4 rounded-lg border-black/25">
 
     <div v-if="!foodSearchResponse.currentPage"
-      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold hover:bg-gray-200 bg-gray-300 p-3 shadow h-40 rounded">
+      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-gray-300 p-3 shadow h-40 rounded">
       Search for an item to begin counting calories!
     </div>
     <div v-if="foodSearchResponse.currentPage && foods.length == 0"
