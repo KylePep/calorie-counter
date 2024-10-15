@@ -38,7 +38,7 @@ const form = useForm({
 const calculateResult = () => {
   const height = ((form.heightFeet * 12) +
     form.heightInches) * 2.54
-  console.log(height, form.heightFeet, form.heightInches)
+  // console.log(height, form.heightFeet, form.heightInches)
   const weight = form.weight / 2.205
   const genderMod = form.gender == 'Female' ? -161 : +5
 

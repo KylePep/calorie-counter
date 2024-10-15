@@ -4,10 +4,9 @@ import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Pop from "@/utils/Pop.js";
-import { Link, useForm } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
-import CalorieHistory from '../../Components/FoodComponents/CalorieHistory.vue'
-import SecondaryButton from "@/Components/SecondaryButton.vue";
+import { useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
+import NumberInput from "@/Components/NumberInput.vue";
 
 
 const props = defineProps({
@@ -22,32 +21,32 @@ const props = defineProps({
   }
 });
 
-const calorieDays = ref(props.calorieDays);
-
-
-const editGoalEnable = ref(false);
-
 const goal = computed(() => props.account?.goal ?? 2000);
+const account = computed(() => props.account);
+
+const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
+const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
+const height = computed(() => props.account.height);
+
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const form = useForm({
   goal: goal.value,
+  gender: account.value?.gender || 'Male',
+  weight: account.value?.weight || 160,
+  height: account.value?.height || 177.8,
+  heightFeet: heightFeet.value || 5,
+  heightInches: heightInches.value || 10,
+  age: account.value?.age || 25,
+  activity: account.value?.activity || '1.55',
+  timezone: account.value?.timezone || timezone,
 });
 
 
 
 const createOrUpdateAccount = () => {
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  const data = {
-    gender: 'Male',
-    weight: 160,
-    height: 177.8,
-    age: 25,
-    activity: '1.55',
-    timezone: timezone,
-  }
-
-  form.post(route('account.store', data), {
+  form.post(route('account.store'), {
     preserveScroll: true,
     onSuccess: () => form.reset(),
     onError: (errors) => {
@@ -57,22 +56,18 @@ const createOrUpdateAccount = () => {
 };
 
 const updateAccount = () => {
+
+  form.height = ((form.heightFeet * 12) + form.heightInches) * 2.54
+
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success('Goal updated + This will take effect on a new day')
-      form.reset();
-      form.goal = goal;
     },
     onError: (errors) => {
       console.log(errors);
     },
   });
-};
-
-const getDayOfWeek = (date) => {
-  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  return daysOfWeek[date];
 };
 
 </script>
@@ -83,97 +78,139 @@ const getDayOfWeek = (date) => {
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
       <NavLink :href="route('profile.edit')">
-        Edit Details
+        Edit Account
       </NavLink>
     </template>
 
 
-
     <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-        <!-- <section class="text-center">
-          <h1 class="text-xl">Stats</h1>
-          <div v-if="account">
-            <ul>
-              <li>Age: {{ account.age }}</li>
-              <li>Gender: {{ account.gender }}</li>
-              <li>Height: {{ account.height }}</li>
-              <li>Weight: {{ account.weight }}</li>
-              <li>activity: {{ account.activity }}</li>
-            </ul>
-          </div>
-          <div v-else>
-            Please fill out stats
-          </div>
-        </section> -->
+        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
 
-        <section class="text-center">
-          <div v-if="account?.goal">
-            <h1 class="text-xl">
-              Current Calorie Goal:
-            </h1>
-            <div class="text-3xl">
-              {{ account?.goal }}
-            </div>
-          </div>
-
-          <div v-else>
-            <h1 class="text-xl">
+          <div v-if="!account?.goal" class="max-w-xl">
+            <h1 class="font-bold">
               Create a calorie goal:
             </h1>
 
-            <Link :href="route('calculator')" class="block mt-6">Calculate goal</Link>
-            <p>or</p>
-            <form @submit.prevent="createOrUpdateAccount" class="pb-3 mt-3 ">
-              <div class="flex flex-col space-y-6 max-w-sm mx-auto">
-                <div>
+            <div class="max-w-xl my-3">
+              <form @submit.prevent="createOrUpdateAccount" class="grid grid-cols-2 gap-3 justify-start">
 
-                  <InputLabel for="goal" value="Enter manually" class="mb-3">Enter manually</InputLabel>
-
-                  <input v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
-                    inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000"
-                    class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-lg sm:leading-6 text-center">
+                <NumberInput v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
+                  inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" class="py-1" />
+                <div class=" col-span-2 space-y-3">
+                  <PrimaryButton>Create</PrimaryButton>
+                  <div class="flex space-x-2">
+                    <p>or</p>
+                    <a type="button" :href="route('calculator')">Calculate Goal
+                    </a>
+                  </div>
                 </div>
 
-                <PrimaryButton class=" mx-auto">Save</PrimaryButton>
-              </div>
+              </form>
+            </div>
+          </div>
 
-            </form>
+          <div v-if="account?.goal" class="max-w-xl">
+            <h1 class="font-bold">
+              Current Calorie Goal:
+            </h1>
 
+            <div class="max-w-xl my-3">
+              <form @submit.prevent="updateAccount" id="updateAccount" class="grid grid-cols-2 gap-3 justify-start ">
+
+                <NumberInput v-model.number="form.goal" class="py-1" type="number" name="goal" id="goal"
+                  placeholder="2000" inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" />
+
+                <div class="col-span-2 space-y-3">
+                  <PrimaryButton type="submit" form="updateAccount">
+                    Update
+                  </PrimaryButton>
+
+                  <div class="flex space-x-2">
+                    <p>or</p>
+                    <a type="button" class=" " :href="route('calculator')">Recalculate
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
 
           </div>
 
-          <button v-if="account?.goal && !editGoalEnable" @click="editGoalEnable = !editGoalEnable"
-            class="items-center px-4 py-2 bg-gray-800 hover:bg-gray-700  border border-transparent rounded-md font-semibold text-xs text-white uppercase mt-6">{{
-              !editGoalEnable ? 'Change Goal?' : 'Save' }}</button>
-          <PrimaryButton type="submit" form="updateAccount" v-if="editGoalEnable" class="mt-6">
-            Save
-          </PrimaryButton>
-          <div v-if="editGoalEnable" class="flex flex-col justify-center items-center">
 
-            <NavLink :href="route('calculator')" class="mt-6">Recalculate</NavLink>
-            <p>or</p>
-            <form @submit.prevent="updateAccount" id="updateAccount" class="pb-3 mt-3 ">
-              <div class="flex flex-col space-y-6 max-w-sm mx-auto">
-                <div>
+        </div>
 
-                  <InputLabel for="goal" value="Manually Change Goal" class="mb-3">Manually Change Goal</InputLabel>
+        <div v-if="account?.id" class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
 
-                  <input v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
-                    inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000"
-                    class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-lg sm:leading-6 text-center">
-                </div>
-
-                <SecondaryButton type="button" @click="editGoalEnable = !editGoalEnable" class=" mx-auto">Cancel
-                </SecondaryButton>
+          <form @submit.prevent="updateAccount" class="max-w-xl">
+            <h1 class="font-bold">Stats</h1>
+            <div class="grid grid-cols-4 gap-3 my-3">
+              <div>
+                <InputLabel value="Age" />
+                <NumberInput v-model.number="form.age" class="w-full py-1" type="number" name="age" id="age"
+                  placeholder="25" inputmode="numeric" pattern="^[0-9]*$" min="15" max="80" />
               </div>
 
-            </form>
-          </div>
+              <div>
+                <InputLabel value="Weight" />
+                <NumberInput v-model.number="form.weight" class="w-full py-1" type="number" name="weight" id="weight"
+                  placeholder="25" inputmode="numeric" pattern="^[0-9]*$" min="80" max="500" />
+              </div>
+
+              <div class="col-span-2">
+                <legend class="text-sm font-semibold leading-6 text-gray-900">Gender</legend>
+                <div class="flex justify-start gap-x-3">
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="form.gender" id="gender-male" name="gender" type="radio" value="Male"
+                      class="h-4 w-4 border-gray-300 text-gray-600 focus:ring-gray-600" />
+                    <label for="gender-male" class="block text-sm font-medium leading-6 text-gray-900">Male</label>
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="form.gender" id="gender-female" name="gender" type="radio" value="Female"
+                      class="h-4 w-4 border-gray-300 text-gray-600 focus:ring-gray-600" />
+                    <label for="gender-female" class="block text-sm font-medium leading-6 text-gray-900">Female</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-span-4">
+                <InputLabel value="Height" />
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="mt-2 relative">
+                    <NumberInput v-model.number="form.heightFeet" type="number" name="height-feet" id="height-feet"
+                      inputmode="numeric" min="0" max="11" class="w-full py-1.5" />
+                    <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Feet</span>
+                  </div>
+                  <div class="mt-2 relative">
+                    <NumberInput v-model.number="form.heightInches" type="number" name="height-inches"
+                      id="height-inches" inputmode="numeric" min="0" max="11" class="w-full py-1.5" />
+                    <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Inches</span>
+                  </div>
+                </div>
+              </div>
 
 
-        </section>
+
+              <div class="col-span-4">
+                <InputLabel value="Activity Level" />
+                <select v-model="form.activity" id="activity" name="activity"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <option value=1>Basal Metabolic Rate</option>
+                  <option value=1.2>Sedentary: little or no exercise</option>
+                  <option value=1.375>Light: exercise 1-3 times/week</option>
+                  <option value=1.55>Moderate: exercise 4-5 times/week</option>
+                  <option value=1.725>Active: daily exercise or intense exercise 3-4 times/week</option>
+                  <option value=1.9>Very Active: intense exercise 6-7 times/week</option>
+                </select>
+              </div>
+
+            </div>
+
+            <PrimaryButton>update</PrimaryButton>
+          </form>
+        </div>
+
 
       </div>
     </div>
