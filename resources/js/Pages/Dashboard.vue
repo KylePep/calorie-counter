@@ -10,7 +10,7 @@ import Pop from "@/utils/Pop.js";
 import { Head, } from '@inertiajs/vue3';
 import axios from "axios";
 import { computed, ref } from "vue";
-import CalorieDisplay from './CalorieDisplay.vue'
+import CalorieDisplay from '../Components/FoodComponents/CalorieDisplay.vue'
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId'])
 
@@ -131,12 +131,12 @@ function handleExtraButton(item, action, type) {
                     </Link>
                 </div>
 
-                <p class="text-xl font-bold">
+                <p v-else class="text-xl font-bold">
                     Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
                 </p>
             </section>
 
-            <CalorieDisplay :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
+            <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
 
             <section v-if="props.account && calorieDay.food_items.length">
                 <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
