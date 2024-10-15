@@ -109,8 +109,8 @@ function handleExtraButton(item, action, type) {
                     <li>-- Edit button->calorieDay.index</li>
                     <li>Edit Usda form, altered to fit needs</li>
                     <li>Edit Usda form, loading screen</li>
-                    <li>Scrolling text needs adjustment on consumed list</li>
-                    <li>Consumed List cursor-pointer</li>
+                    <li class="line-through text-gray-400">Scrolling text needs adjustment on consumed list</li>
+                    <li class="line-through text-gray-400">Consumed List cursor-pointer</li>
                     <li>Profile should have recorded account details editable</li>
                     <li>FoodList no search, remove hover</li>
                 </ul>
