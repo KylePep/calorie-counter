@@ -7,7 +7,26 @@ use Illuminate\Support\Facades\Http;
 
 class FoodDataController extends Controller
 {
-    public function __invoke(Request $request)
+
+    public function getById($id)
+    {
+        $apiKey = env('FOOD_DATA_API_KEY');
+        $url = "https://api.nal.usda.gov/fdc/v1/food/{$id}?api_key={$apiKey}";
+
+        $response = Http::get($url);
+
+        if($response->successful() ){
+            return $response->json();
+        }
+
+        return response()->json([
+            'error' => 'Failed to fetch food by ID',
+            'status' => $response->status(),
+            'details' => $response->body(),
+        ], $response->status());
+    }
+
+    public function searchByQuery(Request $request)
     {
 
 
@@ -35,13 +54,11 @@ class FoodDataController extends Controller
             return $response->json();
 
         } else  {
-            $statusCode = $response->status();
-            $errorBody = $response->body(); 
             return response()->json([
-                'error' => 'Failed to fetch Food Data',
-                'status' => $statusCode,
-                'details' => $errorBody,
-            ], $statusCode);
+                'error' => 'Failed to fetch food data by query',
+                'status' => $response->status(),
+                'details' => $response->body(),
+            ], $response->status());
         }
     }
 }

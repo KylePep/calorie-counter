@@ -14,13 +14,13 @@ function emitIncreaseBy(item) {
   emit('increase-by', item);
 }
 
-function extraButton(item, purpose) {
+function emitExtraButton(item, action) {
   if (item.gtinUpc) {
     item.calories = getBrandedCalories(item)
   } else {
     item.calories = getCalories(item)
   }
-  emit('extraButton', item, purpose);
+  emit('extraButton', item, action);
 }
 
 const getCalories = (item) => {
@@ -60,8 +60,8 @@ const getBrandedCalories = (item) => {
           </template>
         </div>
 
-        <UsdaFoodCardButton @click.stop="extraButton(item, 'edit')" icon="pencil">Edit</UsdaFoodCardButton>
-        <UsdaFoodCardButton @click.stop="extraButton(item, 'favorite')" icon="star">Favorite</UsdaFoodCardButton>
+        <UsdaFoodCardButton @click.stop="emitExtraButton(item, 'edit')" icon="pencil">Edit</UsdaFoodCardButton>
+        <UsdaFoodCardButton @click.stop="emitExtraButton(item, 'favorite')" icon="star">Favorite</UsdaFoodCardButton>
         <UsdaFoodCardButton @click.stop="emitIncreaseBy(item)" icon="plus">Add</UsdaFoodCardButton>
 
       </div>

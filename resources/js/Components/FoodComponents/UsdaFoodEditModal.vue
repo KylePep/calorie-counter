@@ -7,6 +7,7 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
+import { UsdaFoodItem } from "@/models/UsdaFoodItem.js";
 
 const emit = defineEmits(['closeModal']);
 
@@ -16,8 +17,30 @@ const confirmingFoodDetailsEdit = computed(() => props.showModal);
 
 const foodData = computed(() => props.foodItem)
 
+async function getUsdaFoodById() {
+  try {
+
+    let foodId = props.foodItem.fdcId;
+
+    if (!props.foodItem.fdcId) return;
+
+    const response = await axios.get(`/foodData/${foodId}`);
+
+
+    const foodItem = new UsdaFoodItem(response.data)
+    console.log(foodItem)
+
+    setForm(foodItem);
+
+  } catch (error) {
+    console.error(error, '[Error fetching food data]')
+  }
+}
+
 watch(foodData, (newfoodData) => {
-  setForm();
+
+  getUsdaFoodById();
+
 })
 
 
@@ -42,18 +65,18 @@ const form = useForm({
   ingredients: '',
 });
 
-const setForm = () => {
-  form.fdcId = props.foodItem?.fdcId || '',
-    form.description = props.foodItem.description || '',
-    form.brandName = props.foodItem.brandName || '',
-    form.brandOwner = props.foodItem.brandOwner || '',
-    form.servingSize = props.foodItem.servingSize || 1,
-    form.servingSizeUnit = props.foodItem.servingSizeUnit || 'g',
-    form.foodCategory = props.foodItem.foodCategory || '',
-    form.calories = props.foodItem.calories || 0,
-    form.ingredients = props.foodItem.ingredients || '',
+const setForm = (foodItem) => {
+  form.fdcId = foodItem?.fdcId || '',
+    form.description = foodItem.description || '',
+    form.brandName = foodItem.brandName || '',
+    form.brandOwner = foodItem.brandOwner || '',
+    form.servingSize = foodItem.servingSize || 1,
+    form.servingSizeUnit = foodItem.servingSizeUnit || 'g',
+    form.foodCategory = foodItem.foodCategory || '',
+    form.calories = foodItem.calories || 0,
+    form.ingredients = foodItem.ingredients || '',
 
-    form.foodNutrients = props.foodItem.foodNutrients
+    form.foodNutrients = foodItem.foodNutrients
 }
 
 watch(props.foodItem, setForm)
@@ -65,24 +88,6 @@ const closeModal = () => {
   form.clearErrors();
   form.reset();
 };
-
-async function deleteItem() {
-  const confirmDelete = await Pop.confirm(`Delete ${form.description}?`)
-  if (!confirmDelete) {
-    return
-  }
-  form.delete(route('food.destroy', props.foodItem.id), {
-    preserveScroll: true,
-    onSuccess: () => {
-      Pop.success(`${form.description} deleted`)
-      form.reset()
-      closeModal()
-    },
-    onError: (errors) => {
-      console.log(errors);
-    },
-  });
-}
 
 async function updateItem() {
   const confirmUpdate = await Pop.confirm(`Update ${form.description}? `)
@@ -109,17 +114,17 @@ async function updateItem() {
   <Modal :show="confirmingFoodDetailsEdit" @close="closeModal">
     <FoodDetailsForm :formData="form" @cancel="closeModal">
       <template #title>
-        <h1 class="text-center text-xl font-bold">Updating {{ form.description }}</h1>
+        <h1 class="text-center text-xl font-bold">Edit {{ form.description }} before using or saving?</h1>
       </template>
 
       <SecondaryButton type="button" @click="closeModal">
         Cancel
       </SecondaryButton>
-      <DangerButton @click="deleteItem">
-        Delete
-      </DangerButton>
       <PrimaryButton @click="updateItem">
-        Update
+        Use
+      </PrimaryButton>
+      <PrimaryButton @click="updateItem">
+        Save
       </PrimaryButton>
     </FoodDetailsForm>
 

@@ -18,7 +18,8 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::get('/food-data', FoodDataController::class);
+Route::get('/foodData/{id}', [FoodDataController::class, 'getById']);
+Route::get('/search-foodData', [FoodDataController::class, 'searchByQuery']);
 
 Route::get('/calculator', [CalculatorController::class, 'create'])->name('calculator');
 

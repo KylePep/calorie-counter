@@ -52,6 +52,12 @@ class DashboardController extends Controller
                     return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
                 });
 
+                foreach($groupedFoodItems as $group => $items){
+                    foreach($items as $item){
+                        $item->foodNutrients = json_decode($item->foodNutrients, true);
+                    }
+                }
+
                 return Inertia::render('Dashboard', [
                     'account' => $account,
                     'calorieDay' => $CalorieDay,

@@ -31,11 +31,8 @@ const unitName = computed(() => {
 <template>
 
   <form @submit.prevent="createFoodItem" action="" class="p-6 space-y-3">
+    <slot name="title"></slot>
 
-    <h1 class="text-center text-xl font-bold">Create a Food</h1>
-    <h2 class="text-center text-sm max-w-xs mx-auto">Complete this form, then use your new food to help track your
-      calories!
-    </h2>
 
     <div class="flex  ">
       <div class="basis-3/5 me-3">

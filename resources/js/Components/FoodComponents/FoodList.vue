@@ -13,7 +13,7 @@ import Checkbox from "../Checkbox.vue";
 import SecondaryButton from "../SecondaryButton.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 
-const emit = defineEmits(['increase-by'])
+const emit = defineEmits(['increase-by', 'extraButton'])
 
 function handleIncreaseBy(item) {
   emit('increase-by', item); // Re-emit the event upwards
@@ -47,7 +47,7 @@ const typeName = computed(() => {
   }[form.type]
 })
 
-const fetchFoodData = async (page = 1) => {
+async function fetchFoodData(page = 1) {
   try {
 
     let query = form.query.replace(/"/g, '').trim();
@@ -59,7 +59,7 @@ const fetchFoodData = async (page = 1) => {
     }
 
 
-    const response = await axios.get('/food-data', {
+    const response = await axios.get('/search-foodData', {
       params: {
         query: query,
         pageNumber: page,
@@ -78,6 +78,14 @@ const fetchFoodData = async (page = 1) => {
   }
 }
 
+
+function handleExtraButton(item, action) {
+  if (action == 'edit' || action == 'add') {
+    emit('extraButton', item, action)
+  } else {
+    favoriteItem(item)
+  }
+}
 
 async function favoriteItem(foodItem) {
   const data = {
@@ -199,7 +207,7 @@ async function favoriteItem(foodItem) {
       No results found
     </div>
 
-    <UsdaFoodCard :food-items="foods" @increase-by="handleIncreaseBy" @extraButton="favoriteItem" />
+    <UsdaFoodCard :food-items="foods" @increase-by="handleIncreaseBy" @extraButton="handleExtraButton" />
 
   </div>
 </template>

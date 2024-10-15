@@ -1,7 +1,9 @@
 <script setup>
 import ConsumedList from "@/Components/FoodComponents/ConsumedList.vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
+import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
 import FoodList from "@/Components/FoodComponents/FoodList.vue";
+import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
 import ItemsDisplay from "@/Components/ItemsDisplay.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Pop from "@/utils/Pop.js";
@@ -23,6 +25,24 @@ const calorieGoal = ref(goal)
 const cellCount = ref(calorieGoal.value / 100)
 const calorieCountRows = ref(Math.ceil(calorieGoal.value / 1000))
 
+const showEditForm = ref(false);
+const showUsdaForm = ref(false);
+const ActiveFoodItem = ref({})
+
+function setActive(foodItem, type) {
+    showEditForm.value = false;
+    showUsdaForm.value = false;
+    if (type == 'usda') {
+        showUsdaForm.value = true;
+    } else showEditForm.value = true;
+    ActiveFoodItem.value = foodItem;
+}
+const closeModal = () => {
+    showEditForm.value = false;
+    showUsdaForm.value = false;
+    ActiveFoodItem.value = {};
+}
+
 async function removeAndSubtractFoodItem(foodItem) {
     const data = {
         remove: true,
@@ -39,23 +59,6 @@ async function removeAndSubtractFoodItem(foodItem) {
     }
 }
 
-async function updateCalorieDayUSDA(foodItem) {
-    const totalCalories = foodItem.calories
-
-    try {
-        const data = {
-            goal: calorieDay.value.goal,
-            count: totalCalories,
-            food_items: [{ description: foodItem.description, count: totalCalories }]
-        }
-        const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
-        calorieDay.value = res.data
-        Pop.success(`+ ${data.count} Calories`)
-    } catch (error) {
-
-    }
-
-}
 async function updateCalorieDayFoodItem(foodItem) {
     try {
         const data = {
@@ -69,7 +72,17 @@ async function updateCalorieDayFoodItem(foodItem) {
     } catch (error) {
 
     }
+}
 
+function handleExtraButton(item, action, type) {
+    console.log(item, action, type)
+    if (action == 'edit') {
+        setActive(item, type)
+    } else if (action == 'add') {
+        updateCalorieDayFoodItem(item)
+    } else {
+        return
+    }
 }
 
 </script>
@@ -93,13 +106,15 @@ async function updateCalorieDayFoodItem(foodItem) {
                         Known Issues:
                     </h1>
                     <li class="line-through text-gray-400">Nutrients are not represented on/within form</li>
-                    <li>Buttons on FoodCards do not function</li>
-                    <li>-Edit</li>
+                    <li class="line-through text-gray-400">Buttons on FoodCards do not function</li>
+                    <li class="line-through text-gray-400">-Edit</li>
                     <li class="line-through text-gray-400">-Delete</li>
-                    <li>-Add</li>
-                    <li>UsdaFoodCard missing function</li>
-                    <li>-Edit</li>
-                    <li>--This can be the purpose of the edit button, Need click usda item, run usda get -> item id
+                    <li class="line-through text-gray-400">-Add</li>
+                    <li class="line-through text-gray-400">UsdaFoodCard missing function</li>
+                    <li class="line-through text-gray-400">-Edit</li>
+                    <li class="line-through text-gray-400">--This can be the purpose of the edit button, Need click usda
+                        item,
+                        run usda get -> item id
                     </li>
                 </ul>
                 <!-- <ul>
@@ -156,20 +171,26 @@ async function updateCalorieDayFoodItem(foodItem) {
             </section>
 
             <section v-if="props.account">
-                <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem">
+                <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem"
+                    @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
                     <h1 class="text-xl font-bold">Your Foods</h1>
                 </ItemsDisplay>
             </section>
 
             <section v-if="props.account">
-                <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem">
+                <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem"
+                    @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
                     <h1 class="text-xl font-bold">Favorite Foods</h1>
                 </ItemsDisplay>
             </section>
 
             <section>
-                <FoodList @increase-by="updateCalorieDayUSDA" />
+                <FoodList @increase-by="updateCalorieDayFoodItem"
+                    @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
             </section>
+
+            <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+            <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 
         </div>
     </GlobalLayout>

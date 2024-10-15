@@ -74,6 +74,14 @@ const closeModal = () => {
   <Modal :show="confirmingFoodDetails" @close="closeModal">
 
     <FoodDetailsForm :formData="form" @cancel="closeModal">
+
+      <template #title>
+        <h1 class="text-center text-xl font-bold">Create a Food</h1>
+        <h2 class="text-center text-sm max-w-xs mx-auto">Complete this form, then use your new food to help track your
+          calories!
+        </h2>
+      </template>
+
       <SecondaryButton type="button" @click="closeModal">
         Cancel
       </SecondaryButton>
