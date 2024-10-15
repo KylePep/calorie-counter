@@ -101,31 +101,27 @@ function handleExtraButton(item, action, type) {
         <div class="space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
             <section class="space-y-4">
-                <ul>
+                <ul class="list-disc">
                     <h1 class="font-bold">
-                        Known Issues:
+                        To Do:
                     </h1>
-                    <li class="line-through text-gray-400">Nutrients are not represented on/within form</li>
-                    <li class="line-through text-gray-400">Buttons on FoodCards do not function</li>
-                    <li class="line-through text-gray-400">-Edit</li>
-                    <li class="line-through text-gray-400">-Delete</li>
-                    <li class="line-through text-gray-400">-Add</li>
-                    <li class="line-through text-gray-400">UsdaFoodCard missing function</li>
-                    <li class="line-through text-gray-400">-Edit</li>
-                    <li class="line-through text-gray-400">--This can be the purpose of the edit button, Need click usda
-                        item,
-                        run usda get -> item id
-                    </li>
+                    <li>Ability to edit Calorie Day</li>
+                    <li>-- Edit button->calorieDay.index</li>
+                    <li>Edit Usda form, altered to fit needs</li>
+                    <li>Edit Usda form, loading screen</li>
+                    <li>Scrolling text needs adjustment on consumed list</li>
+                    <li>Consumed List cursor-pointer</li>
+                    <li>Profile should have recorded account details editable</li>
+                    <li>FoodList no search, remove hover</li>
                 </ul>
-                <!-- <ul>
+                <ul class="list-disc">
                     <h1 class="font-bold">
-                        Wishlist
+                        To Be Done:
                     </h1>
-                    <li>Meals</li>
-                    <li>-New data object where you can assemble several food Items, from usda and your own.</li>
-                    <li>History configurable, sortable by month etc</li>
-                    <li></li>
-                </ul> -->
+                    <li>Standardization of components, maybe move some styling into tailwind config</li>
+                    <li>Introduce themes and colors</li>
+                    <li>Look for opportunities for transitions. Like loading etc</li>
+                </ul>
             </section>
 
             <section>

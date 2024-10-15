@@ -1,11 +1,8 @@
 <script setup>
 import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import NumberInput from "@/Components/NumberInput.vue";
-import { useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
 
 const emit = defineEmits(['submitForm', 'cancel']);

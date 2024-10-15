@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -10,7 +10,6 @@ import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
 import Pop from "@/utils/Pop.js";
 import Dropdown from "../Dropdown.vue";
 import Checkbox from "../Checkbox.vue";
-import SecondaryButton from "../SecondaryButton.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 
 const emit = defineEmits(['increase-by', 'extraButton'])
