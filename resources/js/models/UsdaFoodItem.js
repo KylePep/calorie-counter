@@ -12,8 +12,8 @@ export class UsdaFoodItem {
     this.brandOwner = data.brandOwner || 'N/A';
     this.foodPortions = data.foodPortions;
     this.householdServingFullText = data.householdServingFullText;
-    this.servingSize = data.servingSize || 1;
-    this.servingSizeUnit = data.servingSizeUnit || 'g';
+    this.servingSize = data.servingSize || 0;
+    this.servingSizeUnit = data.servingSizeUnit || '';
     this.foodCategory = data.brandedFoodCategory ? data.brandedFoodCategory : data.foodCategory.description;
     this.labelNutrients = data.labelNutrients || 'N/A';
     this.ingredients = data.ingredients || 'N/A';
