@@ -106,7 +106,7 @@ function handleExtraButton(item, action, type) {
                     </h1>
                     <li class="line-through text-gray-400">Ability to edit Calorie Day</li>
                     <li class="line-through text-gray-400">-- Edit button->calorieDay.index</li>
-                    <li>Edit Usda form, altered to fit needs</li>
+                    <li class="line-through text-gray-400">Edit Usda form, altered to fit needs</li>
                     <li>Edit Usda form, loading screen</li>
                     <li class="line-through text-gray-400">Scrolling text needs adjustment on consumed list</li>
                     <li class="line-through text-gray-400">Consumed List cursor-pointer</li>
@@ -170,7 +170,8 @@ function handleExtraButton(item, action, type) {
             </section>
 
             <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
-            <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+            <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" @useItem="updateCalorieDayFoodItem"
+                :foodItem="ActiveFoodItem" />
 
         </div>
     </GlobalLayout>

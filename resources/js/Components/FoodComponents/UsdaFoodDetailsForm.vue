@@ -20,7 +20,11 @@ const unitName = computed(() => {
     ml: 'MilliLiter(s)',
     MLT: 'MilliLiter(s)'
   }[props.formData.servingSizeUnit]
-})
+});
+
+const modifier = computed(() => {
+  return props.formData.portionModifier / 100;
+});
 
 
 </script>
@@ -30,7 +34,6 @@ const unitName = computed(() => {
 
   <form @submit.prevent="createFoodItem" action="" class="p-6 space-y-3">
     <slot name="title"></slot>
-
 
     <div class="flex  ">
       <div class="basis-3/5 me-3">
@@ -50,32 +53,48 @@ const unitName = computed(() => {
 
       <div class="basis-3/5 me-3">
         <InputLabel value="Amount of calories"></InputLabel>
-        <NumberInput v-model="form.calories" class="w-full" required></NumberInput>
+        <div class="px-2">
+          {{ Math.round(form.calories * modifier) }}
+        </div>
         <InputError :message="form.errors.calories"></InputError>
       </div>
 
       <div class="flex basis-2/5">
-
         <div class="w-full relative">
-          <InputLabel value="Serving Size"></InputLabel>
-          <NumberInput v-model="form.servingSize" class="w-full" required></NumberInput>
-          <span class="absolute right-0 bottom-0 pb-3 pe-3 font-bold text-black/50 text-xs">{{ unitName
-            }}</span>
-          <InputError :message="form.errors.servingSize"></InputError>
+          <div v-if="!form.servingSizeUnit">
+            <InputLabel value="Portion"></InputLabel>
+            <div class="mt-2">
+              <select v-model="form.portionModifier" id="portion" name="portion"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <option value="100">100g</option>
+                <option v-for="portion in form.foodPortions" :value=portion.gramWeight> {{ portion.amount }} {{
+                  portion.modifier }} ({{ portion.gramWeight }}g)</option>
+              </select>
+            </div>
+          </div>
+
+          <div v-else>
+            <InputLabel value="Serving Size"></InputLabel>
+            <NumberInput v-model="form.portionModifier" class="w-full" required></NumberInput>
+            <span class="absolute right-0 bottom-0 pb-3 pe-3 font-bold text-black/50 text-xs">{{ unitName
+              }}</span>
+            <InputError :message="form.errors.servingSize"></InputError>
+          </div>
         </div>
 
-        <div class="flex flex-col justify-between ms-2">
+        <!-- <div class="flex flex-col justify-between ms-2">
+
           <InputLabel value="Unit"></InputLabel>
           <div class="flex font-bold">
             <button type="button" @click="form.servingSizeUnit = 'g'"
               class="rounded-l-lg px-3 py-2 border-r border-white"
-              :class="[form.servingSizeUnit == 'g' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">g</button>
+              :class="[form.servingSizeUnit == 'g' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">G</button>
             <button type="button" @click="form.servingSizeUnit = 'u'" class="border-r border-white px-3 py-2  "
-              :class="[form.servingSizeUnit == 'u' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">u</button>
-            <button type="button" @click="form.servingSizeUnit = 'ml'" class=" rounded-r-lg px-3 py-2"
-              :class="[(form.servingSizeUnit == 'ml' || form.servingSizeUnit == 'MLT') ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">ml</button>
+              :class="[form.servingSizeUnit == 'u' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">U</button>
+            <button type="button" @click="form.servingSizeUnit = 'ml'" class=" rounded-r-lg px-3 py-2  "
+              :class="[form.servingSizeUnit == 'l' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">ML</button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 

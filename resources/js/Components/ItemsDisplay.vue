@@ -9,7 +9,7 @@ function emitItemActivated(item) {
 }
 
 function handleExtraButton(item, action) {
-  emit('extraButton', item, action)
+  emit('extraButton', item, action);
 }
 
 const props = defineProps(['list', 'size']);
