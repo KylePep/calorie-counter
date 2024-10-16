@@ -104,8 +104,8 @@ function handleExtraButton(item, action, type) {
                     <h1 class="font-bold">
                         To Do:
                     </h1>
-                    <li>Ability to edit Calorie Day</li>
-                    <li>-- Edit button->calorieDay.index</li>
+                    <li class="line-through text-gray-400">Ability to edit Calorie Day</li>
+                    <li class="line-through text-gray-400">-- Edit button->calorieDay.index</li>
                     <li>Edit Usda form, altered to fit needs</li>
                     <li>Edit Usda form, loading screen</li>
                     <li class="line-through text-gray-400">Scrolling text needs adjustment on consumed list</li>
@@ -131,10 +131,13 @@ function handleExtraButton(item, action, type) {
                     </Link>
                 </div>
 
-                <p v-else class="text-xl font-bold">
-                    Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories {{ new
-                        Date().toLocaleDateString() }}
-                </p>
+                <div v-else>
+                    <p>{{ new
+                        Date().toLocaleDateString() }}</p>
+                    <p class="text-xl font-bold">
+                        Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
+                    </p>
+                </div>
             </section>
 
             <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />

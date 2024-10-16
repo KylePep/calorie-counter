@@ -101,7 +101,7 @@ function handleExtraButton(item, action, type) {
 
   <GlobalLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Calorie Day</h2>
     </template>
 
     <div class="space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
@@ -115,7 +115,7 @@ function handleExtraButton(item, action, type) {
         </div>
 
         <div v-else>
-          <p class="font-bold text-lg">{{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
+          <p>{{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
             Date(calorieDay.created_at).toLocaleDateString() }}</p>
           <p class="text-xl font-bold">
             Here's how it's went: {{ calorieCount }}, Your goal was {{ calorieGoal }} calories
