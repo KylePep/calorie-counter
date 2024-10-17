@@ -49,6 +49,7 @@ const form = useForm({
   ndbNumber: 0,
   description: '',
   calories: 0,
+  realCalories: 0,
   dataType: '',
   foodClass: '',
   brandOwner: '',
@@ -75,7 +76,8 @@ const setForm = (foodItem) => {
   form.fdcId = foodItem.fdcId || 0,
     form.gtinUpc = foodItem.gtinUpc || 0,
     form.ndbNumber = foodItem.ndbNumber || 0,
-    form.calories = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'Energy').value || 0,
+    form.calories = 0,
+    form.realCalories = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'Energy').value || 0,
     form.description = foodItem.description,
     form.dataType = foodItem.dataType,
     form.foodClass = foodItem.foodClass,
@@ -103,7 +105,7 @@ const closeModal = () => {
 };
 
 const realCalories = computed(() => {
-  return Math.round(form.calories * (form.portionModifier / 100))
+  return Math.round(form.realCalories * (form.portionModifier / 100))
 });
 
 function useItem() {
@@ -115,12 +117,16 @@ function useItem() {
 const createFoodItem = () => {
 
   form.calories = realCalories.value
+  if (!form.servingSizeUnit) {
+    form.servingSize = 100;
+    form.servingSizeUnit = 'g';
+  }
 
   form.post(route('food.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`)
       console.log('made it here')
-      form.reset()
+      // form.reset()
       closeModal()
     },
     onError: (errors) => {

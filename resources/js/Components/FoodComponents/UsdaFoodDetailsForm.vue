@@ -54,7 +54,7 @@ const modifier = computed(() => {
       <div class="basis-3/5 me-3">
         <InputLabel value="Amount of calories"></InputLabel>
         <div class="px-2">
-          {{ Math.round(form.calories * modifier) }}
+          {{ Math.round(form.realCalories * modifier) }}
         </div>
         <InputError :message="form.errors.calories"></InputError>
       </div>
@@ -82,19 +82,6 @@ const modifier = computed(() => {
           </div>
         </div>
 
-        <!-- <div class="flex flex-col justify-between ms-2">
-
-          <InputLabel value="Unit"></InputLabel>
-          <div class="flex font-bold">
-            <button type="button" @click="form.servingSizeUnit = 'g'"
-              class="rounded-l-lg px-3 py-2 border-r border-white"
-              :class="[form.servingSizeUnit == 'g' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">G</button>
-            <button type="button" @click="form.servingSizeUnit = 'u'" class="border-r border-white px-3 py-2  "
-              :class="[form.servingSizeUnit == 'u' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">U</button>
-            <button type="button" @click="form.servingSizeUnit = 'ml'" class=" rounded-r-lg px-3 py-2  "
-              :class="[form.servingSizeUnit == 'l' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">ML</button>
-          </div>
-        </div> -->
       </div>
     </div>
 
