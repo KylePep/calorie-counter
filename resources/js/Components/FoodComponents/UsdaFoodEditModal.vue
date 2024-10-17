@@ -12,16 +12,22 @@ const emit = defineEmits(['closeModal', 'useItem']);
 
 const props = defineProps(['showModal', 'foodItem']);
 
+const loading = ref(false);
+
 const confirmingFoodDetailsEdit = computed(() => props.showModal);
 
 const foodData = computed(() => props.foodItem)
 
 async function getUsdaFoodById() {
+  loading.value = true;
   try {
 
     let foodId = props.foodItem.fdcId;
 
-    if (!props.foodItem.fdcId) return;
+    if (!props.foodItem.fdcId) {
+      loading.value = false;
+      return;
+    }
 
     const response = await axios.get(`/foodData/${foodId}`);
 
@@ -29,9 +35,11 @@ async function getUsdaFoodById() {
     const foodItem = new UsdaFoodItem(response.data)
 
     setForm(foodItem);
+    loading.value = false;
     console.log('foodItem', response)
 
   } catch (error) {
+    loading.value = false;
     console.error(error, '[Error fetching food data]')
   }
 }
@@ -102,6 +110,7 @@ const closeModal = () => {
 
   form.clearErrors();
   form.reset();
+  loading.value = false;
 };
 
 const realCalories = computed(() => {
@@ -141,9 +150,13 @@ const createFoodItem = () => {
 <template>
   <Modal :show="confirmingFoodDetailsEdit" @close="closeModal">
 
-    <UsdaFoodDetailsForm :formData="form" @cancel="closeModal">
+    <UsdaFoodDetailsForm :formData="form" @cancel="closeModal" :loading="loading">
       <template #title>
-        <h1 class="text-center text-xl font-bold">Edit {{ form.description }} before using or saving?</h1>
+        <h1 v-if="!loading" class="text-center text-base font-bold text-gray-700">Edit <span
+            class="text-xl text-black">{{
+              form.description }}</span> before using or saving?
+        </h1>
+        <h1 v-else class="text-center text-xl font-bold">Loading</h1>
       </template>
 
       <SecondaryButton type="button" @click="closeModal">
