@@ -33,7 +33,7 @@ function setActive(foodItem, type) {
     showUsdaForm.value = false;
     if (type == 'usda') {
         showUsdaForm.value = true;
-    } else showEditForm.value = true;
+    } else { showEditForm.value = true; }
     ActiveFoodItem.value = foodItem;
 }
 const closeModal = () => {
