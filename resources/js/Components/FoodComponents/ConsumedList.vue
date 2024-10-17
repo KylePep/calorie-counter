@@ -42,12 +42,12 @@ const getAnimationClass = (item) => {
 <template>
   <h1 class="text-xl font-bold pb-3">Eaten</h1>
   <div
-    class=" p-2 grid grid-rows-2 text-center border-2 rounded-lg border-black/25 overflow-x-auto whitespace-nowrap gap-1 ">
+    class=" p-2 grid grid-rows-2 text-center border-2 rounded-lg border-black/25 bg-gradient-to-b from-gray-200 via-white overflow-x-auto whitespace-nowrap gap-1 ">
     <div v-for="rowIndex in 2" class="flex space-x-1">
       <button v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
         @click="$emit('removeFoodItem', item)" :class="representativeWidth(item)"
         :title="`${item.description}  -${item.count} Calories`"
-        class="group relative hover:bg-gray-400 h-8 inline-block bg-gray-300 border border-black/20 rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden">
+        class="group relative hover:bg-gray-400 h-8 inline-block bg-gray-300 border border-black/20 rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
 
         <p ref="scrollingText" :class="getAnimationClass(item)"
           class=" relative text-xs group-hover:text-black/25 ps-3 font-bold duration-400">

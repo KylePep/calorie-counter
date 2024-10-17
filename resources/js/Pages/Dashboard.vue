@@ -97,10 +97,9 @@ function handleExtraButton(item, action, type) {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
         </template>
 
-        <div class="space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-            <section class="space-y-4">
-                <!-- <ul class="list-disc">
+        <section class="space-y-4">
+            <!-- <ul class="list-disc">
                     <h1 class="font-bold">
                         To Do:
                     </h1>
@@ -113,71 +112,71 @@ function handleExtraButton(item, action, type) {
                     <li class="line-through text-gray-400">Profile should have recorded account details editable</li>
                     <li class="line-through text-gray-400">FoodList no search, remove hover</li>
                 </ul> -->
-                <ul class="list-disc">
-                    <h1 class="font-bold">
-                        To Be Done:
-                    </h1>
-                    <li>Reduce size of cards</li>
-                    <li>Calculator form looks out of place</li>
-                    <li>Login/Register pages are weird</li>
-                    <li>Welcome Page is yucky</li>
-                    <li>Standardization of components, maybe move some styling into tailwind config</li>
-                    <li>Introduce themes and colors</li>
-                    <li>Look for opportunities for transitions. Like loading etc</li>
-                </ul>
-            </section>
+            <ul class="list-disc">
+                <h1 class="font-bold">
+                    To Be Done:
+                </h1>
+                <li>Reduce size of cards</li>
+                <li>Calculator form looks out of place</li>
+                <li>Login/Register pages are weird</li>
+                <li>Welcome Page is yucky</li>
+                <li>Custom Font</li>
+                <li>Standardization of components, maybe move some styling into tailwind config</li>
+                <li>Introduce themes and colors</li>
+                <li>Look for opportunities for transitions. Like loading etc</li>
+            </ul>
+        </section>
 
-            <section>
-                <div v-if="!props.account" class="pb-3">
-                    Please complete setting up your account to begin tracking your progress or begin by
-                    <Link class="font-bold" :href="route('calculator')">
-                    calculating your goal!
-                    </Link>
-                </div>
+        <section>
+            <div v-if="!props.account" class="pb-3">
+                Please complete setting up your account to begin tracking your progress or begin by
+                <Link class="font-bold" :href="route('calculator')">
+                calculating your goal!
+                </Link>
+            </div>
 
-                <div v-else>
-                    <p>{{ new
-                        Date().toLocaleDateString() }}</p>
-                    <p class="text-xl font-bold">
-                        Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
-                    </p>
-                </div>
-            </section>
+            <div v-else>
+                <p>{{ new
+                    Date().toLocaleDateString() }}</p>
+                <p class="text-xl font-bold">
+                    Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
+                </p>
+            </div>
+        </section>
 
-            <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
+        <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
 
-            <section v-if="props.account && calorieDay.food_items.length">
-                <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
-            </section>
+        <section v-if="props.account && calorieDay.food_items.length">
+            <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
+        </section>
 
-            <section v-if="props.account">
-                <CreateFood />
-            </section>
+        <section v-if="props.account">
+            <CreateFood />
+        </section>
 
-            <section v-if="props.account">
-                <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem"
-                    @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
-                    <h1 class="text-xl font-bold">Your Foods</h1>
-                </ItemsDisplay>
-            </section>
+        <section v-if="props.account">
+            <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem"
+                @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
+                <h1 class="text-xl font-bold">Your Foods</h1>
+            </ItemsDisplay>
+        </section>
 
-            <section v-if="props.account">
-                <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem"
-                    @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
-                    <h1 class="text-xl font-bold">Favorite Foods</h1>
-                </ItemsDisplay>
-            </section>
+        <section v-if="props.account">
+            <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem"
+                @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
+                <h1 class="text-xl font-bold">Favorite Foods</h1>
+            </ItemsDisplay>
+        </section>
 
-            <section>
-                <FoodList @increase-by="updateCalorieDayFoodItem"
-                    @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
-            </section>
+        <section>
+            <FoodList @increase-by="updateCalorieDayFoodItem"
+                @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
+        </section>
 
-            <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
-            <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" @useItem="updateCalorieDayFoodItem"
-                :foodItem="ActiveFoodItem" />
+        <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+        <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" @useItem="updateCalorieDayFoodItem"
+            :foodItem="ActiveFoodItem" />
 
-        </div>
     </GlobalLayout>
 
 </template>

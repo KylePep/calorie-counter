@@ -104,58 +104,56 @@ function handleExtraButton(item, action, type) {
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Calorie Day</h2>
     </template>
 
-    <div class="space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-      <section>
-        <div v-if="!props.account" class="pb-3">
-          Please complete setting up your account to begin tracking your progress or begin by
-          <Link class="font-bold" :href="route('calculator')">
-          calculating your goal!
-          </Link>
-        </div>
+    <section>
+      <div v-if="!props.account" class="pb-3">
+        Please complete setting up your account to begin tracking your progress or begin by
+        <Link class="font-bold" :href="route('calculator')">
+        calculating your goal!
+        </Link>
+      </div>
 
-        <div v-else>
-          <p>{{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
-            Date(calorieDay.created_at).toLocaleDateString() }}</p>
-          <p class="text-xl font-bold">
-            Here's how it's went: {{ calorieCount }}, Your goal was {{ calorieGoal }} calories
-          </p>
-        </div>
-      </section>
+      <div v-else>
+        <p>{{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
+          Date(calorieDay.created_at).toLocaleDateString() }}</p>
+        <p class="text-xl font-bold">
+          Here's how it's went: {{ calorieCount }}, Your goal was {{ calorieGoal }} calories
+        </p>
+      </div>
+    </section>
 
-      <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
+    <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
 
-      <section v-if="props.account && calorieDay.food_items.length">
-        <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
-      </section>
+    <section v-if="props.account && calorieDay.food_items.length">
+      <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
+    </section>
 
-      <section v-if="props.account">
-        <CreateFood />
-      </section>
+    <section v-if="props.account">
+      <CreateFood />
+    </section>
 
-      <section v-if="props.account">
-        <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem"
-          @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
-          <h1 class="text-xl font-bold">Your Foods</h1>
-        </ItemsDisplay>
-      </section>
+    <section v-if="props.account">
+      <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem"
+        @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
+        <h1 class="text-xl font-bold">Your Foods</h1>
+      </ItemsDisplay>
+    </section>
 
-      <section v-if="props.account">
-        <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem"
-          @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
-          <h1 class="text-xl font-bold">Favorite Foods</h1>
-        </ItemsDisplay>
-      </section>
+    <section v-if="props.account">
+      <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem"
+        @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
+        <h1 class="text-xl font-bold">Favorite Foods</h1>
+      </ItemsDisplay>
+    </section>
 
-      <section>
-        <FoodList @increase-by="updateCalorieDayFoodItem"
-          @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
-      </section>
+    <section>
+      <FoodList @increase-by="updateCalorieDayFoodItem"
+        @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
+    </section>
 
-      <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
-      <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+    <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+    <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 
-    </div>
   </GlobalLayout>
 </template>
 

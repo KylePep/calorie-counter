@@ -71,37 +71,35 @@ function handleExtraButton(item, action) {
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Food</h2>
     </template>
 
-    <div class="space-y-12 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-      <section v-if="!props.account">
-        <div class="font-bold text-2xl">
-          Unlock more features by completing account setup!
-        </div>
-      </section>
+    <section v-if="!props.account">
+      <div class="font-bold text-2xl">
+        Unlock more features by completing account setup!
+      </div>
+    </section>
 
-      <section v-if="props.account">
-        <CreateFood />
-      </section>
+    <section v-if="props.account">
+      <CreateFood />
+    </section>
 
-      <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="without_fdcId" @item-Activated="setActive" @extra-button="handleExtraButton">
-          <h1 class="text-xl font-bold">Your Foods</h1>
-        </ItemsDisplay>
-      </section>
+    <section v-if="props.account">
+      <ItemsDisplay size="lg" :list="without_fdcId" @item-Activated="setActive" @extra-button="handleExtraButton">
+        <h1 class="text-xl font-bold">Your Foods</h1>
+      </ItemsDisplay>
+    </section>
 
-      <section v-if="props.account">
-        <ItemsDisplay size="lg" :list="with_fdcId" @item-Activated="setActive" @extra-button="handleExtraButton">
-          <h1 class="text-xl font-bold">Favorite Foods</h1>
-        </ItemsDisplay>
-      </section>
+    <section v-if="props.account">
+      <ItemsDisplay size="lg" :list="with_fdcId" @item-Activated="setActive" @extra-button="handleExtraButton">
+        <h1 class="text-xl font-bold">Favorite Foods</h1>
+      </ItemsDisplay>
+    </section>
 
-      <section>
-        <FoodList />
-      </section>
+    <section>
+      <FoodList />
+    </section>
 
-      <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+    <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 
-    </div>
 
   </GlobalLayout>
 </template>

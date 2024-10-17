@@ -26,13 +26,11 @@ const props = defineProps({
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">History</h2>
     </template>
 
-    <div class="space-y-12 max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
 
-      <section v-if="props.account">
-        <CalorieHistory :calorieDays="calorieDays" />
-      </section>
+    <section v-if="props.account">
+      <CalorieHistory :calorieDays="calorieDays" />
+    </section>
 
-    </div>
 
   </GlobalLayout>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
-import GuestLayout from "./GuestLayout.vue";
+import PageLayout from "./PageLayout.vue";
 import GuestNav from "@/Components/GuestNav.vue";
 import AuthenticatedNav from "@/Components/AuthenticatedNav.vue";
 
@@ -34,9 +34,9 @@ defineProps({
     </header>
 
     <main class="grid grid-cols-4 flex-1 mt-10">
-      <GuestLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
+      <PageLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
         <slot></slot>
-      </GuestLayout>
+      </PageLayout>
       <div class="col-span-2 lg:col-span-1 col-start-2 lg:col-start-4">
         <slot v-if="$slots.side" name="side">
         </slot>

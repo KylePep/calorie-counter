@@ -11,7 +11,7 @@ const calorieCountRows = ref(Math.ceil(props.calorieGoal / 1000))
 
 <template>
 
-  <section class=" z-10 bg-white p-1 text-center border-4 rounded-lg border-black/25"
+  <section class=" z-10 bg-white p-1 text-center border-4 rounded-lg border-black/25 shadow-xl"
     :class="calorieCount < calorieGoal ? 'sticky top-16' : ''">
 
     <div v-for="row in calorieCountRows" :key="row" class="  grid grid-rows-1 grid-flow-col gap-1 mb-1">
@@ -24,7 +24,7 @@ const calorieCountRows = ref(Math.ceil(props.calorieGoal / 1000))
   </section>
 
   <section v-if="calorieCount > calorieGoal"
-    class="sticky top-16 z-20 grid grid-rows-2 grid-flow-col gap-1 bg-white p-1 text-center border-4 rounded-lg border-black/25">
+    class="sticky top-16 z-20 grid grid-rows-2 grid-flow-col gap-1 bg-white p-1 text-center border-4 rounded-lg border-black/25 shadow-xl">
     <div v-for="index in 40" :key="index"
       :class="[index * 50 + calorieGoal <= calorieCount ? 'bg-yellow-500' : 'bg-gray-300']"
       class="min-h-10 duration-300">
