@@ -3,18 +3,18 @@
   <div class="space-y-4 ">
     <h3 class="mb-4 text-2xl font-bold">Calorie Day History</h3>
     <div v-for="(day, index) in calorieDays" :key="index"
-      class="flex flex-col min-h-40 min-w-40 bg-white p-4 text-center border-4 rounded-lg border-black/25">
+      class="flex flex-col min-h-40 min-w-40 bg-white p-4 text-center border-2 rounded-lg border-black/25 shadow-lg">
 
       <div class="flex flex-1 flex-col justify-between space-y-3">
 
-        <div class=" grid grid-cols-4">
-          <p class="font-bold text-lg">{{ getDayOfWeek(new Date(day.created_at).getDay()) }}, {{ new
+        <div class=" grid grid-cols-2 sm:grid-cols-4 gap-y-3">
+          <p class="order-1 font-bold text-lg">{{ getDayOfWeek(new Date(day.created_at).getDay()) }}, {{ new
             Date(day.created_at).toLocaleDateString() }}</p>
-          <h2 class="text-lg">Calories: {{ day.count }}</h2>
-          <h3 class="text-lg">Goal: {{ day.goal }}</h3>
-          <div>
+          <h2 class="order-3 sm:order-2 text-lg">Calories: {{ day.count }}</h2>
+          <h3 class="order-4 sm:order-3  text-lg">Goal: {{ day.goal }}</h3>
+          <div class="order-2 sm:order-4 flex justify-center items-center">
             <Link :href="route('calorieDay.show', day)"
-              class="mdi mdi-pencil px-4 py-1 bg-gray-500 hover:bg-gray-600 text-white rounded-lg"> Edit</Link>
+              class="mdi mdi-pencil px-4 py-0.5 bg-gray-500 hover:bg-gray-600 text-white rounded-lg"> Edit</Link>
           </div>
         </div>
 

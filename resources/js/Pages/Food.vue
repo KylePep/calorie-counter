@@ -8,23 +8,29 @@ import ItemsDisplay from "@/Components/ItemsDisplay.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
 import Pop from "@/utils/Pop.js";
 import axios from "axios";
+import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
-
 
 
 const with_fdcId = computed(() => props.with_fdcId);
 const without_fdcId = computed(() => props.without_fdcId);
 
 const showEditForm = ref(false);
+const showUsdaForm = ref(false);
 const ActiveFoodItem = ref({})
 
-function setActive(foodItem) {
-  showEditForm.value = true;
+function setActive(foodItem, type) {
+  showEditForm.value = false;
+  showUsdaForm.value = false;
+  if (type == 'usda') {
+    showUsdaForm.value = true;
+  } else { showEditForm.value = true; }
   ActiveFoodItem.value = foodItem;
 }
 const closeModal = () => {
   showEditForm.value = false;
+  showUsdaForm.value = false;
   ActiveFoodItem.value = {};
 }
 
@@ -47,9 +53,9 @@ async function deleteFoodItem(foodItem) {
   });
 }
 
-function handleExtraButton(item, action) {
+function handleExtraButton(item, action, type) {
   if (action == 'edit') {
-    setActive(item)
+    setActive(item, type)
   } else if (action == 'add') {
     return
   } else {
@@ -95,11 +101,12 @@ function handleExtraButton(item, action) {
     </section>
 
     <section>
-      <FoodList />
+      <FoodList @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
     </section>
 
     <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 
+    <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 
   </GlobalLayout>
 </template>

@@ -74,7 +74,6 @@ async function updateCalorieDayFoodItem(foodItem) {
 }
 
 function handleExtraButton(item, action, type) {
-    console.log(item, action, type)
     if (action == 'edit') {
         setActive(item, type)
     } else if (action == 'add') {
@@ -112,7 +111,7 @@ function handleExtraButton(item, action, type) {
                     <li class="line-through text-gray-400">Profile should have recorded account details editable</li>
                     <li class="line-through text-gray-400">FoodList no search, remove hover</li>
                 </ul> -->
-            <ul class="list-disc">
+            <!-- <ul class="list-disc">
                 <h1 class="font-bold">
                     To Be Done:
                 </h1>
@@ -124,7 +123,7 @@ function handleExtraButton(item, action, type) {
                 <li>Standardization of components, maybe move some styling into tailwind config</li>
                 <li>Introduce themes and colors</li>
                 <li>Look for opportunities for transitions. Like loading etc</li>
-            </ul>
+            </ul> -->
         </section>
 
         <section>
@@ -136,7 +135,7 @@ function handleExtraButton(item, action, type) {
             </div>
 
             <div v-else>
-                <p>{{ new
+                <p>Today, {{ new
                     Date().toLocaleDateString() }}</p>
                 <p class="text-xl font-bold">
                     Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories

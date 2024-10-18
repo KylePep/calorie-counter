@@ -38,7 +38,7 @@ const form = useForm({
 const calculateResult = () => {
   const height = ((form.heightFeet * 12) +
     form.heightInches) * 2.54
-  // console.log(height, form.heightFeet, form.heightInches)
+
   const weight = form.weight / 2.205
   const genderMod = form.gender == 'Female' ? -161 : +5
 
@@ -75,7 +75,7 @@ const createOrUpdateAccount = () => {
 
 <template>
 
-  <form @submit.prevent="createOrUpdateAccount" id="calorie">
+  <form @submit.prevent="createOrUpdateAccount" id="calorie" class="text-center">
     <div class="space-y-3">
       <div>
         <h2 class="text-2xl font-semibold leading-7 text-gray-900">Calorie Calculator</h2>
@@ -120,14 +120,14 @@ const createOrUpdateAccount = () => {
               <div class="mt-2 relative">
                 <input v-model.number="form.heightFeet" type="number" name="height-feet" id="height-feet"
                   inputmode="numeric" min="0" max="11"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-center">
+                  class="block w-full rounded-l-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-center">
                 <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Feet</span>
 
               </div>
               <div class="mt-2 relative">
                 <input v-model.number="form.heightInches" type="number" name="height-inches" id="height-inches"
                   inputmode="numeric" min="0" max="11"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-center">
+                  class="block w-full rounded-r-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-center">
                 <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Inches</span>
 
               </div>
@@ -167,23 +167,21 @@ const createOrUpdateAccount = () => {
 
     </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
+    <div class="mt-6 flex justify-center items-center justify-end gap-x-6">
       <button @click="calculateResult()" type="button"
         class="rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Calculate</button>
     </div>
   </form>
 
-  <div>
-    <div class="py-3">
-      <h3 class="text-xl font-bold mb-3">Result:
-        <span v-if="result.value">{{ Math.round(result.value) }}
-          Calories <button type="submit" form="calorie" v-if="$page.props.auth.user"
-            :title="`Set ${Math.round(result.value)} as calorie goal.`"
-            class="ms-4 text-sm mdi mdi-plus-thick bg-gray-600 hover:bg-gray-500  rounded-full px-3 py-1 text-white">
-            Set Goal</button>
-        </span><span v-else>Pending</span>
-      </h3>
-    </div>
+  <div class="mt-6">
+    <h3 class="text-center text-xl font-bold mb-3">Result:
+      <span v-if="result.value">{{ Math.round(result.value) }}
+        Calories <button type="submit" form="calorie" v-if="$page.props.auth.user"
+          :title="`Set ${Math.round(result.value)} as calorie goal.`"
+          class="ms-4 text-sm mdi mdi-plus-thick bg-gray-600 hover:bg-gray-500  rounded-full px-3 py-1 text-white">
+          Set Goal</button>
+      </span><span v-else>Pending</span>
+    </h3>
   </div>
 
 </template>

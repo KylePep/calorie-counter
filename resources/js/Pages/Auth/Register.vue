@@ -28,7 +28,7 @@ const submit = () => {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Register</h2>
         </template>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="max-w-lg mx-auto">
             <div>
                 <InputLabel for="name" value="Name" />
 

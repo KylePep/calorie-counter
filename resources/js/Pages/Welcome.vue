@@ -1,4 +1,6 @@
 <script setup>
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { onMounted } from "vue";
 
@@ -28,27 +30,36 @@ onMounted(() => {
         </template>
 
 
-        <h1 class="text-3xl">Welcome to <strong>Calorie Counter</strong></h1>
-        <h2>Be sure to log in to keep log in so you can calculate your calorie goals and begin keeping track!</h2>
-
-        <div v-if="canLogin && !$page.props.auth.user" class="min-h-96 grid grid-cols-1 place-items-center">
-            <Link :href="route('login')"
-                class="text-4xl font-bold bg-gray-600 hover:bg-gray-500 py-3 px-6 rounded text-white">
-            Returning?
-            </Link>
-            <p class="font-bold text-black/25 text-3xl">Or</p>
-            <Link :href="route('register')"
-                class="text-4xl font-bold bg-gray-600 hover:bg-gray-500 py-3 px-6 rounded text-white">New here?
-            </Link>
+        <h1 class="text-3xl text-center mb-12">Welcome to <strong>Calorie Counter</strong></h1>
+        <div class="mb-12 py-4">
+            <h2 class="text-2xl text-center mb-4">Here You'll be able to</h2>
+            <ul class="space-y-2 max-w-sm lg:max-w-lg mx-auto list-disc">
+                <li>Create an account and a goal</li>
+                <li>Log the calories you've consumed over the course of a day</li>
+                <li>Search for food items using the Usda database</li>
+                <li>Save Usda food items or create them from scratch</li>
+                <li>Visually compare calories to your goal using a representative progress bar</li>
+                <li>Review all logged days</li>
+            </ul>
         </div>
 
-        <div v-else class="min-h-96 grid grid-cols-1 place-items-center">
-            <Link :href="route('calculator')"
-                class="text-4xl font-bold bg-gray-600 hover:bg-gray-500 py-3 px-6 rounded text-white">
-            Calculate BMR
+        <h3 class="pb-12 text-xl text-center">
+            Register now to get started!
+        </h3>
+
+        <div class="flex justify-around max-w-lg mx-auto">
+            <Link :href="route('login')">
+            <PrimaryButton>
+                Log in
+            </PrimaryButton>
+            </Link>
+            <p class="text-gray-600">or</p>
+            <Link :href="route('register')">
+            <PrimaryButton>
+                Register
+            </PrimaryButton>
             </Link>
         </div>
-
 
     </GlobalLayout>
 

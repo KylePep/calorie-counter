@@ -36,11 +36,7 @@ const submit = () => {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Log In</h2>
         </template>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="max-w-lg mx-auto">
             <div>
                 <InputLabel for="email" value="Email" />
 

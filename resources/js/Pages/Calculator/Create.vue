@@ -24,9 +24,9 @@ defineProps({
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Calculator</h2>
     </template>
 
-    <div class="flex justify-center max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12">
+    <div class="flex justify-center">
 
-      <section class="space-y-6 text-center text-black/75">
+      <section>
         <CalorieCalculator :account="account" />
       </section>
 

@@ -38,6 +38,14 @@ const usdaResponse = reactive({
 const foodSearchResponse = computed(() => usdaResponse.foodSearchResponse)
 const foods = computed(() => usdaResponse.foods)
 
+const loading = ref(false);
+
+const loadingClasses = computed(() => {
+  if (loading.value == true) {
+    return 'animate-pulse';
+  } else return '';
+})
+
 const typeName = computed(() => {
   return {
     "SR Legacy": 'Legacy',
@@ -48,7 +56,7 @@ const typeName = computed(() => {
 
 async function fetchFoodData(page = 1) {
   try {
-
+    loading.value = true;
     let query = form.query.replace(/"/g, '').trim();
 
     if (form.requireAllWords) {
@@ -56,7 +64,6 @@ async function fetchFoodData(page = 1) {
       query = newArray.join(' ');
       console.log(query)
     }
-
 
     const response = await axios.get('/search-foodData', {
       params: {
@@ -67,12 +74,15 @@ async function fetchFoodData(page = 1) {
       },
     });
 
+    loading.value = false;
+
     const foodSearchResponse = new FoodSearchResponse(response.data)
     const foods = response.data.foods.map(f => new BrandedFoodItem(f))
     usdaResponse.foodSearchResponse = foodSearchResponse
     usdaResponse.foods = foods
 
   } catch (error) {
+    loading.value = false;
     console.error(error, '[Error fetching food data]')
   }
 }
@@ -100,14 +110,13 @@ async function favoriteItem(foodItem) {
     // Post the food item data to your backend
     const res = await axios.post(route('food.store'), data);
 
-    // On success, reload only the relevant props to update the UI reactively
     router.reload({
-      only: ['with_fdcId', 'without_fdcId'],  // Only reload the updated data
+      only: ['with_fdcId', 'without_fdcId'],
     });
     Pop.success(`${foodItem.description} added to favorites`)
 
   } catch (error) {
-    console.error(error);  // Handle any error (optional)
+    console.error(error);
   }
 }
 
@@ -195,11 +204,11 @@ async function favoriteItem(foodItem) {
     </button>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2 text-center border-4 rounded-lg border-black/25">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2 text-center border-2 rounded-lg border-gray-300">
 
-    <div v-if="!foodSearchResponse.currentPage"
+    <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
       class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-gray-300 p-3 shadow h-40 rounded">
-      Search for an item to begin counting calories!
+      {{ !loading ? 'Search for an item to begin counting calories!' : 'Searching' }}
     </div>
     <div v-if="foodSearchResponse.currentPage && foods.length == 0"
       class="break-inside-avoid relative flex flex-col justify-center w-full text-gray-300 text-xl font-bold bg-gray-800 p-3 shadow h-40 rounded">

@@ -3,7 +3,7 @@ import { computed, ref, watch } from "vue";
 import Modal from "../Modal.vue";
 import SecondaryButton from "../SecondaryButton.vue";
 import PrimaryButton from "../PrimaryButton.vue";
-import { useForm } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
 import { UsdaFoodItem } from "@/models/UsdaFoodItem.js";
 import UsdaFoodDetailsForm from "./UsdaFoodDetailsForm.vue";
@@ -11,6 +11,9 @@ import UsdaFoodDetailsForm from "./UsdaFoodDetailsForm.vue";
 const emit = defineEmits(['closeModal', 'useItem']);
 
 const props = defineProps(['showModal', 'foodItem']);
+
+const page = usePage();
+const isDashboard = page.url.includes('dashboard')
 
 const loading = ref(false);
 
@@ -154,7 +157,7 @@ const createFoodItem = () => {
       <template #title>
         <h1 v-if="!loading" class="text-center text-base font-bold text-gray-700">Edit <span
             class="text-xl text-black">{{
-              form.description }}</span> before using or saving?
+              form.description }}</span>?
         </h1>
         <h1 v-else class="text-center text-xl font-bold">Loading</h1>
       </template>
@@ -162,7 +165,7 @@ const createFoodItem = () => {
       <SecondaryButton type="button" @click="closeModal">
         Cancel
       </SecondaryButton>
-      <PrimaryButton @click="useItem">
+      <PrimaryButton v-if="isDashboard" @click="useItem">
         Use
       </PrimaryButton>
       <PrimaryButton @click="createFoodItem">

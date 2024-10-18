@@ -37,7 +37,7 @@ function emitExtraButton(item, action) {
 
       </div>
 
-      <div @click="emitItemActivated(item)"
+      <div @click="emitItemActivated(item)" :title="'Add'"
         class="flex-1 text-gray-800 hover:bg-gray-200 hover:cursor-pointer font-bold p-3 ">
         <h1 class="font-bold text-wrap text-lg">{{ item.description }}</h1>
       </div>
@@ -45,7 +45,7 @@ function emitExtraButton(item, action) {
     </section>
 
     <section
-      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-2 border-t-0 border-black/25 bg-gray-300">
+      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-2 border-t-0 border-black/25 bg-gray-300 rounded-b">
       <div v-for="block in Math.round(item.calories / 50) " title="50 Calories"
         class="bg-gray-400 h-2 border-2 border-black/25 rounded-sm">
       </div>

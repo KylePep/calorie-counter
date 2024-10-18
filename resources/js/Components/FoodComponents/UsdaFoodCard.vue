@@ -46,10 +46,9 @@ const getBrandedCalories = (item) => {
 
   <div v-for="item in foodItems" :key="item.fdcId">
 
-    <section @click="emitIncreaseBy(item)"
-      class="flex flex-col break-inside-avoid hover:bg-gray-200 bg-gray-300  rounded-t border-4 border-black/25 pb-3 min-h-40">
+    <section class="flex flex-col break-inside-avoid bg-gray-300  rounded-t border-2 border-black/25 min-h-40">
 
-      <div class="flex items-center justify-between bg-gray-200 px-1 border-b-2 border-black/25">
+      <div class="flex items-center justify-between bg-gray-200 p-1 px-2 border-b-2 border-black/25">
 
         <div class=" text-gray-800 font-bold text-3xl drop-shadow-2xl">
           <template v-if="item.gtinUpc != 0">
@@ -66,7 +65,8 @@ const getBrandedCalories = (item) => {
 
       </div>
 
-      <div class=" text-gray-800 font-bold p-3 drop-shadow-2xl my-auto">
+      <div @click="emitIncreaseBy(item)" :title="'Add'"
+        class="flex-1 text-gray-800 hover:bg-gray-200 hover:cursor-pointer font-bold p-3 drop-shadow-2xl my-auto">
         <h1 class="font-bold" :class="[item.gtinUpc ? 'text-base' : 'text-lg']">{{ item.description }}</h1>
         <p class="text-xs" v-if="item.gtinUpc && item.brandOwner">
           ( {{ item.brandName + [item.brandName ? ' by' : ''] }} {{ item.brandOwner }} )
@@ -76,9 +76,9 @@ const getBrandedCalories = (item) => {
     </section>
 
     <section
-      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-4 border-t-0 border-black/25 bg-gray-300">
+      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-2 border-t-0 border-black/25 bg-gray-300 rounded-b">
       <div v-for="block in Math.round([item.gtinUpc ? getBrandedCalories(item) : getCalories(item)] / 50) "
-        class="bg-gray-400 h-4 border-2 border-black/25 rounded-sm">
+        class="bg-gray-400 h-4 border-2 border-black/25 rounded-sm" title="50 Calories">
       </div>
     </section>
 
