@@ -24,13 +24,13 @@ defineProps({
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Calculator</h2>
     </template>
 
-    <div class="flex justify-center">
+    <!-- <div class="flex justify-center"> -->
 
-      <section>
-        <CalorieCalculator :account="account" />
-      </section>
+    <section>
+      <CalorieCalculator :account="account" />
+    </section>
 
-    </div>
+    <!-- </div> -->
 
     <template #side>
 

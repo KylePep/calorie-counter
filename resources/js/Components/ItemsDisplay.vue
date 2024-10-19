@@ -57,7 +57,7 @@ const currentSizeClass = computed(() => {
 
     <div class="flex justify-between">
       <div @click="showItems = !showItems" :class="showItems ? 'border-b-gray-200 rounded-t' : 'rounded'"
-        class="flex justify-between border-2 p-1 border-gray-300 w-48 sm:w-60">
+        class="flex justify-between bg-white border-2 p-1 border-gray-300 w-48 sm:w-60">
         <slot />
         <i :class="showItems ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-2  text-lg"></i>
       </div>

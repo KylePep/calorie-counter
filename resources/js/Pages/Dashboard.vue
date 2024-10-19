@@ -143,10 +143,10 @@ function handleExtraButton(item, action, type) {
         </section>
 
         <template #side>
-            <section class="me-4">
+            <!-- <section class="me-4">
                 <p>Notes</p>
                 <textarea class="w-full" name="" id=""></textarea>
-            </section>
+            </section> -->
             <section class="space-y-4">
                 <!-- <ul class="list-disc">
                     <h1 class="font-bold">
@@ -165,14 +165,14 @@ function handleExtraButton(item, action, type) {
                     <h1 class="font-bold">
                         To Be Done:
                     </h1>
-                    <li>Reduce size of cards</li>
+                    <li class="line-through text-gray-400">Reduce size of cards</li>
                     <li>Calculator form looks out of place</li>
-                    <li>Login/Register pages are weird</li>
-                    <li>Welcome Page is yucky</li>
+                    <li class="line-through text-gray-400">Login/Register pages are weird</li>
+                    <li class="line-through text-gray-400">Welcome Page is yucky</li>
                     <li>Custom Font</li>
                     <li>Standardization of components, maybe move some styling into tailwind config</li>
                     <li>Introduce themes and colors</li>
-                    <li>Look for opportunities for transitions. Like loading etc</li>
+                    <li class="line-through text-gray-400">Look for opportunities for transitions. Like loading etc</li>
                 </ul>
             </section>
         </template>

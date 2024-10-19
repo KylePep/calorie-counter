@@ -44,9 +44,9 @@ function emitExtraButton(item, action) {
     </section>
 
     <section
-      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-2 border-t-0 border-black/25 bg-gray-300 rounded-b">
+      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-0.5 p-1 border-2 border-t-0 border-black/25 bg-gray-300 rounded-b">
       <div v-for="block in Math.round(foodItem.calories / 50) " title="50 Calories"
-        class="bg-gray-400 h-2 border-2 border-black/25 rounded-sm">
+        class="bg-gray-400 h-3 border-2 border-black/25 rounded-sm">
       </div>
     </section>
   </div>
