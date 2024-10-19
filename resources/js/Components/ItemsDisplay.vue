@@ -57,8 +57,9 @@ const currentSizeClass = computed(() => {
 
     <div class="flex justify-between">
       <div @click="showItems = !showItems" :class="showItems ? 'border-b-gray-200 rounded-t' : 'rounded'"
-        class="flex border-2 p-1 border-gray-300">
-        <slot /> <i :class="showItems ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="ms-2  text-lg"></i>
+        class="flex justify-between border-2 p-1 border-gray-300 w-48 sm:w-60">
+        <slot />
+        <i :class="showItems ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-2  text-lg"></i>
       </div>
 
       <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
@@ -76,13 +77,19 @@ const currentSizeClass = computed(() => {
         </div>
       </Transition>
     </div>
+
     <Transition enter-active-class="ease-out duration-300" enter-from-class="scale-y-0 max-h-0 opacity-0"
       enter-to-class="scale-y-100 max-h-[1000px] opacity-100" leave-active-class="ease-in duration-200"
       leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
+
       <div v-show="showItems"
-        class="origin-top grid grid-flow-col gap-3  p-2 text-center bg-gradient-to-b from-gray-200 via-white  border-2 rounded-b-lg rounded-tr-lg border-gray-300 overflow-x-auto whitespace-nowrap shadow-inner "
+        class="origin-top grid grid-flow-col auto-cols-min gap-3 p-2 text-center bg-gradient-to-b from-gray-200 via-white  border-2 rounded-b-lg rounded-tr-lg border-gray-300 overflow-x-auto whitespace-nowrap shadow-inner"
         :class="currentSizeClass">
-        <FoodCard :foodItems="props.list" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
+
+        <div v-for="foodItem in props.list">
+          <FoodCard :foodItem="foodItem" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
+        </div>
+
         <div v-if="props.list.length == 0"
           class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded ">
           <div class="flex flex-col min-h-36 justify-around">

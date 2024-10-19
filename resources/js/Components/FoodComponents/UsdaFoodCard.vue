@@ -1,9 +1,13 @@
 <script setup>
+import { usePage } from "@inertiajs/vue3";
 import UsdaFoodCardButton from "./UsdaFoodCardButton.vue";
 
-const props = defineProps(['foodItems']);
-
 const emit = defineEmits(['increase-by', 'extraButton'])
+
+const props = defineProps(['foodItem']);
+
+const page = usePage();
+const isDashboard = page.url.includes('dashboard')
 
 function emitIncreaseBy(item) {
   if (item.gtinUpc) {
@@ -42,47 +46,46 @@ const getBrandedCalories = (item) => {
 
 <template>
 
+  <section class="flex flex-col break-inside-avoid bg-gray-300  rounded border-2 border-black/25 h-full min-h-40">
 
+    <div class="flex items-center justify-between bg-gray-200 p-1 px-2 border-b-2 border-black/25">
 
-  <div v-for="item in foodItems" :key="item.fdcId">
-
-    <section class="flex flex-col break-inside-avoid bg-gray-300  rounded-t border-2 border-black/25 min-h-40">
-
-      <div class="flex items-center justify-between bg-gray-200 p-1 px-2 border-b-2 border-black/25">
-
-        <div class=" text-gray-800 font-bold text-3xl drop-shadow-2xl">
-          <template v-if="item.gtinUpc != 0">
-            {{ getBrandedCalories(item) }}
-          </template>
-          <template v-else>
-            {{ getCalories(item) }}
-          </template>
-        </div>
-
-        <UsdaFoodCardButton @click.stop="emitExtraButton(item, 'edit')" icon="pencil">Edit</UsdaFoodCardButton>
-        <UsdaFoodCardButton @click.stop="emitExtraButton(item, 'favorite')" icon="star">Favorite</UsdaFoodCardButton>
-        <UsdaFoodCardButton @click.stop="emitIncreaseBy(item)" icon="plus">Add</UsdaFoodCardButton>
-
+      <div class=" text-gray-800 font-bold text-3xl drop-shadow-2xl">
+        <template v-if="foodItem.gtinUpc != 0">
+          {{ getBrandedCalories(foodItem) }}
+        </template>
+        <template v-else>
+          {{ getCalories(foodItem) }}
+        </template>
       </div>
 
-      <div @click="emitIncreaseBy(item)" :title="'Add'"
-        class="flex-1 text-gray-800 hover:bg-gray-200 hover:cursor-pointer font-bold p-3 drop-shadow-2xl my-auto">
-        <h1 class="font-bold" :class="[item.gtinUpc ? 'text-base' : 'text-lg']">{{ item.description }}</h1>
-        <p class="text-xs" v-if="item.gtinUpc && item.brandOwner">
-          ( {{ item.brandName + [item.brandName ? ' by' : ''] }} {{ item.brandOwner }} )
-        </p>
+      <div class="flex space-x-3">
+        <UsdaFoodCardButton v-if="isDashboard" @click.stop="emitIncreaseBy(foodItem)" icon="plus">Add
+        </UsdaFoodCardButton>
+        <UsdaFoodCardButton @click.stop="emitExtraButton(foodItem, 'favorite')" icon="star">Favorite
+        </UsdaFoodCardButton>
       </div>
 
-    </section>
+    </div>
 
-    <section
-      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-2 border-t-0 border-black/25 bg-gray-300 rounded-b">
-      <div v-for="block in Math.round([item.gtinUpc ? getBrandedCalories(item) : getCalories(item)] / 50) "
-        class="bg-gray-400 h-4 border-2 border-black/25 rounded-sm" title="50 Calories">
+    <div @click="emitExtraButton(foodItem, 'edit')"
+      class="flex-1 flex flex-col justify-center items-center text-gray-800 hover:bg-gray-200 hover:cursor-pointer px-3 drop-shadow-xl my-auto duration-300">
+      <h1 class="font-bold text-balance truncate" :class="[foodItem.gtinUpc ? 'text-base' : 'text-lg']">{{
+        foodItem.description
+      }}
+      </h1>
+      <p class="text-xs" v-if="foodItem.gtinUpc && foodItem.brandOwner">
+        ( {{ foodItem.brandName + [foodItem.brandName ? ' by' : ''] }} {{ foodItem.brandOwner }} )
+      </p>
+
+    </div>
+
+    <div class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-t-2 border-black/25 bg-gray-300 shadow-lg">
+      <div v-for="block in Math.round([foodItem.gtinUpc ? getBrandedCalories(foodItem) : getCalories(foodItem)] / 50) "
+        class="bg-gray-400 h-4 border-2  border-black/25 rounded-sm" title="50 Calories">
       </div>
-    </section>
+    </div>
 
+  </section>
 
-
-  </div>
 </template>

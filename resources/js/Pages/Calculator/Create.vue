@@ -33,48 +33,46 @@ defineProps({
     </div>
 
     <template #side>
-      <div class=" border-t lg:border-t-0 lg:border-s border-black/25 space-y-3 px-0 lg:px-12 pt-12 lg:pt-0 text-sm">
 
-        <h1 class=" font-bold">This calculator uses the Mifflin-St Jeor formula</h1>
+      <h1 class=" font-bold">This calculator uses the Mifflin-St Jeor formula</h1>
 
-        <p>
-          Females: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) – 161
+      <p>
+        Females: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) – 161
 
-        </p>
-        <p>
-          Males: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) + 5
-        </p>
+      </p>
+      <p>
+        Males: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) + 5
+      </p>
 
-        <div class="">
-          <h2 class="mb-2 font-semibold">
-            Multiply by scale factor for activity level:
+      <div class="">
+        <h2 class="mb-2 font-semibold">
+          Multiply by scale factor for activity level:
 
-          </h2>
-          <ul class="">
-            <li>
-              Sedentary *1.2
+        </h2>
+        <ul class="">
+          <li>
+            Sedentary *1.2
 
-            </li>
-            <li>
-              Lightly active *1.375
+          </li>
+          <li>
+            Lightly active *1.375
 
 
-            </li>
-            <li>
-              Moderately active *1.55
+          </li>
+          <li>
+            Moderately active *1.55
 
-            </li>
-            <li>
-              Active *1.725
+          </li>
+          <li>
+            Active *1.725
 
-            </li>
-            <li>
-              Very active *1.9
+          </li>
+          <li>
+            Very active *1.9
 
-            </li>
-          </ul>
+          </li>
+        </ul>
 
-        </div>
       </div>
     </template>
   </GlobalLayout>

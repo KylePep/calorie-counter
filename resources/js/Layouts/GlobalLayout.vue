@@ -34,12 +34,20 @@ defineProps({
     </header>
 
     <main class="grid grid-cols-4 flex-1 mt-10">
+
       <PageLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
-        <slot></slot>
+        <slot />
       </PageLayout>
-      <div class="col-span-2 lg:col-span-1 col-start-2 lg:col-start-4">
-        <slot v-if="$slots.side" name="side">
-        </slot>
+
+      <div class="col-span-4 lg:col-span-1  lg:col-start-4">
+        <div
+          class="border-t lg:border-t-0 lg:border-s border-black/25 space-y-3 px-4 lg:px-12 pt-12 lg:pt-0 text-sm mx-12 lg:mx-0 ">
+
+          <!-- <PageLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2"> -->
+          <slot v-if="$slots.side" name="side" />
+          <!-- </PageLayout> -->
+
+        </div>
       </div>
     </main>
 

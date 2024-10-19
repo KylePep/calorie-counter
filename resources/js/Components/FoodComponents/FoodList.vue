@@ -69,7 +69,7 @@ async function fetchFoodData(page = 1) {
       params: {
         query: query,
         pageNumber: page,
-        pageSize: 10,
+        pageSize: 9,
         dataType: form.type
       },
     });
@@ -204,7 +204,7 @@ async function favoriteItem(foodItem) {
     </button>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2 text-center border-2 rounded-lg border-gray-300">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 p-2 text-center border-2 rounded-lg border-gray-300">
 
     <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
       class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-gray-300 p-3 shadow h-40 rounded">
@@ -215,7 +215,9 @@ async function favoriteItem(foodItem) {
       No results found
     </div>
 
-    <UsdaFoodCard :food-items="foods" @increase-by="handleIncreaseBy" @extraButton="handleExtraButton" />
+    <div v-for="foodItem in foods">
+      <UsdaFoodCard :food-item="foodItem" @increase-by="handleIncreaseBy" @extraButton="handleExtraButton" />
+    </div>
 
   </div>
 </template>
