@@ -209,7 +209,7 @@ async function favoriteItem(foodItem) {
   </div>
 
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 bg-gradient-to-b from-light via-main to-light p-2 text-center border-2 rounded border-neutral">
+    class="grid grid-cols-1 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 bg-gradient-to-b from-light via-main to-light p-2 text-center border-2 rounded border-neutral">
 
     <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
       class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-neutral text-text-light p-3 shadow h-40 rounded">
