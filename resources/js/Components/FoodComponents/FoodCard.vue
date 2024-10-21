@@ -18,9 +18,9 @@ function emitExtraButton(item, action) {
 
   <div class="flex flex-col h-full w-60 drop-shadow-lg">
 
-    <section class="flex flex-col break-inside-avoid flex-1 rounded-t border-2 border-neutral  ">
+    <section class="flex flex-col flex-1  ">
 
-      <div class="flex bg-main justify-between items-end py-1 px-2 border-b-2 border-neutral">
+      <div class="flex bg-main justify-between items-end py-1 px-2 rounded-t border border-b-0 border-light">
 
         <div class=" text-text font-bold ">
           {{ foodItem.calories }}
@@ -36,7 +36,7 @@ function emitExtraButton(item, action) {
       </div>
 
       <div @click="emitExtraButton(foodItem, 'edit')" :title="'Edit'"
-        class="flex-1 text-text-light bg-neutral hover:bg-light hover:text-dark hover:cursor-pointer p-3 duration-300">
+        class="flex-1 text-text-light bg-neutral hover:bg-light hover:text-dark hover:cursor-pointer p-3 duration-300 border-x border-light">
         <h1 class="text-sm truncate sm:text-balance ">{{ foodItem.description }}
         </h1>
       </div>
@@ -44,9 +44,9 @@ function emitExtraButton(item, action) {
     </section>
 
     <section
-      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-0.5 p-1 border-2 border-t-0 border-neutral bg-dark rounded-b">
+      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-0.5 p-1 border border-t-0 border-light bg-dark rounded-b">
       <div v-for="block in Math.round(foodItem.calories / 50) " title="50 Calories"
-        class="bg-accent h-3 border border-neutral rounded-sm">
+        class="bg-gradient-to-r from-accent via-accent to-accent-light h-3 border border-neutral rounded-sm">
       </div>
     </section>
   </div>

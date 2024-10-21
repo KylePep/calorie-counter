@@ -37,7 +37,7 @@ const submit = () => {
         </template>
 
         <form @submit.prevent="submit"
-            class="max-w-lg mx-auto p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
+            class="max-w-lg mx-auto p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
             <div>
                 <InputLabel for="email" value="Email" />
 

@@ -19,7 +19,8 @@ defineProps({
 
 
 <template>
-  <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
+  <div class="relative flex flex-col bg-gradient-to-b from-light from-1% via-main via-50% to-light to-99% min-h-screen"
+    style="scrollbar-gutter: stable;">
     <nav class="sticky top-0 z-20 shadow-xl">
       <GuestNav v-if="!$page.props.auth.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
       <AuthenticatedNav v-else></AuthenticatedNav>
@@ -41,11 +42,9 @@ defineProps({
 
       <div class="col-span-4 lg:col-span-1  lg:col-start-4">
         <div
-          class="border-t lg:border-t-0 lg:border-s border-black/25 space-y-3 px-4 lg:px-12 pt-12 lg:pt-0 text-sm mx-12 lg:mx-0 ">
+          class="sticky top-20 border-t lg:border-t-0 lg:border-s border-neutral space-y-3 px-4 lg:px-12 pt-12 lg:pt-0 text-sm mx-12 lg:mx-0 ">
 
-          <!-- <PageLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2"> -->
           <slot v-if="$slots.side" name="side" />
-          <!-- </PageLayout> -->
 
         </div>
       </div>

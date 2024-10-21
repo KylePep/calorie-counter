@@ -17,7 +17,7 @@ const getDayOfWeek = (date) => {
 
   <div class="space-y-4 ">
     <div v-for="(day, index) in calorieDays" :key="index"
-      class="flex flex-col min-h-40 min-w-40 bg-white p-4 text-center border-2 rounded border-neutral bg-gradient-to-b from-main via-main to-light shadow-lg">
+      class="flex flex-col min-h-40 min-w-40 bg-white p-4 text-center border-2 rounded border-light bg-gradient-to-b from-main via-main to-light shadow-lg">
 
       <div class="flex flex-1 flex-col justify-between space-y-3">
 
@@ -44,7 +44,7 @@ const getDayOfWeek = (date) => {
           </div>
 
           <!-- Excess progress bar (only visible when day.count exceeds day.goal) -->
-          <div v-if="day.count > day.goal" class="bg-yellow-500 h-3 absolute top-0 left-0"
+          <div v-if="day.count > day.goal" class="bg-special h-3 absolute top-0 left-0"
             :style="{ width: `${Math.min(((day.count - day.goal) / 2000) * 100, 100)}%` }"
             title="calories in excess of goal"></div>
         </div>

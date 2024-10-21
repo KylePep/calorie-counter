@@ -192,9 +192,13 @@ async function favoriteItem(foodItem) {
       Previous
     </button>
 
-    <p class="text-xs sm:text-base font-semibold text-text-light"> Hits: {{ foodSearchResponse.totalHits }}</p>
-    <p class="text-xs sm:text-base font-semibold text-text-light"> Page: {{ foodSearchResponse.currentPage }} - {{
-      foodSearchResponse.totalPages }} </p>
+    <p :class="foodSearchResponse.totalHits ? 'text-text' : 'text-text-light'"
+      class="text-xs sm:text-base font-semibold "> Hits:
+      {{
+        foodSearchResponse.totalHits }}</p>
+    <p :class="foodSearchResponse.currentPage ? 'text-text' : 'text-text-light'"
+      class="text-xs sm:text-base font-semibold "> Page: {{ foodSearchResponse.currentPage }} - {{
+        foodSearchResponse.totalPages }} </p>
 
     <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
       :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"

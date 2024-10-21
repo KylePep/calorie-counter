@@ -57,10 +57,11 @@ const currentSizeClass = computed(() => {
   <div class="grid">
 
     <div class="flex justify-between">
-      <div @click="showItems = !showItems" :class="showItems ? 'text-text border-b-light rounded-t' : 'rounded'"
-        class="flex justify-between bg-light border-2 p-1 border-neutral w-48 sm:w-60">
+      <div @click="showItems = !showItems"
+        :class="showItems ? 'text-text border-b-0 rounded-t bg-light ' : 'bg-neutral text-text-light rounded shadow'"
+        class="flex justify-between border-2 py-1 px-3 border-neutral w-48 sm:w-60 duration-300">
         <slot />
-        <i :class="showItems ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-2  text-lg"></i>
+        <i :class="showItems ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-1  text-lg"></i>
       </div>
 
       <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
@@ -82,7 +83,7 @@ const currentSizeClass = computed(() => {
       leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
 
       <div v-show="showItems"
-        class="origin-top grid grid-flow-col auto-cols-min gap-3 p-2 text-center bg-gradient-to-b from-light via-main border-2 rounded-b-lg rounded-tr-lg border-neutral overflow-x-auto whitespace-nowrap shadow-inner"
+        class="origin-top grid grid-flow-col auto-cols-min gap-3 p-2 text-center bg-gradient-to-b from-light via-main to-main border-2 rounded-b-lg rounded-tr-lg border-neutral overflow-x-auto whitespace-nowrap shadow-inner"
         :class="currentSizeClass">
 
         <div v-for="foodItem in props.list">

@@ -19,6 +19,7 @@ input::-webkit-inner-spin-button {
 
 ::-webkit-scrollbar-track {
   background: white;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {

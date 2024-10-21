@@ -78,7 +78,7 @@ const createOrUpdateAccount = () => {
 
 <template>
 
-  <div class="bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
+  <div class="bg-gradient-to-b from-main via-white to-main border-2 border-light rounded-lg shadow-xl p-12">
 
     <form @submit.prevent="createOrUpdateAccount" id="calorie" class="text-center">
       <div class="space-y-3">

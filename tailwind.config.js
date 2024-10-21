@@ -15,15 +15,20 @@ export default {
             colors: {
                 'page': '#FFFCF2',
                 'text': {
-                    'light': '#CCC5B9',
+                    'light': '#D4CEC4',
                     DEFAULT: '#403D39',
                     'dark': '#252422'
                 },
                 'main': '#FFFCF2',
                 'light': '#CCC5B9',
-                'neutral': '#403D39',
+                'neutral': '#56524D',
                 'dark': '#252422',
-                'accent': '#EB5E28'
+                'accent': {
+                    DEFAULT: '#EB5E28',
+                    'light': "#EB7328",
+                    'dark': '#EB4C28'
+                },
+                'special': '#596D9B'
             },
             animation: {
                 'infinite-scroll': 'infinite-scroll 15s linear infinite',

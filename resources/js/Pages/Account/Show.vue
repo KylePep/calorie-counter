@@ -86,7 +86,7 @@ const updateAccount = () => {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-        <div class="p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
+        <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
 
           <div v-if="!account?.goal" class="max-w-xl">
             <h1 class="font-bold">
@@ -141,7 +141,7 @@ const updateAccount = () => {
 
         </div>
 
-        <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
+        <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
 
           <form @submit.prevent="updateAccount" class="max-w-xl">
             <h1 class="font-bold">Stats</h1>

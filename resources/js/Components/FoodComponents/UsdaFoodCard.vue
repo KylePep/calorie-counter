@@ -46,11 +46,11 @@ const getBrandedCalories = (item) => {
 
 <template>
 
-  <section class="flex flex-col break-inside-avoid bg-gray-300  rounded border-2 border-neutral h-full min-h-40">
+  <section class="flex flex-col h-full min-h-40 drop-shadow-lg">
 
-    <div class="flex items-center justify-between bg-gray-200 p-1 px-2 border-b-2 border-neutral">
+    <div class="flex items-center justify-between bg-main p-1 px-2 border border-b-0 border-light rounded-t">
 
-      <div class=" text-text font-bold text-3xl drop-shadow-2xl">
+      <div class=" text-text font-bold text-3xl">
         <template v-if="foodItem.gtinUpc != 0">
           {{ getBrandedCalories(foodItem) }}
         </template>
@@ -69,7 +69,7 @@ const getBrandedCalories = (item) => {
     </div>
 
     <div @click="emitExtraButton(foodItem, 'edit')" :title="'Edit'"
-      class="flex-1 flex flex-col justify-center items-center text-text-light hover:text-dark bg-neutral hover:bg-light hover:cursor-pointer px-3 drop-shadow-xl my-auto duration-300">
+      class="flex-1 flex flex-col justify-center items-center text-text-light hover:text-dark bg-neutral hover:bg-light hover:cursor-pointer px-3 drop-shadow-xl my-auto duration-300 border-x border-light">
       <h1 class="font-bold text-balance truncate" :class="[foodItem.gtinUpc ? 'text-base' : 'text-lg']">{{
         foodItem.description
       }}
@@ -80,7 +80,8 @@ const getBrandedCalories = (item) => {
 
     </div>
 
-    <div class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-t-2 border-neutral bg-dark shadow-lg">
+    <div
+      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border border-t-0 border-light rounded-b bg-dark shadow-lg">
       <div v-for="block in Math.round([foodItem.gtinUpc ? getBrandedCalories(foodItem) : getCalories(foodItem)] / 50) "
         class="bg-accent h-4 border-2  border-neutral rounded-sm" title="50 Calories">
       </div>
