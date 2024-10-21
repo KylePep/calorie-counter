@@ -12,6 +12,19 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                'page': '#FFFCF2',
+                'text': {
+                    'light': '#CCC5B9',
+                    DEFAULT: '#403D39',
+                    'dark': '#252422'
+                },
+                'main': '#FFFCF2',
+                'light': '#CCC5B9',
+                'neutral': '#403D39',
+                'dark': '#252422',
+                'accent': '#EB5E28'
+            },
             animation: {
                 'infinite-scroll': 'infinite-scroll 15s linear infinite',
             },

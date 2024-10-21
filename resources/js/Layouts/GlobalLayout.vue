@@ -19,7 +19,7 @@ defineProps({
 
 
 <template>
-  <div class="relative flex flex-col bg-gray-100 min-h-screen" style="scrollbar-gutter: stable;">
+  <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
     <nav class="sticky top-0 z-10 bg-white shadow-xl">
       <GuestNav v-if="!$page.props.auth.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
       <AuthenticatedNav v-else></AuthenticatedNav>
@@ -52,7 +52,7 @@ defineProps({
     </main>
 
     <footer>
-      <div class="border-t-2  border-black/25 ms-10 mt-10 me-8 text-center py-4 font-bold text-xl text-black/25">
+      <div class="bg-dark mt-10 text-center py-12 font-bold text-xl text-text-light">
         Footer
       </div>
     </footer>

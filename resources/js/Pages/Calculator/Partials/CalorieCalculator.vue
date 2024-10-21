@@ -170,24 +170,26 @@ const createOrUpdateAccount = () => {
 
 
       </div>
-
-      <div class="mt-6 flex justify-center">
-        <PrimaryButton @click="calculateResult()" type="button">
-          Calculate</PrimaryButton>
-      </div>
     </form>
 
-    <div class="flex flex-col justify-center items-center space-y-8 mt-8">
-      <h3 class="text-center text-xl font-bold">Result:
-        <span v-if="result.value">{{ Math.round(result.value) }}
-          Calories
-        </span><span v-else>Pending</span>
-      </h3>
+    <h3 class="text-center text-xl font-bold">Result:
+      <span v-if="result.value" class="">{{ Math.round(result.value) }}
+        Calories
+      </span>
+      <span v-else class="">Pending</span>
+    </h3>
 
-      <button type="submit" form="calorie" v-if="$page.props.auth.user && result.value"
-        :title="`Set ${Math.round(result.value)} as calorie goal.`"
-        class="text-sm bg-gray-600 hover:bg-gray-500  rounded-full px-3 py-1 text-white">
-        Set Goal <i class="ms-2 mdi mdi-checkbox-marked-circle-plus-outline"></i> </button>
+    <div class="flex flex justify-end items-center space-x-8 mt-16">
+
+      <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
+        leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
+        <PrimaryButton type="submit" form="calorie" v-if="$page.props.auth.user && result.value"
+          :title="`Set ${Math.round(result.value)} as calorie goal.`">
+          Set Goal <i class="ms-2 mdi mdi-checkbox-marked-circle-plus-outline"></i> </PrimaryButton>
+      </Transition>
+
+      <PrimaryButton @click="calculateResult()" type="button">
+        Calculate</PrimaryButton>
     </div>
   </div>
 

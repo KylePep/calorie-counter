@@ -147,34 +147,6 @@ function handleExtraButton(item, action, type) {
                 <p>Notes</p>
                 <textarea class="w-full" name="" id=""></textarea>
             </section> -->
-            <section class="space-y-4">
-                <!-- <ul class="list-disc">
-                    <h1 class="font-bold">
-                        To Do:
-                    </h1>
-                    <li class="line-through text-gray-400">Ability to edit Calorie Day</li>
-                    <li class="line-through text-gray-400">-- Edit button->calorieDay.index</li>
-                    <li class="line-through text-gray-400">Edit Usda form, altered to fit needs</li>
-                    <li class="line-through text-gray-400">Edit Usda form, loading screen</li>
-                    <li class="line-through text-gray-400">Scrolling text needs adjustment on consumed list</li>
-                    <li class="line-through text-gray-400">Consumed List cursor-pointer</li>
-                    <li class="line-through text-gray-400">Profile should have recorded account details editable</li>
-                    <li class="line-through text-gray-400">FoodList no search, remove hover</li>
-                </ul> -->
-                <ul class="list-disc">
-                    <h1 class="font-bold">
-                        To Be Done:
-                    </h1>
-                    <li class="line-through text-gray-400">Reduce size of cards</li>
-                    <li>Calculator form looks out of place</li>
-                    <li class="line-through text-gray-400">Login/Register pages are weird</li>
-                    <li class="line-through text-gray-400">Welcome Page is yucky</li>
-                    <li>Custom Font</li>
-                    <li>Standardization of components, maybe move some styling into tailwind config</li>
-                    <li>Introduce themes and colors</li>
-                    <li class="line-through text-gray-400">Look for opportunities for transitions. Like loading etc</li>
-                </ul>
-            </section>
         </template>
 
         <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
