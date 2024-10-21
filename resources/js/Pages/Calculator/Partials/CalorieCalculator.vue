@@ -78,7 +78,7 @@ const createOrUpdateAccount = () => {
 
 <template>
 
-  <div class="bg-white border-2 border-gray-300 rounded-lg shadow-xl p-12">
+  <div class="bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
 
     <form @submit.prevent="createOrUpdateAccount" id="calorie" class="text-center">
       <div class="space-y-3">
@@ -107,12 +107,12 @@ const createOrUpdateAccount = () => {
               <div class="flex justify-around">
                 <div class="flex items-center gap-x-3">
                   <input v-model="form.gender" id="gender-male" name="gender" type="radio" value="Male"
-                    class="h-4 w-4 border-gray-300 text-gray-600 focus:ring-gray-600" />
+                    class="h-4 w-4 text-dark focus:ring-accent" />
                   <InputLabel for="gender-male" value="Male" />
                 </div>
                 <div class="flex items-center gap-x-3">
                   <input v-model="form.gender" id="gender-female" name="gender" type="radio" value="Female"
-                    class="h-4 w-4 border-gray-300 text-gray-600 focus:ring-gray-600" />
+                    class="h-4 w-4 text-dark focus:ring-accent" />
                   <InputLabel for="gender-female" value="Female" />
                 </div>
               </div>
@@ -123,13 +123,13 @@ const createOrUpdateAccount = () => {
               <div class="grid grid-cols-2 gap-2">
                 <div class="mt-2 relative">
                   <NumberInput v-model.number="form.heightFeet" type="number" name="height-feet" id="height-feet"
-                    inputmode="numeric" min="0" max="11" class="w-full text-center"></NumberInput>
+                    inputmode="numeric" min="0" max="11" class="w-full text-start sm:text-center"></NumberInput>
                   <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Feet</span>
 
                 </div>
                 <div class="mt-2 relative">
                   <NumberInput v-model.number="form.heightInches" type="number" name="height-inches" id="height-inches"
-                    inputmode="numeric" min="0" max="11" class="w-full text-center">
+                    inputmode="numeric" min="0" max="11" class="w-full text-start sm:text-center">
                   </NumberInput>
                   <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Inches</span>
 
@@ -150,10 +150,11 @@ const createOrUpdateAccount = () => {
             </div>
 
             <div class="sm:col-span-6">
+
               <InputLabel for="activity" value="Activity Level" />
               <div class="mt-2">
                 <select v-model="form.activity" id="activity" name="activity"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
                   <option value=1>Basal Metabolic Rate</option>
                   <option value=1.2>Sedentary: little or no exercise</option>
                   <option value=1.375>Light: exercise 1-3 times/week</option>

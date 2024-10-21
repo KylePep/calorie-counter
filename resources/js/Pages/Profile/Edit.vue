@@ -21,7 +21,7 @@ defineProps({
 
     <GlobalLayout head="Profile">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
+            <h2 class="font-semibold text-xl leading-tight">Profile</h2>
             <NavLink :href="route('account.show')">
                 Return
             </NavLink>
@@ -29,16 +29,16 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
                     <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status"
                         class="max-w-xl" />
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
                     <UpdatePasswordForm class="max-w-xl" />
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
                     <DeleteUserForm class="max-w-xl" />
                 </div>
             </div>

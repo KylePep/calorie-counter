@@ -35,7 +35,7 @@ function emitExtraButton(item, action) {
 
       </div>
 
-      <div @click="emitExtraButton(foodItem, 'edit')" :title="'Add'"
+      <div @click="emitExtraButton(foodItem, 'edit')" :title="'Edit'"
         class="flex-1 text-text-light bg-neutral hover:bg-light hover:text-dark hover:cursor-pointer p-3 duration-300">
         <h1 class="text-sm truncate sm:text-balance ">{{ foodItem.description }}
         </h1>

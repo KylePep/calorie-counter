@@ -46,11 +46,11 @@ const getBrandedCalories = (item) => {
 
 <template>
 
-  <section class="flex flex-col break-inside-avoid bg-gray-300  rounded border-2 border-black/25 h-full min-h-40">
+  <section class="flex flex-col break-inside-avoid bg-gray-300  rounded border-2 border-neutral h-full min-h-40">
 
-    <div class="flex items-center justify-between bg-gray-200 p-1 px-2 border-b-2 border-black/25">
+    <div class="flex items-center justify-between bg-gray-200 p-1 px-2 border-b-2 border-neutral">
 
-      <div class=" text-gray-800 font-bold text-3xl drop-shadow-2xl">
+      <div class=" text-text font-bold text-3xl drop-shadow-2xl">
         <template v-if="foodItem.gtinUpc != 0">
           {{ getBrandedCalories(foodItem) }}
         </template>
@@ -68,8 +68,8 @@ const getBrandedCalories = (item) => {
 
     </div>
 
-    <div @click="emitExtraButton(foodItem, 'edit')"
-      class="flex-1 flex flex-col justify-center items-center text-gray-800 hover:bg-gray-200 hover:cursor-pointer px-3 drop-shadow-xl my-auto duration-300">
+    <div @click="emitExtraButton(foodItem, 'edit')" :title="'Edit'"
+      class="flex-1 flex flex-col justify-center items-center text-text-light hover:text-dark bg-neutral hover:bg-light hover:cursor-pointer px-3 drop-shadow-xl my-auto duration-300">
       <h1 class="font-bold text-balance truncate" :class="[foodItem.gtinUpc ? 'text-base' : 'text-lg']">{{
         foodItem.description
       }}
@@ -80,9 +80,9 @@ const getBrandedCalories = (item) => {
 
     </div>
 
-    <div class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-t-2 border-black/25 bg-gray-300 shadow-lg">
+    <div class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-1 p-1 border-t-2 border-neutral bg-dark shadow-lg">
       <div v-for="block in Math.round([foodItem.gtinUpc ? getBrandedCalories(foodItem) : getCalories(foodItem)] / 50) "
-        class="bg-gray-400 h-4 border-2  border-black/25 rounded-sm" title="50 Calories">
+        class="bg-accent h-4 border-2  border-neutral rounded-sm" title="50 Calories">
       </div>
     </div>
 

@@ -11,15 +11,15 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <nav class="bg-dark border-b border-gray-100">
+    <nav class="bg-dark border-b border-light">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
-                    <div class="shrink-0 flex items-center">
-                        <NavLink :href="route('dashboard')">
-                            <ApplicationLogo class="block w-auto fill-current text-accent text-5xl" />
+                    <div class="flex sm:-my-px">
+                        <NavLink :href="route('welcome')" :active="route().current('welcome')">
+                            <ApplicationLogo class="text-accent text-5xl " />
                         </NavLink>
                     </div>
 
@@ -62,10 +62,12 @@ const showingNavigationDropdown = ref(false);
                             </template>
 
                             <template #content>
-                                <DropdownLink :href="route('account.show')"> Profile </DropdownLink>
-                                <DropdownLink :href="route('logout')" method="post" as="button">
-                                    Log Out
-                                </DropdownLink>
+                                <div class="flex flex-col p-2 bg-dark rounded">
+                                    <DropdownLink :href="route('account.show')"> Profile </DropdownLink>
+                                    <DropdownLink :href="route('logout')" method="post" as="button">
+                                        Log Out
+                                    </DropdownLink>
+                                </div>
                             </template>
                         </Dropdown>
                     </div>

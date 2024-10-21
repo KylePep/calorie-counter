@@ -23,16 +23,16 @@ const showingNavigationDropdown = ref(false);
 
 <template>
 
-  <nav class="bg-white border-b border-gray-100">
+  <nav class="bg-dark border-b border-light">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
           <!-- Logo -->
-          <div class="shrink-0 flex items-center">
-            <Link href="/">
-            <ApplicationLogo class="block w-auto fill-current text-black/75 text-5xl" />
-            </Link>
+          <div class="flex  sm:-my-px">
+            <NavLink :href="route('welcome')" :active="route().current('welcome')">
+              <ApplicationLogo class="text-accent text-5xl " />
+            </NavLink>
           </div>
 
           <!-- Navigation Links -->

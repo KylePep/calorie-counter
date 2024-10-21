@@ -148,7 +148,7 @@ async function favoriteItem(foodItem) {
             <template #trigger>
               <span class="flex rounded-md">
                 <button type="button"
-                  class="flex justify-between items-center h-10 px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                  class="flex justify-between items-center h-10 px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                   <p>
                     Type:
                   </p>
@@ -160,7 +160,7 @@ async function favoriteItem(foodItem) {
             </template>
 
             <template #content>
-              <div class="flex flex-col p-2">
+              <div class="flex flex-col p-2 bg-main rounded">
                 <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
                   type="button" @click="form.type = 'Branded'">Branded</button>
                 <button class="text-start p-1"
@@ -187,31 +187,32 @@ async function favoriteItem(foodItem) {
 
   <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
     <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)" :disabled="foodSearchResponse.currentPage <= 1"
-      :class="foodSearchResponse.currentPage <= 1 ? 'text-black/25' : 'hover:bg-gray-600 bg-gray-500 text-white'"
-      class="bg-gray-300 py-1 px-3 rounded">
+      :class="foodSearchResponse.currentPage <= 1 ? 'text-text-light bg-main border border-light' : 'hover:bg-dark bg-neutral text-text-light hover:text-main'"
+      class=" py-1 px-3 rounded">
       Previous
     </button>
 
-    <p class="text-xs sm:text-base font-semibold text-black/50"> Hits: {{ foodSearchResponse.totalHits }}</p>
-    <p class="text-xs sm:text-base font-semibold text-black/50"> Page: {{ foodSearchResponse.currentPage }} - {{
+    <p class="text-xs sm:text-base font-semibold text-text-light"> Hits: {{ foodSearchResponse.totalHits }}</p>
+    <p class="text-xs sm:text-base font-semibold text-text-light"> Page: {{ foodSearchResponse.currentPage }} - {{
       foodSearchResponse.totalPages }} </p>
 
     <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
       :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
-      :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-black/25' : 'hover:bg-gray-600 bg-gray-500 text-white'"
-      class="bg-gray-300  py-1 px-3 rounded">
+      :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-text-light bg-main border border-light' : 'hover:bg-dark bg-neutral text-text-light hover:text-main'"
+      class="  py-1 px-3 rounded">
       Next
     </button>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 p-2 text-center border-2 rounded-lg border-gray-300">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 bg-gradient-to-b from-light via-main to-light p-2 text-center border-2 rounded border-neutral">
 
     <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
-      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-gray-300 p-3 shadow h-40 rounded">
+      class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-neutral text-text-light p-3 shadow h-40 rounded">
       {{ !loading ? 'Search for an item to begin counting calories!' : 'Searching' }}
     </div>
     <div v-if="foodSearchResponse.currentPage && foods.length == 0"
-      class="break-inside-avoid relative flex flex-col justify-center w-full text-gray-300 text-xl font-bold bg-gray-800 p-3 shadow h-40 rounded">
+      class="break-inside-avoid relative flex flex-col justify-center w-full text-text-light text-xl font-bold bg-dark p-3 shadow h-40 rounded">
       No results found
     </div>
 

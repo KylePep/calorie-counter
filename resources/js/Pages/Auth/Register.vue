@@ -25,10 +25,11 @@ const submit = () => {
     <GlobalLayout head="Register">
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Register</h2>
+            <h2 class="font-semibold text-xl leading-tight">Register</h2>
         </template>
 
-        <form @submit.prevent="submit" class="max-w-lg mx-auto">
+        <form @submit.prevent="submit"
+            class="max-w-lg mx-auto p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -67,7 +68,7 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <Link :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent">
                 Already registered?
                 </Link>
 

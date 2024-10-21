@@ -20,14 +20,14 @@ defineProps({
 
 <template>
   <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
-    <nav class="sticky top-0 z-10 bg-white shadow-xl">
+    <nav class="sticky top-0 z-20 shadow-xl">
       <GuestNav v-if="!$page.props.auth.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
       <AuthenticatedNav v-else></AuthenticatedNav>
     </nav>
 
     <Head :title="$props.head" content="description required" :head-key="$props.head" />
 
-    <header class="bg-white shadow" v-if="$slots.header">
+    <header class="bg-neutral text-text-light shadow" v-if="$slots.header">
       <div class="flex justify-between space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <slot name="header"></slot>
       </div>

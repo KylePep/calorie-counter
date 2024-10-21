@@ -121,7 +121,7 @@ const modifier = computed(() => {
       <InputLabel value="Ingredients">
       </InputLabel>
       <textarea v-model="form.ingredients" name="ingredients" :class="loadingClasses"
-        class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+        class="w-full border-gray-300 focus:border-accent focus:ring-accent rounded-md shadow-sm"
         style="resize: none;"></textarea>
       <InputError :message="form.errors.ingredients"></InputError>
     </div>

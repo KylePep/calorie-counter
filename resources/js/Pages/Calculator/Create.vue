@@ -21,7 +21,7 @@ defineProps({
   <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Calculator">
 
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Calculator</h2>
+      <h2 class="font-semibold text-xl leading-tight">Calculator</h2>
     </template>
 
     <!-- <div class="flex justify-center"> -->

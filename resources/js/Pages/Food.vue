@@ -74,7 +74,7 @@ function handleExtraButton(item, action, type) {
 
   <GlobalLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Food</h2>
+      <h2 class="font-semibold text-xl leading-tight">Food</h2>
     </template>
 
 
