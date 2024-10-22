@@ -149,12 +149,12 @@ function handleExtraButton(item, action, type) {
             </Side>
         </template>
 
-        <template #rightSide>
+        <!-- <template #rightSide>
             <Side side="right" class="hidden lg:block">
                 <p>Notes</p>
                 <textarea class="w-full" name="" id=""></textarea>
             </Side>
-        </template>
+        </template> -->
 
         <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
         <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" @useItem="updateCalorieDayFoodItem"

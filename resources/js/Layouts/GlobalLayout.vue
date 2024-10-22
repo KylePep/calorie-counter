@@ -19,8 +19,7 @@ defineProps({
 
 
 <template>
-  <div class="relative flex flex-col bg-gradient-to-b from-light from-1% via-main via-50% to-light to-99% min-h-screen"
-    style="scrollbar-gutter: stable;">
+  <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
     <nav class="sticky top-0 z-20 shadow-xl">
       <GuestNav v-if="!$page.props.auth.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
       <AuthenticatedNav v-else></AuthenticatedNav>

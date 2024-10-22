@@ -1,6 +1,19 @@
+<script setup>
+import { computed } from "vue";
+
+const props = defineProps(['side'])
+
+const sideClasses = computed(() => {
+  return {
+    'left': 'items-end',
+    'right': 'items-start'
+  }[props.side];
+})
+
+</script>
+
 <template>
-  <section
-    class="flex flex-col items-center border border-light rounded shadow-xl bg-gradient-to-b from-main via-main via-90% to-light px-6 py-6 ">
+  <section :class="sideClasses" class="flex flex-col space-y-2 min-h-96 px-6 sm:px-6 lg:px-8 py-6 ">
     <slot />
   </section>
 </template>

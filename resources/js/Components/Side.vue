@@ -6,8 +6,8 @@ const props = defineProps(['side'])
 
 const sideClasses = computed(() => {
   return {
-    'left': 'border-b lg:border-b-0 lg:border-e border-light px-4 lg:px-12 pt-12 lg:pb-0 lg:pt-0 text-sm mx-12 lg:mx-0 min-h-60 space-y-4',
-    'right': 'border-t lg:border-t-0 lg:border-s border-light space-y-3 px-4 lg:px-12 pt-12 lg:pt-0 text-sm mx-12 lg:mx-0 min-h-60'
+    'left': 'border-b lg:border-b-0 lg:border-e',
+    'right': 'border-t lg:border-t-0 lg:border-s'
   }[props.side];
 })
 
@@ -15,8 +15,8 @@ const sideClasses = computed(() => {
 
 
 <template>
-  <section :class="sideClasses">
-    <SideCard>
+  <section class="border-light space-y-3 lg:pt-0 text-sm px-6 pt-12">
+    <SideCard :side="props.side">
       <slot />
     </SideCard>
   </section>

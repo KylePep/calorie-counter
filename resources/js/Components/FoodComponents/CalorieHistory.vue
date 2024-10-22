@@ -17,7 +17,7 @@ const getDayOfWeek = (date) => {
 
   <div class="space-y-4 ">
     <div v-for="(day, index) in calorieDays" :key="index"
-      class="flex flex-col min-h-40 min-w-40 bg-white p-4 text-center border-2 rounded border-light bg-gradient-to-b from-main via-main to-light shadow-lg">
+      class="flex flex-col min-h-40 min-w-40 bg-white p-4 text-center border-2 rounded border-light bg-main shadow-lg">
 
       <div class="flex flex-1 flex-col justify-between space-y-3">
 

@@ -42,7 +42,7 @@ const getAnimationClass = (item) => {
 <template>
   <h1 class="text-xl font-bold pb-3">Eaten</h1>
   <div
-    class=" p-2 grid grid-rows-2 text-center border-2 rounded border-neutral bg-gradient-to-b from-light via-main to-main overflow-x-auto whitespace-nowrap gap-1 ">
+    class=" p-2 grid grid-rows-2 text-center border-2 rounded border-neutral bg-light overflow-x-auto whitespace-nowrap gap-1 ">
     <div v-for="rowIndex in 2" class="flex space-x-1">
       <button v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
         @click="$emit('removeFoodItem', item)" :class="representativeWidth(item)"

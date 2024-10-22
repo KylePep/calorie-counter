@@ -83,7 +83,7 @@ const currentSizeClass = computed(() => {
       leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
 
       <div v-show="showItems"
-        class="origin-top grid grid-flow-col auto-cols-min gap-3 p-2 text-center bg-gradient-to-b from-light via-main to-main border-2 rounded-b-lg rounded-tr-lg border-neutral overflow-x-auto whitespace-nowrap shadow-inner"
+        class="origin-top grid grid-flow-col auto-cols-min gap-3 p-2 text-center bg-light border-2 rounded-b rounded-tr border-neutral overflow-x-auto whitespace-nowrap shadow-inner"
         :class="currentSizeClass">
 
         <div v-for="foodItem in props.list">
