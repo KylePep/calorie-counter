@@ -29,7 +29,7 @@ onMounted(() => {
             <h2 class="font-semibold text-xl leading-tight">Welcome</h2>
         </template>
 
-        <div class="max-w-lg mx-auto p-4 sm:p-8 bg-main border-2 border-neutral rounded-lg shadow-xl p-12">
+        <div class="max-w-lg mx-auto p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
             <h1 class="text-3xl text-center mb-12">Welcome to <strong>Calorie Counter</strong></h1>
             <div class="mb-12 py-4">
                 <h2 class="text-2xl text-center mb-4">Here You'll be able to</h2>

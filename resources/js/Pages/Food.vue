@@ -9,6 +9,7 @@ import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
 import Pop from "@/utils/Pop.js";
 import axios from "axios";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
+import Side from "@/Components/Side.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
 
@@ -84,7 +85,7 @@ function handleExtraButton(item, action, type) {
       </div>
     </section>
 
-    <section v-if="props.account">
+    <section v-if="props.account" class="block 2xl:hidden">
       <CreateFood />
     </section>
 
@@ -103,6 +104,12 @@ function handleExtraButton(item, action, type) {
     <section>
       <FoodList @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
     </section>
+
+    <template #leftSide>
+      <Side side="left" class="hidden lg:block" v-if="props.account">
+        <CreateFood />
+      </Side>
+    </template>
 
     <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 

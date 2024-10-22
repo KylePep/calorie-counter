@@ -36,16 +36,19 @@ defineProps({
 
     <main class="grid grid-cols-4 flex-1 mt-10">
 
+      <div class="col-span-4 lg:col-span-1">
+        <div v-if="$slots.leftSide" class="sticky top-16">
+          <slot name="leftSide" />
+        </div>
+      </div>
+
       <PageLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
         <slot />
       </PageLayout>
 
       <div class="col-span-4 lg:col-span-1  lg:col-start-4">
-        <div
-          class="sticky top-20 border-t lg:border-t-0 lg:border-s border-neutral space-y-3 px-4 lg:px-12 pt-12 lg:pt-0 text-sm mx-12 lg:mx-0 ">
-
-          <slot v-if="$slots.side" name="side" />
-
+        <div v-if="$slots.rightSide" class="sticky top-16">
+          <slot name="rightSide" />
         </div>
       </div>
     </main>

@@ -11,6 +11,7 @@ import { Head, } from '@inertiajs/vue3';
 import axios from "axios";
 import { computed, ref } from "vue";
 import CalorieDisplay from '../Components/FoodComponents/CalorieDisplay.vue'
+import Side from "@/Components/Side.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId']);
 
@@ -119,7 +120,7 @@ function handleExtraButton(item, action, type) {
             <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
         </section>
 
-        <section v-if="props.account">
+        <section v-if="props.account" class="block lg:hidden">
             <CreateFood />
         </section>
 
@@ -142,11 +143,17 @@ function handleExtraButton(item, action, type) {
                 @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
         </section>
 
-        <template #side>
-            <!-- <section class="me-4">
+        <template #leftSide>
+            <Side side="left" class="hidden lg:block" v-if="props.account">
+                <CreateFood />
+            </Side>
+        </template>
+
+        <template #rightSide>
+            <Side side="right" class="hidden lg:block">
                 <p>Notes</p>
                 <textarea class="w-full" name="" id=""></textarea>
-            </section> -->
+            </Side>
         </template>
 
         <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />

@@ -1,6 +1,7 @@
 <script setup>
 import CalorieCalculator from "@/Pages/Calculator/Partials/CalorieCalculator.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
+import RightSide from "@/Components/RightSide.vue";
 
 defineProps({
   canLogin: {
@@ -32,48 +33,50 @@ defineProps({
 
     <!-- </div> -->
 
-    <template #side>
+    <template #rightSide>
+      <RightSide>
+        <h1 class=" font-bold">This calculator uses the Mifflin-St Jeor formula</h1>
 
-      <h1 class=" font-bold">This calculator uses the Mifflin-St Jeor formula</h1>
+        <p>
+          Females: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) – 161
 
-      <p>
-        Females: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) – 161
+        </p>
+        <p>
+          Males: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) + 5
+        </p>
 
-      </p>
-      <p>
-        Males: (10*weight [kg]) + (6.25*height [cm]) – (5*age [years]) + 5
-      </p>
+        <div class="">
+          <h2 class="mb-2 font-semibold">
+            Multiply by scale factor for activity level:
 
-      <div class="">
-        <h2 class="mb-2 font-semibold">
-          Multiply by scale factor for activity level:
+          </h2>
+          <ul class="">
+            <li>
+              Sedentary *1.2
 
-        </h2>
-        <ul class="">
-          <li>
-            Sedentary *1.2
-
-          </li>
-          <li>
-            Lightly active *1.375
+            </li>
+            <li>
+              Lightly active *1.375
 
 
-          </li>
-          <li>
-            Moderately active *1.55
+            </li>
+            <li>
+              Moderately active *1.55
 
-          </li>
-          <li>
-            Active *1.725
+            </li>
+            <li>
+              Active *1.725
 
-          </li>
-          <li>
-            Very active *1.9
+            </li>
+            <li>
+              Very active *1.9
 
-          </li>
-        </ul>
+            </li>
+          </ul>
 
-      </div>
+        </div>
+      </RightSide>
+
     </template>
   </GlobalLayout>
 
