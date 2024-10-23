@@ -8,15 +8,11 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register')
-    ]);
-})->name('welcome');
+Route::get('/', [WelcomeController::class, 'index'])
+    ->name('welcome');
 
 Route::get('/foodData/{id}', [FoodDataController::class, 'getById']);
 Route::get('/search-foodData', [FoodDataController::class, 'searchByQuery']);

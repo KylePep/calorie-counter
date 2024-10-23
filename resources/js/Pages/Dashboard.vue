@@ -143,8 +143,8 @@ function handleExtraButton(item, action, type) {
                 @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
         </section>
 
-        <template #leftSide>
-            <Side side="left" class="hidden lg:block" v-if="props.account">
+        <template #rightSide>
+            <Side side="right" class="hidden lg:block" v-if="props.account">
                 <CreateFood />
             </Side>
         </template>

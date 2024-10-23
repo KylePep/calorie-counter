@@ -25,8 +25,10 @@ export default {
                 'dark': '#252422',
                 'accent': {
                     DEFAULT: '#EB5E28',
+                    'yellow': "#F6A327",
                     'light': "#EB7328",
-                    'dark': '#EB4C28'
+                    'dark': '#EB4C28',
+                    'red': '#D22E0A'
                 },
                 'special': '#596D9B'
             },
@@ -45,5 +47,27 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        function ({ addUtilities }) {
+            const newUtilities = {
+                '.text-shadow': {
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.25)',
+                },
+                '.text-shadow-md': {
+                    textShadow: '3px 3px 6px rgba(0, 0, 0, 0.3)',
+                },
+                '.text-shadow-lg': {
+                    textShadow: '4px 4px 8px rgba(0, 0, 0, 0.4)',
+                },
+                '.text-shadow-xl': {
+                    textShadow: '5px 5px 9px rgba(0, 0, 0, 0.6)',
+                },
+                '.text-shadow-none': {
+                    textShadow: 'none',
+                },
+            };
+
+            addUtilities(newUtilities, ['responsive', 'hover']);
+        },
+        forms],
 };
