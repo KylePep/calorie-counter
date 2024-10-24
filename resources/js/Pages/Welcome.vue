@@ -1,6 +1,6 @@
 <script setup>
-import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import ConsumedList from "@/Components/FoodComponents/ConsumedList.vue";
+import FoodCard from "@/Components/FoodComponents/FoodCard.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { onMounted } from "vue";
 
@@ -16,10 +16,10 @@ defineProps({
     }
 });
 
-onMounted(() => {
+const mockItem = { "id": 1, "fdcId": null, "description": "Mega PB&J", "calories": 500, }
+const mockItem2 = { "id": 2, "fdcId": null, "description": "Fried Egg", "calories": 100, }
 
-})
-
+const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description": "Fried Egg", "count": 100 }, { "description": "Fried Egg", "count": 100 }]
 </script>
 
 <template>
@@ -35,7 +35,7 @@ onMounted(() => {
 
         <div class="min-h-screen flex flex-col justify-between space-y-24">
 
-            <section class="text-center sm:min-h-96">
+            <section class="text-center text-neutral sm:min-h-96">
                 <div class="relative border-b-4 border-neutral w-48 mx-auto mb-10">
                     <h2 class="absolute inset-x-0 -top-3 mx-8 text-center font-bold bg-main"> FEATURE #1
                     </h2>
@@ -44,23 +44,23 @@ onMounted(() => {
                 <h3 class="capitalize  text-3xl font-bold">Powered By the usda database</h3>
                 <h4 class="py-1 text-sm">CalorieCalculator uses the usda's database to get accurate diet information
                 </h4>
-                <div class="border-2 border-light shadow-xl rounded h-52 sm:h-96 mt-4" :style="{ 
-                    backgroundImage: `url(/assets/usdaDesktop.png)`, 
-                    backgroundSize: '190%', 
-                    backgroundPosition: '37% 80%', 
+                <div class="border-2 border-light shadow-xl rounded h-52 sm:h-96 mt-4" :style="{
+                    backgroundImage: `url(/assets/usdaDesktop.png)`,
+                    backgroundSize: '190%',
+                    backgroundPosition: '37% 80%',
                     backgroundRepeat: 'no-repeat'
-                    }" >
+                }">
                 </div>
             </section>
 
-            <section class="text-center min-h-96">
+            <section class="text-center text-neutral min-h-96">
                 <div class="relative border-b-4 border-neutral w-48 mx-auto mb-10">
                     <h2 class="absolute inset-x-0 -top-3 mx-8 text-center font-bold bg-main"> FEATURE #2
                     </h2>
                 </div>
 
-                <h3 class="capitalize text-neutral text-3xl font-bold mb-4">Create an account</h3>
-                <div class="grid sm:grid-cols-3 gap-6 text-neutral">
+                <h3 class="capitalize text-3xl font-bold mb-4">Create an account</h3>
+                <div class="grid sm:grid-cols-3 gap-6">
                     <div>
                         <div class="group relative h-24 w-24 mx-auto text-shadow mb-6">
                             <i
@@ -82,7 +82,7 @@ onMounted(() => {
                                 class="absolute -right-2 -bottom-4 mdi mdi-checkbox-marked-circle-plus-outline text-4xl text-light"></i>
                         </div>
                         <h4 class="font-bold text-4xl py-1">
-                            Set a goal
+                            Goals
                         </h4>
                         <p class="text-sm">
                             Take advantage of the BMR calculator using the Mifflin-St Jeor formula, or set your own
@@ -98,7 +98,7 @@ onMounted(() => {
                                 class="absolute top-4 left-2 mdi mdi-robot-happy-outline text-7xl text-special group-hover:animate-spin"></i>
                         </div>
                         <h4 class="font-bold text-4xl py-1">
-                            Begin tracking
+                            Tracking
                         </h4>
                         <p class="text-sm">
                             Search the USDA database for foods or create your own, then add them to your day to track
@@ -111,14 +111,72 @@ onMounted(() => {
 
             </section>
 
-            <section class="text-center min-h-96">
+            <section class="text-center text-neutral min-h-96">
                 <div class="relative border-b-4 border-neutral w-48 mx-auto mb-10">
                     <h2 class="absolute inset-x-0 -top-3 mx-8 text-center font-bold bg-main"> FEATURE #3
                     </h2>
                 </div>
 
                 <h3 class="capitalize  text-3xl font-bold">Unique and reactive feedback</h3>
-                <div class="bg-cyan-500 h-96 mt-4">Big Show Piece</div>
+                <div class=" grid grid-cols-2 gap-4 mt-4">
+                    <div class="col-span-2">
+                        <div class="flex flex-col h-full text-start ">
+                            <div class="px-4 py-2 bg-neutral text-light rounded-t font-bold">
+                                <p>While tracking your calories, each square will represent 100 calories.</p>
+                                <p>Meaning you'll have a better representation of how much a single food item impacts
+                                    your
+                                    diet.</p>
+                            </div>
+
+                            <div class="mt-4">
+                                <p class="text-center text-xl font-bold">Goal: 1800</p>
+                                <div
+                                    class="grid grid-cols-10 gap-1 px-1.5 py-0.5 rounded ring-1 ring-main ring-inset border-2  border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
+                                    <div v-for="index in 20"
+                                        class="flex flex-col justify-center items-center text-neutral h-14 border border-neutral"
+                                        :class="index < 8 ? 'bg-accent bg-gradient-to-b from-accent-dark via-accent via-50% to-accent-light text-transparent' : '', index > 18 ? 'bg-neutral text-transparent' : ''">
+                                        100
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="px-4 py-2 bg-neutral text-light font-bold h-full">Higher calorie foods will
+                            appear larger
+                            compared to other foods in your
+                            records
+                            for the
+                            day.
+                        </p>
+
+                    </div>
+
+                    <div>
+                        <p class="px-4 py-2 bg-neutral text-light font-bold h-full">Selecting foods from the
+                            USDA's
+                            database
+                            or from your saved or
+                            created
+                            lists
+                            will have a
+                            preview
+                            of how much room they'll take.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col justify-end">
+                        <ConsumedList :dayItems="mockList" />
+                    </div>
+
+                    <div>
+                        <div class="flex w-full">
+                            <FoodCard :foodItem="mockItem" />
+                            <FoodCard :foodItem="mockItem2" />
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- <div v-if="!$page.props.auth.user" class="">

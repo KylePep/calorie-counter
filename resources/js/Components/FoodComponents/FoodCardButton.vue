@@ -9,7 +9,8 @@ const iconClass = computed(() => {
     pencil: 'mdi mdi-pencil',
     star: 'mdi mdi-star',
     plus: 'mdi mdi-plus-thick',
-    delete: 'mdi mdi-delete'
+    delete: 'mdi mdi-delete',
+    signUp: 'mdi mdi-account-plus'
   }[props.icon]
 })
 

@@ -40,7 +40,7 @@ const getAnimationClass = (item) => {
 </script>
 
 <template>
-  <h1 class="text-xl font-bold pb-3">Eaten</h1>
+
   <div
     class=" p-2 grid grid-rows-2 text-center border-2 rounded border-neutral bg-light overflow-x-auto whitespace-nowrap gap-1 ">
     <div v-for="rowIndex in 2" class="flex space-x-1">

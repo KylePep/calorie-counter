@@ -117,6 +117,7 @@ function handleExtraButton(item, action, type) {
         <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
 
         <section v-if="props.account && calorieDay.food_items.length">
+            <h1 class="text-xl font-bold pb-3">Eaten</h1>
             <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
         </section>
 
