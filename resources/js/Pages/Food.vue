@@ -73,9 +73,9 @@ function handleExtraButton(item, action, type) {
     <meta type="description" content="Profile's Food" head-key="Food">
   </Head>
 
-  <GlobalLayout>
+  <GlobalLayout heroImage="/assets/blueprintSammich.jpeg" heroHeight="60">
     <template #header>
-      <h2 class="font-semibold text-xl leading-tight">Food</h2>
+      Your Foods
     </template>
 
 

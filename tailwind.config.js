@@ -62,6 +62,9 @@ export default {
                 '.text-shadow-xl': {
                     textShadow: '5px 5px 9px rgba(0, 0, 0, 0.6)',
                 },
+                '.text-shadow-2xl': {
+                    textShadow: '5px 5px 9px rgba(0, 0, 0, 0.8)',
+                },
                 '.text-shadow-none': {
                     textShadow: 'none',
                 },

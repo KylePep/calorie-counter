@@ -128,7 +128,7 @@ function handleExtraButton(item, action, type) {
       <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
     </section>
 
-    <section v-if="props.account">
+    <section v-if="props.account" class="block lg:hidden">
       <CreateFood />
     </section>
 
@@ -150,6 +150,12 @@ function handleExtraButton(item, action, type) {
       <FoodList @increase-by="updateCalorieDayFoodItem"
         @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
     </section>
+
+    <template #rightSide>
+      <Side side="right" class="hidden lg:block" v-if="props.account">
+        <CreateFood />
+      </Side>
+    </template>
 
     <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
     <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
