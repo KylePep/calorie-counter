@@ -18,7 +18,8 @@
       <h4 class="font-bold text-4xl py-1">
         Sign up
       </h4>
-      <p class="text-sm">Create a profile with the super simple registering process.</p>
+      <p class="text-sm">Create a profile with the super simple registering process. This will give you access to 100%
+        of CalorieCounter.</p>
     </div>
     <div>
       <div class="group relative h-24 w-24 mx-auto text-shadow mb-6">

@@ -5,13 +5,13 @@
   <div class="grid sm:grid-cols-2 bg-dark min-h-64 py-14 font-bold text-xl text-text-light sm:px-32">
     <div class="flex flex-col justify-around items-center sm:items-start ms-0 sm:ms-6 h-full">
       <div class="flex justify-between text-2xl w-1/2 sm:w-1/3 mx-auto sm:mx-0">
-        <Link :href="route('calculator')" class="mdi mdi-instagram">
+        <Link :href="route('calculator')" class="mdi mdi-instagram hover:text-accent duration-300 ">
         </Link>
-        <Link :href="route('calculator')" class="mdi mdi-youtube">
+        <Link :href="route('calculator')" class="mdi mdi-youtube hover:text-accent duration-300">
         </Link>
-        <Link :href="route('calculator')" class="mdi mdi-facebook">
+        <Link :href="route('calculator')" class="mdi mdi-facebook hover:text-accent duration-300">
         </Link>
-        <Link :href="route('calculator')" class="mdi mdi-dumbbell">
+        <Link :href="route('calculator')" class="mdi mdi-dumbbell hover:text-accent duration-300">
         </Link>
       </div>
       <div class="">
@@ -57,15 +57,20 @@
           <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
         </li>
 
-        <li class="flex flex-wrap">
-          <Link :href="route('account.show')" class="hover:text-white duration-300">
-          Privacy Policy
-          </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
-          <Link :href="route('account.show')" class="hover:text-white duration-300">
-          Manage My Preferences
-          </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
+        <li class="flex flex-col sm:flex-row justify-end items-end space-y-1">
+          <div class="flex">
+            <Link :href="route('account.show')" class="hover:text-white duration-300">
+            Privacy Policy
+            </Link>
+            <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
+          </div>
+
+          <div class="flex">
+            <Link :href="route('account.show')" class="hover:text-white duration-300">
+            Manage My Preferences
+            </Link>
+            <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
+          </div>
         </li>
       </ul>
     </div>

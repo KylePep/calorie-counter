@@ -25,7 +25,7 @@ defineProps({
         heroHeight="10">
 
         <template #header>
-            Welcome
+            Calories? Counted <i class="mdi mdi-heart-box"></i>
         </template>
 
         <div class="min-h-screen flex flex-col justify-between space-y-24">
