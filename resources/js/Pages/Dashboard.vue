@@ -12,6 +12,7 @@ import axios from "axios";
 import { computed, ref } from "vue";
 import CalorieDisplay from '../Components/FoodComponents/CalorieDisplay.vue'
 import Side from "@/Components/Side.vue";
+import JournalEntry from "@/Components/JournalEntry.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId']);
 
@@ -144,18 +145,17 @@ function handleExtraButton(item, action, type) {
                 @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
         </section>
 
-        <template #rightSide>
-            <Side side="right" class="hidden lg:block" v-if="props.account">
+        <template #leftSide>
+            <Side side="left" class="hidden lg:block" v-if="props.account">
                 <CreateFood />
             </Side>
         </template>
 
-        <!-- <template #rightSide>
-            <Side side="right" class="hidden lg:block">
-                <p>Notes</p>
-                <textarea class="w-full" name="" id=""></textarea>
+        <template #rightSide>
+            <Side side="right" class="">
+                <JournalEntry />
             </Side>
-        </template> -->
+        </template>
 
         <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
         <UsdaFoodEditModal :showModal="showUsdaForm" @close-modal="closeModal" @useItem="updateCalorieDayFoodItem"
