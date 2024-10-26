@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->integer('goal');
             $table->integer('count');
+            $table->string('journal')->nullable();
             $table->text('food_items')->nullable();
             $table->timestamps();
         });

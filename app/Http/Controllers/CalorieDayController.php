@@ -85,10 +85,14 @@ class CalorieDayController extends Controller
         $validated = $request->validate([
             'goal' => ['integer'],
             'count' => ['integer'],
+            'journal' => ['string'],
             'food_items'=> ['array'],
         ]);
 
         $calorieDay->goal = $validated['goal'] ?? $calorieDay->goal;
+        
+        $calorieDay->journal = $validated['journal'] ?? $calorieDay->journal;
+
         $existingFoodItems = json_decode($calorieDay->food_items, true) ?? [];
 
         if ($request->remove && isset($validated['food_items'])) {
