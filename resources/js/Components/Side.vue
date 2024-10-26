@@ -15,7 +15,7 @@ const sideClasses = computed(() => {
 
 
 <template>
-  <section class="border-light space-y-3 lg:pt-0 text-sm px-6 pt-6 md:pt-12">
+  <section class="border-light space-y-3 lg:pt-0 text-sm px-6 pt-6 sm:pt-0">
     <SideCard :side="props.side">
       <slot />
     </SideCard>

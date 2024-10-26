@@ -64,7 +64,9 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
       </div>
 
       <div class="flex flex-col justify-end">
-        <ConsumedList :dayItems="mockList" />
+        <div class="border-2 rounded border-neutral bg-light">
+          <ConsumedList :dayItems="mockList" />
+        </div>
       </div>
 
       <div>
