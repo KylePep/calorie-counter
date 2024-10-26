@@ -2,12 +2,13 @@
 import { computed, ref } from "vue";
 import FoodCard from "./FoodComponents/FoodCard.vue";
 import SizeButton from './SizeButton.vue'
+import CollapsableFolder from "./CollapsableFolder.vue";
 
 const props = defineProps(['list', 'size']);
 const emit = defineEmits(['itemActivated', 'extraButton'])
 
 const currentSize = ref(props.size);
-const showItems = ref(true);
+// const showItems = ref(true);
 
 function emitItemActivated(item) {
   emit('itemActivated', item);
@@ -54,36 +55,26 @@ const currentSizeClass = computed(() => {
 
 <template>
 
-  <div class="grid">
+  <CollapsableFolder>
 
-    <div class="flex justify-between">
-      <div @click="showItems = !showItems"
-        :class="showItems ? 'text-text border-b-0 rounded-t bg-light ' : 'bg-neutral text-text-light rounded shadow'"
-        class="flex justify-between border-2 py-1 px-3 border-neutral w-48 sm:w-60 duration-300">
-        <slot />
-        <i :class="showItems ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-1  text-lg"></i>
-      </div>
+    <template #title>
+      <slot />
+    </template>
 
-      <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
-        leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
-        <div v-if="showItems" class="flex items-center space-x-2 ">
-          <SizeButton v-model:currentSize="currentSize" size="sm" />
-          <div v-if="maxSize == 'lg' || maxSize == 'xl'" @click="currentSize = 'lg'">
-            <SizeButton v-model:currentSize="currentSize" size="lg" />
-          </div>
-          <div v-if="maxSize == 'xl'" @click="currentSize = 'xl'">
-            <SizeButton v-model:currentSize="currentSize" size="xl" />
-          </div>
+    <template #config>
+      <div class="flex items-center space-x-2 ">
+        <SizeButton v-model:currentSize="currentSize" size="sm" />
+        <div v-if="maxSize == 'lg' || maxSize == 'xl'" @click="currentSize = 'lg'">
+          <SizeButton v-model:currentSize="currentSize" size="lg" />
         </div>
-      </Transition>
-    </div>
+        <div v-if="maxSize == 'xl'" @click="currentSize = 'xl'">
+          <SizeButton v-model:currentSize="currentSize" size="xl" />
+        </div>
+      </div>
+    </template>
 
-    <Transition enter-active-class="ease-out duration-300" enter-from-class="scale-y-0 max-h-0 opacity-0"
-      enter-to-class="scale-y-100 max-h-[1000px] opacity-100" leave-active-class="ease-in duration-200"
-      leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
-
-      <div v-show="showItems"
-        class="origin-top grid grid-flow-col auto-cols-min gap-3 p-2 text-center bg-light border-2 rounded-b rounded-tr border-neutral overflow-x-auto whitespace-nowrap shadow-inner"
+    <template #content>
+      <div class=" grid grid-flow-col auto-cols-min gap-3 p-2 text-center overflow-x-auto whitespace-nowrap"
         :class="currentSizeClass">
 
         <div v-for="foodItem in props.list">
@@ -99,8 +90,16 @@ const currentSizeClass = computed(() => {
           </div>
         </div>
       </div>
+
+    </template>
+
+    <Transition enter-active-class="ease-out duration-300" enter-from-class="scale-y-0 max-h-0 opacity-0"
+      enter-to-class="scale-y-100 max-h-[1000px] opacity-100" leave-active-class="ease-in duration-200"
+      leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
+
+
     </Transition>
 
-  </div>
+  </CollapsableFolder>
 
 </template>
