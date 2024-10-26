@@ -37,6 +37,7 @@ class AccountController extends Controller
     {
         $validated  = $request->validate([
             'goal' => ['required', 'integer'],
+            'goalModifier' => ['required', 'integer'],
             'carrot' => ['string'],
             'age' => ['required', 'integer'],
             'gender' => ['required', Rule::in(['Male', 'Female'])],
@@ -95,6 +96,7 @@ class AccountController extends Controller
     {
         $validated = $request->validate([
             'goal' => [],
+            'goalModifier' => [],
             'carrot' => [],
             'age' => [],
             'gender' => [Rule::in(['Male', 'Female'])],
