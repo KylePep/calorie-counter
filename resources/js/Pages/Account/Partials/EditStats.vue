@@ -10,9 +10,6 @@ import NumberInput from "@/Components/NumberInput.vue";
 const props = defineProps({
   account: {
     type: Object,
-  },
-  calorieDays: {
-    type: Object
   }
 });
 
@@ -36,19 +33,6 @@ const form = useForm({
   activity: account.value?.activity || '1.55',
   timezone: account.value?.timezone || timezone,
 });
-
-
-
-const createOrUpdateAccount = () => {
-
-  form.post(route('account.store'), {
-    preserveScroll: true,
-    onSuccess: () => form.reset(),
-    onError: (errors) => {
-      console.log(errors);
-    },
-  });
-};
 
 const updateAccount = () => {
 

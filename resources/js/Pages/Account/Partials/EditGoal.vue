@@ -9,9 +9,6 @@ import NumberInput from "@/Components/NumberInput.vue";
 const props = defineProps({
   account: {
     type: Object,
-  },
-  calorieDays: {
-    type: Object
   }
 });
 

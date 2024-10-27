@@ -4,6 +4,7 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { computed } from "vue";
 import EditGoal from "./Partials/EditGoal.vue";
 import EditStats from "./Partials/EditStats.vue";
+import EditCarrot from "./Partials/EditCarrot.vue";
 
 
 const props = defineProps({
@@ -36,7 +37,9 @@ const account = computed(() => props.account);
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-        <EditGoal :account="account" :calorieDays="calorieDays" />
+        <EditGoal :account="account" />
+
+        <EditCarrot :account="account" />
 
         <EditStats :account="account" />
 
