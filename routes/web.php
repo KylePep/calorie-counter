@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'show'])->name('account.show');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
+    Route::put('/account/{account}/carrot', [AccountController::class, 'updateCarrot'])->name('account.updateCarrot');
 });
 
 Route::middleware('auth')->group(function () {

@@ -111,6 +111,24 @@ class AccountController extends Controller
         return Redirect::route('account.show');
     }
 
+    public function updateCarrot(UpdateAccountRequest $request, Account $account)
+    {
+        $validated = $request->validate([
+            'carrot' => [],
+        ]);
+
+        $existingCarrots = json_decode($account->carrot, true) ?? [];
+
+        $account->food_items = json_encode(array_merge($existingCarrots, $validated['carrot']));
+
+        $account->update($validated);
+
+        $account->save();
+        $account->food_items = json_decode($account->carrot, true);
+
+        return Redirect::route('account.show');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

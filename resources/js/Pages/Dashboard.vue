@@ -17,6 +17,14 @@ import CollapsableFolder from "@/Components/CollapsableFolder.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId']);
 
+const renderHeroImage = computed(() => {
+    if (props.account) {
+        return null
+    } else {
+        return '/assets/dashboardNoAccount.jpeg'
+    }
+})
+
 const with_fdcId = computed(() => props.with_fdcId);
 const without_fdcId = computed(() => props.without_fdcId);
 
@@ -94,9 +102,15 @@ function handleExtraButton(item, action, type) {
         <meta type="description" content="Dashboard of CalorieCount" head-key="Dashboard">
     </Head>
 
-    <GlobalLayout>
+    <GlobalLayout :heroImage="renderHeroImage" heroHeight="20">
         <template #header>
-            <h2 class="font-semibold text-xl leading-tight">Dashboard</h2>
+            <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Dashboard</h2>
+            <h2 v-else>
+                <Link :href="route('calculator')"
+                    class="text-accent-yellow hover:text-white hover:animate-none duration-300">
+                Set a Goal <i class="mdi mdi-checkbox-marked-circle-plus-outline"></i>
+                </Link>
+            </h2>
         </template>
 
         <section>
@@ -160,7 +174,7 @@ function handleExtraButton(item, action, type) {
         </template>
 
         <template #rightSide>
-            <Side side="right" class="">
+            <Side v-if="props.account" side="right" class="">
                 <JournalEntry />
             </Side>
         </template>

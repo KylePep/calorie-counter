@@ -29,7 +29,6 @@ const goal = computed(() => props.account?.goal ?? 2000);
 const account = computed(() => props.account);
 
 const form = useForm({
-  goal: goal.value,
   carrot: account.value?.carrot,
   carrotDescription: account.value?.carrot?.split(':')[0] || 'carrot',
   goalPost: account.value?.carrot?.split(':')[1] || '2000',
@@ -40,19 +39,18 @@ const form = useForm({
 const updateAccount = () => {
 
   form.carrot = form.carrotDescription + ':' + form.goalPost + '|' + form.metricValue + ':' + form.metricCategory
-  Pop.success(form.carrot)
 
-  // form.put(route('account.update', props.account.id), {
-  //   preserveScroll: true,
-  //   onSuccess: () => {
-  //     Pop.success('Goal updated + This will take effect on a new day')
-  // form.reset()
-  // closeModal()
-  //   },
-  //   onError: (errors) => {
-  //     console.log(errors);
-  //   },
-  // });
+  form.put(route('account.update', props.account.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`Carrot ${form.carrotDescription} added!`);
+      form.reset();
+      closeModal();
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 };
 
 const closeModal = () => {

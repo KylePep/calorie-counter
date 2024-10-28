@@ -23,6 +23,7 @@ const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const form = useForm({
   goal: goal.value,
+  goalModifier: account.value?.goalModifier || 0,
   gender: account.value?.gender || 'Male',
   weight: account.value?.weight || 160,
   height: account.value?.height || 177.8,

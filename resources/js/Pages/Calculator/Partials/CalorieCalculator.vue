@@ -24,6 +24,7 @@ const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12
 const age = computed(() => props.account?.age ?? 25);
 const activity = computed(() => props.account?.activity ?? '1.55');
 const goal = computed(() => props.account?.goal ?? 2000);
+const goalModifier = computed(() => props.account?.goalModifier ?? 100);
 
 const form = useForm({
   gender: gender.value,
@@ -35,6 +36,7 @@ const form = useForm({
   activity: activity.value,
   genderMod: '-161',
   goal: goal.value,
+  goalModifier: goalModifier.value,
   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 });
 
@@ -167,18 +169,32 @@ const createOrUpdateAccount = () => {
 
           </div>
         </div>
-
-
-
       </div>
+
+      <h3 class="flex flex-col text-center text-xl font-bold">Result:
+        <div v-if="result.value" class="">{{ Math.round(result.value) }}
+          Calories
+          <div class="">
+
+            <InputLabel for="goalModifier" value="Goal Modifier" />
+            <div class="mt-2">
+              <select v-model="form.goalModifier" id="goalModifier" name="goalModifier"
+                class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
+                <option value=100>{{ Math.round(result.value) }} 100% Maintain Weight Loss 2lb/week</option>
+                <option value=90>{{ Math.round(result.value * .9) }} 90% Mild Weight Loss 2lb/week</option>
+                <option value=80>{{ Math.round(result.value * .8) }} 80% Weight Loss 2lb/week</option>
+                <option value=61>{{ Math.round(result.value * .61) }} 61% Extreme Weight Loss 2lb/week</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <span v-else class="">Pending</span>
+
+
+      </h3>
     </form>
 
-    <h3 class="text-center text-xl font-bold">Result:
-      <span v-if="result.value" class="">{{ Math.round(result.value) }}
-        Calories
-      </span>
-      <span v-else class="">Pending</span>
-    </h3>
+
 
     <div class="flex flex justify-end items-center space-x-8 mt-16">
 

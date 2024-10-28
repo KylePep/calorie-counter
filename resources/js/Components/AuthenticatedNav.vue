@@ -5,9 +5,12 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+
+const props = defineProps(['account']);
 
 const showingNavigationDropdown = ref(false);
+
+
 </script>
 
 <template>
@@ -32,10 +35,12 @@ const showingNavigationDropdown = ref(false);
                         <NavLink :href="route('calculator')" :active="route().current('calculator')">
                             Calculator
                         </NavLink>
-                        <NavLink :href="route('food.index')" :active="route().current('food.index')">
+                        <NavLink v-if="$page.props.auth.account" :href="route('food.index')"
+                            :active="route().current('food.index')">
                             Food
                         </NavLink>
-                        <NavLink :href="route('history')" :active="route().current('history')">
+                        <NavLink v-if="$page.props.auth.account" :href="route('history')"
+                            :active="route().current('history')">
                             History
                         </NavLink>
                     </div>
@@ -103,10 +108,12 @@ const showingNavigationDropdown = ref(false);
                 <ResponsiveNavLink :href="route('calculator')" :active="route().current('calculator')">
                     Calculator
                 </ResponsiveNavLink>
-                <ResponsiveNavLink :href="route('food.index')" :active="route().current('food.index')">
+                <ResponsiveNavLink v-if="$page.props.auth.account" :href="route('food.index')"
+                    :active="route().current('food.index')">
                     Food
                 </ResponsiveNavLink>
-                <ResponsiveNavLink :href="route('history')" :active="route().current('history')">
+                <ResponsiveNavLink v-if="$page.props.auth.account" :href="route('history')"
+                    :active="route().current('history')">
                     History
                 </ResponsiveNavLink>
             </div>
