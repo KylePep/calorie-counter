@@ -74,6 +74,8 @@ class AccountController extends Controller
         ->take(7) 
         ->get();
 
+        $account->carrot = json_decode($account->carrot, true);
+
         return Inertia::render('Account/Show', [
             'status' => session('status'),
             'account' => $account,
@@ -122,7 +124,7 @@ class AccountController extends Controller
         $account->carrot = json_encode(array_merge($existingCarrots, $validated['carrot']));
 
         $account->save();
-        $account->carrot = json_decode($account->carrot, true);
+
 
         return Redirect::route('account.show');
     }
