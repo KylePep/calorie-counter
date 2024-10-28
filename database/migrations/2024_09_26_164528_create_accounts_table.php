@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->integer('goal');
             $table->integer('goalModifier');
-            $table->integer('carrot')->nullable();
+            $table->text('carrot')->nullable();
             $table->integer('age');
             $table->string('gender');
             $table->integer('height');

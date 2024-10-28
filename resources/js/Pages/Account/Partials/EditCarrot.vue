@@ -38,9 +38,9 @@ const form = useForm({
 
 const updateAccount = () => {
 
-  form.carrot = form.carrotDescription + ':' + form.goalPost + '|' + form.metricValue + ':' + form.metricCategory
+  form.carrot = [form.carrotDescription + ':' + form.goalPost + '|' + form.metricValue + ':' + form.metricCategory]
 
-  form.put(route('account.update', props.account.id), {
+  form.put(route('account.updateCarrot', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success(`Carrot ${form.carrotDescription} added!`);
@@ -65,6 +65,7 @@ const closeModal = () => {
 
 <template>
   <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-3">
+    {{ account.carrot }}
     <h1 class="font-bold">
       Create a carrot:
     </h1>

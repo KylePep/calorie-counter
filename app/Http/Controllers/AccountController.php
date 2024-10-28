@@ -119,12 +119,10 @@ class AccountController extends Controller
 
         $existingCarrots = json_decode($account->carrot, true) ?? [];
 
-        $account->food_items = json_encode(array_merge($existingCarrots, $validated['carrot']));
-
-        $account->update($validated);
+        $account->carrot = json_encode(array_merge($existingCarrots, $validated['carrot']));
 
         $account->save();
-        $account->food_items = json_decode($account->carrot, true);
+        $account->carrot = json_decode($account->carrot, true);
 
         return Redirect::route('account.show');
     }
