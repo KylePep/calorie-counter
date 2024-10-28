@@ -23,7 +23,7 @@ const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const form = useForm({
   goal: goal.value,
-  goalModifier: account.value?.goalModifier || 0,
+  goalModifier: account.value?.goalModifier || 100,
   gender: account.value?.gender || 'Male',
   weight: account.value?.weight || 160,
   height: account.value?.height || 177.8,
@@ -69,15 +69,26 @@ const updateAccount = () => {
   <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
 
     <div v-if="!account?.goal" class="max-w-xl">
-      <h1 class="font-bold">
-        Create a calorie goal:
-      </h1>
+
 
       <div class="max-w-xl my-3">
         <form @submit.prevent="createOrUpdateAccount" class="grid grid-cols-2 gap-3 justify-start">
 
-          <NumberInput v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
-            inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" class="py-1" />
+          <div class="flex flex-col">
+            <h1 class="font-bold">
+              Create a calorie goal:
+            </h1>
+            <NumberInput v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
+              inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" class="py-1" />
+          </div>
+
+          <div class="flex flex-col">
+            <h1 class="font-bold">
+              Goal Modifier:
+            </h1>
+            <NumberInput v-model.number="form.goalModifier" type="number" name="goalModifier" id="goalModifier"
+              placeholder="2000" inputmode="numeric" pattern="^[0-9]*$" min="50" max="500" class="py-1" />
+          </div>
           <div class=" col-span-2 space-y-3">
             <PrimaryButton>Create</PrimaryButton>
             <div class="flex space-x-2">
@@ -99,8 +110,19 @@ const updateAccount = () => {
       <div class="max-w-xl my-3">
         <form @submit.prevent="updateAccount" id="updateAccount" class="grid grid-cols-2 gap-3 justify-start ">
 
-          <NumberInput v-model.number="form.goal" class="py-1" type="number" name="goal" id="goal" placeholder="2000"
-            inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" />
+          <div class="flex flex-col">
+            <h1>Calorie Goal</h1>
+            <NumberInput v-model.number="form.goal" class="py-1" type="number" name="goal" id="goal" placeholder="2000"
+              inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" />
+          </div>
+
+          <div class="flex flex-col">
+            <h1>Goal Modifier</h1>
+            <NumberInput v-model.number="form.goalModifier" type="number" name="goalModifier" id="goalModifier"
+              placeholder="2000" inputmode="numeric" pattern="^[0-9]*$" min="50" max="500" class="py-1" />
+          </div>
+
+
 
           <div class="col-span-2 space-y-3">
             <PrimaryButton type="submit" form="updateAccount">
