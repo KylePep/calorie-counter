@@ -90,7 +90,7 @@ const updateAccount = () => {
       </div>
     </div>
 
-    <div v-if="account?.goal" class="max-w-xl">
+    <div v-else class="max-w-xl">
       <h1 class="font-bold">
         Current Calorie Goal:
       </h1>
