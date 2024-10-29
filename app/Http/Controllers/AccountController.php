@@ -68,9 +68,8 @@ class AccountController extends Controller
         $user = User::find(Auth::id());
 
         $account = $user->account;
-        if($account){
-            $account->carrot = json_decode($account->carrot, true);
-        }
+
+        $carrots = $user->carrots()->get();
 
         $calorieDays = $user->calorieDays() //TODO - Return only calorieDays that date back within 7 days
         ->orderBy('created_at', 'desc') 
@@ -80,6 +79,7 @@ class AccountController extends Controller
 
         return Inertia::render('Account/Show', [
             'status' => session('status'),
+            'carrots' => $carrots,
             'account' => $account,
             'calorieDays' => $calorieDays,
         ]);
@@ -101,7 +101,6 @@ class AccountController extends Controller
         $validated = $request->validate([
             'goal' => [],
             'goalModifier' => [],
-            'carrot' => [],
             'age' => [],
             'gender' => [Rule::in(['Male', 'Female'])],
             'height' => [],
@@ -111,22 +110,6 @@ class AccountController extends Controller
         ]);
 
         $account->update($validated);
-
-        return Redirect::route('account.show');
-    }
-
-    public function updateCarrot(UpdateAccountRequest $request, Account $account)
-    {
-        $validated = $request->validate([
-            'carrot' => [],
-        ]);
-
-        $existingCarrots = json_decode($account->carrot, true) ?? [];
-
-        $account->carrot = json_encode(array_merge($existingCarrots, $validated['carrot']));
-
-        $account->save();
-
 
         return Redirect::route('account.show');
     }

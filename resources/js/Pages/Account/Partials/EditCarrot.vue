@@ -9,17 +9,15 @@ import InputLabel from "@/Components/InputLabel.vue";
 import Modal from "@/Components/Modal.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 
-const props = defineProps({
-  account: {
-    type: Object,
-  }
-});
+const props = defineProps(['account', 'carrots']);
 
 const completedCarrots = computed(() => {
-  return props.account.carrot.filter((c) => c.complete == true);
+  if (props.carrots)
+    return props.carrots.filter((c) => c.complete == true);
 })
 const uncompletedCarrots = computed(() => {
-  return props.account.carrot.filter((c) => c.complete == false);
+  if (props.carrots)
+    return props.carrots.filter((c) => c.complete == false);
 })
 
 const showCreateForm = ref(false);
@@ -86,7 +84,7 @@ const closeModal = () => {
     </div>
 
 
-    <h3 v-if="uncompletedCarrots.length > 0" class="font-bold mdi mdi-human-male">Uncompleted</h3>
+    <h3 v-if="uncompletedCarrots.length" class="font-bold mdi mdi-human-male">Uncompleted</h3>
     <div class="grid grid-cols-3 gap-3">
       <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light rounded px-2 py-1">
         <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
@@ -97,7 +95,7 @@ const closeModal = () => {
       </div>
     </div>
 
-    <h3 v-if="completedCarrots.length > 0" class="font-bold mdi mdi-weight-lifter">Completed</h3>
+    <h3 v-if="completedCarrots.length" class="font-bold mdi mdi-weight-lifter">Completed</h3>
     <div class="grid grid-cols-3 gap-3">
       <div v-for="carrot in completedCarrots"
         class="flex justify-between text-xs bg-neutral text-light rounded px-2 py-1">

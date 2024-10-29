@@ -17,6 +17,10 @@ const props = defineProps({
   calorieDays: {
     type: Object
   }
+  ,
+  carrots: {
+    type: Array
+  }
 });
 
 const account = computed(() => props.account);
@@ -39,7 +43,7 @@ const account = computed(() => props.account);
 
         <EditGoal :account="account" />
 
-        <EditCarrot :account="account" />
+        <EditCarrot :account="account" :carrots="carrots" />
 
         <EditStats :account="account" />
 
