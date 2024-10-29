@@ -54,7 +54,7 @@ const updateAccount = () => {
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
-      Pop.success('Goal updated + This will take effect on a new day')
+      Pop.success('Goal updated')
     },
     onError: (errors) => {
       console.log(errors);

@@ -98,6 +98,9 @@ class AccountController extends Controller
      */
     public function update(UpdateAccountRequest $request, Account $account)
     {
+
+        $user = User::find(Auth::id());
+
         $validated = $request->validate([
             'goal' => [],
             'goalModifier' => [],
@@ -108,6 +111,13 @@ class AccountController extends Controller
             'activity' => [],
             'timezone' => [],
         ]);
+
+        $latestCalorieDay = $user->calorieDays()->orderBy('created_at', 'desc')->first();
+
+        if($latestCalorieDay){
+            $latestCalorieDay->goal = $validated['goal'];
+            $latestCalorieDay->save();
+        }
 
         $account->update($validated);
 

@@ -56,6 +56,11 @@ const getDayOfWeek = (date) => {
             {{ item.description }} - {{ item.count }}
           </p>
         </div>
+
+        <div>
+          <h4 class="font-bold">Journal</h4>
+          {{ day.journal }}
+        </div>
       </div>
     </div>
 
