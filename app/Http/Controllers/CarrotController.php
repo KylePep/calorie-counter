@@ -46,4 +46,14 @@ class CarrotController extends Controller
             'carrot' => $carrot,
         ]);
     }
+
+    public function destroy( Carrot $carrot)
+    {
+        $user = User::find(Auth::id());
+
+        if($user->carrots()->where('id', $carrot->id)->exists()){
+            $carrot->delete();
+        } 
+        return redirect()->back();
+    }
 }

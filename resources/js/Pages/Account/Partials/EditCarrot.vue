@@ -111,7 +111,7 @@ async function deleteCarrot(carrot) {
   form.delete(route('carrot.destroy', carrot.id), {
     preserveScroll: true,
     onSuccess: () => {
-      Pop.success(`Carrot ${form.description} added!`);
+      Pop.success(`Carrot ${form.description} removed`);
       form.reset();
       closeModal();
     },
@@ -165,7 +165,7 @@ const closeModal = () => {
         class="flex justify-between text-xs bg-neutral text-light rounded px-2 py-1">
         <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
         <div class="flex space-x-1">
-          <i class="mdi mdi-close-thick text-red-200 hover:text-red-400"></i>
+          <button @click="deleteCarrot(carrot)" class="mdi mdi-close-thick text-red-200 hover:text-red-400"></button>
         </div>
       </div>
     </div>
