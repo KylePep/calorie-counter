@@ -32,7 +32,7 @@ async function getUsdaFoodById() {
       return;
     }
 
-    const response = await axios.get(`/foodData/${foodId}`);
+    const response = await axios.get(`/foodUsda/${foodId}`);
 
 
     const foodItem = new UsdaFoodItem(response.data)

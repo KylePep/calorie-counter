@@ -66,7 +66,7 @@ async function fetchFoodData(page = 1) {
       console.log(query)
     }
 
-    const response = await axios.get('/search-foodData', {
+    const response = await axios.get('/search-foodUsda', {
       params: {
         query: query,
         pageNumber: page,

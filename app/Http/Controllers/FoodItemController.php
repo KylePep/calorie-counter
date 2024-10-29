@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
-class FoodController extends Controller
+class FoodItemController extends Controller
 {
     public function index()
     {

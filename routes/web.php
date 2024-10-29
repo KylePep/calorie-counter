@@ -5,8 +5,8 @@ use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\CarrotController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FoodController;
-use App\Http\Controllers\FoodDataController;
+use App\Http\Controllers\FoodItemController;
+use App\Http\Controllers\FoodUsdaController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
 
-Route::get('/foodData/{id}', [FoodDataController::class, 'getById']);
-Route::get('/search-foodData', [FoodDataController::class, 'searchByQuery']);
+Route::get('/foodUsda/{id}', [FoodUsdaController::class, 'getById']);
+Route::get('/search-foodUsda', [FoodUsdaController::class, 'searchByQuery']);
 
 Route::get('/calculator', [CalculatorController::class, 'create'])->name('calculator');
 
@@ -30,10 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/history', [HistoryController::class, 'index'])
         ->name('history');
     
-    Route::get('/food', [FoodController::class, 'index'])->name('food.index');
-    Route::post('/food', [FoodController::class, 'store'])->name('food.store');
-    Route::put('/food/{foodItem}', [FoodController::class, 'update'])->name('food.update');
-    Route::delete('/food/{foodItem}', [FoodController::class, 'destroy'])->name('food.destroy');
+    Route::get('/food', [FoodItemController::class, 'index'])->name('food.index');
+    Route::post('/food', [FoodItemController::class, 'store'])->name('food.store');
+    Route::put('/food/{foodItem}', [FoodItemController::class, 'update'])->name('food.update');
+    Route::delete('/food/{foodItem}', [FoodItemController::class, 'destroy'])->name('food.destroy');
 
     Route::get('/calorie-day/{calorieDay}', [CalorieDayController::class, 'show'])->name('calorieDay.show');
     Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');

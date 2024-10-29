@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class FoodDataController extends Controller
+class FoodUsdaController extends Controller
 {
 
     public function getById($id)
