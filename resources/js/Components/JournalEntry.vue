@@ -6,29 +6,30 @@ import SecondaryButton from "./SecondaryButton.vue";
 import Pop from "@/utils/Pop.js";
 import CollapsableFolder from "./CollapsableFolder.vue";
 
+const props = defineProps(['calorieDay']);
+
 const form = useForm({
-  entry: 'One time, one time I drank too much diet coke. I pooped my pants. I pooped my pants because I drank too much diet coke.'
+  // entry: 'One time, one time I drank too much diet coke. I pooped my pants. I pooped my pants because I drank too much diet coke.'
+  journal: props.calorieDay.journal
 })
 
-function clearEntry() {
-  form.entry = '';
-  //send update to calorieDay
+function clearJournal() {
+  form.journal = '';
+  updateJournal()
 }
 
-async function updateEntry() {
-  Pop.success('update triggered')
-  //update day with new entry
-  // form.put(route('food.update', props.foodItem.id), {
-  //   preserveScroll: true,
-  //   onSuccess: () => {
-  //     Pop.success(`${form.description} updated`)
-  //     form.reset()
-  //     closeModal()
-  //   },
-  //   onError: (errors) => {
-  //     console.log(errors);
-  //   },
-  // });
+async function updateJournal() {
+  // update day with new entry
+  form.patch(route('calorieDay.patch', props.calorieDay.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`Journal Entry updated`)
+      closeModal()
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 }
 
 </script>
@@ -44,12 +45,12 @@ async function updateEntry() {
       </template>
 
       <template #content>
-        <form @submit.prevent="updateEntry">
+        <form @submit.prevent="updateJournal">
           <InputLabel value="Journal Entry" class="hidden" />
-          <textarea v-model="form.entry"
+          <textarea v-model="form.journal"
             class="w-full h-32 md:h-52 resize-none border-gray-300 focus:border-accent focus:ring-accent rounded-md shadow-sm"></textarea>
           <div class="flex justify-end space-x-2">
-            <SecondaryButton type="button" @click="clearEntry">Clear</SecondaryButton>
+            <SecondaryButton type="button" @click="clearJournal">Clear</SecondaryButton>
             <PrimaryButton>Submit</PrimaryButton>
           </div>
         </form>

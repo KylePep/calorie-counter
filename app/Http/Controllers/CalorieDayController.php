@@ -144,6 +144,22 @@ class CalorieDayController extends Controller
 
     }
 
+    public function patch(UpdateCalorieDayRequest $request, CalorieDay $calorieDay)
+    {
+
+        $attributes = $request->validate([
+            'goal' => ['integer', 'nullable'],
+            'journal' => ['string', 'nullable'],
+        ]);
+
+        $filteredAttributes = array_filter($attributes, fn($value)=> !is_null($value));
+
+        $calorieDay->update($filteredAttributes);
+
+        return redirect()->back();
+
+    }
+
     /**
      * Remove the specified resource from storage.
      */

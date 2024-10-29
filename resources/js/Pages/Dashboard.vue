@@ -175,7 +175,7 @@ function handleExtraButton(item, action, type) {
 
         <template #rightSide>
             <Side v-if="props.account" side="right" class="">
-                <JournalEntry />
+                <JournalEntry :calorieDay="calorieDay" />
             </Side>
         </template>
 
