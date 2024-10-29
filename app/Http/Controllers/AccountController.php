@@ -68,13 +68,15 @@ class AccountController extends Controller
         $user = User::find(Auth::id());
 
         $account = $user->account;
+        if($account){
+            $account->carrot = json_decode($account->carrot, true);
+        }
 
         $calorieDays = $user->calorieDays() //TODO - Return only calorieDays that date back within 7 days
         ->orderBy('created_at', 'desc') 
         ->take(7) 
         ->get();
 
-        $account->carrot = json_decode($account->carrot, true);
 
         return Inertia::render('Account/Show', [
             'status' => session('status'),
