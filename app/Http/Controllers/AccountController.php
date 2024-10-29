@@ -49,6 +49,13 @@ class AccountController extends Controller
         
         // Get the signed-in user
         $user = $request->user();
+
+        $latestCalorieDay = $user->calorieDays()->orderBy('created_at', 'desc')->first();
+
+        if($latestCalorieDay){
+            $latestCalorieDay->goal = $validated['goal'];
+            $latestCalorieDay->save();
+        }
         
         if (!$user->account){
             // Create the account for the authenticated user

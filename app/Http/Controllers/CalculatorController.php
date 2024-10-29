@@ -20,6 +20,7 @@ class CalculatorController extends Controller
             'activity' => '1.55',
             'goal' => 2000,
         ];
+
         return Inertia::render('Calculator/Create', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
