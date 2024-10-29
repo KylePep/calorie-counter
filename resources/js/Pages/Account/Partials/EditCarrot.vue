@@ -50,9 +50,8 @@ const updateAccount = () => {
     category: form.metricCategory,
     complete: false
   }]
-  // [form.carrotDescription + ':' + form.goalPost + '|' + form.metricValue + ':' + form.metricCategory]
 
-  form.put(route('account.updateCarrot', props.account.id), {
+  form.post(route('carrot.store', form.carrot), {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success(`Carrot ${form.carrotDescription} added!`);
