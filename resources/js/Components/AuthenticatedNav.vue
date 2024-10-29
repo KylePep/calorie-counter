@@ -35,8 +35,8 @@ const showingNavigationDropdown = ref(false);
                         <NavLink :href="route('calculator')" :active="route().current('calculator')">
                             Calculator
                         </NavLink>
-                        <NavLink v-if="$page.props.auth.account" :href="route('food.index')"
-                            :active="route().current('food.index')">
+                        <NavLink v-if="$page.props.auth.account" :href="route('foodItem.index')"
+                            :active="route().current('foodItem.index')">
                             Food
                         </NavLink>
                         <NavLink v-if="$page.props.auth.account" :href="route('history')"
@@ -108,8 +108,8 @@ const showingNavigationDropdown = ref(false);
                 <ResponsiveNavLink :href="route('calculator')" :active="route().current('calculator')">
                     Calculator
                 </ResponsiveNavLink>
-                <ResponsiveNavLink v-if="$page.props.auth.account" :href="route('food.index')"
-                    :active="route().current('food.index')">
+                <ResponsiveNavLink v-if="$page.props.auth.account" :href="route('foodItem.index')"
+                    :active="route().current('foodItem.index')">
                     Food
                 </ResponsiveNavLink>
                 <ResponsiveNavLink v-if="$page.props.auth.account" :href="route('history')"

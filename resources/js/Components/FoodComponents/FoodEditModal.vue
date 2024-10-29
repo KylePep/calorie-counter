@@ -71,7 +71,7 @@ async function deleteItem() {
   if (!confirmDelete) {
     return
   }
-  form.delete(route('food.destroy', props.foodItem.id), {
+  form.delete(route('foodItem.destroy', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success(`${form.description} deleted`)
@@ -89,7 +89,7 @@ async function updateItem() {
   if (!confirmUpdate) {
     return
   }
-  form.put(route('food.update', props.foodItem.id), {
+  form.put(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success(`${form.description} updated`)

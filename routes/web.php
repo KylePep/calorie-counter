@@ -30,10 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/history', [HistoryController::class, 'index'])
         ->name('history');
     
-    Route::get('/food', [FoodItemController::class, 'index'])->name('food.index');
-    Route::post('/food', [FoodItemController::class, 'store'])->name('food.store');
-    Route::put('/food/{foodItem}', [FoodItemController::class, 'update'])->name('food.update');
-    Route::delete('/food/{foodItem}', [FoodItemController::class, 'destroy'])->name('food.destroy');
+    Route::get('/foodItem', [FoodItemController::class, 'index'])->name('foodItem.index');
+    Route::post('/foodItem', [FoodItemController::class, 'store'])->name('foodItem.store');
+    Route::put('/foodItem/{foodItem}', [FoodItemController::class, 'update'])->name('foodItem.update');
+    Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
 
     Route::get('/calorie-day/{calorieDay}', [CalorieDayController::class, 'show'])->name('calorieDay.show');
     Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');

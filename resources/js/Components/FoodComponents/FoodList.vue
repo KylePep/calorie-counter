@@ -109,7 +109,7 @@ async function favoriteItem(foodItem) {
       return
     }
     // Post the food item data to your backend
-    const res = await axios.post(route('food.store'), data);
+    const res = await axios.post(route('foodItem.store'), data);
 
     router.reload({
       only: ['with_fdcId', 'without_fdcId'],

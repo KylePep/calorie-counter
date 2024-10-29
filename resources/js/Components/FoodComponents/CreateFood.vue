@@ -44,7 +44,7 @@ const form = useForm({
 });
 
 const createFoodItem = () => {
-  form.post(route('food.store'), {
+  form.post(route('foodItem.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`)
       console.log('made it here')

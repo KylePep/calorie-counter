@@ -43,7 +43,7 @@ async function deleteFoodItem(foodItem) {
   if (!confirmDelete) {
     return
   }
-  form.delete(route('food.destroy', foodItem.id), {
+  form.delete(route('foodItem.destroy', foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success(`${form.description} deleted`)
