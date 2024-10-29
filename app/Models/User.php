@@ -59,4 +59,9 @@ class User extends Authenticatable
         return $this->hasMany(FoodItem::class);
     }
 
+    public function carrots()
+    {
+        return $this->hasMany(Carrot::class);
+    }
+
 }

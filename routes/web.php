@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CalorieDayController;
+use App\Http\Controllers\CarrotController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodDataController;
@@ -40,7 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'show'])->name('account.show');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
-    Route::put('/account/{account}/carrot', [AccountController::class, 'updateCarrot'])->name('account.updateCarrot');
+
+
+    Route::post('/carrot', [CarrotController::class, 'store'])->name('carrot.store');
+    Route::put('/carrot/{carrot}', [CarrotController::class, 'update'])->name('carrot.update');
+    Route::delete('/carrot/{carrot}', [CarrotController::class, 'destroy'])->name('carrot.destroy');
 });
 
 Route::middleware('auth')->group(function () {

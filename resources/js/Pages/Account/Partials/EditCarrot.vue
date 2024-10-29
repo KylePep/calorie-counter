@@ -15,6 +15,13 @@ const props = defineProps({
   }
 });
 
+const completedCarrots = computed(() => {
+  return props.account.carrot.filter((c) => c.complete == true);
+})
+const uncompletedCarrots = computed(() => {
+  return props.account.carrot.filter((c) => c.complete == false);
+})
+
 const showCreateForm = ref(false);
 
 const confirmingCarrotDetails = ref(false);
@@ -31,12 +38,19 @@ const form = useForm({
   carrotDescription: 'carrot',
   goalPost: '2000',
   metricValue: 200,
-  metricCategory: 'weight',
+  metricCategory: 'weightLoss',
 });
 
 const updateAccount = () => {
 
-  form.carrot = [form.carrotDescription + ':' + form.goalPost + '|' + form.metricValue + ':' + form.metricCategory]
+  form.carrot = [{
+    description: form.carrotDescription,
+    goalPost: form.goalPost,
+    value: form.metricValue,
+    category: form.metricCategory,
+    complete: false
+  }]
+  // [form.carrotDescription + ':' + form.goalPost + '|' + form.metricValue + ':' + form.metricCategory]
 
   form.put(route('account.updateCarrot', props.account.id), {
     preserveScroll: true,
@@ -63,7 +77,6 @@ const closeModal = () => {
 
 <template>
   <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-3">
-    {{ account.carrot }}
     <h1 class="font-bold">
       Create a carrot:
     </h1>
@@ -74,10 +87,10 @@ const closeModal = () => {
     </div>
 
 
-    <h3 class="font-bold mdi mdi-human-male">Uncompleted</h3>
+    <h3 v-if="uncompletedCarrots.length > 0" class="font-bold mdi mdi-human-male">Uncompleted</h3>
     <div class="grid grid-cols-3 gap-3">
-      <div v-for="carrot in account.carrot" class="flex justify-between text-xs bg-light rounded px-2 py-1">
-        <p>{{ carrot }}</p>
+      <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light rounded px-2 py-1">
+        <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
         <div class="flex space-x-1">
           <i class="mdi mdi-check-bold text-green-800 hover:text-green-500"></i>
           <i class="mdi mdi-close-thick text-red-800 hover:text-red-500"></i>
@@ -85,10 +98,11 @@ const closeModal = () => {
       </div>
     </div>
 
-    <h3 class="font-bold mdi mdi-weight-lifter">Completed</h3>
+    <h3 v-if="completedCarrots.length > 0" class="font-bold mdi mdi-weight-lifter">Completed</h3>
     <div class="grid grid-cols-3 gap-3">
-      <div v-for="index in 3" class="flex justify-between text-xs bg-neutral text-light rounded px-2 py-1">
-        <p>{{ index }} Booster Packs : {{ 230 - (index * 10) }}</p>
+      <div v-for="carrot in completedCarrots"
+        class="flex justify-between text-xs bg-neutral text-light rounded px-2 py-1">
+        <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
         <div class="flex space-x-1">
           <i class="mdi mdi-close-thick text-red-200 hover:text-red-400"></i>
         </div>
@@ -128,7 +142,8 @@ const closeModal = () => {
         <InputLabel value="Metric Category" />
         <select v-model="form.metricCategory" id="metricCategory" name="metricCategory"
           class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
-          <option value='weight'>Weight</option>
+          <option value='weightLoss'>Weight Loss</option>
+          <option value='weightGain'>Weight Gain</option>
           <option value='none'>None</option>
         </select>
       </div>
