@@ -95,7 +95,10 @@ function handleExtraButton(item, action, type) {
     </div>
 
     <div v-else>
-      <slot />
+      <div
+        class="grid grid-cols-3 sm:flex sm:justify-around font-bold text-xs sm:text-base text-neutral text-center bg-gradient-to-b from-main via-main to-light border border-light rounded-t px-1 sm:px-3 -mb-4 uppercase">
+        <slot />
+      </div>
     </div>
   </section>
 

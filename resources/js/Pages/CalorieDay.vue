@@ -37,13 +37,23 @@ const getDayOfWeek = (date) => {
 
     <CalorieDayLayout :account="account" :calorie-day="calorieDay" :with_fdc-id="with_fdcId"
       :without_fdc-id="without_fdcId" :carrots="carrots">
-      <p>{{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
-        Date(calorieDay.created_at).toLocaleDateString() }}</p>
-      <p class="text-xl font-bold mt-2">
-        calories: {{ calorieCount }}
+      <p class="col-span-3 sm:col-span-1">
+        {{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
+          Date(calorieDay.created_at).toLocaleDateString() }}
       </p>
-      <p class="text-lg">Goal: {{ goal }}, BMR: {{ bmr }}.
+      <p>
+        calories:
+        {{ calorieCount }}
       </p>
+      <p>
+        Goal:
+        {{ goal }}
+      </p>
+      <p>
+        BMR:
+        {{ bmr }}
+      </p>
+
     </CalorieDayLayout>
 
     <template #leftSide>

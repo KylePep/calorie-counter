@@ -46,13 +46,23 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
 
         <CalorieDayLayout :account="account" :calorie-day="calorieDay" :with_fdc-id="with_fdcId"
             :without_fdc-id="without_fdcId" :carrots="carrots">
-            <p>Today, {{ new
-                Date().toLocaleDateString() }}</p>
-            <p class="text-xl font-bold mt-2">
-                calories: {{ calorieCount }}
+
+            <p class="col-span-3 sm:col-span-1">
+                Today: {{ new Date().toLocaleDateString() }}
             </p>
-            <p class="text-lg">Goal: {{ goal }}, BMR: {{ bmr }}.
+            <p>
+                calories:
+                {{ calorieCount }}
             </p>
+            <p>
+                Goal:
+                {{ goal }}
+            </p>
+            <p>
+                BMR:
+                {{ bmr }}
+            </p>
+
         </CalorieDayLayout>
 
         <template #leftSide>
