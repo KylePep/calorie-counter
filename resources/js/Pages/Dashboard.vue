@@ -31,9 +31,8 @@ const without_fdcId = computed(() => props.without_fdcId);
 const calorieDay = ref(props.calorieDay)
 
 const goal = computed(() => calorieDay.value?.goal ?? 2000);
+const goalModifier = computed(() => props.account.goalModifier ?? 100);
 const calorieCount = computed(() => calorieDay.value?.count ?? 0);
-
-const calorieGoal = ref(goal)
 
 const showEditForm = ref(false);
 const showUsdaForm = ref(false);
@@ -125,12 +124,13 @@ function handleExtraButton(item, action, type) {
                 <p>Today, {{ new
                     Date().toLocaleDateString() }}</p>
                 <p class="text-xl font-bold">
-                    Here's how it's going: {{ calorieCount }}, Your goal is {{ calorieGoal }} calories
+                    Here's how it's going: {{ calorieCount }}, Your goal is {{ goal }} calories
                 </p>
             </div>
         </section>
 
-        <CalorieDisplay v-if="props.account" :calorieGoal="calorieGoal" :calorieCount="calorieCount" />
+        <CalorieDisplay v-if="props.account" :calorieGoal="goal" :calorieCount="calorieCount"
+            :goalModifier="goalModifier" />
 
         <section v-if="props.account" class="block lg:hidden">
             <CreateFood />

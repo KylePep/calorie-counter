@@ -1,34 +1,88 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 
-const props = defineProps(['calorieGoal', 'calorieCount'])
+const props = defineProps(['calorieGoal', 'calorieCount', 'goalModifier']);
 
-const cellCount = ref(props.calorieGoal / 100)
-const calorieCountRows = ref(Math.ceil(props.calorieGoal / 1000))
+const cellCount = ref(Math.ceil(props.calorieGoal / 100));
+const calorieCountRows = ref(Math.ceil(props.calorieGoal / 1000));
+
+const allCellsTotal = computed(() => calorieCountRows.value * 10)
+
+function cellClasses(value) {
+  let selector = '';
+  const trueValue = value * 100;
+
+  if (trueValue > props.calorieCount) {
+    selector = 'neutral'
+  } else {
+    selector = 'used'
+  }
+
+  if (trueValue >= props.calorieGoal * (props.goalModifier * .01)) {
+    if (trueValue > props.calorieCount) {
+      selector = 'modified'
+    } else {
+      selector = 'modifyUsed'
+    }
+  }
+
+  return {
+    neutral: 'bg-light text-neutral/75 border-neutral',
+    used: 'bg-accent text-transparent border-neutral',
+    modified: 'bg-light border-accent-yellow border-4 text-neutral/75',
+    modifyUsed: 'bg-accent text-transparent border-accent-yellow border-4'
+  }[selector]
+};
+
+function cellsOverClasses(value) {
+  let selector = '';
+  const trueValue = value * 100 + props.calorieGoal;
+
+  if (trueValue > props.calorieCount) {
+    selector = 'neutral'
+  } else {
+    selector = 'used'
+  }
+
+  return {
+    neutral: 'bg-light text-neutral/75 border-neutral',
+    used: 'bg-special text-transparent border-neutral',
+  }[selector]
+};
 
 </script>
 
 <template>
+  {{ props.calorieGoal * (props.goalModifier * .01) }}
 
   <section
-    class=" z-10 px-1.5 py-0.5 text-center rounded ring-1 ring-main ring-inset border-2  border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light "
+    class="z-10 relative p-1.5 rounded border-2 border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light"
     :class="calorieCount < calorieGoal ? 'sticky top-16' : ''">
+    <div class="grid grid-cols-10 gap-1">
+      <div v-for="cell in allCellsTotal" class="h-10 text-sm border border-dark bg-neutral "></div>
+    </div>
 
-    <div v-for="row in calorieCountRows" :key="row" class="  grid grid-rows-1 grid-flow-col gap-1 my-1">
-      <div v-for="index in 10" :key="index"
-        :class="[((row - 1) * 10 + index) * 100 <= calorieCount && index + ((row - 1) * 10) <= cellCount ? 'bg-gradient-to-b from-accent-dark via-accent via-50% to-accent-light  text-transparent ' : 'text-transparent sm:text-text ', index + ((row - 1) * 10) <= cellCount ? '' : 'bg-neutral text-text sm:text-transparent']"
-        class="min-h-10 text-sm flex flex-col justify-center duration-700 border border-neutral">
+    <div class="absolute top-0 left-0 w-full grid grid-cols-10 gap-1 p-1.5">
+      <div v-for="cell in cellCount" :class="cellClasses(cell)"
+        class="h-10 flex justify-center items-center text-sm  border font-bold  duration-500" :title="cell * 100">
         100
       </div>
     </div>
+
   </section>
 
   <section v-if="calorieCount > calorieGoal"
-    class="sticky top-16 z-20 grid grid-rows-2 grid-flow-col gap-1 p-1 text-center border-2 rounded border-neutral bg-gradient-to-b from-main via-light to-light shadow-lg">
-    <div v-for="index in 40" :key="index" :class="[index * 50 + calorieGoal <= calorieCount ? 'bg-special' : '']"
-      class="min-h-10 duration-700 border border-neutral">
+    class="sticky top-16 z-20 p-1.5 rounded border-2 border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
+
+    <div class=" grid grid-cols-10 gap-1">
+      <div v-for="index in 20" :class="cellsOverClasses(index)"
+        class="h-10 flex justify-center items-center text-sm  border font-bold  duration-500"
+        :title="index * 100 + calorieGoal">
+        100
+      </div>
     </div>
+
   </section>
 
 </template>

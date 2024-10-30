@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->integer('goal');
-            $table->integer('goalModifier');
+            $table->integer('goal'); // BMR
+            $table->integer('goalModifier'); //Goal Modifier
             $table->integer('age');
             $table->string('gender');
             $table->integer('height');
