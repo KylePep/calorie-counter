@@ -21,9 +21,9 @@ const props = defineProps({
     <meta type="description" content="Calorie History" head-key="Food">
   </Head>
 
-  <GlobalLayout>
+  <GlobalLayout heroImage="/assets/calorieHistory.jpeg" heroHeight="50">
     <template #header>
-      <h2 class="font-semibold text-xl leading-tight">History</h2>
+      Your History
     </template>
 
 

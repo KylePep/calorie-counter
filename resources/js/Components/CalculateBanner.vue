@@ -8,7 +8,7 @@ const page = usePage();
 
 const topBannerPage = computed(() => {
   if (props.position == 'header') {
-    const allowedTopPages = ['/', '/history'];
+    const allowedTopPages = ['/'];
     return allowedTopPages.some(title => page.url == title);
   }
 });
