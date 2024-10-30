@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
-import FoodCard from "./FoodComponents/FoodCard.vue";
+import FoodCard from "@/Components/FoodComponents/FoodCard.vue";
 import SizeButton from './SizeButton.vue'
 import CollapsableFolder from "./CollapsableFolder.vue";
 

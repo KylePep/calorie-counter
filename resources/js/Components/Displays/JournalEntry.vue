@@ -1,10 +1,10 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import InputLabel from "./InputLabel.vue";
-import PrimaryButton from "./PrimaryButton.vue";
-import SecondaryButton from "./SecondaryButton.vue";
+import InputLabel from "@/Components/Form/InputLabel.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
+import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
 import Pop from "@/utils/Pop.js";
-import CollapsableFolder from "./CollapsableFolder.vue";
+import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
 
 const props = defineProps(['calorieDay']);
 

@@ -1,7 +1,7 @@
 <script setup>
 import CalorieCalculator from "@/Pages/Calculator/Partials/CalorieCalculator.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import Side from "@/Components/Side.vue";
+import Side from "@/Components/Displays/Side.vue";
 
 defineProps({
   canLogin: {

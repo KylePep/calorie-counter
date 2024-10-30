@@ -1,10 +1,11 @@
 <script setup>
-import { Head, usePage } from "@inertiajs/vue3";
+import CalculateBanner from "@/Components/CalculateBanner.vue";
+import AuthenticatedNav from "@/Components/Nav/AuthenticatedNav.vue";
+import GuestNav from "@/Components/Nav/GuestNav.vue";
+import { Head } from "@inertiajs/vue3";
+import FooterContent from "./Partials/FooterContent.vue";
 import PageLayout from "./PageLayout.vue";
-import GuestNav from "@/Components/GuestNav.vue";
-import AuthenticatedNav from "@/Components/AuthenticatedNav.vue";
-import CalculateBanner from '../Components/CalculateBanner.vue'
-import FooterContent from './Partials/FooterContent.vue'
+
 
 defineProps({
   canLogin: {
@@ -24,7 +25,6 @@ defineProps({
   }
 })
 
-const page = usePage();
 </script>
 
 

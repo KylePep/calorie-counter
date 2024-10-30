@@ -4,7 +4,7 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import NavLink from "@/Components/NavLink.vue";
+import NavLink from "@/Components/Nav/NavLink.vue";
 
 
 defineProps({

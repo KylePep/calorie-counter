@@ -1,7 +1,7 @@
 <script setup>
-import InputLabel from "@/Components/InputLabel.vue";
-import NumberInput from "@/Components/NumberInput.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import InputLabel from "@/Components/Form/InputLabel.vue";
+import NumberInput from "@/Components/Form/NumberInput.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import Pop from "@/utils/Pop.js";
 import { useForm } from "@inertiajs/vue3";
 import { computed } from "vue";

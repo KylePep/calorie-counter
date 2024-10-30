@@ -1,5 +1,5 @@
 <script setup>
-import NavLink from "@/Components/NavLink.vue";
+import NavLink from "@/Components/Nav/NavLink.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { computed } from "vue";
 import EditGoal from "./Partials/EditGoal.vue";

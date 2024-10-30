@@ -1,7 +1,7 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import { computed } from "vue";
-import PrimaryButton from "../PrimaryButton.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const props = defineProps(['calorieDays']);
 const calorieDays = computed(() => props.calorieDays);

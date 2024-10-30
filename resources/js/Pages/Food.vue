@@ -4,12 +4,11 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
-import ItemsDisplay from "@/Components/ItemsDisplay.vue";
+import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
 import Pop from "@/utils/Pop.js";
-import axios from "axios";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
-import Side from "@/Components/Side.vue";
+import Side from "@/Components/Displays/Side.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
 

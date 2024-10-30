@@ -1,10 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import ApplicationLogo from "./ApplicationLogo.vue";
 import NavLink from "./NavLink.vue";
-import DropdownLink from "./DropdownLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
-import Dropdown from "./Dropdown.vue";
+import ApplicationLogo from "../ApplicationLogo.vue";
 
 
 defineProps({

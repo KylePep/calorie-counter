@@ -1,10 +1,10 @@
 <script setup>
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import Modal from "../Modal.vue";
-import SecondaryButton from "../SecondaryButton.vue";
-import PrimaryButton from "../PrimaryButton.vue";
+import Modal from "../Form/Modal.vue";
+import SecondaryButton from "../Form/SecondaryButton.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
-import DangerButton from "../DangerButton.vue";
+import DangerButton from "../Form/DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
 

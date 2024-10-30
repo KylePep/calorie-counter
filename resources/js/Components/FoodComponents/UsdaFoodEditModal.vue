@@ -1,8 +1,8 @@
 <script setup>
 import { computed, ref, watch } from "vue";
-import Modal from "../Modal.vue";
-import SecondaryButton from "../SecondaryButton.vue";
-import PrimaryButton from "../PrimaryButton.vue";
+import Modal from "../Form/Modal.vue";
+import SecondaryButton from "../Form/SecondaryButton.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
 import { UsdaFoodItem } from "@/models/UsdaFoodItem.js";

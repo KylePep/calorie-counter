@@ -1,17 +1,17 @@
 <script setup>
-import InputError from "@/Components/InputError.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/Form/InputError.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
+import TextInput from "@/Components/Form/TextInput.vue";
 import { router, useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import { computed, reactive, ref } from "vue";
 import { FoodSearchResponse } from "../../models/FoodSearchResponse.js";
 import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
 import Pop from "@/utils/Pop.js";
-import Dropdown from "../Dropdown.vue";
-import Checkbox from "../Checkbox.vue";
+import Dropdown from "../Form/Dropdown.vue";
+import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
-import CollapsableFolder from "../CollapsableFolder.vue";
+import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 
 const emit = defineEmits(['increase-by', 'extraButton'])
 

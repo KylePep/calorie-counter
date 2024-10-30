@@ -1,14 +1,14 @@
 <script setup>
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputLabel from "@/Components/Form/InputLabel.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
+import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
+import TextInput from "@/Components/Form/TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
 import { computed, nextTick, ref } from "vue";
-import InputError from "@/Components/InputError.vue";
+import InputError from "@/Components/Form/InputError.vue";
 import Pop from "@/utils/Pop.js";
-import NumberInput from "@/Components/NumberInput.vue";
-import Modal from "../Modal.vue";
+import NumberInput from "@/Components/Form/NumberInput.vue";
+import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
 
 const showCreateForm = ref(false);

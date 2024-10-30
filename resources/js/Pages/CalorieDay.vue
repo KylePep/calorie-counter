@@ -1,8 +1,8 @@
 <script setup>
-import CarrotDisplay from "@/Components/CarrotDisplay.vue";
+import CarrotDisplay from "@/Components/Displays/CarrotDisplay.vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
-import JournalEntry from "@/Components/JournalEntry.vue";
-import Side from "@/Components/Side.vue";
+import JournalEntry from "@/Components/Displays/JournalEntry.vue";
+import Side from "@/Components/Displays/Side.vue";
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head } from "@inertiajs/vue3";

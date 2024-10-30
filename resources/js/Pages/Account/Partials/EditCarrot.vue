@@ -1,13 +1,13 @@
 <script setup>
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import Pop from "@/utils/Pop.js";
 import { useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
-import NumberInput from "@/Components/NumberInput.vue";
-import TextInput from "@/Components/TextInput.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import Modal from "@/Components/Modal.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
+import NumberInput from "@/Components/Form/NumberInput.vue";
+import TextInput from "@/Components/Form/TextInput.vue";
+import InputLabel from "@/Components/Form/InputLabel.vue";
+import Modal from "@/Components/Form/Modal.vue";
+import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
 
 const props = defineProps(['account', 'carrots']);
 const account = computed(() => props.account);

@@ -7,9 +7,9 @@ import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
 import FoodList from "@/Components/FoodComponents/FoodList.vue";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
-import ItemsDisplay from "@/Components/ItemsDisplay.vue";
-import CalorieDisplay from '../Components/FoodComponents/CalorieDisplay.vue'
-import CollapsableFolder from "@/Components/CollapsableFolder.vue";
+import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
+import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
+import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
 
