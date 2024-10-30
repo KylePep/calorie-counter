@@ -13,17 +13,17 @@ const props = defineProps({
   }
 });
 
-const goal = computed(() => props.account?.goal ?? 2000);
 const account = computed(() => props.account);
 
 const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
 const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
-const height = computed(() => props.account.height);
 
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const form = useForm({
-  goal: goal.value,
+  goal: account.value?.goal,
+  goalModifier: account.value?.goalModifier,
+  bmr: account.value?.bmr,
   gender: account.value?.gender || 'Male',
   weight: account.value?.weight || 160,
   height: account.value?.height || 177.8,
@@ -41,7 +41,7 @@ const updateAccount = () => {
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
-      Pop.success('Goal updated + This will take effect on a new day')
+      Pop.success('Stats updated')
     },
     onError: (errors) => {
       console.log(errors);

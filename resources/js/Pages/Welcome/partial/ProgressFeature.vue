@@ -21,18 +21,18 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
       <div class="flex flex-col h-full text-start ">
         <div class="px-4 py-2 bg-neutral text-light rounded-t font-bold">
           <p>While tracking your calories, each square will represent 100 calories.</p>
+          <p>Squares within your goal's range have a special border. </p>
           <p>Meaning you'll have a better representation of how much a single food item impacts
             your
             diet.</p>
         </div>
 
         <div class="mt-4">
-          <p class="text-center text-xl font-bold">Goal: 1800</p>
+          <p class="text-center text-xl font-bold">Goal:1600, BMR: 1800</p>
           <div
             class="grid grid-cols-10 gap-1 text-transparent sm:text-neutral px-1.5 py-0.5 rounded ring-1 ring-main ring-inset border-2  border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
-            <div v-for="index in 20"
-              class="flex flex-col justify-center items-center h-10 sm:h-14 border border-neutral"
-              :class="index < 8 ? 'bg-gradient-to-b from-accent-dark via-accent via-50% to-accent-light ' : '', index > 18 ? 'bg-neutral ' : ''">
+            <div v-for="index in 20" class="flex flex-col justify-center items-center h-10 sm:h-14 border"
+              :class="index < 8 ? 'bg-gradient-to-b from-accent-dark via-accent via-50% to-accent-light border-neutral' : '', index >= 8 && index <= 16 ? ' border-neutral ' : '', index > 16 && index <= 18 ? 'border-4 border-accent-yellow ' : '', index > 18 ? 'border-1 bg-neutral border-dark' : ''">
               {{ index >= 8 && index <= 18 ? '100' : '' }} </div>
             </div>
           </div>

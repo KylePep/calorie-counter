@@ -32,7 +32,7 @@ const calorieDay = ref(props.calorieDay)
 
 const goal = computed(() => calorieDay.value?.goal);
 const bmr = computed(() => calorieDay.value?.bmr);
-// const goalModifier = computed(()=> calorieDay.value?.bmr calorieDay.value?.goal);
+
 const calorieCount = computed(() => calorieDay.value?.count ?? 0);
 
 const showEditForm = ref(false);

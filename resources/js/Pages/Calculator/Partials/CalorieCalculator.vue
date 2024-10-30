@@ -211,7 +211,6 @@ const createOrUpdateAccount = () => {
       <PrimaryButton @click="calculateResult()" type="button">
         Calculate</PrimaryButton>
     </div>
-    {{ form.goal = Math.round(form.bmr * (form.goalModifier * .01)) }}
   </div>
 
 </template>
