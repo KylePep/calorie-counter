@@ -41,9 +41,9 @@ const page = usePage();
 
       <div v-if="heroImage" class="flex justify-center items-center h-96 space-x-3 mx-auto py-6 px-4 sm:px-6 lg:px-8 "
         :style="{ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.5) 80%, rgba(0, 0, 0, 0.6) 100%), url(${heroImage})`, backgroundPosition: `50% ${heroHeight}%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">
-        <h2 class="font-semibold text-7xl leading-tight text-shadow-2xl text-white">
+        <div class="font-semibold text-7xl leading-tight text-shadow-2xl text-white text-center sm:text-start">
           <slot name="header"></slot>
-        </h2>
+        </div>
 
       </div>
 
