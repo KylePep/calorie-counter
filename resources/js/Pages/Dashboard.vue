@@ -123,8 +123,12 @@ function handleExtraButton(item, action, type) {
             <div v-else>
                 <p>Today, {{ new
                     Date().toLocaleDateString() }}</p>
-                <p class="text-xl font-bold">
-                    Here's how it's going: {{ calorieCount }}, Your goal is {{ goal }} calories
+                <p class="text-xl font-bold mt-2">
+                    calories: {{ calorieCount }}
+                </p>
+                <p class="text-lg">Goal: {{ Math.round(goal *
+                    props.account.goalModifier * .01)
+                    }}, BMR: {{ goal }}.
                 </p>
             </div>
         </section>

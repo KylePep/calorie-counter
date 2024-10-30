@@ -36,6 +36,7 @@ class AccountController extends Controller
     public function store(StoreAccountRequest $request)
     {
         $validated  = $request->validate([
+            'bmr' => ['required', 'integer'],
             'goal' => ['required', 'integer'],
             'goalModifier' => ['required', 'integer'],
             'carrot' => ['string'],
@@ -54,6 +55,7 @@ class AccountController extends Controller
 
         if($latestCalorieDay){
             $latestCalorieDay->goal = $validated['goal'];
+            $latestCalorieDay->bmr = $validated['bmr'];
             $latestCalorieDay->save();
         }
         
@@ -111,6 +113,7 @@ class AccountController extends Controller
         $validated = $request->validate([
             'goal' => [],
             'goalModifier' => [],
+            'bmr' => [],
             'age' => [],
             'gender' => [Rule::in(['Male', 'Female'])],
             'height' => [],
@@ -123,6 +126,7 @@ class AccountController extends Controller
 
         if($latestCalorieDay){
             $latestCalorieDay->goal = $validated['goal'];
+            $latestCalorieDay->bmr = $validated['bmr'];
             $latestCalorieDay->save();
         }
 

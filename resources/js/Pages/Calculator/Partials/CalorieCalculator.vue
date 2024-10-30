@@ -180,9 +180,9 @@ const createOrUpdateAccount = () => {
             <div class="mt-2">
               <select v-model="form.goalModifier" id="goalModifier" name="goalModifier"
                 class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
-                <option value=100>{{ Math.round(result.value) }} 100% Maintain Weight Loss 2lb/week</option>
-                <option value=90>{{ Math.round(result.value * .9) }} 90% Mild Weight Loss 2lb/week</option>
-                <option value=80>{{ Math.round(result.value * .8) }} 80% Weight Loss 2lb/week</option>
+                <option value=100>{{ Math.round(result.value) }} 100% Maintain Weight</option>
+                <option value=90>{{ Math.round(result.value * .9) }} 90% Mild Weight Loss 0.5lb/week</option>
+                <option value=80>{{ Math.round(result.value * .8) }} 80% Weight Loss 1lb/week</option>
                 <option value=61>{{ Math.round(result.value * .61) }} 61% Extreme Weight Loss 2lb/week</option>
               </select>
             </div>
@@ -200,8 +200,7 @@ const createOrUpdateAccount = () => {
 
       <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
         leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
-        <PrimaryButton type="submit" form="calorie" v-if="$page.props.auth.user && result.value"
-          :title="`Set ${Math.round(result.value)} as calorie goal.`">
+        <PrimaryButton type="submit" form="calorie" v-if="$page.props.auth.user && result.value">
           Set Goal <i class="ms-2 mdi mdi-checkbox-marked-circle-plus-outline"></i> </PrimaryButton>
       </Transition>
 

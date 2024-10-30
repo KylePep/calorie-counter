@@ -12,18 +12,18 @@ const props = defineProps({
   }
 });
 
-const goal = computed(() => props.account?.goal ?? 2000);
 const account = computed(() => props.account);
 
 const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
 const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
-const height = computed(() => props.account.height);
+// const height = computed(() => props.account.height);
 
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const form = useForm({
-  goal: goal.value,
+  goal: account.value?.goal || 2000,
   goalModifier: account.value?.goalModifier || 100,
+  bmr: account.value?.bmr || 2000,
   gender: account.value?.gender || 'Male',
   weight: account.value?.weight || 160,
   height: account.value?.height || 177.8,
@@ -37,6 +37,7 @@ const form = useForm({
 
 
 const createOrUpdateAccount = () => {
+  form.goal = form.bmr * (form.goalModifier * .01)
 
   form.post(route('account.store'), {
     preserveScroll: true,
@@ -48,8 +49,8 @@ const createOrUpdateAccount = () => {
 };
 
 const updateAccount = () => {
-
-  form.height = ((form.heightFeet * 12) + form.heightInches) * 2.54
+  form.goal = form.bmr * (form.goalModifier * .01)
+  // form.height = ((form.heightFeet * 12) + form.heightInches) * 2.54
 
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
@@ -66,6 +67,9 @@ const updateAccount = () => {
 
 
 <template>
+  {{ props.account.bmr }}
+  {{ props.account.goalModifier }}
+  {{ props.account.goal }}
   <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
 
     <div v-if="!account?.goal" class="max-w-xl">
@@ -76,18 +80,25 @@ const updateAccount = () => {
 
           <div class="flex flex-col">
             <h1 class="font-bold">
-              Create a calorie goal:
+              Set Basal Metabolic Rate:
             </h1>
-            <NumberInput v-model.number="form.goal" type="number" name="goal" id="goal" placeholder="2000"
+            <NumberInput v-model.number="form.bmr" type="number" name="goal" id="goal" placeholder="2000"
               inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" class="py-1" />
           </div>
 
           <div class="flex flex-col">
             <h1 class="font-bold">
-              Goal Modifier:
+              Set Goal Modifier:
             </h1>
-            <NumberInput v-model.number="form.goalModifier" type="number" name="goalModifier" id="goalModifier"
-              placeholder="2000" inputmode="numeric" pattern="^[0-9]*$" min="50" max="500" class="py-1" />
+            <div class="relative">
+              <NumberInput v-model.number="form.goalModifier" type="number" name="goalModifier" id="goalModifier"
+                placeholder="100" inputmode="numeric" pattern="^[0-9]*$" min="50" max="500" class="w-full py-1" />
+              <span class="absolute top-0 right-0 px-4 py-1 font-bold text-neutral/75">%</span>
+            </div>
+          </div>
+
+          <div class="col-span-2 font-bold">
+            Goal: {{ form.goal * (form.goalModifier * .01) }}
           </div>
           <div class=" col-span-2 space-y-3">
             <PrimaryButton>Create</PrimaryButton>
@@ -111,8 +122,8 @@ const updateAccount = () => {
         <form @submit.prevent="updateAccount" id="updateAccount" class="grid grid-cols-2 gap-3 justify-start ">
 
           <div class="flex flex-col">
-            <h1>Calorie Goal</h1>
-            <NumberInput v-model.number="form.goal" class="py-1" type="number" name="goal" id="goal" placeholder="2000"
+            <h1>BMR</h1>
+            <NumberInput v-model.number="form.bmr" class="py-1" type="number" name="goal" id="goal" placeholder="2000"
               inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" />
           </div>
 
@@ -120,6 +131,10 @@ const updateAccount = () => {
             <h1>Goal Modifier</h1>
             <NumberInput v-model.number="form.goalModifier" type="number" name="goalModifier" id="goalModifier"
               placeholder="2000" inputmode="numeric" pattern="^[0-9]*$" min="50" max="500" class="py-1" />
+          </div>
+
+          <div class="col-span-2 font-bold">
+            Goal: {{ form.bmr * (form.goalModifier * .01) }}
           </div>
 
 

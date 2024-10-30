@@ -19,11 +19,13 @@ function cellClasses(value) {
     selector = 'used'
   }
 
-  if (trueValue >= props.calorieGoal * (props.goalModifier * .01)) {
-    if (trueValue > props.calorieCount) {
-      selector = 'modified'
-    } else {
-      selector = 'modifyUsed'
+  if (props.goalModifier != 100) {
+    if (trueValue >= props.calorieGoal * (props.goalModifier * .01)) {
+      if (trueValue > props.calorieCount) {
+        selector = 'modified'
+      } else {
+        selector = 'modifyUsed'
+      }
     }
   }
 
@@ -54,7 +56,6 @@ function cellsOverClasses(value) {
 </script>
 
 <template>
-  {{ props.calorieGoal * (props.goalModifier * .01) }}
 
   <section
     class="z-10 relative p-1.5 rounded border-2 border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light"

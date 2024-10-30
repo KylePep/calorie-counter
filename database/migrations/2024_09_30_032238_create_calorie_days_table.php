@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('calorie_days', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->integer('bmr');
             $table->integer('goal');
             $table->integer('count');
             $table->string('journal')->nullable();
