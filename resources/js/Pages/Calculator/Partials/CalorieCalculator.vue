@@ -23,6 +23,7 @@ const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 
 const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
 const age = computed(() => props.account?.age ?? 25);
 const activity = computed(() => props.account?.activity ?? '1.55');
+const bmr = computed(() => props.account?.bmr ?? 2000);
 const goal = computed(() => props.account?.goal ?? 2000);
 const goalModifier = computed(() => props.account?.goalModifier ?? 100);
 
@@ -36,6 +37,7 @@ const form = useForm({
   activity: activity.value,
   genderMod: '-161',
   goal: goal.value,
+  bmr: bmr.value,
   goalModifier: goalModifier.value,
   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 });
@@ -56,12 +58,14 @@ const calculateResult = () => {
   const activityResult = Math.round(basicResult * form.activity)
 
   form.height = height
-  form.goal = activityResult
+  form.bmr = activityResult
 
   result.value = activityResult
 }
 
 const createOrUpdateAccount = () => {
+
+  form.goal = Math.round(form.bmr * (form.goalModifier * .01))
 
   form.post(route('account.store'), {
     preserveScroll: true,
@@ -207,6 +211,7 @@ const createOrUpdateAccount = () => {
       <PrimaryButton @click="calculateResult()" type="button">
         Calculate</PrimaryButton>
     </div>
+    {{ form.goal = Math.round(form.bmr * (form.goalModifier * .01)) }}
   </div>
 
 </template>

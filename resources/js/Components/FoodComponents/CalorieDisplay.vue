@@ -2,10 +2,10 @@
 import { computed, ref } from "vue";
 
 
-const props = defineProps(['calorieGoal', 'calorieCount', 'goalModifier']);
+const props = defineProps(['goal', 'calorieCount', 'bmr']);
 
-const cellCount = ref(Math.ceil(props.calorieGoal / 100));
-const calorieCountRows = ref(Math.ceil(props.calorieGoal / 1000));
+const cellCount = ref(Math.ceil(props.bmr / 100));
+const calorieCountRows = ref(Math.ceil(props.bmr / 1000));
 
 const allCellsTotal = computed(() => calorieCountRows.value * 10)
 
@@ -19,8 +19,8 @@ function cellClasses(value) {
     selector = 'used'
   }
 
-  if (props.goalModifier != 100) {
-    if (trueValue >= props.calorieGoal * (props.goalModifier * .01)) {
+  if (props.bmr != props.goal) {
+    if (trueValue >= props.goal) {
       if (trueValue > props.calorieCount) {
         selector = 'modified'
       } else {
@@ -39,7 +39,7 @@ function cellClasses(value) {
 
 function cellsOverClasses(value) {
   let selector = '';
-  const trueValue = value * 100 + props.calorieGoal;
+  const trueValue = value * 100 + props.bmr;
 
   if (trueValue > props.calorieCount) {
     selector = 'neutral'
@@ -59,7 +59,7 @@ function cellsOverClasses(value) {
 
   <section
     class="z-10 relative p-1.5 rounded border-2 border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light"
-    :class="calorieCount < calorieGoal ? 'sticky top-16' : ''">
+    :class="calorieCount < bmr ? 'sticky top-16' : ''">
     <div class="grid grid-cols-10 gap-1">
       <div v-for="cell in allCellsTotal" class="h-10 text-sm border border-dark bg-neutral "></div>
     </div>
@@ -73,13 +73,13 @@ function cellsOverClasses(value) {
 
   </section>
 
-  <section v-if="calorieCount > calorieGoal"
+  <section v-if="calorieCount > bmr"
     class="sticky top-16 z-20 p-1.5 rounded border-2 border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
 
     <div class=" grid grid-cols-10 gap-1">
       <div v-for="index in 20" :class="cellsOverClasses(index)"
         class="h-10 flex justify-center items-center text-sm  border font-bold  duration-500"
-        :title="index * 100 + calorieGoal">
+        :title="index * 100 + bmr">
         100
       </div>
     </div>

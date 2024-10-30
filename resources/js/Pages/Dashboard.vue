@@ -30,8 +30,9 @@ const without_fdcId = computed(() => props.without_fdcId);
 
 const calorieDay = ref(props.calorieDay)
 
-const goal = computed(() => calorieDay.value?.goal ?? 2000);
-const goalModifier = computed(() => props.account.goalModifier ?? 100);
+const goal = computed(() => calorieDay.value?.goal);
+const bmr = computed(() => calorieDay.value?.bmr);
+// const goalModifier = computed(()=> calorieDay.value?.bmr calorieDay.value?.goal);
 const calorieCount = computed(() => calorieDay.value?.count ?? 0);
 
 const showEditForm = ref(false);
@@ -126,15 +127,12 @@ function handleExtraButton(item, action, type) {
                 <p class="text-xl font-bold mt-2">
                     calories: {{ calorieCount }}
                 </p>
-                <p class="text-lg">Goal: {{ Math.round(goal *
-                    props.account.goalModifier * .01)
-                    }}, BMR: {{ goal }}.
+                <p class="text-lg">Goal: {{ goal }}, BMR: {{ bmr }}.
                 </p>
             </div>
         </section>
 
-        <CalorieDisplay v-if="props.account" :calorieGoal="goal" :calorieCount="calorieCount"
-            :goalModifier="goalModifier" />
+        <CalorieDisplay v-if="props.account" :goal="goal" :calorieCount="calorieCount" :bmr="bmr" />
 
         <section v-if="props.account" class="block lg:hidden">
             <CreateFood />

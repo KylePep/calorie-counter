@@ -37,7 +37,7 @@ const form = useForm({
 
 
 const createOrUpdateAccount = () => {
-  form.goal = form.bmr * (form.goalModifier * .01)
+  form.goal = Math.round(form.bmr * (form.goalModifier * .01))
 
   form.post(route('account.store'), {
     preserveScroll: true,
@@ -49,8 +49,7 @@ const createOrUpdateAccount = () => {
 };
 
 const updateAccount = () => {
-  form.goal = form.bmr * (form.goalModifier * .01)
-  // form.height = ((form.heightFeet * 12) + form.heightInches) * 2.54
+  form.goal = Math.round(form.bmr * (form.goalModifier * .01))
 
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
@@ -67,9 +66,7 @@ const updateAccount = () => {
 
 
 <template>
-  {{ props.account.bmr }}
-  {{ props.account.goalModifier }}
-  {{ props.account.goal }}
+
   <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
 
     <div v-if="!account?.goal" class="max-w-xl">
@@ -98,7 +95,7 @@ const updateAccount = () => {
           </div>
 
           <div class="col-span-2 font-bold">
-            Goal: {{ form.goal * (form.goalModifier * .01) }}
+            Goal: {{ Math.round(form.bmr * (form.goalModifier * .01)) }}
           </div>
           <div class=" col-span-2 space-y-3">
             <PrimaryButton>Create</PrimaryButton>
@@ -134,7 +131,7 @@ const updateAccount = () => {
           </div>
 
           <div class="col-span-2 font-bold">
-            Goal: {{ form.bmr * (form.goalModifier * .01) }}
+            Goal: {{ Math.round(form.bmr * (form.goalModifier * .01)) }}
           </div>
 
 
