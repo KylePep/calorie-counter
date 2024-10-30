@@ -13,7 +13,7 @@ const sideClasses = computed(() => {
 </script>
 
 <template>
-  <section :class="sideClasses" class="flex flex-col space-y-2 md:min-h-96 px-6 sm:px-6 lg:px-8 py-6 ">
+  <section :class="sideClasses" class="flex flex-col space-y-4 md:min-h-96 px-0 sm:px-6 lg:px-8 py-0 sm:py-6 ">
     <slot />
   </section>
 </template>

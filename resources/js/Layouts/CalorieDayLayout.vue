@@ -13,14 +13,6 @@ import CollapsableFolder from "@/Components/CollapsableFolder.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
 
-const renderHeroImage = computed(() => {
-  if (props.account) {
-    return null
-  } else {
-    return '/assets/dashboardNoAccount.jpeg'
-  }
-})
-
 const with_fdcId = computed(() => props.with_fdcId);
 const without_fdcId = computed(() => props.without_fdcId);
 
