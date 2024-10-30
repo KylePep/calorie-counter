@@ -14,8 +14,9 @@ import CalorieDisplay from '../Components/FoodComponents/CalorieDisplay.vue'
 import Side from "@/Components/Side.vue";
 import JournalEntry from "@/Components/JournalEntry.vue";
 import CollapsableFolder from "@/Components/CollapsableFolder.vue";
+import CarrotDisplay from '../Components/CarrotDisplay.vue'
 
-const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId']);
+const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
 
 const renderHeroImage = computed(() => {
     if (props.account) {
@@ -172,12 +173,14 @@ function handleExtraButton(item, action, type) {
         <template #leftSide>
             <Side side="left" class="hidden lg:block" v-if="props.account">
                 <CreateFood />
+
             </Side>
         </template>
 
         <template #rightSide>
             <Side v-if="props.account" side="right" class="">
                 <JournalEntry :calorieDay="calorieDay" />
+                <CarrotDisplay :carrots="carrots" />
             </Side>
         </template>
 

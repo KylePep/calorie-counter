@@ -59,11 +59,16 @@ class DashboardController extends Controller
                     }
                 }
 
+                $incompleteCarrots = $user->carrots->groupBy(function($carrot){
+                    return $carrot->complete ? 'complete' : 'incomplete';
+                });
+
                 return Inertia::render('Dashboard', [
                     'account' => $account,
                     'calorieDay' => $CalorieDay,
                     'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
                     'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
+                    'carrots' => $incompleteCarrots->get('incomplete',[]),
                 ]);
         }
         
