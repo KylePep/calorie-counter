@@ -4,7 +4,7 @@ import PageLayout from "./PageLayout.vue";
 import GuestNav from "@/Components/GuestNav.vue";
 import AuthenticatedNav from "@/Components/AuthenticatedNav.vue";
 import CalculateBanner from '../Components/CalculateBanner.vue'
-import FooterContent from './FooterContent.vue'
+import FooterContent from './Partials/FooterContent.vue'
 
 defineProps({
   canLogin: {

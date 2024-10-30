@@ -27,7 +27,7 @@ const props = defineProps({
     </template>
 
 
-    <section v-if="props.account">
+    <section v-if="props.account" class="min-h-screen">
       <CalorieHistory :calorieDays="calorieDays" />
     </section>
 
