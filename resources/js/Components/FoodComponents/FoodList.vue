@@ -12,10 +12,10 @@ import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 
-const emit = defineEmits(['increase-by', 'extraButton'])
+const emit = defineEmits(['increase-by', 'extraButton']);
 
 function handleIncreaseBy(item) {
-  emit('increase-by', item); // Re-emit the event upwards
+  emit('increase-by', item);
 }
 
 const form = useForm({
@@ -35,8 +35,8 @@ const usdaResponse = reactive({
   foods: []
 })
 
-const foodSearchResponse = computed(() => usdaResponse.foodSearchResponse)
-const foods = computed(() => usdaResponse.foods)
+const foodSearchResponse = computed(() => usdaResponse.foodSearchResponse);
+const foods = computed(() => usdaResponse.foods);
 
 const loading = ref(false);
 
@@ -76,23 +76,23 @@ async function fetchFoodData(page = 1) {
 
     loading.value = false;
 
-    const foodSearchResponse = new FoodSearchResponse(response.data)
-    const foods = response.data.foods.map(f => new BrandedFoodItem(f))
-    usdaResponse.foodSearchResponse = foodSearchResponse
-    usdaResponse.foods = foods
+    const foodSearchResponse = new FoodSearchResponse(response.data);
+    const foods = response.data.foods.map(f => new BrandedFoodItem(f));
+    usdaResponse.foodSearchResponse = foodSearchResponse;
+    usdaResponse.foods = foods;
 
   } catch (error) {
     loading.value = false;
-    console.error(error, '[Error fetching food data]')
+    console.error(error, '[Error fetching food data]');
   }
 }
 
 
 function handleExtraButton(item, action) {
   if (action == 'edit' || action == 'add') {
-    emit('extraButton', item, action)
+    emit('extraButton', item, action);
   } else {
-    favoriteItem(item)
+    favoriteItem(item);
   }
 }
 
@@ -109,7 +109,7 @@ async function favoriteItem(foodItem) {
     router.reload({
       only: ['with_fdcId', 'without_fdcId'],
     });
-    Pop.success(`${foodItem.description} added to favorites`)
+    Pop.success(`${foodItem.description} added to favorites`);
 
   } catch (error) {
     console.error(error);

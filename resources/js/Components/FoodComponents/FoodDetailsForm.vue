@@ -7,7 +7,7 @@ import { computed, ref } from "vue";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
-const props = defineProps(['formData'])
+const props = defineProps(['formData']);
 
 const form = computed(() => props.formData);
 
@@ -19,7 +19,7 @@ const unitName = computed(() => {
     u: 'Unit(s)',
     ml: 'MilliLiter(s)',
     MLT: 'MilliLiter(s)'
-  }[props.formData.servingSizeUnit]
+  }[props.formData.servingSizeUnit];
 })
 
 
@@ -122,12 +122,11 @@ const unitName = computed(() => {
         </div>
       </div>
 
-
     </div>
 
     <div class="flex justify-end gap-4">
       <slot />
-
     </div>
+
   </form>
 </template>

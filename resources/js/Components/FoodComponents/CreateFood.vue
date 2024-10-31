@@ -1,25 +1,18 @@
 <script setup>
-import InputLabel from "@/Components/Form/InputLabel.vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
-import TextInput from "@/Components/Form/TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
-import { computed, nextTick, ref } from "vue";
-import InputError from "@/Components/Form/InputError.vue";
+import { ref } from "vue";
 import Pop from "@/utils/Pop.js";
-import NumberInput from "@/Components/Form/NumberInput.vue";
 import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
 
 const showCreateForm = ref(false);
 
 const confirmingFoodDetails = ref(false);
-const nameInput = ref(null);
 
 const confirmFoodDetails = () => {
   confirmingFoodDetails.value = true;
-
-  // nextTick(() => nameInput.value.focus());
 };
 
 const form = useForm({
@@ -46,10 +39,10 @@ const form = useForm({
 const createFoodItem = () => {
   form.post(route('foodItem.store'), {
     onSuccess: () => {
-      Pop.success(`${form.description} created`)
-      console.log('made it here')
-      form.reset()
-      closeModal()
+      Pop.success(`${form.description} created`);
+      console.log('made it here');
+      form.reset();
+      closeModal();
     },
     onError: (errors) => {
       console.log(errors); // Log validation errors

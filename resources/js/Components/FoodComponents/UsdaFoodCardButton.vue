@@ -2,7 +2,7 @@
 import { computed } from "vue";
 
 
-const props = defineProps(['icon'])
+const props = defineProps(['icon']);
 
 const iconClass = computed(() => {
   return {
@@ -10,7 +10,7 @@ const iconClass = computed(() => {
     star: 'mdi mdi-star',
     plus: 'mdi mdi-plus-thick',
     delete: 'mdi mdi-delete'
-  }[props.icon]
+  }[props.icon];
 })
 
 </script>

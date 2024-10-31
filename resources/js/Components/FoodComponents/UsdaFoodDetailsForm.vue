@@ -7,7 +7,7 @@ import { computed, ref } from "vue";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
-const props = defineProps(['formData', 'loading'])
+const props = defineProps(['formData', 'loading']);
 
 const form = computed(() => props.formData);
 
@@ -19,14 +19,14 @@ const unitName = computed(() => {
     u: 'Unit(s)',
     ml: 'MilliLiter(s)',
     MLT: 'MilliLiter(s)'
-  }[props.formData.servingSizeUnit]
+  }[props.formData.servingSizeUnit];
 });
 
 const loadingClasses = computed(() => {
   if (props.loading == false) {
-    return ''
+    return '';
   } else {
-    return 'animate-pulse bg-black/50 text-transparent'
+    return 'animate-pulse bg-black/50 text-transparent';
   }
 });
 

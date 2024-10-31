@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
 
-
 const props = defineProps(['goal', 'calorieCount', 'bmr']);
 
 const cellCount = ref(Math.ceil(props.bmr / 100));
@@ -14,17 +13,17 @@ function cellClasses(value) {
   const trueValue = value * 100;
 
   if (trueValue > props.calorieCount) {
-    selector = 'neutral'
+    selector = 'neutral';
   } else {
-    selector = 'used'
+    selector = 'used';
   }
 
   if (props.bmr != props.goal) {
     if (trueValue >= props.goal) {
       if (trueValue > props.calorieCount) {
-        selector = 'modified'
+        selector = 'modified';
       } else {
-        selector = 'modifyUsed'
+        selector = 'modifyUsed';
       }
     }
   }
@@ -42,9 +41,9 @@ function cellsOverClasses(value) {
   const trueValue = value * 100 + props.bmr;
 
   if (trueValue > props.calorieCount) {
-    selector = 'neutral'
+    selector = 'neutral';
   } else {
-    selector = 'used'
+    selector = 'used';
   }
 
   return {
@@ -57,7 +56,7 @@ function cellsOverClasses(value) {
 
 <template>
 
-  <section
+  <section id="calorie display"
     class="z-10 relative p-1.5 rounded border-2 border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light"
     :class="calorieCount < bmr ? 'sticky top-16' : ''">
     <div class="grid grid-cols-10 gap-1">
@@ -73,7 +72,7 @@ function cellsOverClasses(value) {
 
   </section>
 
-  <section v-if="calorieCount > bmr"
+  <section id="extra calorie display" v-if="calorieCount > bmr"
     class="sticky top-16 z-20 p-1.5 rounded border-2 border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
 
     <div class=" grid grid-cols-10 gap-1">

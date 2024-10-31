@@ -3,7 +3,6 @@ import CollapsableFolder from "./CollapsableFolder.vue";
 
 const props = defineProps(['carrots']);
 
-
 </script>
 
 <template>

@@ -2,27 +2,27 @@
 import { usePage } from "@inertiajs/vue3";
 import UsdaFoodCardButton from "./UsdaFoodCardButton.vue";
 
-const emit = defineEmits(['increase-by', 'extraButton'])
+const emit = defineEmits(['increase-by', 'extraButton']);
 
 const props = defineProps(['foodItem']);
 
 const page = usePage();
-const isDashboard = page.url.includes('dashboard')
+const isDashboard = page.url.includes('dashboard');
 
 function emitIncreaseBy(item) {
   if (item.gtinUpc) {
-    item.calories = getBrandedCalories(item)
+    item.calories = getBrandedCalories(item);
   } else {
-    item.calories = getCalories(item)
+    item.calories = getCalories(item);
   }
   emit('increase-by', item);
 }
 
 function emitExtraButton(item, action) {
   if (item.gtinUpc) {
-    item.calories = getBrandedCalories(item)
+    item.calories = getBrandedCalories(item);
   } else {
-    item.calories = getCalories(item)
+    item.calories = getCalories(item);
   }
   emit('extraButton', item, action);
 }
@@ -30,7 +30,7 @@ function emitExtraButton(item, action) {
 const getCalories = (item) => {
   const energy = item.foodNutrients.find(fn => fn.nutrientName == 'Energy' && fn.unitName == 'KCAL');
   if (!energy) {
-    return 0
+    return 0;
   }
   return energy.value;
 }

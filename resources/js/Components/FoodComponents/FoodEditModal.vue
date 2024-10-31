@@ -14,7 +14,7 @@ const props = defineProps(['showModal', 'foodItem']);
 
 const confirmingFoodDetailsEdit = computed(() => props.showModal);
 
-const foodData = computed(() => props.foodItem)
+const foodData = computed(() => props.foodItem);
 
 watch(foodData, (newfoodData) => {
   setForm();
@@ -56,7 +56,7 @@ const setForm = () => {
     form.foodNutrients = props.foodItem.foodNutrients
 }
 
-watch(props.foodItem, setForm)
+watch(props.foodItem, setForm);
 
 
 const closeModal = () => {
@@ -69,14 +69,14 @@ const closeModal = () => {
 async function deleteItem() {
   const confirmDelete = await Pop.confirm(`Delete ${form.description}?`)
   if (!confirmDelete) {
-    return
+    return;
   }
   form.delete(route('foodItem.destroy', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
-      Pop.success(`${form.description} deleted`)
-      form.reset()
-      closeModal()
+      Pop.success(`${form.description} deleted`);
+      form.reset();
+      closeModal();
     },
     onError: (errors) => {
       console.log(errors);
@@ -87,14 +87,14 @@ async function deleteItem() {
 async function updateItem() {
   const confirmUpdate = await Pop.confirm(`Update ${form.description}? `)
   if (!confirmUpdate) {
-    return
+    return;
   }
   form.put(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
-      Pop.success(`${form.description} updated`)
-      form.reset()
-      closeModal()
+      Pop.success(`${form.description} updated`);
+      form.reset();
+      closeModal();
     },
     onError: (errors) => {
       console.log(errors);
@@ -125,8 +125,4 @@ async function updateItem() {
 
   </Modal>
 
-
 </template>
-
-
-<style lang="scss" scoped></style>

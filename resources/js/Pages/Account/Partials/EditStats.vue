@@ -6,12 +6,7 @@ import { useForm } from "@inertiajs/vue3";
 import { computed } from "vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
 
-
-const props = defineProps({
-  account: {
-    type: Object,
-  }
-});
+const props = defineProps(['account']);
 
 const account = computed(() => props.account);
 

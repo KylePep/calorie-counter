@@ -4,23 +4,10 @@ import UsdaFeature from "./partial/UsdaFeature.vue";
 import AccountFeature from "./partial/AccountFeature.vue";
 import ProgressFeature from "./partial/ProgressFeature.vue";
 
-defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-    account: {
-        type: Object
-    }
-});
+const props = defineProps(['canLogin', 'canRegister', 'account']);
 </script>
 
 <template>
-
-
-
     <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Welcome" heroImage="/assets/CalorieCounter.jpeg"
         heroHeight="10">
 
@@ -44,8 +31,5 @@ defineProps({
 
         </div>
 
-
     </GlobalLayout>
-
-
 </template>

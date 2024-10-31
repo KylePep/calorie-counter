@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 
-const props = defineProps(['side'])
+const props = defineProps(['side']);
 
 const sideClasses = computed(() => {
   return {

@@ -6,24 +6,7 @@ import { Head } from "@inertiajs/vue3";
 import FooterContent from "./Partials/FooterContent.vue";
 import PageLayout from "./PageLayout.vue";
 
-
-defineProps({
-  canLogin: {
-    type: Boolean,
-  },
-  canRegister: {
-    type: Boolean,
-  },
-  head: {
-    type: String,
-  },
-  heroImage: {
-    type: String
-  },
-  heroHeight: {
-    type: String
-  }
-})
+const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight'])
 
 </script>
 
@@ -82,6 +65,3 @@ defineProps({
 
 
 </template>
-
-
-<style lang="scss" scoped></style>

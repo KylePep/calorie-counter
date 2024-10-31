@@ -9,8 +9,7 @@ import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
 const props = defineProps(['calorieDay']);
 
 const form = useForm({
-  // entry: 'One time, one time I drank too much diet coke. I pooped my pants. I pooped my pants because I drank too much diet coke.'
-  journal: props.calorieDay.journal
+  journal: props.calorieDay.journall
 })
 
 function clearJournal() {
@@ -19,7 +18,7 @@ function clearJournal() {
 }
 
 async function updateJournal() {
-  // update day with new entry
+
   form.patch(route('calorieDay.patch', props.calorieDay.id), {
     preserveScroll: true,
     onSuccess: () => {

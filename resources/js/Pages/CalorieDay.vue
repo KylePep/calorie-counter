@@ -76,6 +76,3 @@ const getDayOfWeek = (date) => {
   </GlobalLayout>
 
 </template>
-
-
-<style lang="scss" scoped></style>

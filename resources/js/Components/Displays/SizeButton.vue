@@ -10,7 +10,7 @@ const icon = computed(() => {
     'sm': 'mdi mdi-crop-square',
     'lg': 'mdi mdi-grid-large',
     'xl': 'mdi mdi-grid',
-  }[props.size]
+  }[props.size];
 })
 
 const isActive = computed(() => props.currentSize == props.size);

@@ -6,22 +6,7 @@ import EditGoal from "./Partials/EditGoal.vue";
 import EditStats from "./Partials/EditStats.vue";
 import EditCarrot from "./Partials/EditCarrot.vue";
 
-
-const props = defineProps({
-  status: {
-    type: String,
-  },
-  account: {
-    type: Object,
-  },
-  calorieDays: {
-    type: Object
-  }
-  ,
-  carrots: {
-    type: Array
-  }
-});
+const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
 
 const account = computed(() => props.account);
 

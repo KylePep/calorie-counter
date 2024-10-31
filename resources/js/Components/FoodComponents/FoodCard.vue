@@ -2,11 +2,11 @@
 import { usePage } from "@inertiajs/vue3";
 import FoodCardButton from "./FoodCardButton.vue";
 
-const props = defineProps(['foodItem'])
-const emit = defineEmits(['itemActivated', 'extraButton'])
+const props = defineProps(['foodItem']);
+const emit = defineEmits(['itemActivated', 'extraButton']);
 
 const page = usePage();
-const isDashboard = page.url.includes('dashboard')
+const isDashboard = page.url.includes('dashboard');
 
 function emitExtraButton(item, action) {
   emit('extraButton', item, action);

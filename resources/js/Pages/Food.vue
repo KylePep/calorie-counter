@@ -116,6 +116,3 @@ function handleExtraButton(item, action, type) {
 
   </GlobalLayout>
 </template>
-
-
-<style lang="scss" scoped></style>

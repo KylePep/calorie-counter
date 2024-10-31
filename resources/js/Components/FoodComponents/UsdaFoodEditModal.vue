@@ -13,13 +13,13 @@ const emit = defineEmits(['closeModal', 'useItem']);
 const props = defineProps(['showModal', 'foodItem']);
 
 const page = usePage();
-const isDashboard = page.url.includes('dashboard')
+const isDashboard = page.url.includes('dashboard');
 
 const loading = ref(false);
 
 const confirmingFoodDetailsEdit = computed(() => props.showModal);
 
-const foodData = computed(() => props.foodItem)
+const foodData = computed(() => props.foodItem);
 
 async function getUsdaFoodById() {
   loading.value = true;
@@ -35,15 +35,15 @@ async function getUsdaFoodById() {
     const response = await axios.get(`/foodUsda/${foodId}`);
 
 
-    const foodItem = new UsdaFoodItem(response.data)
+    const foodItem = new UsdaFoodItem(response.data);
 
     setForm(foodItem);
     loading.value = false;
-    console.log('foodItem', response)
+    console.log('foodItem', response);
 
   } catch (error) {
     loading.value = false;
-    console.error(error, '[Error fetching food data]')
+    console.error(error, '[Error fetching food data]');
   }
 }
 
@@ -105,7 +105,7 @@ const setForm = (foodItem) => {
     form.foodNutrients = foodItem.foodNutrients
 }
 
-watch(props.foodItem, setForm)
+watch(props.foodItem, setForm);
 
 
 const closeModal = () => {
@@ -117,18 +117,18 @@ const closeModal = () => {
 };
 
 const realCalories = computed(() => {
-  return Math.round(form.realCalories * (form.portionModifier / 100))
+  return Math.round(form.realCalories * (form.portionModifier / 100));
 });
 
 function useItem() {
-  form.calories = realCalories.value
+  form.calories = realCalories.value;
   emit('useItem', form);
-  emit('closeModal')
+  emit('closeModal');
 }
 
 const createFoodItem = () => {
 
-  form.calories = realCalories.value
+  form.calories = realCalories.value;
   if (!form.servingSizeUnit) {
     form.servingSize = 100;
     form.servingSizeUnit = 'g';
@@ -136,10 +136,9 @@ const createFoodItem = () => {
 
   form.post(route('foodItem.store'), {
     onSuccess: () => {
-      Pop.success(`${form.description} created`)
-      console.log('made it here')
-      // form.reset()
-      closeModal()
+      Pop.success(`${form.description} created`);
+      console.log('made it here');
+      closeModal();
     },
     onError: (errors) => {
       console.log(errors); // Log validation errors
@@ -177,6 +176,3 @@ const createFoodItem = () => {
 
 
 </template>
-
-
-<style lang="scss" scoped></style>

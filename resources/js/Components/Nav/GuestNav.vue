@@ -4,15 +4,7 @@ import NavLink from "./NavLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
 import ApplicationLogo from "../ApplicationLogo.vue";
 
-
-defineProps({
-  canLogin: {
-    type: Boolean,
-  },
-  canRegister: {
-    type: Boolean,
-  }
-});
+const props = defineProps(['canLogin', 'canRegister']);
 
 const showingNavigationDropdown = ref(false);
 
@@ -89,6 +81,3 @@ const showingNavigationDropdown = ref(false);
   </nav>
 
 </template>
-
-
-<style lang="scss" scoped></style>

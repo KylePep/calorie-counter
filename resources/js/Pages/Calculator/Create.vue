@@ -3,17 +3,8 @@ import CalorieCalculator from "@/Pages/Calculator/Partials/CalorieCalculator.vue
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import Side from "@/Components/Displays/Side.vue";
 
-defineProps({
-  canLogin: {
-    type: Boolean,
-  },
-  canRegister: {
-    type: Boolean,
-  },
-  account: {
-    type: Object,
-  }
-});
+const props = defineProps(['canLogin', 'canRegister', 'account']);
+
 </script>
 
 
@@ -44,29 +35,26 @@ defineProps({
         <div>
           <h2 class="mb-2 font-semibold">
             Multiply by scale factor for activity level:
-
           </h2>
           <ul>
             <li>
               Sedentary *1.2
-
             </li>
+
             <li>
               Lightly active *1.375
-
-
             </li>
+
             <li>
               Moderately active *1.55
-
             </li>
+
             <li>
               Active *1.725
-
             </li>
+
             <li>
               Very active *1.9
-
             </li>
           </ul>
 
@@ -79,6 +67,3 @@ defineProps({
 
 
 </template>
-
-
-<style lang="scss" scoped></style>

@@ -1,9 +1,8 @@
 <script setup>
 import { computed } from "vue";
-import { onMounted, ref } from 'vue'
 
-const props = defineProps(['dayItems'])
-defineEmits(['removeFoodItem'])
+const props = defineProps(['dayItems']);
+defineEmits(['removeFoodItem']);
 
 const firstRow = computed(() => props.dayItems.filter((_, index) => index % 2 === 0));
 const secondRow = computed(() => props.dayItems.filter((_, index) => index % 2 === 1));
@@ -23,18 +22,18 @@ function representativeWidth(item) {
     800: 'w-80',
     900: 'w-80',
     1000: 'w-80',
-  }[calorieBy100]
+  }[calorieBy100];
 }
 
 // Function to return animation class based on conditions
 const getAnimationClass = (item) => {
-  const textWidth = item.description.length
-  const calorieWidth = Number(representativeWidth(item).split('-')[1])
+  const textWidth = item.description.length;
+  const calorieWidth = Number(representativeWidth(item).split('-')[1]);
 
   if (textWidth > calorieWidth) {
-    return 'animate-infinite-scroll'
+    return 'animate-infinite-scroll';
   }
-  return ''
+  return '';
 }
 
 </script>

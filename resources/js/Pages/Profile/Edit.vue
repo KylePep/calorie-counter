@@ -2,24 +2,17 @@
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head } from '@inertiajs/vue3';
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import NavLink from "@/Components/Nav/NavLink.vue";
 
+const props = defineProps(['mustVerifyEmail', 'status']);
 
-defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
-});
 </script>
 
 <template>
 
     <GlobalLayout head="Profile">
+
         <template #header>
             <h2 class="font-semibold text-xl leading-tight">Profile</h2>
             <NavLink :href="route('account.show')">

@@ -5,7 +5,7 @@ import SizeButton from './SizeButton.vue'
 import CollapsableFolder from "./CollapsableFolder.vue";
 
 const props = defineProps(['list', 'size']);
-const emit = defineEmits(['itemActivated', 'extraButton'])
+const emit = defineEmits(['itemActivated', 'extraButton']);
 
 const currentSize = ref(props.size);
 
@@ -20,11 +20,11 @@ function handleExtraButton(item, action) {
 
 const maxSize = computed(() => {
   if (props.list.length < 5 && props.list.length >= 0) {
-    return 'sm'
+    return 'sm';
   } else if (props.list.length < 8) {
-    return 'lg'
+    return 'lg';
   } else {
-    return 'xl'
+    return 'xl';
   }
 })
 
@@ -37,13 +37,13 @@ const currentSizeClass = computed(() => {
 
   if (maxSize.value == 'lg') {
     if (currentSize.value == 'xl') {
-      newSize = 'lg'
-      currentSize.value = 'lg'
+      newSize = 'lg';
+      currentSize.value = 'lg';
     }
   } else if (maxSize.value == 'sm') {
     if (currentSize.value == 'xl' || currentSize.value == 'lg') {
-      newSize = 'sm'
-      currentSize.value = 'sm'
+      newSize = 'sm';
+      currentSize.value = 'sm';
     }
   }
 
