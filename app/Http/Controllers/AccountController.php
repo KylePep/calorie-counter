@@ -48,7 +48,6 @@ class AccountController extends Controller
             'timezone' => ['required', 'string'],
         ]);
         
-        // Get the signed-in user
         $user = $request->user();
 
         $latestCalorieDay = $user->calorieDays()->orderBy('created_at', 'desc')->first();
@@ -60,7 +59,6 @@ class AccountController extends Controller
         }
         
         if (!$user->account){
-            // Create the account for the authenticated user
             $user->account()->create($validated);
         } else {
             $user->account->update($validated);
@@ -80,17 +78,11 @@ class AccountController extends Controller
 
         $carrots = $user->carrots()->get();
 
-        $calorieDays = $user->calorieDays() //TODO - Return only calorieDays that date back within 7 days
-        ->orderBy('created_at', 'desc') 
-        ->take(7) 
-        ->get();
-
 
         return Inertia::render('Account/Show', [
             'status' => session('status'),
             'carrots' => $carrots,
             'account' => $account,
-            'calorieDays' => $calorieDays,
         ]);
     }
 
@@ -111,15 +103,15 @@ class AccountController extends Controller
         $user = User::find(Auth::id());
 
         $validated = $request->validate([
-            'goal' => [],
-            'goalModifier' => [],
-            'bmr' => [],
-            'age' => [],
+            'goal' => ['integer'],
+            'goalModifier' => ['integer'],
+            'bmr' => ['integer'],
+            'age' => ['integer'],
             'gender' => [Rule::in(['Male', 'Female'])],
-            'height' => [],
-            'weight' => [],
-            'activity' => [],
-            'timezone' => [],
+            'height' => ['numeric'],
+            'weight' => ['numeric'],
+            'activity' => ['string'],
+            'timezone' => ['string'],
         ]);
 
         $latestCalorieDay = $user->calorieDays()->orderBy('created_at', 'desc')->first();

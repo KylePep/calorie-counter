@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateFoodItemRequest;
 use App\Models\FoodItem;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class FoodItemController extends Controller
@@ -17,6 +16,7 @@ class FoodItemController extends Controller
         $user = User::find(Auth::id());
 
         $account = $user->account;
+
 
         $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
             return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
@@ -49,8 +49,8 @@ class FoodItemController extends Controller
             'servingSizeUnit' => ['required'],
             'foodCategory' => ['required'],
             'calories' => ['required'],
-            'foodNutrients' => ['nullable'], //array
-            'ingredients' => ['nullable'], //array
+            'foodNutrients' => ['nullable'],
+            'ingredients' => ['nullable'], 
         ]);
 
         $foodItem = $user->foodItems()->create([
@@ -62,8 +62,8 @@ class FoodItemController extends Controller
             'servingSizeUnit' => $attributes['servingSizeUnit'],
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
-            'foodNutrients' => json_encode($attributes['foodNutrients']), // Convert array to JSON
-            'ingredients' => json_encode($attributes['ingredients']) //This is needs to be a string
+            'foodNutrients' => json_encode($attributes['foodNutrients']), 
+            'ingredients' => $attributes['ingredients'] 
         ]);
 
         return back()->with([
@@ -83,8 +83,8 @@ class FoodItemController extends Controller
             'servingSizeUnit' => ['required'],
             'foodCategory' => ['required'],
             'calories' => ['required'],
-            'foodNutrients' => ['nullable'], //array
-            'ingredients' => ['nullable'], //array
+            'foodNutrients' => ['nullable'], 
+            'ingredients' => ['nullable'],
         ]);
 
         $foodItem->update([
@@ -96,8 +96,8 @@ class FoodItemController extends Controller
             'servingSizeUnit' => $attributes['servingSizeUnit'],
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
-            'foodNutrients' => json_encode($attributes['foodNutrients']), // Convert array to JSON
-            'ingredients' => $attributes['ingredients'] //This is needs to be a string
+            'foodNutrients' => json_encode($attributes['foodNutrients']), 
+            'ingredients' => $attributes['ingredients']
         ]);
 
         return back()->with([

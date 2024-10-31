@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 class FoodUsdaController extends Controller
 {
 
+    //Returns a specif food item from the usda database
     public function getById($id)
     {
         $apiKey = env('FOOD_DATA_API_KEY');
@@ -26,9 +27,9 @@ class FoodUsdaController extends Controller
         ], $response->status());
     }
 
+    //Returns food items from the usda database based on a query
     public function searchByQuery(Request $request)
     {
-
 
         $apiKey = env('FOOD_DATA_API_KEY');
 

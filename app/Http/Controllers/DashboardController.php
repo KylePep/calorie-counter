@@ -11,9 +11,7 @@ use Inertia\Inertia;
 class DashboardController extends Controller
 {
 
-    //GetorCreate CalorieDay 
-
-    public function index() //TODO - This creates a resource, calorieDay, that isn't a 'dashboard', fix that
+    public function index() 
     {
         $user = User::find(Auth::id());
 
@@ -26,6 +24,7 @@ class DashboardController extends Controller
                 'without_fdcId' => [],
             ]);
         } else {
+
             $userTimezone = $account->timezone;
     
             // Get today's date in the user's timezone
@@ -44,9 +43,10 @@ class DashboardController extends Controller
                         'bmr' => $account->bmr ?? 2000,
                         'count' => 0,
                         'user_id' => $user->id,
-                        'food_items' => json_encode([]) // Convert array to JSON
+                        'food_items' => json_encode([])
                     ]);
                 } 
+                
                 $CalorieDay->food_items = json_decode($CalorieDay->food_items, true);
                 
                 $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {

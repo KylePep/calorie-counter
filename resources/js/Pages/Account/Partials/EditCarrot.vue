@@ -33,9 +33,9 @@ const confirmCarrotDetails = () => {
 
 
 const form = useForm({
-  description: 'carrot',
-  goalPost: '2000',
-  value: 200,
+  description: 'New socks',
+  goalPost: 'Under 200lbs',
+  value: 199,
   category: 'weightLoss',
   complete: false
 });
