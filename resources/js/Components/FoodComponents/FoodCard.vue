@@ -7,6 +7,7 @@ const emit = defineEmits(['itemActivated', 'extraButton']);
 
 const page = usePage();
 const isDashboard = page.url.includes('dashboard');
+const isCalorieDay = page.url.includes('calorie-day');
 
 function emitExtraButton(item, action) {
   emit('extraButton', item, action);
@@ -27,10 +28,11 @@ function emitExtraButton(item, action) {
         </div>
 
         <div class="flex space-x-2">
-          <FoodCardButton v-if="isDashboard" @click.stop="emitExtraButton(foodItem, 'add')" icon="plus">Add
+          <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="emitExtraButton(foodItem, 'add')" icon="plus">
+            Add
           </FoodCardButton>
-          <FoodCardButton v-if="!isDashboard && page.url != '/'" @click.stop="emitExtraButton(foodItem, 'delete')"
-            icon="delete">Delete
+          <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'"
+            @click.stop="emitExtraButton(foodItem, 'delete')" icon="delete">Delete
           </FoodCardButton>
           <FoodCardButton v-if="!isDashboard && page.url == '/'" icon="signUp">SignUp
           </FoodCardButton>

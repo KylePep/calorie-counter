@@ -43,10 +43,11 @@ class DashboardController extends Controller
                         'bmr' => $account->bmr ?? 2000,
                         'count' => 0,
                         'user_id' => $user->id,
-                        'food_items' => json_encode([])
+                        'food_items' => json_encode([]),
+                        'created_at' => $today->setTimezone('UTC')
                     ]);
                 } 
-                
+
                 $CalorieDay->food_items = json_decode($CalorieDay->food_items, true);
                 
                 $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {

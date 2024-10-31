@@ -48,6 +48,14 @@ class CalorieDayController extends Controller
         // Get validated date in the user's timezone
         $givenDay = Carbon::parse($validated['date'], $userTimezone)->startOfDay()->setTimezone('UTC');
 
+        $existCalorieDay = $user->calorieDays()
+        ->whereDate('created_at', $givenDay->toDateString())
+        ->exists();
+
+        if($existCalorieDay){
+            return Redirect::route('history')->withErrors(['date' => 'A calorie day already exists for the selected date.']);
+        }
+
         $calorieDay = $user->calorieDays()->create([
             'goal' => $account->goal ?? 2000,
             'bmr' => $account->bmr ?? 2000,

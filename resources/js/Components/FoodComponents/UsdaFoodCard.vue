@@ -8,6 +8,7 @@ const props = defineProps(['foodItem']);
 
 const page = usePage();
 const isDashboard = page.url.includes('dashboard');
+const isCalorieDay = page.url.includes('calorie-day');
 
 function emitIncreaseBy(item) {
   if (item.gtinUpc) {
@@ -60,7 +61,7 @@ const getBrandedCalories = (item) => {
       </div>
 
       <div class="flex space-x-3">
-        <UsdaFoodCardButton v-if="isDashboard" @click.stop="emitIncreaseBy(foodItem)" icon="plus">Add
+        <UsdaFoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="emitIncreaseBy(foodItem)" icon="plus">Add
         </UsdaFoodCardButton>
         <UsdaFoodCardButton @click.stop="emitExtraButton(foodItem, 'favorite')" icon="star">Favorite
         </UsdaFoodCardButton>
