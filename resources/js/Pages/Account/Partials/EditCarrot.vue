@@ -162,7 +162,7 @@ const closeModal = () => {
     <h3 v-if="completedCarrots.length" class="font-bold mdi mdi-weight-lifter">Completed</h3>
     <div class="grid grid-cols-3 gap-3">
       <div v-for="carrot in completedCarrots"
-        class="flex justify-between text-xs bg-neutral text-light rounded px-2 py-1">
+        class="flex justify-between text-xs bg-neutral text-light-text rounded px-2 py-1">
         <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
         <div class="flex space-x-1">
           <button @click="deleteCarrot(carrot)" class="mdi mdi-close-thick text-red-200 hover:text-red-400"></button>

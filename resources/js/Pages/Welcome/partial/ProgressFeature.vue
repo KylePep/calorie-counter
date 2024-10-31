@@ -19,7 +19,7 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
   <div class=" grid grid-cols-2 gap-4 mt-4">
     <div class="col-span-2">
       <div class="flex flex-col h-full text-start ">
-        <div class="px-4 py-2 bg-neutral text-light rounded-t font-bold">
+        <div class="px-4 py-2 bg-neutral text-light-text rounded-t font-bold">
           <p>While tracking your calories, each square will represent 100 calories.</p>
           <p>Squares within your goal's range have a special border. </p>
           <p>Meaning you'll have a better representation of how much a single food item impacts
@@ -40,7 +40,7 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
       </div>
 
       <div>
-        <p class="px-4 py-2 bg-neutral text-light font-bold h-full">Higher calorie foods will
+        <p class="px-4 py-2 bg-neutral text-light-text font-bold h-full">Higher calorie foods will
           appear larger
           compared to other foods in your
           records
@@ -51,7 +51,7 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
       </div>
 
       <div>
-        <p class="px-4 py-2 bg-neutral text-light font-bold h-full">Selecting foods from the
+        <p class="px-4 py-2 bg-neutral text-light-textfont-bold h-full">Selecting foods from the
           USDA's
           database
           or from your saved or

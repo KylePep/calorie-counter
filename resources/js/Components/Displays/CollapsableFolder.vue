@@ -7,7 +7,7 @@ const showFolder = ref(props.state ?? true);
 
 const showClasses = computed(() => {
   return {
-    false: 'bg-neutral hover:bg-accent  text-sm sm:text-base text-light hover:text-dark-text border-transparent rounded shadow',
+    false: 'bg-neutral hover:bg-accent  text-sm sm:text-base text-light-text hover:text-dark-text border-transparent rounded shadow',
     true: 'text-lg text-neutral-text border-b-0 rounded-t bg-main '
   }[showFolder.value]
 })

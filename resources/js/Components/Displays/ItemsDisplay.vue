@@ -81,7 +81,7 @@ const currentSizeClass = computed(() => {
         </div>
 
         <div v-if="props.list.length == 0"
-          class="inline-block justify-center text-center text-light font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
+          class="inline-block justify-center text-center text-light-text font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
           <div class="flex flex-col min-h-24 justify-around">
             <p>
               No foods to show

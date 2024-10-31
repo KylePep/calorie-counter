@@ -139,7 +139,7 @@ async function favoriteItem(foodItem) {
 
               <template #trigger>
                 <button type="button"
-                  class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
+                  class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
                   <p class="flex-1 flex items-center text-center">
                     {{ typeName }}
@@ -149,7 +149,7 @@ async function favoriteItem(foodItem) {
               </template>
 
               <template #content>
-                <div class="flex flex-col p-2 bg-neutral rounded text-light text-xs">
+                <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
                   <button class="text-start p-1"
                     :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']" type="button"
                     @click="form.type = 'Branded'">Branded</button>
@@ -168,12 +168,12 @@ async function favoriteItem(foodItem) {
           <div
             class="col-span-3 sm:col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
             <span
-              class="block sm:hidden ps-1 text-[6px] leading-tight font-bold text-light group-hover:text-accent duration-300 uppercase">Require
+              class="block sm:hidden ps-1 text-[6px] leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
               <br>
               All <br>
               Words</span>
             <span
-              class="hidden sm:block text-xs font-bold text-light group-hover:text-accent duration-300 uppercase">Require
+              class="hidden sm:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
               All
               Words</span>
             <Checkbox class="h-6 w-6 group-hover:text-accent" v-model:checked="form.requireAllWords" />
