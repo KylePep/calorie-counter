@@ -44,8 +44,8 @@ async function updateJournal() {
 
       <template #content>
         <form @submit.prevent="updateJournal">
-          <InputLabel value="Journal Entry" class="hidden" />
-          <textarea v-model="form.journal"
+          <InputLabel for="journal" value="Journal Entry" class="hidden" />
+          <textarea id="journal" v-model="form.journal"
             class="w-full h-32 md:h-52 resize-none border-gray-300 focus:border-accent focus:ring-accent rounded-md shadow-sm"></textarea>
           <div class="flex justify-end space-x-2">
             <SecondaryButton type="button" @click="clearJournal">Clear</SecondaryButton>

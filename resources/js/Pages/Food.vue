@@ -68,7 +68,7 @@ function handleExtraButton(item, action, type) {
 
 <template>
 
-  <Head title="Dashboard">
+  <Head title="Food">
     <meta type="description" content="Profile's Food" head-key="Food">
   </Head>
 

@@ -26,8 +26,8 @@ const getDayOfWeek = (date) => {
 
 <template>
 
-  <Head title="Dashboard">
-    <meta type="description" content="Dashboard of CalorieCount" head-key="Dashboard">
+  <Head title="Calorie Day">
+    <meta type="description" content="Edit a Calorie Day" head-key="CalorieDay">
   </Head>
 
   <GlobalLayout>

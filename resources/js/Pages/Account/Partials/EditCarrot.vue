@@ -181,13 +181,13 @@ const closeModal = () => {
       </div>
 
       <div>
-        <InputLabel value="Description" />
-        <TextInput v-model="form.description" class="w-full" />
+        <InputLabel id=description value="Description" />
+        <TextInput for="description" v-model="form.description" class="w-full" />
       </div>
 
       <div>
-        <InputLabel value="Goal Post Description" />
-        <TextInput v-model="form.goalPost" class="w-full" />
+        <InputLabel for="goalPost" value="Goal Post Description" />
+        <TextInput id="goalPost" v-model="form.goalPost" class="w-full" />
       </div>
 
       <div class="col-span-2">
@@ -195,12 +195,12 @@ const closeModal = () => {
       </div>
 
       <div>
-        <InputLabel value="Metric Value" />
-        <NumberInput v-model="form.value" class="w-full" />
+        <InputLabel for="value" value="Metric Value" />
+        <NumberInput id="value" v-model="form.value" class="w-full" />
       </div>
 
       <div class="mt-2">
-        <InputLabel value="Metric Category" />
+        <InputLabel for="category" value="Metric Category" />
         <select v-model="form.category" id="category" name="category"
           class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
           <option value='weightLoss'>Weight Loss</option>

@@ -75,7 +75,7 @@ const updateAccount = () => {
             <h1 class="font-bold">
               Set Basal Metabolic Rate:
             </h1>
-            <NumberInput v-model.number="form.bmr" type="number" name="goal" id="goal" placeholder="2000"
+            <NumberInput v-model.number="form.bmr" type="number" name="bmr" id="bmr" placeholder="2000"
               inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" class="py-1" />
           </div>
 
@@ -116,7 +116,7 @@ const updateAccount = () => {
 
           <div class="flex flex-col">
             <h1>BMR</h1>
-            <NumberInput v-model.number="form.bmr" class="py-1" type="number" name="goal" id="goal" placeholder="2000"
+            <NumberInput v-model.number="form.bmr" class="py-1" type="number" name="bmr" id="bmr" placeholder="2000"
               inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" />
           </div>
 

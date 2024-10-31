@@ -176,7 +176,8 @@ async function favoriteItem(foodItem) {
               class="hidden sm:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
               All
               Words</span>
-            <Checkbox class="h-6 w-6 group-hover:text-accent" v-model:checked="form.requireAllWords" />
+            <Checkbox name="requireAllWords" class="h-6 w-6 group-hover:text-accent"
+              v-model:checked="form.requireAllWords" />
           </div>
 
 

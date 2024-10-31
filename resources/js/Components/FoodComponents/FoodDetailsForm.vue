@@ -34,13 +34,13 @@ const unitName = computed(() => {
 
     <div class="flex  ">
       <div class="basis-3/5 me-3">
-        <InputLabel value="Name or description"></InputLabel>
-        <TextInput v-model="form.description" class="w-full" ref="nameInput" required></TextInput>
+        <InputLabel for="description" value="Name or description"></InputLabel>
+        <TextInput id="description" v-model="form.description" class="w-full" ref="nameInput" required></TextInput>
         <InputError :message="form.errors.description"></InputError>
       </div>
       <div class="basis-2/5">
-        <InputLabel value="Category"></InputLabel>
-        <TextInput v-model="form.foodCategory" class="w-full" required></TextInput>
+        <InputLabel for="category" value="Category"></InputLabel>
+        <TextInput id="category" v-model="form.foodCategory" class="w-full" required></TextInput>
         <InputError :message="form.errors.foodCategory"></InputError>
 
       </div>
@@ -49,30 +49,30 @@ const unitName = computed(() => {
     <div class="flex  items-center">
 
       <div class="basis-3/5 me-3">
-        <InputLabel value="Amount of calories"></InputLabel>
-        <NumberInput v-model="form.calories" class="w-full" required></NumberInput>
+        <InputLabel for="calories" value="Amount of calories"></InputLabel>
+        <NumberInput id="calories" v-model="form.calories" class="w-full" required></NumberInput>
         <InputError :message="form.errors.calories"></InputError>
       </div>
 
       <div class="flex basis-2/5">
 
         <div class="w-full relative">
-          <InputLabel value="Serving Size"></InputLabel>
-          <NumberInput v-model="form.servingSize" class="w-full" required></NumberInput>
+          <InputLabel for="servingSize" value="Serving Size"></InputLabel>
+          <NumberInput id="servingSize" v-model="form.servingSize" class="w-full" required></NumberInput>
           <span class="absolute right-0 bottom-0 pb-3 pe-3 font-bold text-black/50 text-xs">{{ unitName
             }}</span>
           <InputError :message="form.errors.servingSize"></InputError>
         </div>
 
         <div class="flex flex-col justify-between ms-2">
-          <InputLabel value="Unit"></InputLabel>
+          <InputLabel for="servingSizeUnit" value="Unit"></InputLabel>
           <div class="flex font-bold">
-            <button type="button" @click="form.servingSizeUnit = 'g'"
+            <button id="g" type="button" @click="form.servingSizeUnit = 'g'"
               class="rounded-l-lg px-3 py-2 border-r border-white"
               :class="[form.servingSizeUnit == 'g' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">g</button>
-            <button type="button" @click="form.servingSizeUnit = 'u'" class="border-r border-white px-3 py-2  "
+            <button id="u" type="button" @click="form.servingSizeUnit = 'u'" class="border-r border-white px-3 py-2  "
               :class="[form.servingSizeUnit == 'u' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">u</button>
-            <button type="button" @click="form.servingSizeUnit = 'ml'" class=" rounded-r-lg px-3 py-2"
+            <button id="ml" type="button" @click="form.servingSizeUnit = 'ml'" class=" rounded-r-lg px-3 py-2"
               :class="[(form.servingSizeUnit == 'ml' || form.servingSizeUnit == 'MLT') ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">ml</button>
           </div>
         </div>
@@ -84,15 +84,15 @@ const unitName = computed(() => {
 
       <div class="flex ">
         <div class="basis-1/2 me-3">
-          <InputLabel value="Brand Name"></InputLabel>
-          <TextInput v-model="form.brandName" class="w-full"></TextInput>
+          <InputLabel for="brandName" value="Brand Name"></InputLabel>
+          <TextInput id="brandName" v-model="form.brandName" class="w-full"></TextInput>
           <InputError :message="form.errors.description"></InputError>
 
         </div>
         <div class="basis-1/2">
 
-          <InputLabel value="Brand Owner"></InputLabel>
-          <TextInput v-model="form.brandOwner" class="w-full"></TextInput>
+          <InputLabel for="brandOwner" value="Brand Owner"></InputLabel>
+          <TextInput id="brandOwner" v-model="form.brandOwner" class="w-full"></TextInput>
           <InputError :message="form.errors.brandOwner"></InputError>
 
         </div>
@@ -103,9 +103,9 @@ const unitName = computed(() => {
 
 
     <div class="">
-      <InputLabel value="Ingredients">
+      <InputLabel for="ingredients" value="Ingredients">
       </InputLabel>
-      <textarea v-model="form.ingredients" name="ingredients"
+      <textarea id="ingredients" v-model="form.ingredients" name="ingredients"
         class="w-full border-gray-300 focus:border-accent focus:ring-accent rounded-md shadow-sm"
         style="resize: none;"></textarea>
       <InputError :message="form.errors.ingredients"></InputError>
@@ -116,8 +116,9 @@ const unitName = computed(() => {
         <span :class="[!showNutrients ? 'mdi mdi-menu-down' : 'mdi mdi-menu-up']"></span> </button>
       <div v-if="showNutrients" class="grid grid-cols-3 text-center gap-2 mt-3">
         <div v-for="(nutrient, index) in form.foodNutrients" :key="index" class="relative">
-          <InputLabel :value="nutrient.nutrientName"></InputLabel>
-          <NumberInput v-model="form.foodNutrients[index].value" class="w-full text-center"></NumberInput>
+          <InputLabel :for="nutrient.nutrientName" :value="nutrient.nutrientName"></InputLabel>
+          <NumberInput :id="nutrient.nutrientName" v-model="form.foodNutrients[index].value" class="w-full text-center">
+          </NumberInput>
           <div class="absolute right-0 top-1/2 pe-3 text-black/50 font-bold">{{ nutrient.unitName }}</div>
         </div>
       </div>

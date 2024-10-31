@@ -53,13 +53,13 @@ const updateAccount = () => {
       <h1 class="font-bold">Stats</h1>
       <div class="grid grid-cols-4 gap-3 my-3">
         <div>
-          <InputLabel value="Age" />
+          <InputLabel for="age" value="Age" />
           <NumberInput v-model.number="form.age" class="w-full py-1" type="number" name="age" id="age" placeholder="25"
             inputmode="numeric" pattern="^[0-9]*$" min="15" max="80" />
         </div>
 
         <div>
-          <InputLabel value="Weight" />
+          <InputLabel for="weight" value="Weight" />
           <NumberInput v-model.number="form.weight" class="w-full py-1" type="number" name="weight" id="weight"
             placeholder="25" inputmode="numeric" pattern="^[0-9]*$" min="80" max="500" />
         </div>
@@ -81,7 +81,7 @@ const updateAccount = () => {
         </div>
 
         <div class="col-span-4">
-          <InputLabel value="Height" />
+          <InputLabel for="height" value="Height" />
           <div class="grid grid-cols-2 gap-3">
             <div class="mt-2 relative">
               <NumberInput v-model.number="form.heightFeet" type="number" name="height-feet" id="height-feet"
@@ -99,7 +99,7 @@ const updateAccount = () => {
 
 
         <div class="col-span-4">
-          <InputLabel value="Activity Level" />
+          <InputLabel for="activity" value="Activity Level" />
           <select v-model="form.activity" id="activity" name="activity"
             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             <option value=1>Basal Metabolic Rate</option>
