@@ -13,7 +13,7 @@ const props = defineProps(['carrots']);
     <CollapsableFolder>
 
       <template #title>
-        <p class="font-bold text-lg"> Carrots</p>
+        <p> Carrots</p>
       </template>
 
       <template #content>

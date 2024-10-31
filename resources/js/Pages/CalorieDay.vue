@@ -7,6 +7,7 @@ import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
+import CalorieKey from "@/Components/Displays/CalorieKey.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
 
@@ -57,9 +58,8 @@ const getDayOfWeek = (date) => {
     </CalorieDayLayout>
 
     <template #leftSide>
-      <Side side="left" class="hidden lg:block" v-if="props.account">
-        <CreateFood />
-
+      <Side side="left" class="mb-3" v-if="props.account">
+        <CalorieKey />
       </Side>
     </template>
 
@@ -67,6 +67,7 @@ const getDayOfWeek = (date) => {
       <Side v-if="props.account" side="right" class="">
         <JournalEntry :calorieDay="calorieDay" />
         <CarrotDisplay :carrots="carrots" />
+        <CreateFood />
       </Side>
     </template>
 

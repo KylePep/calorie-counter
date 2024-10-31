@@ -1,13 +1,12 @@
 <script setup>
 import { computed } from "vue";
-import SideCard from "./SideCard.vue";
 
 const props = defineProps(['side'])
 
 const sideClasses = computed(() => {
   return {
-    'left': 'border-b lg:border-b-0 lg:border-e',
-    'right': 'border-t lg:border-t-0 lg:border-s'
+    'left': 'items-end',
+    'right': 'items-start'
   }[props.side];
 })
 
@@ -15,12 +14,11 @@ const sideClasses = computed(() => {
 
 
 <template>
+
   <section class="border-light lg:pt-0 text-sm px-6 pt-4 sm:pt-0">
-    <SideCard :side="props.side">
+    <div :class="sideClasses" class="flex flex-col space-y-4 md:min-h-96 px-0 sm:px-6 lg:px-8 py-0 sm:py-6 ">
       <slot />
-    </SideCard>
+    </div>
   </section>
+
 </template>
-
-
-<style lang="scss" scoped></style>

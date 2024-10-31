@@ -111,7 +111,7 @@ function handleExtraButton(item, action, type) {
   <section v-if="props.account && calorieDay.food_items.length">
     <CollapsableFolder>
       <template #title>
-        <h1 class="text-xl font-bold">Eaten</h1>
+        <h1>Eaten</h1>
       </template>
       <template #config></template>
       <template #content>
@@ -123,14 +123,14 @@ function handleExtraButton(item, action, type) {
   <section v-if="props.account">
     <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem"
       @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
-      <h1 class="text-lg font-bold">Your Foods</h1>
+      <h1>Your Foods</h1>
     </ItemsDisplay>
   </section>
 
   <section v-if="props.account">
     <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem"
       @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
-      <h1 class="text-lg font-bold">Favorite Foods</h1>
+      <h1>Favorite Foods</h1>
     </ItemsDisplay>
   </section>
 

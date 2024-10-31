@@ -127,7 +127,7 @@ async function favoriteItem(foodItem) {
   <CollapsableFolder>
 
     <template #title>
-      <h1 class="text-lg font-bold">Search USDA Database</h1>
+      <h1>Search USDA Database</h1>
     </template>
 
     <!-- <template #config>

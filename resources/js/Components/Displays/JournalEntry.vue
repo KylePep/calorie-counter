@@ -41,7 +41,7 @@ async function updateJournal() {
     <CollapsableFolder>
 
       <template #title>
-        <p class="font-bold text-lg"> Journal Entry</p>
+        <p> Journal Entry</p>
       </template>
 
       <template #content>

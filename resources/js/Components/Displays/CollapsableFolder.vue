@@ -1,12 +1,14 @@
 <script setup>
 import { computed, ref } from "vue";
 
-const showFolder = ref(true);
+const props = defineProps(['state']);
+
+const showFolder = ref(props.state ?? true);
 
 const showClasses = computed(() => {
   return {
-    false: 'bg-neutral text-text-light rounded shadow',
-    true: 'text-text border-b-0 rounded-t bg-main '
+    false: 'bg-neutral hover:bg-accent text-base text-light hover:text-dark border-transparent rounded shadow',
+    true: 'text-lg text-text border-b-0 rounded-t bg-main '
   }[showFolder.value]
 })
 
@@ -18,7 +20,7 @@ const showClasses = computed(() => {
 
   <div class="flex justify-between">
     <button @click="showFolder = !showFolder" :class="showClasses, $slots.config ? 'w-48 sm:w-60 ' : 'w-full'"
-      class="flex justify-between items-center border-2 py-1 px-3 border-neutral duration-300">
+      class="flex justify-between items-center font-bold border-2 py-1 px-3 border-neutral duration-300">
       <slot name="title" />
       <i :class="showFolder ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-1  text-lg"></i>
     </button>

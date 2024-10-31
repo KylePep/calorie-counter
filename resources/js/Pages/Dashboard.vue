@@ -7,6 +7,7 @@ import Side from "@/Components/Displays/Side.vue";
 import JournalEntry from "@/Components/Displays/JournalEntry.vue";
 import CarrotDisplay from '../Components/Displays/CarrotDisplay.vue'
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
+import CalorieKey from '../Components/Displays/CalorieKey.vue'
 
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
@@ -66,9 +67,8 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
         </CalorieDayLayout>
 
         <template #leftSide>
-            <Side side="left" class="hidden lg:block" v-if="props.account">
-                <CreateFood />
-
+            <Side side="left" class="mb-3" v-if="props.account">
+                <CalorieKey />
             </Side>
         </template>
 
@@ -76,6 +76,7 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
             <Side v-if="props.account" side="right" class="">
                 <JournalEntry :calorieDay="calorieDay" />
                 <CarrotDisplay :carrots="carrots" />
+                <CreateFood />
             </Side>
         </template>
 
