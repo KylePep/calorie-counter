@@ -20,7 +20,7 @@ const showClasses = computed(() => {
 
   <div class="flex justify-between">
     <button @click="showFolder = !showFolder" :class="showClasses, $slots.config ? 'w-48 sm:w-60 ' : 'w-full'"
-      class="flex justify-between items-center font-bold border-2 py-1 px-3 border-neutral duration-300">
+      class="flex justify-between items-center font-bold border-2 py-1 px-3 border-light duration-300">
       <slot name="title" />
       <i :class="showFolder ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-1  text-lg"></i>
     </button>
@@ -40,7 +40,7 @@ const showClasses = computed(() => {
     leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
 
     <div v-show="showFolder" :class="$slots.config ? 'rounded-tr' : 'rounded-tr-none'"
-      class="origin-top w-full p-2 bg-light border-2 rounded-b border-neutral mt-0 shadow-inner">
+      class="origin-top w-full p-2 bg-light border-2 rounded-b border-light mt-0 shadow-inner">
       <slot name="content" />
     </div>
 
