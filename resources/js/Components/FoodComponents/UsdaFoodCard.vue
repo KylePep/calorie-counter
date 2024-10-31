@@ -50,7 +50,7 @@ const getBrandedCalories = (item) => {
 
     <div class="flex items-center justify-between bg-main p-1 px-2 border border-b-0 border-light rounded-t">
 
-      <div class=" text-neutral-textfont-bold text-3xl">
+      <div class=" text-neutral-text font-bold text-3xl">
         <template v-if="foodItem.gtinUpc != 0">
           {{ getBrandedCalories(foodItem) }}
         </template>
