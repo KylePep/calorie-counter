@@ -22,12 +22,7 @@ class StoreAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'goal' => ['required'],
-            'age' => ['required', 'integer'],
-            'gender' => ['required', 'in:Male,Female'],
-            'height' => ['required', 'numeric'],
-            'weight' => ['required', 'integer'],
-            'activity' => ['required', 'numeric'],
+            //
         ];
     }
 }

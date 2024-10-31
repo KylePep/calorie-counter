@@ -9,7 +9,7 @@ import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
 const props = defineProps(['calorieDay']);
 
 const form = useForm({
-  journal: props.calorieDay.journall
+  journal: props.calorieDay.journal
 })
 
 function clearJournal() {

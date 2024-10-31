@@ -22,12 +22,7 @@ class UpdateAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'goal' => [],
-            'age' => ['integer'],
-            'gender' => ['in:Male,Female'],
-            'height' => ['numeric'],
-            'weight' => ['integer'],
-            'activity' => ['numeric'],
+            //
         ];
     }
 }
