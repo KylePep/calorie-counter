@@ -22,7 +22,7 @@ function emitExtraButton(item, action) {
 
       <div class="flex bg-main justify-between items-end py-1 px-2 rounded-t border border-b-0 border-light">
 
-        <div class=" text-text font-bold ">
+        <div class=" text-neutral-text font-bold ">
           {{ foodItem.calories }}
         </div>
 
@@ -39,7 +39,7 @@ function emitExtraButton(item, action) {
       </div>
 
       <div @click="emitExtraButton(foodItem, 'edit')" :title="'Edit'"
-        class="flex-1 text-text-light bg-neutral hover:bg-light hover:text-dark hover:cursor-pointer p-3 duration-300 border-x border-light">
+        class="flex-1 text-light-text bg-neutral hover:bg-light hover:text-dark-text hover:cursor-pointer p-3 duration-300 border-x border-light">
         <h1 class="text-sm truncate sm:text-balance ">{{ foodItem.description }}
         </h1>
       </div>

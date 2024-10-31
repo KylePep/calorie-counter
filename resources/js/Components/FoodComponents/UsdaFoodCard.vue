@@ -50,7 +50,7 @@ const getBrandedCalories = (item) => {
 
     <div class="flex items-center justify-between bg-main p-1 px-2 border border-b-0 border-light rounded-t">
 
-      <div class=" text-text font-bold text-3xl">
+      <div class=" text-neutral-textfont-bold text-3xl">
         <template v-if="foodItem.gtinUpc != 0">
           {{ getBrandedCalories(foodItem) }}
         </template>
@@ -69,7 +69,7 @@ const getBrandedCalories = (item) => {
     </div>
 
     <div @click="emitExtraButton(foodItem, 'edit')" :title="'Edit'"
-      class="flex-1 flex flex-col justify-center items-center text-text-light hover:text-dark bg-neutral hover:bg-light hover:cursor-pointer px-3 drop-shadow-xl my-auto duration-300 border-x border-light">
+      class="flex-1 flex flex-col justify-center items-center text-light-text hover:text-dark-text bg-neutral hover:bg-light hover:cursor-pointer px-3 drop-shadow-xl my-auto duration-300 border-x border-light">
       <h1 class="font-bold text-balance truncate" :class="[foodItem.gtinUpc ? 'text-base' : 'text-lg']">{{
         foodItem.description
       }}

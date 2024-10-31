@@ -24,14 +24,14 @@ import CollapsableFolder from "./CollapsableFolder.vue";
 
 
           <div class="grid grid-cols-3 bg-main rounded-sm border-2 border-dark py-3">
-            <div class="flex justify-center items-center m-auto h-8 w-8 bg-light text-dark/75 border border-dark">
+            <div class="flex justify-center items-center m-auto h-8 w-8 bg-light text-dark-text/75 border border-dark">
               100</div>
             <p class="col-span-2 p-2">Unused square worth 100 calories.</p>
           </div>
 
           <div class="grid grid-cols-3 bg-main rounded-sm border-2 border-dark py-3">
             <div
-              class="flex justify-center items-center m-auto h-8 w-8 bg-light text-dark/75 border-4 border-accent-yellow">
+              class="flex justify-center items-center m-auto h-8 w-8 bg-light text-dark-text/75 border-4 border-accent-yellow">
               100
             </div>
             <p class="col-span-2 p-2">Unused square worth 100 calories, between your goal and your bmr.</p>

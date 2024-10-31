@@ -113,12 +113,12 @@ const createOrUpdateAccount = () => {
               <div class="flex justify-around">
                 <div class="flex items-center gap-x-3">
                   <input v-model="form.gender" id="gender-male" name="gender" type="radio" value="Male"
-                    class="h-4 w-4 text-dark focus:ring-accent" />
+                    class="h-4 w-4 text-dark-text focus:ring-accent" />
                   <InputLabel for="gender-male" value="Male" />
                 </div>
                 <div class="flex items-center gap-x-3">
                   <input v-model="form.gender" id="gender-female" name="gender" type="radio" value="Female"
-                    class="h-4 w-4 text-dark focus:ring-accent" />
+                    class="h-4 w-4 text-dark-text focus:ring-accent" />
                   <InputLabel for="gender-female" value="Female" />
                 </div>
               </div>

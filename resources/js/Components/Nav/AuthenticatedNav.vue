@@ -53,7 +53,7 @@ const showingNavigationDropdown = ref(false);
                             <template #trigger>
                                 <span class="inline-flex rounded-md">
                                     <button type="button"
-                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-text-light bg-dark hover:text-accent focus:outline-none transition ease-in-out duration-150">
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-light-text bg-dark hover:text-accent focus:outline-none transition ease-in-out duration-150">
                                         {{ $page.props.auth.user.name }}
 
                                         <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@ const showingNavigationDropdown = ref(false);
                 <!-- Hamburger -->
                 <div class="-me-2 flex items-center sm:hidden">
                     <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-text-light hover:text-text-dark hover:bg-accent focus:outline-none focus:bg-accent focus:text-text-dark transition duration-150 ease-in-out">
+                        class="inline-flex items-center justify-center p-2 rounded-md text-light-text hover:text-dark-text hover:bg-accent focus:outline-none focus:bg-accent focus:text-dark-text transition duration-150 ease-in-out">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path :class="{
                                 hidden: showingNavigationDropdown,
@@ -121,7 +121,7 @@ const showingNavigationDropdown = ref(false);
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4">
-                    <div class="font-medium text-base text-text-light">
+                    <div class="font-medium text-base text-light-text">
                         {{ $page.props.auth.user.name }}
                     </div>
                     <div class="font-medium text-sm text-text">{{ $page.props.auth.user.email }}</div>

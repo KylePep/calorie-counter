@@ -1,6 +1,5 @@
 <script setup>
 import InputError from "@/Components/Form/InputError.vue";
-import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import TextInput from "@/Components/Form/TextInput.vue";
 import { router, useForm } from "@inertiajs/vue3";
 import axios from "axios";
@@ -104,10 +103,6 @@ async function favoriteItem(foodItem) {
   };
 
   try {
-    const confirmFavorite = await Pop.confirm(`add ${foodItem.description} to favorite foods? `)
-    if (!confirmFavorite) {
-      return
-    }
     // Post the food item data to your backend
     const res = await axios.post(route('foodItem.store'), data);
 
@@ -189,11 +184,11 @@ async function favoriteItem(foodItem) {
           <div class="col-span-4 sm:col-span-5 relative flex items-center ">
             <TextInput id="query" type="text" class="w-full h-8 rounded text-xs" v-model="form.query" required
               autofocus />
-            <!-- <InputError class="" :message="form.errors.query" /> -->
+            <InputError :message="form.errors.query" />
 
             <button class="absolute right-0">
               <i
-                class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark text-2xl sm:text-2xl ps-8 pe-2 duration-300"></i>
+                class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl sm:text-2xl ps-8 pe-2 duration-300"></i>
             </button>
           </div>
 
@@ -203,24 +198,24 @@ async function favoriteItem(foodItem) {
       <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
         <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)"
           :disabled="foodSearchResponse.currentPage <= 1"
-          :class="foodSearchResponse.currentPage <= 1 ? 'text-text-light bg-main border border-light' : 'hover:bg-dark bg-neutral text-text-light hover:text-main'"
+          :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-neutral text-light-text hover:text-main'"
           class=" py-1 px-3 rounded">
           Previous
         </button>
 
-        <p :class="foodSearchResponse.totalHits ? 'text-dark' : 'text-neutral/75'"
+        <p :class="foodSearchResponse.totalHits ? 'text-dark-text' : 'text-neutral/75'"
           class="text-xs sm:text-base font-semibold ">
           Hits:
           {{
             foodSearchResponse.totalHits }}</p>
-        <p :class="foodSearchResponse.currentPage ? 'text-dark' : 'text-neutral/75'"
+        <p :class="foodSearchResponse.currentPage ? 'text-dark-text' : 'text-neutral/75'"
           class="text-xs sm:text-base font-semibold ">
           Page: {{ foodSearchResponse.currentPage }} - {{
             foodSearchResponse.totalPages }} </p>
 
         <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
           :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
-          :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-text-light bg-main border border-light' : 'hover:bg-dark bg-neutral text-text-light hover:text-main'"
+          :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-neutral text-light-text hover:text-main'"
           class="  py-1 px-3 rounded">
           Next
         </button>
@@ -229,11 +224,11 @@ async function favoriteItem(foodItem) {
       <div class="grid grid-cols-1 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 bg-light text-center ">
 
         <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
-          class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-neutral text-text-light border-2 border-light p-3 drop-shadow-lg h-40 rounded">
+          class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg h-40 rounded">
           {{ !loading ? 'Search for an item to begin counting calories!' : 'Searching' }}
         </div>
         <div v-if="foodSearchResponse.currentPage && foods.length == 0"
-          class="break-inside-avoid relative flex flex-col justify-center w-full text-text-light text-xl font-bold bg-dark p-3 border-2 border-light drop-shadow-lg h-40 rounded">
+          class="break-inside-avoid relative flex flex-col justify-center w-full text-light-text text-xl font-bold bg-dark p-3 border-2 border-light drop-shadow-lg h-40 rounded">
           No results found
         </div>
 

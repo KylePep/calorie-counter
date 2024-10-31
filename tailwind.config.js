@@ -14,15 +14,19 @@ export default {
         extend: {
             colors: {
                 'page': '#FFFCF2',
-                'text': {
-                    'light': '#D4CEC4',
-                    DEFAULT: '#403D39',
-                    'dark': '#252422'
-                },
                 'main': '#FFFCF2',
-                'light': '#CCC5B9',
-                'neutral': '#56524D',
-                'dark': '#252422',
+                'light': {
+                    DEFAULT: '#CCC5B9',
+                    'text': '#D4CEC4'
+                },
+                'neutral': {
+                    DEFAULT: '#56524D',
+                    'text': '#403D39'
+                },
+                'dark': {
+                    DEFAULT: '#252422',
+                    'text': '#252422'
+                },
                 'accent': {
                     DEFAULT: '#EB5E28',
                     'yellow': "#F6A327",

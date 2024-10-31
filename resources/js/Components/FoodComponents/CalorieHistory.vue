@@ -62,7 +62,7 @@ const getDayOfWeek = (date) => {
         <div>
           <h3 v-if="day.food_items.length != 0" class="font-bold">Food Eaten</h3>
           <p v-for="item in day.food_items"
-            class="inline-block bg-light rounded-lg px-2 mx-1 lowercase text-sm text-dark">
+            class="inline-block bg-light rounded-lg px-2 mx-1 lowercase text-sm text-dark-text">
             {{ item.description }} - {{ item.count }}
           </p>
         </div>

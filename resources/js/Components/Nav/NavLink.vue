@@ -15,7 +15,7 @@ const props = defineProps({
 const classes = computed(() =>
     props.active
         ? ' border-accent text-sm font-medium leading-5 text-accent focus:outline-none focus:border-light transition duration-150 ease-in-out'
-        : ' border-transparent text-sm font-medium leading-5 text-text-light hover:text-text-light hover:border-light focus:outline-none focus:text-text-light focus:border-light transition duration-150 ease-in-out'
+        : ' border-transparent text-sm font-medium leading-5 text-light-text hover:text-light-text hover:border-light focus:outline-none focus:text-light-text focus:border-light transition duration-150 ease-in-out'
 );
 </script>
 

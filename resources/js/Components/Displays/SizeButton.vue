@@ -19,7 +19,7 @@ const isActive = computed(() => props.currentSize == props.size);
 
 <template>
   <button @click="emit('update:currentSize', props.size)"
-    :class="[isActive ? 'bg-neutral text-text-light' : 'bg-accent hover:bg-dark text-text-dark hover:text-text-light']"
+    :class="[isActive ? 'bg-neutral text-light-text' : 'bg-accent hover:bg-dark text-dark-text hover:text-light-text']"
     class=" rounded-md px-3 ">
     <i :class="icon"></i>
   </button>

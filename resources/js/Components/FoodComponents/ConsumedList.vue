@@ -49,7 +49,7 @@ const getAnimationClass = (item) => {
         class="group relative hover:bg-dark h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
 
         <p ref="scrollingText" :class="getAnimationClass(item)"
-          class=" relative text-xs group-hover:text-text ps-3 font-bold duration-400">
+          class=" relative text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
           {{ item.description }}
         </p>
         <p

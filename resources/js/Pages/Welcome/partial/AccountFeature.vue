@@ -23,7 +23,7 @@
     </div>
     <div>
       <div class="group relative h-24 w-24 mx-auto text-shadow mb-6">
-        <i class="absolute -left-4 -bottom-4 mdi mdi-tape-measure text-5xl text-dark"></i>
+        <i class="absolute -left-4 -bottom-4 mdi mdi-tape-measure text-5xl text-dark-text"></i>
         <i class="absolute left-4 top-2 mdi mdi-scale-balance text-6xl text-neutral group-hover:animate-bounce"></i>
         <i class="absolute -right-2 -bottom-4 mdi mdi-checkbox-marked-circle-plus-outline text-4xl text-light"></i>
       </div>
