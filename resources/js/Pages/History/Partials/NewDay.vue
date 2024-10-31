@@ -1,6 +1,8 @@
 <script setup>
 import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
+import DateInput from "@/Components/Form/DateInput.vue";
 import InputError from "@/Components/Form/InputError.vue";
+import InputLabel from "@/Components/Form/InputLabel.vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import Pop from "@/utils/Pop.js";
 import { useForm } from "@inertiajs/vue3";
@@ -32,9 +34,12 @@ async function createCalorieDay() {
       </template>
 
       <template #content>
-        <form @submit.prevent="createCalorieDay" class="flex flex-col justify-between items-end space-y-2">
-          <input v-model="form.date" class="w-full" type="date" name="" id="">
-          <InputError class="mt-2" :message="form.errors.date" />
+        <form @submit.prevent="createCalorieDay" class="flex flex-col justify-between  items-end space-y-2">
+          <div class="w-full mb-4 space-y-2">
+            <InputLabel for="date" value="Date" class="hidden" />
+            <DateInput id="date" class="w-full" v-model="form.date" />
+            <InputError class="mt-2" :message="form.errors.date" />
+          </div>
           <PrimaryButton>Create New Day</PrimaryButton>
         </form>
       </template>
