@@ -23,8 +23,7 @@ async function updateJournal() {
   form.patch(route('calorieDay.patch', props.calorieDay.id), {
     preserveScroll: true,
     onSuccess: () => {
-      Pop.success(`Journal Entry updated`)
-      closeModal()
+      Pop.success(`Journal Entry updated`);
     },
     onError: (errors) => {
       console.log(errors);

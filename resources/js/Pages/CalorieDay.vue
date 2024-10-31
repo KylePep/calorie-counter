@@ -67,6 +67,8 @@ const getDayOfWeek = (date) => {
       <Side v-if="props.account" side="right" class="">
         <JournalEntry :calorieDay="calorieDay" />
         <CarrotDisplay :carrots="carrots" />
+      </Side>
+      <Side v-if="props.account" side="right" class="hidden sm:block">
         <CreateFood />
       </Side>
     </template>

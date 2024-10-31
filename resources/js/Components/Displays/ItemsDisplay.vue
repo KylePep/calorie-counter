@@ -8,7 +8,6 @@ const props = defineProps(['list', 'size']);
 const emit = defineEmits(['itemActivated', 'extraButton'])
 
 const currentSize = ref(props.size);
-// const showItems = ref(true);
 
 function emitItemActivated(item) {
   emit('itemActivated', item);
@@ -82,10 +81,10 @@ const currentSizeClass = computed(() => {
         </div>
 
         <div v-if="props.list.length == 0"
-          class="inline-block justify-center text-center min-h-36 w-60 hover:bg-gray-200 bg-gray-300 rounded ">
-          <div class="flex flex-col min-h-36 justify-around">
+          class="inline-block justify-center text-center text-light font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
+          <div class="flex flex-col min-h-24 justify-around">
             <p>
-              No Recent Foods
+              No foods to show
             </p>
           </div>
         </div>
