@@ -27,8 +27,10 @@ Route::middleware('auth')->group(function () {
         ->middleware(['verified'])
         ->name('dashboard');
 
-    Route::get('/history', [HistoryController::class, 'index'])
+    Route::get('/history', [HistoryController::class, 'show'])
         ->name('history');
+    Route::get('/history/search', [HistoryController::class, 'searchHistory'])
+        ->name('history.search');
     
     Route::get('/foodItem', [FoodItemController::class, 'index'])->name('foodItem.index');
     Route::post('/foodItem', [FoodItemController::class, 'store'])->name('foodItem.store');

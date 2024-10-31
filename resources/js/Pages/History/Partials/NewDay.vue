@@ -28,7 +28,7 @@ async function createCalorieDay() {
 
 <template>
   <div class="w-full">
-    <CollapsableFolder>
+    <CollapsableFolder :state="false">
       <template #title>
         <p> Add a day</p>
       </template>
