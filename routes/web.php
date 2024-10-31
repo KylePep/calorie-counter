@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/foodItem/{foodItem}', [FoodItemController::class, 'update'])->name('foodItem.update');
     Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
 
+    Route::post('/calorie-day', [CalorieDayController::class, 'store'])->name('calorieDay.store');
     Route::get('/calorie-day/{calorieDay}', [CalorieDayController::class, 'show'])->name('calorieDay.show');
     Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
     Route::patch('/calorie-day/{calorieDay}', [CalorieDayController::class, 'patch'])->name('calorieDay.patch');

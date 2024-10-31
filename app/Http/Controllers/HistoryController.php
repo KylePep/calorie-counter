@@ -25,7 +25,7 @@ class HistoryController extends Controller
             return $calorieDay;
         });
 
-        return Inertia::render('History', [
+        return Inertia::render('History/Show', [
             'account' => $account,
             'calorieDays' => $calorieDays,
         ]);

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCalorieDayRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
@@ -32,9 +33,31 @@ class CalorieDayController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCalorieDayRequest $request)
     {
-        //
+        $user = User::find(Auth::id());
+
+        $account = $user->account;
+
+        $validated = $request->validate([
+            'date' => ['string'],
+        ]);
+
+        $userTimezone = $account->timezone;
+    
+        // Get validated date in the user's timezone
+        $givenDay = Carbon::parse($validated['date'], $userTimezone)->startOfDay()->setTimezone('UTC');
+
+        $calorieDay = $user->calorieDays()->create([
+            'goal' => $account->goal ?? 2000,
+            'bmr' => $account->bmr ?? 2000,
+            'count' => 0,
+            'user_id' => $user->id,
+            'food_items' => json_encode([]),
+            'created_at' => $givenDay
+        ]);
+
+        return Redirect::route('calorieDay.show', $calorieDay);
     }
 
     /**
