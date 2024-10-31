@@ -76,6 +76,8 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
             <Side v-if="props.account" side="right" class="">
                 <JournalEntry :calorieDay="calorieDay" />
                 <CarrotDisplay :carrots="carrots" />
+            </Side>
+            <Side v-if="props.account" side="right" class="hidden sm:block">
                 <CreateFood />
             </Side>
         </template>
