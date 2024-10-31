@@ -135,62 +135,67 @@ async function favoriteItem(foodItem) {
 
       <label for="" class="block font-bold hidden">Search for food</label>
 
-      <div class="mb-3 mt-2">
-        <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="flex justify-between items-center space-x-2">
-            <div class="flex-1">
-              <TextInput id="query" type="text" class=" block w-full p-2 text-sm" v-model="form.query" required
-                autofocus />
-              <InputError class="mt-2" :message="form.errors.query" />
-            </div>
+      <div class="mb-3 -m-2">
+        <form @submit.prevent="fetchFoodData(1)"
+          class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark text-xs p-1.5">
 
-            <div class="flex ">
-              <PrimaryButton class=" w-full justify-center" :class="{ 'opacity-25': form.processing }"
-                :disabled="form.processing">
-                Search <i class="ps-3 mdi mdi-magnify"></i>
-              </PrimaryButton>
-            </div>
+          <div class="col-span-3 sm:col-span-2 flex items-center ">
+            <Dropdown align="left" width="100" class="w-full">
+
+              <template #trigger>
+                <button type="button"
+                  class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
+
+                  <p class="flex-1 flex items-center text-center">
+                    {{ typeName }}
+                  </p>
+                  <i class="mdi mdi-menu-down text-lg"></i>
+                </button>
+              </template>
+
+              <template #content>
+                <div class="flex flex-col p-2 bg-neutral rounded text-light text-xs">
+                  <button class="text-start p-1"
+                    :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']" type="button"
+                    @click="form.type = 'Branded'">Branded</button>
+                  <button class="text-start p-1"
+                    :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
+                    @click="form.type = 'Foundation'">Foundational</button>
+                  <button class="text-start p-1"
+                    :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']" type="button"
+                    @click="form.type = 'SR Legacy'">Legacy</button>
+                </div>
+              </template>
+
+            </Dropdown>
           </div>
 
-          <div class="grid grid-cols-2 p-1">
-            <div class=" flex justify-start">
-              <Dropdown align="left" width="100">
-
-                <template #trigger>
-                  <button type="button"
-                    class="flex justify-between items-center h-10 px-4 py-2 bg-white border border-gray-300 rounded-md text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                    <p>
-                      Type:
-                    </p>
-                    <span class="flex-1 text-center">
-                      {{ typeName }}
-                    </span>
-                  </button>
-                </template>
-
-                <template #content>
-                  <div class="flex flex-col p-2 bg-main rounded text-xs">
-                    <button class="text-start p-1"
-                      :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']" type="button"
-                      @click="form.type = 'Branded'">Branded</button>
-                    <button class="text-start p-1"
-                      :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
-                      @click="form.type = 'Foundation'">Foundational</button>
-                    <button class="text-start p-1"
-                      :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']" type="button"
-                      @click="form.type = 'SR Legacy'">Legacy</button>
-                  </div>
-                </template>
-
-              </Dropdown>
-            </div>
-
-            <div class="flex justify-center items-center ">
-              <Checkbox class="h-6 w-6" v-model:checked="form.requireAllWords" /><span class="ms-3 text-xs">Require All
-                Words</span>
-            </div>
+          <div
+            class="col-span-3 sm:col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
+            <span
+              class="block sm:hidden ps-1 text-[6px] leading-tight font-bold text-light group-hover:text-accent duration-300 uppercase">Require
+              <br>
+              All <br>
+              Words</span>
+            <span
+              class="hidden sm:block text-xs font-bold text-light group-hover:text-accent duration-300 uppercase">Require
+              All
+              Words</span>
+            <Checkbox class="h-6 w-6 group-hover:text-accent" v-model:checked="form.requireAllWords" />
           </div>
 
+
+
+          <div class="col-span-4 sm:col-span-5 relative flex items-center ">
+            <TextInput id="query" type="text" class="w-full h-8 rounded text-xs" v-model="form.query" required
+              autofocus />
+            <!-- <InputError class="" :message="form.errors.query" /> -->
+
+            <button class="absolute right-0">
+              <i
+                class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark text-2xl sm:text-2xl ps-8 pe-2 duration-300"></i>
+            </button>
+          </div>
 
         </form>
       </div>
