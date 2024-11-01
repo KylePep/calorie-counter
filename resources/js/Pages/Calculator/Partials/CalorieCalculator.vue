@@ -16,6 +16,8 @@ const props = defineProps({
 
 const result = reactive({})
 
+const canSetGoal = ref(false);
+
 const gender = computed(() => props.account?.gender ?? 'Male');
 const weight = computed(() => props.account?.weight ?? 160);
 const height = computed(() => props.account?.height ?? 177.8)
@@ -38,7 +40,7 @@ const form = useForm({
   genderMod: '-161',
   goal: goal.value,
   bmr: bmr.value,
-  goalModifier: goalModifier.value,
+  goalModifier: 99,
   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 });
 
@@ -68,7 +70,7 @@ const createOrUpdateAccount = () => {
   form.goal = Math.round(form.bmr * (form.goalModifier * .01))
 
   form.post(route('account.store'), {
-    preserveScroll: true,
+    // preserveScroll: true,
     onSuccess: () => {
       form.reset()
       Pop.success('New Goal Set!')
@@ -84,33 +86,32 @@ const createOrUpdateAccount = () => {
 
 <template>
 
-  <div class="bg-main border-2 border-light rounded shadow-xl p-12">
+  <div class="bg-main border-2 border-light rounded shadow-xl p-4 sm:p-12 ">
 
-    <form @submit.prevent="createOrUpdateAccount" id="calorie" class="text-center">
-      <div class="space-y-3">
+    <form @submit.prevent="createOrUpdateAccount" id="calorie" class="text-center mb-4">
+      <div class="space-y-2">
         <div>
-          <h2 class="text-2xl font-semibold leading-7 text-gray-900">Calorie Calculator</h2>
-          <p class="mt-1 text-sm leading-6 text-gray-600">This will calculate your basal metabolic rate (BMR)
-          </p>
-
+          <h2 class="text-2xl font-semibold leading-7 text-dark-text mb-2">Calculate your basal metabolic rate (BMR)
+          </h2>
         </div>
 
 
-        <div class="pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
 
-          <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div class="sm:col-span-6">
+          <section class="grid grid-cols-2 gap-x-2 gap-y-4 ">
+
+            <div class="col-span-2">
               <InputLabel for="age" value="Age" />
               <div class="mt-2 relative">
                 <NumberInput v-model.number="form.age" type="number" name="age" id="age" placeholder="ages 15 - 80"
                   inputmode="numeric" pattern="^[0-9]*$" min="15" max="80" class="w-full text-center"></NumberInput>
-                <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Age</span>
+                <!-- <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Age</span> -->
               </div>
             </div>
 
-            <fieldset class="sm:col-span-6">
-              <legend class="text-sm font-semibold leading-6 text-gray-900">Gender</legend>
-              <div class="flex justify-around">
+            <fieldset class="col-span-2">
+              <legend class="text-sm font-semibold leading-6 text-dark-text">Gender</legend>
+              <div class="flex justify-around h-full ">
                 <div class="flex items-center gap-x-3">
                   <input v-model="form.gender" id="gender-male" name="gender" type="radio" value="Male"
                     class="h-4 w-4 text-dark-text focus:ring-accent" />
@@ -124,38 +125,38 @@ const createOrUpdateAccount = () => {
               </div>
             </fieldset>
 
-            <div class=" sm:col-span-6">
+            <div class="col-span-2">
               <InputLabel for="height-feet" value="Height" />
               <div class="grid grid-cols-2 gap-2">
                 <div class="mt-2 relative">
                   <NumberInput v-model.number="form.heightFeet" type="number" name="height-feet" id="height-feet"
-                    inputmode="numeric" min="0" max="11" class="w-full text-start sm:text-center"></NumberInput>
-                  <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Feet</span>
+                    inputmode="numeric" min="0" max="11" class="w-full text-start"></NumberInput>
+                  <span class="absolute top-1 right-0 py-1.5 px-5 font-bold text-black/50 text-sm">Feet</span>
 
                 </div>
                 <div class="mt-2 relative">
                   <NumberInput v-model.number="form.heightInches" type="number" name="height-inches" id="height-inches"
-                    inputmode="numeric" min="0" max="11" class="w-full text-start sm:text-center">
+                    inputmode="numeric" min="0" max="11" class="w-full text-start">
                   </NumberInput>
-                  <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Inches</span>
+                  <span class="absolute top-1 right-0 py-1.5 px-5 font-bold text-black/50 text-sm">Inches</span>
 
                 </div>
 
               </div>
             </div>
 
-            <div class="sm:col-span-6">
+            <div class="col-span-2">
               <InputLabel for="weight" value="Weight" />
               <div class="mt-2 relative">
                 <NumberInput v-model.number="form.weight" id="weight" name="weight" type="number" inputmode="numeric"
                   class=" w-full text-center">
                 </NumberInput>
-                <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Pounds</span>
+                <span class="absolute top-1 right-0 py-1.5 px-5 font-bold text-black/50 text-sm">Pounds</span>
               </div>
 
             </div>
 
-            <div class="sm:col-span-6">
+            <div class="col-span-2">
 
               <InputLabel for="activity" value="Activity Level" />
               <div class="mt-2">
@@ -163,48 +164,92 @@ const createOrUpdateAccount = () => {
                   class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
                   <option value=1>Basal Metabolic Rate</option>
                   <option value=1.2>Sedentary: little or no exercise</option>
-                  <option value=1.375>Light: exercise 1-3 times/week</option>
-                  <option value=1.55>Moderate: exercise 4-5 times/week</option>
-                  <option value=1.725>Active: daily exercise or intense exercise 3-4 times/week</option>
-                  <option value=1.9>Very Active: intense exercise 6-7 times/week</option>
+                  <option value=1.375>Exercise 1-3 times/week</option>
+                  <option value=1.465>Exercise 4-5 times/week</option>
+                  <option value=1.55>Daily exercise or intense exercise 3-4 times/week</option>
+                  <option value=1.725>Intense exercise 6-7 times/week</option>
+                  <option value=1.9>Very intense exercise daily, or physical job</option>
                 </select>
               </div>
             </div>
 
+          </section>
+
+          <div class="relative h-40 sm:h-full">
+
+            <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0"
+              enter-to-class="opacity-100" leave-active-class="ease-in duration-200" leave-from-class="opacity-100"
+              leave-to-class="opacity-0">
+              <section v-if="result.value"
+                class="absolute h-full w-full grid grid-cols-1 grid-rows-5 gap-y-4 mt-3 sm:mt-0">
+                <div class="relative bg-light block">
+
+                  <h3
+                    class="absolute flex items-center justify-center w-full min-h-8 h-full bg-light text-dark-text text-xl font-bold">
+                    BMR: {{ Math.round(result.value) }} Calories
+                  </h3>
+                </div>
+
+                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
+                  :class="form.goalModifier == 100 ? 'border border-accent' : 'border border-light'"
+                  @click="form.goalModifier = 100, canSetGoal = true" value=100>
+                  <span>{{ Math.round(result.value) }}</span>
+                  100% Maintain Weight
+                </button>
+
+                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
+                  :class="form.goalModifier == 90 ? 'border border-accent' : 'border border-light'"
+                  @click="form.goalModifier = 90, canSetGoal = true" value=90>
+                  <span>{{ Math.round(result.value * .9) }}</span>
+                  90% Mild Weight Loss 0.5lb/week
+                </button>
+
+                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
+                  :class="form.goalModifier == 80 ? 'border border-accent' : 'border border-light'"
+                  @click="form.goalModifier = 80, canSetGoal = true" value=80>
+                  <span>{{ Math.round(result.value * .8) }}</span>
+                  80% Weight Loss 1lb/week
+                </button>
+
+                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
+                  :class="form.goalModifier == 61 ? 'border border-accent' : 'border border-light'"
+                  @click="form.goalModifier = 61, canSetGoal = true" value=61>
+                  <span>{{ Math.round(result.value * .61) }}</span>
+                  61% Extreme Weight Loss 2lb/week
+                </button>
+
+              </section>
+              <section v-else class="absolute h-full w-full rounded border border-light flex-1 py-2 space-y-4">
+                <p><strong>Exercise:</strong> 15-30 minutes of elevated heart rate activity.</p>
+                <p><strong>Intense exercise:</strong> 45-120 minutes of elevated heart rate activity</p>
+                <p><strong>Very intense exercise:</strong> 2+ hours of elevated heart rate activity</p>
+              </section>
+
+            </Transition>
           </div>
+
+
         </div>
       </div>
 
-      <h3 class="flex flex-col text-center text-xl font-bold">Result:
-        <div v-if="result.value" class="">{{ Math.round(result.value) }}
-          Calories
-          <div class="">
-
-            <InputLabel for="goalModifier" value="Goal Modifier" />
-            <div class="mt-2">
-              <select v-model="form.goalModifier" id="goalModifier" name="goalModifier"
-                class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
-                <option value=100>{{ Math.round(result.value) }} 100% Maintain Weight</option>
-                <option value=90>{{ Math.round(result.value * .9) }} 90% Mild Weight Loss 0.5lb/week</option>
-                <option value=80>{{ Math.round(result.value * .8) }} 80% Weight Loss 1lb/week</option>
-                <option value=61>{{ Math.round(result.value * .61) }} 61% Extreme Weight Loss 2lb/week</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <span v-else class="">Pending</span>
-
-
-      </h3>
     </form>
 
+    <div class="relative h-10 sm:h-20">
+      <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
+        leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
+        <section v-if="result.value && canSetGoal"
+          class="absolute flex justify-center items-center w-full bg-light text-2xl sm:text-4xl font-bold text-dark-text h-10 sm:h-20 px-4">
+          Goal: {{ Math.round(result.value * (form.goalModifier * .01)) }}
+        </section>
+      </Transition>
+    </div>
 
 
-    <div class="flex flex justify-end items-center space-x-8 mt-16">
+    <div class="flex flex justify-end items-center space-x-8 mt-8">
 
       <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
         leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
-        <PrimaryButton type="submit" form="calorie" v-if="$page.props.auth.user && result.value">
+        <PrimaryButton type="submit" form="calorie" v-if="$page.props.auth.user && result.value && canSetGoal">
           Set Goal <i class="ms-2 mdi mdi-checkbox-marked-circle-plus-outline"></i> </PrimaryButton>
       </Transition>
 
