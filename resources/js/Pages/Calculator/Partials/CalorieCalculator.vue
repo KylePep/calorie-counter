@@ -175,13 +175,13 @@ const createOrUpdateAccount = () => {
 
           </section>
 
-          <div class="relative h-40 sm:h-full">
+          <div class="relative h-60 sm:h-full">
 
             <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0"
               enter-to-class="opacity-100" leave-active-class="ease-in duration-200" leave-from-class="opacity-100"
               leave-to-class="opacity-0">
               <section v-if="result.value"
-                class="absolute h-full w-full grid grid-cols-1 grid-rows-5 gap-y-4 mt-3 sm:mt-0">
+                class="absolute h-full w-full grid grid-cols-1 grid-rows-5 gap-y-1 sm:gap-y-4 mt-3 sm:mt-0">
                 <div class="relative bg-light block">
 
                   <h3
@@ -190,39 +190,47 @@ const createOrUpdateAccount = () => {
                   </h3>
                 </div>
 
-                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
-                  :class="form.goalModifier == 100 ? 'border border-accent' : 'border border-light'"
+                <button type="button"
+                  class="flex justify-between items-center hover:bg-neutral hover:text-light-text text-sm rounded px-4 duration-300"
+                  :class="form.goalModifier == 100 ? 'border-2 border-neutral bg-light' : 'border-2 border-light'"
                   @click="form.goalModifier = 100, canSetGoal = true" value=100>
-                  <span>{{ Math.round(result.value) }}</span>
-                  100% Maintain Weight
+                  <span class="font-bold">{{ Math.round(result.value) }}</span>
+                  Maintain Weight - 100%
                 </button>
 
-                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
-                  :class="form.goalModifier == 90 ? 'border border-accent' : 'border border-light'"
+                <button type="button"
+                  class="flex justify-between items-center hover:bg-neutral hover:text-light-text text-sm rounded px-4 duration-300"
+                  :class="form.goalModifier == 90 ? 'border-2 border-neutral bg-light' : 'border-2 border-light'"
                   @click="form.goalModifier = 90, canSetGoal = true" value=90>
-                  <span>{{ Math.round(result.value * .9) }}</span>
-                  90% Mild Weight Loss 0.5lb/week
+                  <span class="font-bold">{{ Math.round(result.value * .9) }}</span>
+                  Mild Weight Loss 0.5lb/week - 90%
                 </button>
 
-                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
-                  :class="form.goalModifier == 80 ? 'border border-accent' : 'border border-light'"
+                <button type="button"
+                  class="flex justify-between items-center hover:bg-neutral hover:text-light-text text-sm rounded px-4 duration-300"
+                  :class="form.goalModifier == 80 ? 'border-2 border-neutral bg-light' : 'border-2 border-light'"
                   @click="form.goalModifier = 80, canSetGoal = true" value=80>
-                  <span>{{ Math.round(result.value * .8) }}</span>
-                  80% Weight Loss 1lb/week
+                  <span class="font-bold">{{ Math.round(result.value * .8) }}</span>
+                  Weight Loss 1lb/week - 80%
                 </button>
 
-                <button type="button" class="flex justify-between items-center text-sm rounded px-4"
-                  :class="form.goalModifier == 61 ? 'border border-accent' : 'border border-light'"
+                <button type="button"
+                  class="flex justify-between items-center hover:bg-neutral hover:text-light-text text-sm rounded px-4 duration-300"
+                  :class="form.goalModifier == 61 ? 'border-2 border-neutral bg-light' : 'border-2 border-light'"
                   @click="form.goalModifier = 61, canSetGoal = true" value=61>
-                  <span>{{ Math.round(result.value * .61) }}</span>
-                  61% Extreme Weight Loss 2lb/week
+                  <span class="font-bold">{{ Math.round(result.value * .61) }}</span>
+                  Extreme Weight Loss 2lb/week - 61%
                 </button>
 
               </section>
-              <section v-else class="absolute h-full w-full rounded border border-light flex-1 py-2 space-y-4">
-                <p><strong>Exercise:</strong> 15-30 minutes of elevated heart rate activity.</p>
-                <p><strong>Intense exercise:</strong> 45-120 minutes of elevated heart rate activity</p>
-                <p><strong>Very intense exercise:</strong> 2+ hours of elevated heart rate activity</p>
+              <section v-else
+                class="absolute h-full w-full text-sm sm:text-base rounded border border-light flex-1 px-2 py-4 mt-3 sm:mt-0 space-y-2 sm:space-y-4">
+                <h3 class="font-bold">Exercise:</h3>
+                <p>15-30 minutes of elevated heart rate activity.</p>
+                <h3 class="font-bold">Intense exercise:</h3>
+                <p>45-120 minutes of elevated heart rate activity</p>
+                <h3 class="font-bold">Very intense exercise:</h3>
+                <p> 2+ hours of elevated heart rate activity</p>
               </section>
 
             </Transition>
@@ -239,22 +247,29 @@ const createOrUpdateAccount = () => {
         leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
         <section v-if="result.value && canSetGoal"
           class="absolute flex justify-center items-center w-full bg-light text-2xl sm:text-4xl font-bold text-dark-text h-10 sm:h-20 px-4">
-          Goal: {{ Math.round(result.value * (form.goalModifier * .01)) }}
+          Calorie Goal: {{ Math.round(result.value * (form.goalModifier * .01)) }}
         </section>
       </Transition>
     </div>
 
 
-    <div class="flex flex justify-end items-center space-x-8 mt-8">
+    <div class="flex justify-end space-x-8 mt-4 sm:mt-8">
 
-      <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
-        leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
-        <PrimaryButton type="submit" form="calorie" v-if="$page.props.auth.user && result.value && canSetGoal">
-          Set Goal <i class="ms-2 mdi mdi-checkbox-marked-circle-plus-outline"></i> </PrimaryButton>
-      </Transition>
+      <div class="block w-full sm:w-fit">
+        <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
+          leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
 
-      <PrimaryButton @click="calculateResult()" type="button">
-        Calculate</PrimaryButton>
+          <PrimaryButton type="submit" form="calorie" v-if="$page.props.auth.user && result.value && canSetGoal"
+            class="w-full sm:w-fit flex justify-center">
+            Set Goal <i class="ms-2 mdi mdi-checkbox-marked-circle-plus-outline"></i>
+          </PrimaryButton>
+        </Transition>
+      </div>
+
+
+      <PrimaryButton @click="calculateResult()" type="button" class="w-full sm:w-fit flex justify-center">
+        Calculate
+      </PrimaryButton>
     </div>
   </div>
 
