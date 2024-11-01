@@ -40,7 +40,7 @@ const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'hero
     <main class="grid grid-cols-4 flex-1 mt-10">
 
 
-      <div class="col-span-4 lg:col-span-1">
+      <div class="col-span-4 lg:col-span-1 mb-3">
         <div v-if="$slots.leftSide" class="sticky top-16">
           <slot name="leftSide" />
         </div>

@@ -67,7 +67,7 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
         </CalorieDayLayout>
 
         <template #leftSide>
-            <Side side="left" class="mb-3" v-if="props.account">
+            <Side side="left" v-if="props.account">
                 <CalorieKey />
             </Side>
         </template>
