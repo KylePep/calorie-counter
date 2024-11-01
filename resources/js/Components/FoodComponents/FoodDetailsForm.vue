@@ -102,7 +102,7 @@ const unitName = computed(() => {
 
 
 
-    <div class="">
+    <div>
       <InputLabel for="ingredients" value="Ingredients">
       </InputLabel>
       <textarea id="ingredients" v-model="form.ingredients" name="ingredients"

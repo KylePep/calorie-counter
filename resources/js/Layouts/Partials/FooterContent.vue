@@ -14,7 +14,7 @@
         <Link :href="route('calculator')" class="mdi mdi-dumbbell hover:text-accent duration-300">
         </Link>
       </div>
-      <div class="">
+      <div>
         <p class="text-base mdi mdi-copyright"> CalorieCounter</p>
         <p class="text-xs text-neutral">ALL RIGHTS RESERVED
         </p>
