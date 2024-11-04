@@ -48,7 +48,7 @@ onMounted(() => {
     </section>
 
 
-    <section v-if="props.account" class="min-h-screen">
+    <section v-if="props.account">
       <div v-for="calorieDay, index in calorieDays" :key="calorieDay.id">
         <CalorieHistory :timeZone="account.timeZone" :calorieDay="calorieDay" :displayMode="displayMode"
           :index="index" />

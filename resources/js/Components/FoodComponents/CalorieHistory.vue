@@ -94,10 +94,15 @@ const formattedDate = () => {
   </div>
 
   <div v-else class="grid grid-cols-4 border-b border-neutral" :class="index % 2 == 0 ? 'bg-special/20' : 'bg-main/20'">
-    <p class="text-base tabular-nums leading-tight"> {{ formattedDate() }}
-    </p>
+    <div class="col-span-4 sm:col-span-1 flex justify-between items-center text-xs space-x-4 ">
+      <p class="text-base tabular-nums leading-tight"> {{ formattedDate() }}
+      </p>
+      <Link :href="route('calorieDay.show', calorieDay)" class="hover:text-accent duration-300">
+      Edit <i class=" mdi mdi-pencil me-2"></i>
+      </Link>
+    </div>
     <!-- Progress bar container -->
-    <div class="relative col-span-3 bg-main border border-4 border-light h-5 rounded shadow">
+    <div class="relative col-span-4 sm:col-span-3 bg-main border border-4 border-light h-5 rounded shadow">
 
       <!-- Base progress bar (normal progress) -->
       <div class="bg-accent border-e border-light h-3 absolute top-0 left-0"
