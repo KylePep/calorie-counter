@@ -41,7 +41,7 @@ onMounted(() => {
 
     <section>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-white rounded border border-light shadow-lg p-3">
-        <div class="col-span-2 font-bold ">
+        <div class="flex items-center col-span-2 font-bold">
           Display Modes:
         </div>
         <PrimaryButton @click="displayMode = 'list'" class="flex justify-center"> <span
