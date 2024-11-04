@@ -1,44 +1,12 @@
 <script setup>
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import CalorieHistory from "@/Components/FoodComponents/CalorieHistory.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
 import NewDay from "./Partials/NewDay.vue";
 import Side from "@/Components/Displays/Side.vue";
-import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
-import DateInput from "@/Components/Form/DateInput.vue";
-import MonthInput from "@/Components/Form/MonthInput.vue";
-import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
-import { computed } from "vue";
+import SearchBar from "./Partials/SearchBar.vue";
 
 const props = defineProps(['account', 'calorieDays', 'results']);
-
-const searchResults = computed(() => props.results || ['Last 31 Results'])
-
-const form = useForm({
-  month: '',
-  day: ''
-})
-
-async function searchHistory(type) {
-  console.log(form.month, form.day)
-  if (type == 'day') {
-    form.month = null;
-  } else if (type == 'month') {
-    form.day = null;
-  } else {
-    form.day = null;
-    form.month = null;
-  }
-  form.get(route('history.search'), {
-    preserveScroll: true,
-    onSuccess: () => {
-      form.reset();
-    },
-    onError: (errors) => {
-      console.log(errors);
-    },
-  });
-}
 
 </script>
 
@@ -56,30 +24,7 @@ async function searchHistory(type) {
     </template>
 
     <section>
-      <form @submit.prevent=""
-        class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-white rounded border border-light shadow-lg p-3">
-
-        <div class="grid grid-cols-2 space-x-2">
-          <DateInput type="date" v-model="form.day" id="day" />
-          <PrimaryButton @click="searchHistory('day')">Search day</PrimaryButton>
-        </div>
-
-        <div class="grid grid-cols-2 space-x-2">
-          <MonthInput type="month" v-model="form.month" id="month" />
-          <PrimaryButton @click="searchHistory('month')">Search Month</PrimaryButton>
-        </div>
-
-        <div class="col-span-2 grid grid-cols-4 gap-3">
-          <div class="col-span-3 border border-light rounded flex items-center px-2">
-            <span class="font-bold me-2">Showing:</span> {{ searchResults[0] }} <span v-if="searchResults.length > 1"
-              class="ms-1">to
-              {{
-                searchResults[1] }}</span>
-          </div>
-          <SecondaryButton @click="searchHistory('clear')">Clear</SecondaryButton>
-        </div>
-
-      </form>
+      <SearchBar :results="results" />
     </section>
 
     <section v-if="props.account" class="sm:hidden">
