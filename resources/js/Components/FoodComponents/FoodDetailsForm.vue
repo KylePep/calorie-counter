@@ -32,7 +32,7 @@ const unitName = computed(() => {
     <slot name="title"></slot>
 
 
-    <div class="flex  ">
+    <div class="flex">
       <div class="basis-3/5 me-3">
         <InputLabel for="description" value="Name or description"></InputLabel>
         <TextInput id="description" v-model="form.description" class="w-full" ref="nameInput" required></TextInput>
@@ -46,15 +46,15 @@ const unitName = computed(() => {
       </div>
     </div>
 
-    <div class="flex  items-center">
+    <div class="flex flex-col sm:flex-row  sm:items-center">
 
-      <div class="basis-3/5 me-3">
+      <div class="sm:basis-3/5 me-3">
         <InputLabel for="calories" value="Amount of calories"></InputLabel>
         <NumberInput id="calories" v-model="form.calories" class="w-full" required></NumberInput>
         <InputError :message="form.errors.calories"></InputError>
       </div>
 
-      <div class="flex basis-2/5">
+      <div class="flex sm:basis-2/5">
 
         <div class="w-full relative">
           <InputLabel for="servingSize" value="Serving Size"></InputLabel>
@@ -77,6 +77,7 @@ const unitName = computed(() => {
           </div>
         </div>
       </div>
+
     </div>
 
     <div>
@@ -115,11 +116,19 @@ const unitName = computed(() => {
       <button type="button" @click="showNutrients = !showNutrients" class="rounded-lg bg-gray-300 px-3 py-2">Nutrients
         <span :class="[!showNutrients ? 'mdi mdi-menu-down' : 'mdi mdi-menu-up']"></span> </button>
       <div v-if="showNutrients" class="grid grid-cols-3 text-center gap-2 mt-3">
-        <div v-for="(nutrient, index) in form.foodNutrients" :key="index" class="relative">
+        <div v-for="(nutrient, index) in form.foodNutrients" :key="index">
           <InputLabel :for="nutrient.nutrientName" :value="nutrient.nutrientName"></InputLabel>
-          <NumberInput :id="nutrient.nutrientName" v-model="form.foodNutrients[index].value" class="w-full text-center">
-          </NumberInput>
-          <div class="absolute right-0 top-1/2 pe-3 text-black/50 font-bold">{{ nutrient.unitName }}</div>
+          <div class="relative">
+            <NumberInput :id="nutrient.nutrientName" v-model="form.foodNutrients[index].value"
+              class="w-full text-center">
+            </NumberInput>
+            <div
+              class="absolute flex items-center justify-center pe-1 sm:pe-3 h-full right-0 top-0 text-black/50 text-xs sm:text-base font-bold">
+              {{
+                nutrient.unitName }}
+            </div>
+          </div>
+
         </div>
       </div>
 
