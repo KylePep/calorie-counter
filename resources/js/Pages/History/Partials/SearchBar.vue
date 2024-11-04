@@ -53,7 +53,7 @@ async function searchHistory(type) {
     </div>
 
     <div class="col-span-2 grid grid-cols-4 gap-3">
-      <div class="col-span-4 sm:col-span-3 border border-light rounded flex items-center px-2">
+      <div class="col-span-4 sm:col-span-3 flex items-center px-2">
         <span class="font-bold me-2">Showing:</span> {{ searchResults[0] }} <span v-if="searchResults.length > 1"
           class="ms-1">to
           {{

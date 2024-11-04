@@ -6,8 +6,8 @@ const displayMode = defineModel('displayMode');
 
 <template>
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-white rounded border border-light shadow-lg p-3">
-    <div class="flex items-center col-span-2 font-bold">
-      Display Modes:
+    <div class="flex items-center col-span-2 font-bold px-2">
+      Display: <span class="ms-2 font-normal uppercase">{{ displayMode }}</span>
     </div>
     <PrimaryButton @click="displayMode = 'list'" class="flex justify-center"> <span class="hidden sm:block">List</span>
       <i class="ms-2 mdi mdi-card-text"></i>
