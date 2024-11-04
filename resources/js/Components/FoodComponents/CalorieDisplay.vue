@@ -47,7 +47,7 @@ function cellsOverClasses(value) {
   }
 
   return {
-    neutral: 'bg-light text-neutral/75 border-neutral',
+    neutral: 'bg-light text-transparent sm:text-neutral/75 border-neutral',
     used: 'bg-special text-transparent border-neutral',
   }[selector]
 };
@@ -78,7 +78,7 @@ function cellsOverClasses(value) {
 
     <div class=" grid grid-cols-10 gap-1">
       <div v-for="index in 20" :class="cellsOverClasses(index)"
-        class="h-6 sm:h-10 flex justify-center items-center text-sm text-transparent sm:text-dark-text border font-bold  duration-500"
+        class="h-6 sm:h-10 flex justify-center items-center text-sm border font-bold  duration-500"
         :title="index * 100 + bmr">
         100
       </div>
