@@ -11,6 +11,7 @@ const props = defineProps(['results']);
 
 
 const searchResults = computed(() => props.results || ['Last 31 Results'])
+const displayMode = computed(() => props.displayMode);
 
 const form = useForm({
   month: '',

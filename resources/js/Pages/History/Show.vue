@@ -6,11 +6,19 @@ import NewDay from "./Partials/NewDay.vue";
 import Side from "@/Components/Displays/Side.vue";
 import SearchBar from "./Partials/SearchBar.vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
-import { ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 
-const props = defineProps(['account', 'calorieDays', 'results']);
+const props = defineProps(['account', 'calorieDays', 'results',]);
 
-const displayMode = ref('list');
+const displayMode = ref(sessionStorage.getItem('displayMode') || 'list');
+
+watch(displayMode, (newValue) => {
+  sessionStorage.setItem('displayMode', newValue);
+});
+
+onMounted(() => {
+  displayMode.value = sessionStorage.getItem('displayMode') || 'list';
+});
 
 </script>
 
@@ -28,7 +36,7 @@ const displayMode = ref('list');
     </template>
 
     <section>
-      <SearchBar :results="results" />
+      <SearchBar :results="results" :displayMode="displayMode" />
     </section>
 
     <section>
