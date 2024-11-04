@@ -11,7 +11,6 @@ const props = defineProps(['results']);
 
 
 const searchResults = computed(() => props.results || ['Last 31 Results'])
-const displayMode = computed(() => props.displayMode);
 
 const form = useForm({
   month: '',
@@ -19,7 +18,6 @@ const form = useForm({
 })
 
 async function searchHistory(type) {
-  console.log(form.month, form.day)
   if (type == 'day') {
     form.month = null;
   } else if (type == 'month') {
