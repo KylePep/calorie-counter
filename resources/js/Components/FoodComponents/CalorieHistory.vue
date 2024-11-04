@@ -93,16 +93,17 @@ const formattedDate = () => {
     </div>
   </div>
 
-  <div v-else class="grid grid-cols-4 border-b border-neutral" :class="index % 2 == 0 ? 'bg-special/20' : 'bg-main/20'">
-    <div class="col-span-4 sm:col-span-1 flex justify-between items-center text-xs space-x-4 ">
+  <div v-else class="grid grid-cols-5 border-b border-neutral" :class="index % 2 == 0 ? 'bg-special/20' : 'bg-main/20'">
+    <div class="col-span-2 sm:col-span-1 flex items-center text-xs ">
       <p class="text-base tabular-nums leading-tight"> {{ formattedDate() }}
       </p>
-      <Link :href="route('calorieDay.show', calorieDay)" class="hover:text-accent duration-300">
-      Edit <i class=" mdi mdi-pencil me-2"></i>
+      <Link :href="route('calorieDay.show', calorieDay)"
+        class=" mx-auto px-1 rounded-sm hover:bg-neutral hover:text-light-text duration-300">
+      edit
       </Link>
     </div>
     <!-- Progress bar container -->
-    <div class="relative col-span-4 sm:col-span-3 bg-main border border-4 border-light h-5 rounded shadow">
+    <div class="relative col-span-3 sm:col-span-4 bg-main border border-4 border-light h-5 rounded shadow">
 
       <!-- Base progress bar (normal progress) -->
       <div class="bg-accent border-e border-light h-3 absolute top-0 left-0"
