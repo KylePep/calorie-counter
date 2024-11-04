@@ -6,7 +6,7 @@ import NewDay from "./Partials/NewDay.vue";
 import Side from "@/Components/Displays/Side.vue";
 import SearchBar from "./Partials/SearchBar.vue";
 import { onMounted, ref, watch } from "vue";
-import SearchMode from './Partials/DisplayMode.vue'
+import DisplayMode from './Partials/DisplayMode.vue'
 
 const props = defineProps(['account', 'calorieDays', 'results',]);
 
@@ -40,7 +40,7 @@ onMounted(() => {
     </section>
 
     <section>
-      <SearchMode v-model:displayMode="displayMode" />
+      <DisplayMode v-model:displayMode="displayMode" />
     </section>
 
     <section v-if="props.account" class="sm:hidden">
