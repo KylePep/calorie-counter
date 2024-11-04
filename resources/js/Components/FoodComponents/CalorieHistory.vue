@@ -95,7 +95,7 @@ const formattedDate = () => {
 
   <div v-else class="grid grid-cols-5 border-b border-neutral" :class="index % 2 == 0 ? 'bg-special/20' : 'bg-main/20'">
     <div class="col-span-2 sm:col-span-1 flex items-center text-xs ">
-      <p class="text-base tabular-nums leading-tight"> {{ formattedDate() }}
+      <p class="text-sm tabular-nums leading-tight"> {{ formattedDate() }}
       </p>
       <Link :href="route('calorieDay.show', calorieDay)"
         class=" mx-auto px-1 rounded-sm hover:bg-neutral hover:text-light-text duration-300">
