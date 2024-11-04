@@ -5,8 +5,8 @@ import { Head } from "@inertiajs/vue3";
 import NewDay from "./Partials/NewDay.vue";
 import Side from "@/Components/Displays/Side.vue";
 import SearchBar from "./Partials/SearchBar.vue";
-import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import { onMounted, ref, watch } from "vue";
+import SearchMode from './Partials/SearchMode.vue'
 
 const props = defineProps(['account', 'calorieDays', 'results',]);
 
@@ -40,18 +40,7 @@ onMounted(() => {
     </section>
 
     <section>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-white rounded border border-light shadow-lg p-3">
-        <div class="flex items-center col-span-2 font-bold">
-          Display Modes:
-        </div>
-        <PrimaryButton @click="displayMode = 'list'" class="flex justify-center"> <span
-            class="hidden sm:block">List</span>
-          <i class="ms-2 mdi mdi-card-text"></i>
-        </PrimaryButton>
-        <PrimaryButton @click="displayMode = 'bar'" class="flex justify-center"><span class="hidden sm:block">Progress
-            Bar</span> <i class="ms-2 mdi mdi-poll rotate-90"></i>
-        </PrimaryButton>
-      </div>
+      <SearchMode v-model:displayMode="displayMode" />
     </section>
 
     <section v-if="props.account" class="sm:hidden">

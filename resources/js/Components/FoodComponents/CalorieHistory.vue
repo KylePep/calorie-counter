@@ -54,7 +54,7 @@ const formattedDate = () => {
         <div class="relative bg-main border border-4 border-light h-5 rounded-b shadow">
 
           <!-- Base progress bar (normal progress) -->
-          <div class="bg-accent border-e border-neutral h-3 absolute top-0 left-0"
+          <div class="bg-accent border-e border-light h-3 absolute top-0 left-0"
             :style="{ width: `${Math.min((calorieDay.count / calorieDay.bmr) * 100, 100)}%` }"
             title="calories compared to bmr">
           </div>
@@ -97,10 +97,10 @@ const formattedDate = () => {
     <p class="text-base tabular-nums leading-tight"> {{ formattedDate() }}
     </p>
     <!-- Progress bar container -->
-    <div class="relative col-span-3 bg-light border border-4 border-black/25 h-5 rounded shadow">
+    <div class="relative col-span-3 bg-main border border-4 border-light h-5 rounded shadow">
 
       <!-- Base progress bar (normal progress) -->
-      <div class="bg-accent border-e border-neutral h-3 absolute top-0 left-0"
+      <div class="bg-accent border-e border-light h-3 absolute top-0 left-0"
         :style="{ width: `${Math.min((calorieDay.count / calorieDay.bmr) * 100, 100)}%` }"
         title="calories compared to bmr">
       </div>
