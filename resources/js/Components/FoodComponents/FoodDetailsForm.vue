@@ -46,7 +46,7 @@ const unitName = computed(() => {
       </div>
     </div>
 
-    <div class="flex flex-col sm:flex-row  sm:items-center">
+    <div class="flex flex-col sm:flex-row  sm:items-center space-y-2 sm:space-y-0">
 
       <div class="sm:basis-3/5 me-3">
         <InputLabel for="calories" value="Amount of calories"></InputLabel>
