@@ -6,7 +6,7 @@ import NewDay from "./Partials/NewDay.vue";
 import Side from "@/Components/Displays/Side.vue";
 import SearchBar from "./Partials/SearchBar.vue";
 import { onMounted, ref, watch } from "vue";
-import SearchMode from './Partials/SearchMode.vue'
+import SearchMode from './Partials/DisplayMode.vue'
 
 const props = defineProps(['account', 'calorieDays', 'results',]);
 
