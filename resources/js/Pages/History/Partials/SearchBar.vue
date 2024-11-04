@@ -40,21 +40,20 @@ async function searchHistory(type) {
 
 
 <template>
-  <form @submit.prevent=""
-    class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-white rounded border border-light shadow-lg p-3">
+  <form @submit.prevent="" class="grid grid-cols-2 gap-2 bg-white rounded border border-light shadow-lg p-3">
 
-    <div class="grid grid-cols-2 space-x-2">
+    <div class="col-span-2 sm:col-span-1 grid grid-cols-2 space-x-2">
       <DateInput type="date" v-model="form.day" id="day" />
       <PrimaryButton @click="searchHistory('day')">Search day</PrimaryButton>
     </div>
 
-    <div class="grid grid-cols-2 space-x-2">
+    <div class="col-span-2 sm:col-span-1 grid grid-cols-2 space-x-2">
       <MonthInput type="month" v-model="form.month" id="month" />
       <PrimaryButton @click="searchHistory('month')">Search Month</PrimaryButton>
     </div>
 
     <div class="col-span-2 grid grid-cols-4 gap-3">
-      <div class="col-span-3 border border-light rounded flex items-center px-2">
+      <div class="col-span-4 sm:col-span-3 border border-light rounded flex items-center px-2">
         <span class="font-bold me-2">Showing:</span> {{ searchResults[0] }} <span v-if="searchResults.length > 1"
           class="ms-1">to
           {{
