@@ -7,7 +7,7 @@ import Side from "@/Components/Displays/Side.vue";
 import JournalEntry from "@/Components/Displays/JournalEntry.vue";
 import CarrotDisplay from '../Components/Displays/CarrotDisplay.vue'
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
-import CalorieKey from '../Components/Displays/CalorieKey.vue'
+import CalorieKey from '@/Components/Displays/CalorieKey.vue'
 
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
