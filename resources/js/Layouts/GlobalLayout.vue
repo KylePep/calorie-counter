@@ -2,11 +2,15 @@
 import CalculateBanner from "@/Components/CalculateBanner.vue";
 import AuthenticatedNav from "@/Components/Nav/AuthenticatedNav.vue";
 import GuestNav from "@/Components/Nav/GuestNav.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
 import FooterContent from "./Partials/FooterContent.vue";
 import PageLayout from "./PageLayout.vue";
 
-const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight'])
+const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight']);
+
+const { props: pageProps } = usePage();
+const theme = pageProps.auth.account.theme || 'theme-light';
+document.body.setAttribute('body-theme', theme);
 
 </script>
 

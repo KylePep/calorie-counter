@@ -111,6 +111,7 @@ class AccountController extends Controller
             'height' => ['numeric'],
             'weight' => ['numeric'],
             'activity' => ['string'],
+            'theme' => ['string'],
             'timezone' => ['string'],
         ]);
 

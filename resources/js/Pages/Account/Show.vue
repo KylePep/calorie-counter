@@ -5,14 +5,31 @@ import { computed } from "vue";
 import EditGoal from "./Partials/EditGoal.vue";
 import EditStats from "./Partials/EditStats.vue";
 import EditCarrot from "./Partials/EditCarrot.vue";
+import { useForm } from "@inertiajs/vue3";
+import Pop from "@/utils/Pop.js";
 
 const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
+
+const form = useForm(props.account);
 
 const account = computed(() => props.account);
 
 function changeTheme(theme) {
-  document.body.classList.remove('theme-light', 'theme-dark');
-  document.body.classList.add(`theme-${theme}`);
+
+  form.theme = theme;
+
+  form.put(route('account.update', props.account.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success('Theme Set')
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
+
+  document.body.setAttribute('body-theme', theme);
+
 }
 
 </script>
@@ -31,17 +48,18 @@ function changeTheme(theme) {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-        <div class="space-x-3">
-          <button @click="changeTheme('light')">
-            Light
-          </button>
-          <button @click="changeTheme('dark')">
-            Dark
-          </button>
-          <button @click="changeTheme('banana')">
-            Banana
-          </button>
-        </div>
+        <form @submit.prevent="">
+          <div class="space-x-3">
+            <button @click="changeTheme('theme-light')" class="p-3 rounded"
+              :class="account.theme == 'theme-light' ? 'bg-dark text-light-text' : 'bg-light text-dark-text'">
+              orange
+            </button>
+            <button @click="changeTheme('theme-dark')" class="p-3 rounded"
+              :class="account.theme == 'theme-dark' ? 'bg-dark text-light-text' : 'bg-light text-dark-text'">
+              blue
+            </button>
+          </div>
+        </form>
 
         <EditGoal :account="account" />
 
