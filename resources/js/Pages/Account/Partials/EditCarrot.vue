@@ -101,9 +101,9 @@ const completeCarrot = (carrot) => {
 
 };
 
-async function deleteCarrot(carrot) { //TODO - Issue with delete description isn't populating
+async function deleteCarrot(carrot) {
 
-  const confirmDelete = await Pop.confirm(`Delete ${form.description}?`)
+  const confirmDelete = await Pop.confirm(`Delete ${carrot.description}?`)
   if (!confirmDelete) {
     return
   }
@@ -111,7 +111,7 @@ async function deleteCarrot(carrot) { //TODO - Issue with delete description isn
   form.delete(route('carrot.destroy', carrot.id), {
     preserveScroll: true,
     onSuccess: () => {
-      Pop.success(`Carrot ${form.description} removed`);
+      Pop.success(`Carrot ${carrot.description} removed`);
       form.reset();
       closeModal();
     },
