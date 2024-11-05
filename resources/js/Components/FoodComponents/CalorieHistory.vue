@@ -73,8 +73,8 @@ const formattedDate = () => {
         </div>
       </div>
 
-      <div>
-        <h3 v-if="calorieDay.food_items.length != 0" class="bg-light rounded-t pt-1 px-2 font-bold text-dark-text">
+      <div v-if="calorieDay.food_items.length != 0">
+        <h3 class="bg-light rounded-t pt-1 px-2 font-bold text-dark-text">
           Food Eaten</h3>
         <div class="bg-main border border-4 border-light rounded-b p-1">
           <p v-for="item in calorieDay.food_items"
@@ -93,7 +93,7 @@ const formattedDate = () => {
     </div>
   </div>
 
-  <div v-else class="grid grid-cols-5 border-b border-neutral ps-2"
+  <div v-else class="grid grid-cols-5 border-b  border-neutral/75 ps-2"
     :class="index % 2 == 0 ? 'bg-accent-light/40' : 'bg-main/40'">
     <div class="col-span-2 sm:col-span-1 flex items-center text-xs ">
       <p class="text-sm tabular-nums leading-tight"> {{ formattedDate() }}
