@@ -1,4 +1,3 @@
-/* Default theme */
 :root {
   --color-page: 255 252 242;
   --color-main: 255 252 242;
@@ -15,7 +14,7 @@
 }
 
 /* Default theme */
-body[body-theme="theme-light"] {
+body[body-theme="theme-sunRise"] {
   --color-page: 255 252 242;
   --color-main: 255 252 242;
   --color-light: 204 197 185;
@@ -30,8 +29,7 @@ body[body-theme="theme-light"] {
   --color-special: 89 109 155;
 }
 
-/* Example of a dark theme */
-body[body-theme="theme-dark"] {
+body[body-theme="theme-coolTides"] {
   --color-page: 241 250 238;
   --color-main: 241 250 238;
   --color-light: 128 155 139;
@@ -44,4 +42,19 @@ body[body-theme="theme-dark"] {
   --color-accent-light: 168 218 220;
   --color-accent-dark: 29 53 87;
   --color-special: 230 57 70;
+}
+
+body[body-theme="theme-sketchPad"] {
+  --color-page: 229 241 233;
+  --color-main: 229 241 233;
+  --color-light: 255 255 255;
+  --color-light-text: 0 17 33;
+  --color-neutral: 220 228 222;
+  --color-neutral-text: 0 17 33;
+  --color-dark: 220 228 222;
+  --color-dark-text: 0 17 33;
+  --color-accent: 103 146 237;
+  --color-accent-light: 205 220 250;
+  --color-accent-dark: 32 62 161;
+  --color-special: 147 36 48;
 }

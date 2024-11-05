@@ -20,8 +20,10 @@ export default class Pop {
         confirmButtonText,
         showCancelButton: true,
         reverseButtons: true,
-        confirmButtonColor: '#EB5E28',
-        cancelButtonColor: '#56524D'
+        iconColor: 'rgb(var(--color-special))',
+        color: 'rgb(var(--color-text-dark-text))',
+        confirmButtonColor: 'rgb(var(--color-accent))',
+        cancelButtonColor: 'rgb(var(--color-neutral))'
       })
       if (res.isConfirmed) {
         return true
@@ -46,6 +48,7 @@ export default class Pop {
     Swal.fire({
       title,
       icon,
+      iconColor: 'rgb(var(--color-accent))',
       position,
       timer,
       timerProgressBar: progressBar,

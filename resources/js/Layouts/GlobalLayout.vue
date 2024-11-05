@@ -9,7 +9,7 @@ import PageLayout from "./PageLayout.vue";
 const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight']);
 
 const { props: pageProps } = usePage();
-const theme = pageProps.auth.account?.theme ?? 'theme-light';
+const theme = pageProps.auth.account?.theme ?? 'theme-sunRise';
 document.body.setAttribute('body-theme', theme);
 
 </script>

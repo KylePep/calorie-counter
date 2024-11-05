@@ -101,7 +101,7 @@ const completeCarrot = (carrot) => {
 
 };
 
-async function deleteCarrot(carrot) {
+async function deleteCarrot(carrot) { //TODO - Issue with delete description isn't populating
 
   const confirmDelete = await Pop.confirm(`Delete ${form.description}?`)
   if (!confirmDelete) {
