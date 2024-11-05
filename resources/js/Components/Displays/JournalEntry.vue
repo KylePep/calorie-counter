@@ -49,7 +49,7 @@ async function updateJournal() {
 <template>
   <div class="w-full">
 
-    <CollapsableFolder>
+    <CollapsableFolder :state="false">
 
       <template #title>
         <p> Journal Entry</p>

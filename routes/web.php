@@ -9,6 +9,7 @@ use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\FoodUsdaController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WeighInController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
 
+    Route::post('/weighIn', [WeighInController::class, 'store'])->name('weighIn.store');
+    Route::put('/weighIn/{weighIn}', [WeighInController::class, 'update'])->name('weighIn.update');
+    Route::delete('/weighIn/{weighIn}', [WeighInController::class, 'destroy'])->name('weighIn.destroy');
 
     Route::post('/carrot', [CarrotController::class, 'store'])->name('carrot.store');
     Route::put('/carrot/{carrot}', [CarrotController::class, 'update'])->name('carrot.update');

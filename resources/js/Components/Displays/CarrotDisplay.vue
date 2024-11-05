@@ -9,7 +9,7 @@ const props = defineProps(['carrots']);
 
   <div class="w-full">
 
-    <CollapsableFolder>
+    <CollapsableFolder :state="false">
 
       <template #title>
         <p> Carrots</p>
