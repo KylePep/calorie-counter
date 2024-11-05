@@ -24,7 +24,7 @@ class CarrotController extends Controller
         $carrot = $user->carrots()->create($attributes);
 
         return back()->with([
-            'success' => 'Food item created successfully!',
+            'success' => 'Carrot created successfully!',
             'carrot' => $carrot,
         ]);
     }
@@ -42,7 +42,7 @@ class CarrotController extends Controller
         $carrot->update($attributes);
 
         return back()->with([
-            'success' => 'Carrot item updated successfully!',
+            'success' => 'Carrot updated successfully!',
             'carrot' => $carrot,
         ]);
     }

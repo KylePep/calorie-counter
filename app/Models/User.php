@@ -64,4 +64,9 @@ class User extends Authenticatable
         return $this->hasMany(Carrot::class);
     }
 
+    public function weigh_ins()
+    {
+        return $this->hasMany(WeighIn::class);
+    }
+
 }
