@@ -51,12 +51,12 @@ function changeTheme(theme) {
         <form @submit.prevent="">
           <div class="space-x-3">
             <button @click="changeTheme('theme-light')" class="p-3 rounded"
-              :class="account.theme == 'theme-light' ? 'bg-orange-800 text-light-text' : 'bg-orange-400 text-dark-text'">
-              orange
+              :class="account.theme == 'theme-light' ? 'bg-[#f6a327] text-neutral-text' : 'bg-[#eb5e28] text-dark-text'">
+              Sun Rise
             </button>
             <button @click="changeTheme('theme-dark')" class="p-3 rounded"
-              :class="account.theme == 'theme-dark' ? 'bg-teal-800 text-light-text' : 'bg-teal-600 text-dark-text'">
-              blue
+              :class="account.theme == 'theme-dark' ? 'bg-[#a8dadc] text-neutral-text' : 'bg-[#457b9d] text-dark-text'">
+              Cool Tides
             </button>
           </div>
         </form>
