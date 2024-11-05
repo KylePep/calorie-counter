@@ -21,13 +21,11 @@ input::-webkit-inner-spin-button {
 }
 
 ::-webkit-scrollbar-track {
-  background: white;
-  border-radius: 8px;
+  background: rgb(var(--color-page));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(0, 0%, 60%);
-  border-radius: 4px;
+  background: rgb(var(--color-neutral));
 }
 
 /* Firefox */
