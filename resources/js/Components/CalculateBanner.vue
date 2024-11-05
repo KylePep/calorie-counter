@@ -23,11 +23,11 @@ const bottomBannerPage = computed(() => {
 
 <template>
   <div v-if="bottomBannerPage || topBannerPage"
-    class="flex flex-col text-center justify-center items-center bg-gradient-to-r from-accent-red via-accent to-accent-yellow py-8 space-y-4">
+    class="flex flex-col text-center justify-center items-center bg-gradient-to-r from-accent-dark via-accent to-accent-light py-8 space-y-4">
     <p class="text-white text-sm font-bold">calorie calculation</p>
     <p class="text-white text-3xl">Use the calculator to set your goal</p>
     <Link :href="route('calculator')"
-      class="text-base text-accent hover:text-accent-yellow font-bold uppercase bg-white px-28 sm:px-32 py-4 duration-300">
+      class="text-base text-accent hover:text-accent-light font-bold uppercase bg-white px-28 sm:px-32 py-4 duration-300">
     get your bmr!
     </Link>
   </div>

@@ -17,7 +17,7 @@
     @inertiaHead
 </head>
 
-<body class="font-sans antialiased">
+<body body-theme="{{$user->account->theme ?? 'theme-light' }}" class=" font-sans antialiased">
     @inertia
 </body>
 

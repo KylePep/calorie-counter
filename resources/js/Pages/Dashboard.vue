@@ -39,7 +39,7 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
             <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Dashboard</h2>
             <h2 v-else>
                 <Link :href="route('calculator')"
-                    class="text-accent-yellow hover:text-white hover:animate-none duration-300">
+                    class="text-accent-light hover:text-white hover:animate-none duration-300">
                 Set a Goal <i class="mdi mdi-checkbox-marked-circle-plus-outline"></i>
                 </Link>
             </h2>

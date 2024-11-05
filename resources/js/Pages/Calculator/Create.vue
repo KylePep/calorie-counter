@@ -115,7 +115,7 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
     <template #rightSide>
       <Side side="right">
 
-        <div class="w-full space-y-4 text-xs">
+        <div class="w-full p-2 bg-light border-2 border-light rounded space-y-4 text-xs text-dark-text">
 
           <p>This calculation is based on widely-accepted formulas, but it is not a prescription for your health and
             nutrition. Consult with your doctor before making a change to your nutrition or diet</p>

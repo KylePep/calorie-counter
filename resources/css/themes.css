@@ -1,0 +1,47 @@
+/* Default theme */
+:root {
+  --color-page: 255 252 242;
+  --color-main: 255 252 242;
+  --color-light: 204 197 185;
+  --color-light-text: 212 206 196;
+  --color-neutral: 86 82 77;
+  --color-neutral-text: 64 61 57;
+  --color-dark: 37 36 34;
+  --color-dark-text: 37 36 34;
+  --color-accent: 235 94 40;
+  --color-accent-light: 246 163 39;
+  --color-accent-dark: 210 46 10;
+  --color-special: 89 109 155;
+}
+
+/* Default theme */
+.theme-light {
+  --color-page: 255 252 242;
+  --color-main: 255 252 242;
+  --color-light: 204 197 185;
+  --color-light-text: 212 206 196;
+  --color-neutral: 86 82 77;
+  --color-neutral-text: 64 61 57;
+  --color-dark: 37 36 34;
+  --color-dark-text: 37 36 34;
+  --color-accent: 235 94 40;
+  --color-accent-light: 246 163 39;
+  --color-accent-dark: 210 46 10;
+  --color-special: 89 109 155;
+}
+
+/* Example of a dark theme */
+.theme-dark {
+  --color-page: 35 36 35;
+  --color-main: 241 250 238;
+  --color-light: 128 155 139;
+  --color-light-text: 128 155 139;
+  --color-neutral: 71 107 90;
+  --color-neutral-text: 71 107 90;
+  --color-dark: 43 83 65;
+  --color-dark-text: 14 59 40;
+  --color-accent: 69 123 157;
+  --color-accent-light: 168 218 220;
+  --color-accent-dark: 29 53 87;
+  --color-special: 230 57 70;
+}

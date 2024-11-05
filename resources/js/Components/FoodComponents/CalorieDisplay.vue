@@ -31,8 +31,8 @@ function cellClasses(value) {
   return {
     neutral: 'bg-light text-transparent sm:text-neutral/75 border-neutral',
     used: 'bg-accent text-transparent border-neutral',
-    modified: 'bg-light border-accent-yellow border-4 text-transparent sm:text-neutral/75',
-    modifyUsed: 'bg-accent text-transparent border-accent-yellow border-4'
+    modified: 'bg-light border-accent-light border-4 text-transparent sm:text-neutral/75',
+    modifyUsed: 'bg-accent text-transparent border-accent-light border-4'
   }[selector]
 };
 

@@ -60,7 +60,7 @@ const formattedDate = () => {
           </div>
 
           <!-- Goal range bar -->
-          <div class="bg-accent-yellow/50 border-s border-accent-red h-3 absolute top-0 right-0"
+          <div class="bg-accent-light/50 border-s border-accent-dark h-3 absolute top-0 right-0"
             :style="{ width: `${100 - ((calorieDay.goal / calorieDay.bmr) * 100)}%` }" title="goal range">
           </div>
 
@@ -93,7 +93,8 @@ const formattedDate = () => {
     </div>
   </div>
 
-  <div v-else class="grid grid-cols-5 border-b border-neutral" :class="index % 2 == 0 ? 'bg-special/20' : 'bg-main/20'">
+  <div v-else class="grid grid-cols-5 border-b border-neutral ps-2"
+    :class="index % 2 == 0 ? 'bg-accent-light/40' : 'bg-main/40'">
     <div class="col-span-2 sm:col-span-1 flex items-center text-xs ">
       <p class="text-sm tabular-nums leading-tight"> {{ formattedDate() }}
       </p>
@@ -112,7 +113,7 @@ const formattedDate = () => {
       </div>
 
       <!-- Goal range bar -->
-      <div class="bg-accent-yellow/50 border-s border-accent-red h-3 absolute top-0 right-0"
+      <div class="bg-accent-light/50 border-s border-accent-dark h-3 absolute top-0 right-0"
         :style="{ width: `${100 - ((calorieDay.goal / calorieDay.bmr) * 100)}%` }" title="goal range">
       </div>
 

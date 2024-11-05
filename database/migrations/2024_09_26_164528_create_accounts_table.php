@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('height');
             $table->integer('weight');
             $table->string('activity');
+            $table->string('theme')->default('theme-light');
             $table->string('timezone');
             $table->timestamps();
         });

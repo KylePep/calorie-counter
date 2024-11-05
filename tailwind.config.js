@@ -13,28 +13,26 @@ export default {
     theme: {
         extend: {
             colors: {
-                'page': '#FFFCF2',
-                'main': '#FFFCF2',
-                'light': {
-                    DEFAULT: '#CCC5B9',
-                    'text': '#D4CEC4'
+                page: "rgb(var(--color-page))",
+                main: "rgb(var(--color-main))",
+                light: {
+                    DEFAULT: "rgb(var(--color-light))",
+                    text: "rgb(var(--color-light-text))"
                 },
-                'neutral': {
-                    DEFAULT: '#56524D',
-                    'text': '#403D39'
+                neutral: {
+                    DEFAULT: "rgb(var(--color-neutral))",
+                    text: "rgb(var(--color-neutral-text))"
                 },
-                'dark': {
-                    DEFAULT: '#252422',
-                    'text': '#252422'
+                dark: {
+                    DEFAULT: "rgb(var(--color-dark))",
+                    text: "rgb(var(--color-dark-text))"
                 },
-                'accent': {
-                    DEFAULT: '#EB5E28',
-                    'yellow': "#F6A327",
-                    'light': "#EB7328",
-                    'dark': '#EB4C28',
-                    'red': '#D22E0A'
+                accent: {
+                    DEFAULT: "rgb(var(--color-accent))",
+                    light: "rgb(var(--color-accent-light))",
+                    dark: "rgb(var(--color-accent-dark))"
                 },
-                'special': '#596D9B'
+                special: 'rgb(var(--color-special))'
             },
             animation: {
                 'infinite-scroll': 'infinite-scroll 15s linear infinite',

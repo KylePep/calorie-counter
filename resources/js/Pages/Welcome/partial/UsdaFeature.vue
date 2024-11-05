@@ -3,7 +3,7 @@
 
 <template>
   <div class="relative border-b-4 border-neutral w-48 mx-auto mb-10">
-    <h2 class="absolute inset-x-0 -top-3 mx-8 text-center font-bold bg-main"> FEATURE #1
+    <h2 class="absolute inset-x-0 -top-3 mx-8 text-center font-bold bg-page"> FEATURE #1
     </h2>
   </div>
 

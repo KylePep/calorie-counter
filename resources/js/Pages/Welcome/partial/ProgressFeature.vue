@@ -11,7 +11,7 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
 
 <template>
   <div class="relative border-b-4 border-neutral w-48 mx-auto mb-10">
-    <h2 class="absolute inset-x-0 -top-3 mx-8 text-center font-bold bg-main"> FEATURE #3
+    <h2 class="absolute inset-x-0 -top-3 mx-8 text-center font-bold bg-page"> FEATURE #3
     </h2>
   </div>
 
@@ -32,7 +32,7 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
           <div
             class="grid grid-cols-10 gap-1 text-transparent sm:text-neutral px-1.5 py-0.5 rounded ring-1 ring-main ring-inset border-2  border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
             <div v-for="index in 20" class="flex flex-col justify-center items-center h-10 sm:h-14 border"
-              :class="index < 8 ? 'bg-gradient-to-b from-accent-dark via-accent via-50% to-accent-light border-neutral' : '', index >= 8 && index <= 16 ? ' border-neutral ' : '', index > 16 && index <= 18 ? 'border-4 border-accent-yellow ' : '', index > 18 ? 'border-1 bg-neutral border-dark' : ''">
+              :class="index < 8 ? 'bg-gradient-to-b from-accent-dark via-accent via-50% to-accent-light border-neutral' : '', index >= 8 && index <= 16 ? ' border-neutral ' : '', index > 16 && index <= 18 ? 'border-4 border-accent-light ' : '', index > 18 ? 'border-1 bg-neutral border-dark' : ''">
               {{ index >= 8 && index <= 18 ? '100' : '' }} </div>
             </div>
           </div>
