@@ -30,6 +30,7 @@ class HistoryController extends Controller
 
         $weighIns = $user->weigh_ins()
         ->orderBy('created_at', 'desc')
+        ->take(31)
         ->get();
 
         return Inertia::render('History/Show', [
@@ -52,11 +53,16 @@ class HistoryController extends Controller
             'month'=> ['string', 'nullable'],
         ]);
 
-        $calorieDaysQuery = $user->calorieDays()->orderBy('created_at', 'desc');
+        $weighInQuery = $user->weigh_ins()
+        ->orderBy('created_at', 'desc');
+
+        $calorieDaysQuery = $user->calorieDays()
+        ->orderBy('created_at', 'desc');
         $results = ['Last 31 Results'];
 
         if (!empty($validated['day'])){
             $calorieDaysQuery->whereDate('created_at', Carbon::parse($validated['day']));
+            $weighInQuery->whereDate('created_at', Carbon::parse($validated['day']));
             $results = [Carbon::parse($validated['day'])->format('m-d-Y')];
         }
 
@@ -64,6 +70,7 @@ class HistoryController extends Controller
             $monthStart = Carbon::parse($validated['month'])->startOfMonth();
             $monthEnd = Carbon::parse($validated['month'])->endOfMonth();
             $calorieDaysQuery->whereBetween('created_at', [$monthStart, $monthEnd]);
+            $weighInQuery->whereBetween('created_at', [$monthStart, $monthEnd]);
             $parsedMonthStart = Carbon::parse($monthStart)->format('m-d-Y');
             $parsedMonthEnd = Carbon::parse($monthEnd)->format('m-d-Y');
 
@@ -72,9 +79,11 @@ class HistoryController extends Controller
 
         else {
             $calorieDaysQuery->take(31);
+            $weighInQuery->take(31);
         }
 
         $calorieDays = $calorieDaysQuery->get();
+        $weighIns = $weighInQuery->get();
 
         // Decode food_items for each CalorieDay in the collection
         $calorieDays->transform(function ($calorieDay) {
@@ -82,9 +91,7 @@ class HistoryController extends Controller
             return $calorieDay;
         });
 
-        $weighIns = $user->weigh_ins()
-        ->orderBy('created_at', 'desc')
-        ->get();
+        
 
         return Inertia::render('History/Show', [
             'account' => $account,
