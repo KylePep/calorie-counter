@@ -35,10 +35,10 @@ async function createCalorieDay() {
 
       <template #content>
         <form @submit.prevent="createCalorieDay" class="flex flex-col justify-between  items-end space-y-2">
-          <div class="w-full mb-4 space-y-2">
+          <div class="w-full mb-1 ">
             <InputLabel for="date" value="Date" class="hidden" />
             <DateInput id="date" class="w-full" v-model="form.date" />
-            <InputError class="mt-2" :message="form.errors.date" />
+            <InputError :message="form.errors.date" />
           </div>
           <PrimaryButton>Create New Day</PrimaryButton>
         </form>

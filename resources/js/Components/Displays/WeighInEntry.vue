@@ -16,6 +16,7 @@ async function createWeighIn() {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success(`Weigh in added.`);
+      form.reset();
     },
     onError: (errors) => {
       console.log(errors);
@@ -39,7 +40,7 @@ async function createWeighIn() {
         <form @submit.prevent="createWeighIn">
           <InputLabel for="weighIn" value="Weigh In" class="hidden" />
           <div class="relative">
-            <NumberInput class="w-full mb-1" placeholder="Track a new weigh in?" />
+            <NumberInput v-model="form.weight" class="w-full mb-1" placeholder="Create a new weigh in?" />
             <span class="absolute h-full flex items-center px-3 top-0 right-0 text-neutral-text/50 font-bold">lbs</span>
           </div>
           <div class="flex justify-end space-x-2">

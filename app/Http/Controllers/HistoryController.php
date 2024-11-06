@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-use function PHPUnit\Framework\isNull;
-
 class HistoryController extends Controller
 {
     public function show()
@@ -30,9 +28,14 @@ class HistoryController extends Controller
             return $calorieDay;
         });
 
+        $weighIns = $user->weigh_ins()
+        ->orderBy('created_at', 'desc')
+        ->get();
+
         return Inertia::render('History/Show', [
             'account' => $account,
             'calorieDays' => $calorieDays,
+            'weighIns' => $weighIns
         ]);
         
     }
@@ -79,12 +82,15 @@ class HistoryController extends Controller
             return $calorieDay;
         });
 
-        
+        $weighIns = $user->weigh_ins()
+        ->orderBy('created_at', 'desc')
+        ->get();
 
         return Inertia::render('History/Show', [
             'account' => $account,
             'calorieDays' => $calorieDays,
             'results' => $results,
+            'weighIns' => $weighIns
         ]);
 
     }

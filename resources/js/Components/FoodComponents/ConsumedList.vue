@@ -52,7 +52,7 @@ const getAnimationClass = (item) => {
           {{ item.description }}
         </p>
         <p
-          class="absolute left-1/2  object-center group-hover:text-accent text-transparent font-bold mdi mdi-close-thick duration-300">
+          class="absolute left-1/2  object-center group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
         </p>
 
       </button>
