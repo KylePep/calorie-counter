@@ -71,8 +71,8 @@ async function deleteWeighIn(weighIn) {
               <span
                 class="absolute h-full flex items-center px-3 top-0 right-0 text-neutral-text/50 font-bold">lbs</span>
             </div>
-            <div>
-              <DateInput v-model="form.date" id="date" required />
+            <div class="w-full">
+              <DateInput v-model="form.date" id="date" class="w-full" required />
             </div>
           </div>
           <InputError :message="form.errors.weight" />
