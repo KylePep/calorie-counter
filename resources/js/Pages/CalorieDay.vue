@@ -1,5 +1,4 @@
 <script setup>
-import CarrotDisplay from "@/Components/Displays/CarrotDisplay.vue";
 import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import JournalEntry from "@/Components/Displays/JournalEntry.vue";
 import Side from "@/Components/Displays/Side.vue";
@@ -68,7 +67,6 @@ const getDayOfWeek = (date) => {
       <Side v-if="props.account" side="right">
         <WeighInEntry :weighIn="weighIn" :date="new Date(calorieDay.created_at)" />
         <JournalEntry :calorieDay="calorieDay" />
-        <!-- <CarrotDisplay :carrots="carrots" /> -->
       </Side>
       <Side v-if="props.account" side="right" class="hidden sm:block">
         <CreateFood />
