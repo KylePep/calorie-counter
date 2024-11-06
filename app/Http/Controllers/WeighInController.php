@@ -23,8 +23,8 @@ class WeighInController extends Controller
         ]);
         
             $userTimezone = $account->timezone;
-            
-            $givenDay = Carbon::parse($validated['date'], $userTimezone)->startOfDay()->setTimezone('UTC');
+
+            $givenDay = Carbon::parse($validated['date'], $userTimezone)->midday()->setTimezone('UTC');
 
             $existsWeighIn = $user->weigh_ins()
             ->whereDate('created_at', $givenDay->toDateString())

@@ -8,8 +8,9 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
 import CalorieKey from "@/Components/Displays/CalorieKey.vue";
+import WeighInEntry from "@/Components/Displays/WeighInEntry.vue";
 
-const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
+const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
 
 const calorieDay = ref(props.calorieDay)
 const goal = computed(() => calorieDay.value?.goal);
@@ -58,13 +59,14 @@ const getDayOfWeek = (date) => {
     </CalorieDayLayout>
 
     <template #leftSide>
-      <Side side="left" class="mb-3" v-if="props.account">
+      <Side side="left" v-if="props.account">
         <CalorieKey />
       </Side>
     </template>
 
     <template #rightSide>
       <Side v-if="props.account" side="right">
+        <WeighInEntry :weighIn="weighIn" :date="calorieDay.created_at" />
         <JournalEntry :calorieDay="calorieDay" />
         <CarrotDisplay :carrots="carrots" />
       </Side>

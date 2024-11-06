@@ -6,11 +6,11 @@ import PrimaryButton from "../Form/PrimaryButton.vue";
 import CollapsableFolder from "./CollapsableFolder.vue";
 import Pop from "@/utils/Pop.js";
 
-const props = defineProps(['weighIn']);
+const props = defineProps(['weighIn', 'date']);
 
 const form = useForm({
   weight: null,
-  date: new Date()
+  date: props.date ?? new Date()
 });
 
 async function createWeighIn() {
