@@ -66,7 +66,7 @@ const getDayOfWeek = (date) => {
 
     <template #rightSide>
       <Side v-if="props.account" side="right">
-        <WeighInEntry :weighIn="weighIn" :date="calorieDay.created_at" />
+        <WeighInEntry :weighIn="weighIn" :date="new Date(calorieDay.created_at)" />
         <JournalEntry :calorieDay="calorieDay" />
         <CarrotDisplay :carrots="carrots" />
       </Side>

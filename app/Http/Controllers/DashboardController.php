@@ -64,7 +64,11 @@ class DashboardController extends Controller
                     return $carrot->complete ? 'complete' : 'incomplete';
                 });
 
-                $weighIn = $user->weigh_ins()->latest()->first();
+                // Retrieve all calorie days and manually filter by user's timezone
+                $weighIn = $user->weigh_ins->filter(function ($weighIn) use ($today, $userTimezone) {
+                $createdAt = Carbon::parse($weighIn->created_at)->setTimezone($userTimezone)->startOfDay();
+                return $createdAt->equalTo($today);
+                })->first();
 
                 return Inertia::render('Dashboard', [
                     'account' => $account,

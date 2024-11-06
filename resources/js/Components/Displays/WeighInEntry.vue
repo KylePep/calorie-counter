@@ -39,7 +39,6 @@ async function deleteWeighIn(weighIn) {
     onSuccess: () => {
       Pop.success(`Removed ${new Date(weighIn.created_at).toDateString()} Weigh In`);
       form.reset();
-      closeModal();
     },
     onError: (errors) => {
       console.log(errors);
@@ -64,7 +63,7 @@ async function deleteWeighIn(weighIn) {
         <form @submit.prevent="createWeighIn">
           <InputLabel for="weighIn" value="Weigh In" class="hidden" />
           <div class="relative">
-            <NumberInput v-model="form.weight" class="w-full mb-1" placeholder="Create a new weigh in?" />
+            <NumberInput v-model="form.weight" class="w-full mb-1" placeholder="Create a new weigh in?" required />
             <span class="absolute h-full flex items-center px-3 top-0 right-0 text-neutral-text/50 font-bold">lbs</span>
           </div>
           <div class="flex justify-end space-x-2">

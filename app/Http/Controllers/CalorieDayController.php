@@ -96,7 +96,8 @@ class CalorieDayController extends Controller
         });
 
         $weighIn = $user->weigh_ins()
-        ->whereDate('created_at', Carbon::parse($calorieDay->created_at))->first();
+        ->whereDate('created_at', Carbon::parse($calorieDay->created_at))
+        ->first();
 
         return Inertia::render('CalorieDay', [
             'account' => $account,
