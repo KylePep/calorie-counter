@@ -1,5 +1,7 @@
 <script setup>
 import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
+import DateInput from "@/Components/Form/DateInput.vue";
+import InputError from "@/Components/Form/InputError.vue";
 import InputLabel from "@/Components/Form/InputLabel.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
@@ -9,7 +11,8 @@ import { useForm } from "@inertiajs/vue3";
 const props = defineProps(['weighIns']);
 
 const form = useForm({
-  weight: null
+  weight: null,
+  date: null
 })
 
 async function createWeighIn() {
@@ -62,14 +65,22 @@ async function deleteWeighIn(weighIn) {
 
       <template #content>
         <form @submit.prevent="createWeighIn" class="mb-2">
-          <InputLabel for="weighIn" value="Weigh In" class="hidden" />
+          <InputLabel for="weighIn" value="Create a new weigh in?" />
           <div class="flex space-x-2">
-            <div class="relative flex-1 ">
-              <NumberInput v-model="form.weight" class="w-full" placeholder="Create a new weigh in?" />
+            <div class="relative  ">
+              <NumberInput v-model="form.weight" id="weight" class="w-full" />
               <span
                 class="absolute h-full flex items-center px-3 top-0 right-0 text-neutral-text/50 font-bold">lbs</span>
             </div>
-            <PrimaryButton>Submit</PrimaryButton>
+            <div>
+              <DateInput v-model="form.date" id="date" />
+            </div>
+          </div>
+          <InputError :message="form.errors.weight" />
+          <InputError :message="form.errors.date" />
+
+          <div class="flex justify-end my-1">
+            <PrimaryButton>Create</PrimaryButton>
           </div>
         </form>
 

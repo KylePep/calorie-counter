@@ -6,9 +6,12 @@ import PrimaryButton from "../Form/PrimaryButton.vue";
 import CollapsableFolder from "./CollapsableFolder.vue";
 import Pop from "@/utils/Pop.js";
 
+const props = defineProps(['weighIn']);
+
 const form = useForm({
-  weight: null
-})
+  weight: null,
+  date: new Date()
+});
 
 async function createWeighIn() {
 
@@ -24,11 +27,32 @@ async function createWeighIn() {
   });
 }
 
+async function deleteWeighIn(weighIn) {
+
+  const confirmDelete = await Pop.confirm(`Delete ${weighIn.weight} - ${new Date(weighIn.created_at).toDateString()} Weigh In?`)
+  if (!confirmDelete) {
+    return
+  }
+
+  form.delete(route('weighIn.destroy', weighIn.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`Removed ${new Date(weighIn.created_at).toDateString()} Weigh In`);
+      form.reset();
+      closeModal();
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
+
+};
+
 </script>
 
 
 <template>
-  <div class="w-full">
+  <div v-if="!weighIn" class="w-full">
 
     <CollapsableFolder :state="false">
 
@@ -50,5 +74,20 @@ async function createWeighIn() {
       </template>
 
     </CollapsableFolder>
+  </div>
+  <div v-else class="w-full ">
+    <button @click="deleteWeighIn(weighIn)"
+      class="group relative flex w-full justify-between bg-main hover:bg-dark rounded font-bold text-dark-text hover:text-light-text border py-2.5 px-3 bg-light border-light rounded duration-500">
+      <p>
+        {{ weighIn.weight }} lbs
+      </p>
+      <p>
+        Today
+      </p>
+      <p
+        class="absolute left-1/2  object-center group-hover:text-light-text text-transparent font-bold mdi mdi-close-thick duration-300">
+      </p>
+
+    </button>
   </div>
 </template>

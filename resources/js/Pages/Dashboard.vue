@@ -11,7 +11,7 @@ import CalorieKey from '@/Components/Displays/CalorieKey.vue'
 import WeighInEntry from "@/Components/Displays/WeighInEntry.vue";
 
 
-const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
+const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
 
 const renderHeroImage = computed(() => {
     if (props.account) {
@@ -75,7 +75,7 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
 
         <template #rightSide>
             <Side v-if="props.account" side="right">
-                <WeighInEntry />
+                <WeighInEntry :weighIn="weighIn" />
                 <JournalEntry :calorieDay="calorieDay" />
                 <CarrotDisplay :carrots="carrots" />
             </Side>

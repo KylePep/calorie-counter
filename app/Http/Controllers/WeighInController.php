@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\WeighIn;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class WeighInController extends Controller
 {
@@ -13,11 +15,28 @@ class WeighInController extends Controller
     {
         $user = User::find(Auth::id());
 
+        $account = $user->account;
+        
         $validated = $request->validate([
-            'weight' => ['required', 'integer']
+            'weight' => ['required', 'integer'],
+            'date' => ['string', 'nullable']
         ]);
+        
+            $userTimezone = $account->timezone;
+            
+            $givenDay = Carbon::parse($validated['date'], $userTimezone)->startOfDay()->setTimezone('UTC');
 
-        $weighIn = $user->weigh_ins()->create($validated);
+            $existsWeighIn = $user->weigh_ins()
+            ->whereDate('created_at', $givenDay->toDateString())
+            ->exists();
+
+            if($existsWeighIn){
+                return Redirect::route('history')->withErrors(['date' => 'A weigh in already exists for the selected date.']);
+            }
+            $weighIn = $user->weigh_ins()->create([
+                'weight' => $validated['weight'],
+                'created_at' => $givenDay
+            ]);
 
         // Check carrot for weight requirement -> notify user of distance to carrot
 

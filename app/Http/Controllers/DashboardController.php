@@ -64,12 +64,15 @@ class DashboardController extends Controller
                     return $carrot->complete ? 'complete' : 'incomplete';
                 });
 
+                $weighIn = $user->weigh_ins()->latest()->first();
+
                 return Inertia::render('Dashboard', [
                     'account' => $account,
                     'calorieDay' => $CalorieDay,
                     'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
                     'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
                     'carrots' => $incompleteCarrots->get('incomplete',[]),
+                    'weighIn' => $weighIn
                 ]);
         }
         
