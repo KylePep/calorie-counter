@@ -10,7 +10,7 @@ import { computed, ref } from "vue";
 import CalorieKey from "@/Components/Displays/CalorieKey.vue";
 import WeighInEntry from "@/Components/Displays/WeighInEntry.vue";
 
-const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
+const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'weighIn']);
 
 const calorieDay = ref(props.calorieDay)
 const goal = computed(() => calorieDay.value?.goal);
@@ -68,7 +68,7 @@ const getDayOfWeek = (date) => {
       <Side v-if="props.account" side="right">
         <WeighInEntry :weighIn="weighIn" :date="new Date(calorieDay.created_at)" />
         <JournalEntry :calorieDay="calorieDay" />
-        <CarrotDisplay :carrots="carrots" />
+        <!-- <CarrotDisplay :carrots="carrots" /> -->
       </Side>
       <Side v-if="props.account" side="right" class="hidden sm:block">
         <CreateFood />

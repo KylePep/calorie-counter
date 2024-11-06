@@ -60,22 +60,36 @@ class DashboardController extends Controller
                     }
                 }
 
-                $incompleteCarrots = $user->carrots->groupBy(function($carrot){
+                $sortedCarrots = $user->carrots->groupBy(function($carrot){
                     return $carrot->complete ? 'complete' : 'incomplete';
                 });
 
-                // Retrieve all calorie days and manually filter by user's timezone
+                
+                // Retrieve all weighIns and manually filter by user's timezone
                 $weighIn = $user->weigh_ins->filter(function ($weighIn) use ($today, $userTimezone) {
-                $createdAt = Carbon::parse($weighIn->created_at)->setTimezone($userTimezone)->startOfDay();
-                return $createdAt->equalTo($today);
+                    
+                    $createdAt = Carbon::parse($weighIn->created_at)
+                    ->setTimezone($userTimezone)
+                    ->startOfDay();
+                    
+                    return $createdAt->equalTo($today);
                 })->first();
+
+                if(isset($weighIn, $sortedCarrots['incomplete'])){
+                    foreach($sortedCarrots['incomplete'] as $item){
+                        if($item['category'] == 'weightLoss' || $item['category'] == 'weightGain'){
+                            $item['currentValue'] = $weighIn['weight'];
+                        }
+                    }
+                    unset($item);
+                }
 
                 return Inertia::render('Dashboard', [
                     'account' => $account,
                     'calorieDay' => $CalorieDay,
                     'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
                     'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
-                    'carrots' => $incompleteCarrots->get('incomplete',[]),
+                    'carrots' => $sortedCarrots,
                     'weighIn' => $weighIn
                 ]);
         }

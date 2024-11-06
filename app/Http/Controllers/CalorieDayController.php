@@ -91,10 +91,6 @@ class CalorieDayController extends Controller
             }
         }
 
-        $incompleteCarrots = $user->carrots->groupBy(function($carrot){
-            return $carrot->complete ? 'complete' : 'incomplete';
-        });
-
         $weighIn = $user->weigh_ins()
         ->whereDate('created_at', Carbon::parse($calorieDay->created_at))
         ->first();
@@ -104,7 +100,6 @@ class CalorieDayController extends Controller
             'calorieDay' => $calorieDay,
             'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
             'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
-            'carrots' => $incompleteCarrots->get('incomplete',[]),
             'weighIn' => $weighIn,
         ]);
     }
