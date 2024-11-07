@@ -89,28 +89,28 @@ const createOrUpdateAccount = () => {
   <div class="bg-main border-2 border-light rounded shadow-xl p-4 sm:p-12 ">
 
     <form @submit.prevent="createOrUpdateAccount" id="calorie" class="text-center mb-4">
-      <div class="space-y-2">
+      <div class="space-y-2 ">
         <div>
           <h2 class="text-2xl font-semibold leading-7 text-dark-text mb-2">Calculate your basal metabolic rate (BMR)
           </h2>
         </div>
 
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
 
-          <section class="grid grid-cols-2 gap-x-2 gap-y-4 ">
+          <section class="grid grid-cols-2 lg:gap-x-2 gap-y-1 lg:gap-y-4 mb-4 lg:mb-0">
 
             <div class="col-span-2">
               <InputLabel for="age" value="Age" />
-              <div class="mt-2 relative">
+              <div class="lg:mt-2 relative">
                 <NumberInput v-model.number="form.age" type="number" name="age" id="age" placeholder="ages 15 - 80"
                   inputmode="numeric" pattern="^[0-9]*$" min="15" max="80" class="w-full text-center"></NumberInput>
-                <!-- <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Age</span> -->
+                <span class="absolute top-0 right-0 py-1.5 px-5 font-bold text-black/50">Yrs</span>
               </div>
             </div>
 
             <fieldset class="col-span-2">
-              <legend class="text-sm font-semibold leading-6 text-dark-text">Gender</legend>
+              <legend class="text-sm leading-6 text-dark-text">Gender</legend>
               <div class="flex justify-around h-full ">
                 <div class="flex items-center gap-x-3">
                   <input v-model="form.gender" id="gender-male" name="gender" type="radio" value="Male"
@@ -128,13 +128,13 @@ const createOrUpdateAccount = () => {
             <div class="col-span-2">
               <InputLabel for="height-feet" value="Height" />
               <div class="grid grid-cols-2 gap-2">
-                <div class="mt-2 relative">
+                <div class="lg:mt-2 relative">
                   <NumberInput v-model.number="form.heightFeet" type="number" name="height-feet" id="height-feet"
                     inputmode="numeric" min="0" max="11" class="w-full text-start"></NumberInput>
                   <span class="absolute top-1 right-0 py-1.5 px-5 font-bold text-black/50 text-sm">Feet</span>
 
                 </div>
-                <div class="mt-2 relative">
+                <div class="lg:mt-2 relative">
                   <NumberInput v-model.number="form.heightInches" type="number" name="height-inches" id="height-inches"
                     inputmode="numeric" min="0" max="11" class="w-full text-start">
                   </NumberInput>
@@ -147,7 +147,7 @@ const createOrUpdateAccount = () => {
 
             <div class="col-span-2">
               <InputLabel for="weight" value="Weight" />
-              <div class="mt-2 relative">
+              <div class="lg:mt-2 relative">
                 <NumberInput v-model.number="form.weight" id="weight" name="weight" type="number" inputmode="numeric"
                   class=" w-full text-center">
                 </NumberInput>
@@ -159,7 +159,7 @@ const createOrUpdateAccount = () => {
             <div class="col-span-2">
 
               <InputLabel for="activity" value="Activity Level" />
-              <div class="mt-2">
+              <div class="lg:mt-2">
                 <select v-model="form.activity" id="activity" name="activity"
                   class=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
                   <option value=1>Basal Metabolic Rate</option>
@@ -175,7 +175,7 @@ const createOrUpdateAccount = () => {
 
           </section>
 
-          <div class="relative h-60 sm:h-full">
+          <div class="relative h-80 lg:h-full">
 
             <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0"
               enter-to-class="opacity-100" leave-active-class="ease-in duration-200" leave-from-class="opacity-100"
@@ -246,7 +246,7 @@ const createOrUpdateAccount = () => {
       <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
         leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
         <section v-if="result.value && canSetGoal"
-          class="absolute flex justify-center items-center w-full bg-light text-2xl sm:text-4xl font-bold text-dark-text h-10 sm:h-20 px-4">
+          class="absolute flex justify-center items-center w-full bg-light text-2xl sm:text-4xl font-bold text-dark-text h-10 sm:h-20 px-4 ">
           Calorie Goal: {{ Math.round(result.value * (form.goalModifier * .01)) }}
         </section>
       </Transition>
