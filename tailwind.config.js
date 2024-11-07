@@ -44,7 +44,8 @@ export default {
                 }
             },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['"Exo 2"', ...defaultTheme.fontFamily.sans],
             },
         },
     },
