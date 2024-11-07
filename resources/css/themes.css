@@ -1,4 +1,5 @@
 :root {
+  --hero-gradient: 220, 228, 222;
   --color-page: 255 252 242;
   --color-main: 255 252 242;
   --color-light: 204 197 185;
@@ -15,6 +16,7 @@
 
 /* Default theme */
 body[body-theme="theme-sunRise"] {
+  --hero-gradient: 37, 36, 34;
   --color-page: 255 252 242;
   --color-main: 255 252 242;
   --color-light: 204 197 185;
@@ -30,6 +32,7 @@ body[body-theme="theme-sunRise"] {
 }
 
 body[body-theme="theme-coolTides"] {
+  --hero-gradient: 43, 83, 65;
   --color-page: 241 250 238;
   --color-main: 241 250 238;
   --color-light: 128 155 139;
@@ -45,6 +48,7 @@ body[body-theme="theme-coolTides"] {
 }
 
 body[body-theme="theme-sketchPad"] {
+  --hero-gradient: 220, 228, 222;
   --color-page: 229 241 233;
   --color-main: 229 241 233;
   --color-light: 255 255 255;
