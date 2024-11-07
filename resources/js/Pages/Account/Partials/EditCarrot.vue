@@ -147,7 +147,7 @@ const closeModal = () => {
 
 
     <h3 v-if="uncompletedCarrots.length" class="font-bold mdi mdi-human-male">Uncompleted</h3>
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
       <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light rounded px-2 py-1">
         <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
         <div class="flex space-x-1">
@@ -160,7 +160,7 @@ const closeModal = () => {
     </div>
 
     <h3 v-if="completedCarrots.length" class="font-bold mdi mdi-weight-lifter">Completed</h3>
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
       <div v-for="carrot in completedCarrots"
         class="flex justify-between text-xs bg-neutral text-light-text rounded px-2 py-1">
         <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>

@@ -23,56 +23,48 @@
 
     <div class="sm:hidden border-b border-neutral my-4 mx-4"></div>
 
-    <div class="flex flex-col justify-around items-center sm:items-end me-0 sm:me-4">
-      <Link :href="route('calculator')" class="text-base hover:text-accent-light duration-300 pe-2 pb-2 sm:pb-0">GET
+    <div class="flex flex-col justify-around items-center lg:items-end me-0 lg:me-4">
+      <Link :href="route('calculator')" class="text-base hover:text-accent-light duration-300 pe-2 pb-2 lg:pb-0">GET
       COUNTING!</Link>
-      <ul class="text-sm text-neutral-text sm:space-y-1 flex flex-col items-start sm:items-end ">
+
+
+      <ul class="text-sm text-neutral-text lg:space-y-1 flex flex-col items-start lg:items-end ">
         <li class="flex flex-wrap">
-          <!-- <Link :href="route('calculator')" class="hover:text-light-text duration-300">
-          Own a Crunch
-          </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i> -->
+
           <Link :href="route('account.show')" class="hover:text-light-text duration-300">
           Contact
           </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
-          <!-- <Link :href="route('calculator')" class="hover:text-light-text duration-300">
-          Corporate Memberships
-          </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i> -->
+          <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>
+
         </li>
 
         <li class="flex flex-wrap">
-          <!-- <Link :href="route('calculator')" class="hover:text-light-text duration-300">
-          Healthcare Partnerships
-          </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
-          <Link :href="route('calculator')" class="hover:text-light-text duration-300">
-          Careers
-          </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i> -->
+
           <Link :href="route('account.show')" class="hover:text-light-text duration-300">
           Terms of Use
           </Link>
-          <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
+          <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>
         </li>
 
-        <li class="flex flex-col sm:flex-row justify-end items-end space-y-1">
+        <li class="flex flex-col lg:flex-row justify-end items-start lg:items-end space-y-1">
           <div class="flex">
+
             <Link :href="route('account.show')" class="hover:text-light-text duration-300">
             Privacy Policy
             </Link>
-            <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
+            <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>
           </div>
 
           <div class="flex">
             <Link :href="route('account.show')" class="hover:text-light-text duration-300">
             Manage My Preferences
             </Link>
-            <i class="mdi mdi-circle-medium px-1 sm:px-2"></i>
+            <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>
           </div>
         </li>
       </ul>
+
+
     </div>
 
   </div>

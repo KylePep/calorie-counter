@@ -34,7 +34,7 @@ function changeTheme(theme) {
     </h1>
 
     <form @submit.prevent="" class="my-3">
-      <div class="space-x-3">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
         <button @click="changeTheme('theme-sunRise')"
           class="p-3 font-bold hover:bg-dark hover:text-light-text rounded shadow-lg"
           :class="account.theme == 'theme-light' ? 'bg-[#f6a327] text-neutral-text' : 'bg-[#eb5e28] text-dark-text'">
