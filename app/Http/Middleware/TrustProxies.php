@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
  
 use Illuminate\Http\Request;
-use Inertia\Middleware;
- 
+use Illuminate\Routing\Controllers\Middleware;
+
 class TrustProxies extends Middleware
 {
     protected $proxies = '*';
