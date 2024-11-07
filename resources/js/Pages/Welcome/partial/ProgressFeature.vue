@@ -70,7 +70,7 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
       </div>
 
       <div>
-        <div class="flex w-full overflow-x-clip">
+        <div class="flex w-full overflow-x-auto">
           <FoodCard :foodItem="mockItem" />
           <FoodCard :foodItem="mockItem2" />
         </div>
