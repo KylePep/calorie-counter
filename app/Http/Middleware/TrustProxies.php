@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
  
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Http\Middleware\TrustProxies as Middleware;
 
 class TrustProxies extends Middleware
 {
