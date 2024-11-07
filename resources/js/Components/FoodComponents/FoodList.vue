@@ -62,7 +62,6 @@ async function fetchFoodData(page = 1) {
     if (form.requireAllWords) {
       let newArray = query.split(' ').map(a => '+' + a);
       query = newArray.join(' ');
-      console.log(query)
     }
 
     const response = await axios.get('/search-foodUsda', {

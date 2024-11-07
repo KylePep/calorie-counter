@@ -39,7 +39,6 @@ async function getUsdaFoodById() {
 
     setForm(foodItem);
     loading.value = false;
-    console.log('foodItem', response);
 
   } catch (error) {
     loading.value = false;
@@ -137,7 +136,6 @@ const createFoodItem = () => {
   form.post(route('foodItem.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`);
-      console.log('made it here');
       closeModal();
     },
     onError: (errors) => {
