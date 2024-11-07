@@ -10,7 +10,7 @@ const props = defineProps(['weighIn', 'date']);
 
 const form = useForm({
   weight: null,
-  date: props.date ?? new Date()
+  date: props.date ?? null
 });
 
 async function createWeighIn() {

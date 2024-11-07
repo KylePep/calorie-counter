@@ -21,24 +21,27 @@ class WeighInController extends Controller
             'weight' => ['required', 'integer'],
             'date' => ['string', 'nullable']
         ]);
-        
-            $userTimezone = $account->timezone;
 
-            $givenDay = Carbon::parse($validated['date'], $userTimezone)->midDay()->setTimezone($userTimezone);
+        $userTimezone = $account->timezone;
 
-            $existsWeighIn = $user->weigh_ins()
-            ->whereDate('created_at', $givenDay->toDateString())
-            ->exists();
+        $givenDay = is_null($validated['date'])
+        ? Carbon::now($userTimezone)->startOfDay()
+        : Carbon::parse($validated['date'], $userTimezone)->midDay()->setTimezone($userTimezone);
 
-            if($existsWeighIn){
-                return Redirect::route('history')->withErrors(['date' => 'A weigh in already exists for the selected date.']);
-            }
+        $existsWeighIn = $user->weigh_ins()
+        ->whereDate('created_at', $givenDay->toDateString())
+        ->exists();
+
+        if($existsWeighIn){
+            return Redirect::route('history')->withErrors(['date' => 'A weigh in already exists for the selected date.']);
+        }
+
             $weighIn = $user->weigh_ins()->create([
                 'weight' => $validated['weight'],
                 'created_at' => $givenDay->hour(17)
             ]);
 
-        // Check carrot for weight requirement -> notify user of distance to carrot
+    
 
         return back()->with([
             'success' => 'Weigh in recorded successfully',
@@ -54,7 +57,7 @@ class WeighInController extends Controller
 
         $weighIn->update($validated);
 
-        //Recheck carrot for weight requirement -> notify user of distance to carrot
+        
 
         return back()->with([
             'success' => 'Weigh in updated successfully',
