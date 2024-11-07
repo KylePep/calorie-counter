@@ -6,6 +6,9 @@
         "build": "vite build",
         "heroku-postbuild": "npm install && npm run build"
     },
+    "engines": {
+    "node": "20.x"
+    },
     "dependencies": {
     "sweetalert2": "11.7.10"
     },
