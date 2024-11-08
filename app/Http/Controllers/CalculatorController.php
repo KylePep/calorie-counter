@@ -12,7 +12,7 @@ class CalculatorController extends Controller
     {
         $user = Auth::user();
 
-        $account = $user ? $user-> account : [
+        $account = $user ? $user->account : [
             'gender' => 'Male',
             'weight' => 160,
             'height' => 177.8, 

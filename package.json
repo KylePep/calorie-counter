@@ -10,11 +10,11 @@
     "node": "20.x"
     },
     "dependencies": {
-        "vite": "^5.0",
-        "laravel-vite-plugin": "^1.0",
         "sweetalert2": "11.7.10"
     },
     "devDependencies": {
+        "vite": "^5.0",
+        "laravel-vite-plugin": "^1.0",
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
         "@vitejs/plugin-vue": "^5.0.0",

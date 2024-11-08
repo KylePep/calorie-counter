@@ -85,6 +85,7 @@ const createOrUpdateAccount = () => {
 
 
 <template>
+  {{ $page.props }}
 
   <div class="bg-main border-2 border-light rounded shadow-xl p-4 sm:p-12 ">
 
@@ -255,7 +256,7 @@ const createOrUpdateAccount = () => {
 
     <div class="flex justify-end space-x-8 mt-4 sm:mt-8">
 
-      <div class="block w-full sm:w-fit">
+      <!-- <div class="block w-full sm:w-fit">
         <Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100"
           leave-active-class="ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
 
@@ -264,7 +265,7 @@ const createOrUpdateAccount = () => {
             Set Goal <i class="ms-2 mdi mdi-checkbox-marked-circle-plus-outline"></i>
           </PrimaryButton>
         </Transition>
-      </div>
+      </div> -->
 
 
       <PrimaryButton @click="calculateResult()" type="button" class="w-full sm:w-fit flex justify-center">

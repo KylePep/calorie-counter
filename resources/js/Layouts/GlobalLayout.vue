@@ -6,20 +6,19 @@ import { Head, usePage } from "@inertiajs/vue3";
 import FooterContent from "./Partials/FooterContent.vue";
 import PageLayout from "./PageLayout.vue";
 
-// const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight']);
+const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight']);
 
-// const { props: pageProps } = usePage();
-// const theme = pageProps.auth.account?.theme ?? 'theme-sunRise';
-// document.body.setAttribute('body-theme', theme);
+const { props: pageProps } = usePage();
+const theme = pageProps.auth?.account?.theme ?? 'theme-sunRise';
+document.body.setAttribute('body-theme', theme);
 
 </script>
 
 
 <template>
-  Hello Calorie Counter
-  <!-- <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
+  <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
     <nav class="sticky top-0 z-20 shadow-xl">
-      <GuestNav v-if="!$page.props.auth.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
+      <GuestNav v-if="!$page.props.auth?.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
       <AuthenticatedNav v-else></AuthenticatedNav>
     </nav>
 
@@ -65,8 +64,8 @@ import PageLayout from "./PageLayout.vue";
     <footer class="mt-20">
       <CalculateBanner position="footer" />
       <FooterContent />
-    </footer> -->
-  <!-- </div> -->
+    </footer>
+  </div>
 
 
 </template>
