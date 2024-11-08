@@ -85,7 +85,8 @@ const createOrUpdateAccount = () => {
 
 
 <template>
-  {{ $page.props }}
+  Page Props: {{ $page.props }} <br>
+  Auth: {{ $page.props.auth }}
 
   <div class="bg-main border-2 border-light rounded shadow-xl p-4 sm:p-12 ">
 

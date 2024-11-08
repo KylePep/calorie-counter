@@ -36,14 +36,14 @@ class AccountController extends Controller
     public function store(StoreAccountRequest $request)
     {
         $validated  = $request->validate([
-            'bmr' => ['required', 'integer'],
-            'goal' => ['required', 'integer'],
-            'goalModifier' => ['required', 'integer'],
+            'bmr' => ['required', 'numeric'],
+            'goal' => ['required', 'numeric'],
+            'goalModifier' => ['required', 'numeric'],
             'carrot' => ['string'],
-            'age' => ['required', 'integer'],
+            'age' => ['required', 'numeric'],
             'gender' => ['required', Rule::in(['Male', 'Female'])],
             'height' => ['required', 'numeric'],
-            'weight' => ['required', 'integer'],
+            'weight' => ['required', 'numeric'],
             'activity' => ['required', 'string'],
             'timezone' => ['required', 'string'],
         ]);
@@ -103,10 +103,10 @@ class AccountController extends Controller
         $user = User::find(Auth::id());
 
         $validated = $request->validate([
-            'goal' => ['integer'],
-            'goalModifier' => ['integer'],
-            'bmr' => ['integer'],
-            'age' => ['integer'],
+            'goal' => ['numeric'],
+            'goalModifier' => ['numeric'],
+            'bmr' => ['numeric'],
+            'age' => ['numeric'],
             'gender' => [Rule::in(['Male', 'Female'])],
             'height' => ['numeric'],
             'weight' => ['numeric'],

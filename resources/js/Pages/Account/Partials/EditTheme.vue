@@ -4,7 +4,7 @@ import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps(['account']);
 
-const form = useForm(props.account);
+const form = useForm(props.account ?? { peanut: 'butter' });
 
 function changeTheme(theme) {
 
@@ -28,7 +28,7 @@ function changeTheme(theme) {
 
 
 <template>
-  <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
+  <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
     <h1 class="font-bold">
       Select a theme:
     </h1>

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('goal'); //Goal
             $table->integer('age');
             $table->string('gender');
-            $table->integer('height');
-            $table->integer('weight');
+            $table->float('height');
+            $table->float('weight');
             $table->string('activity');
             $table->string('theme')->default('theme-light');
             $table->string('timezone');

@@ -31,7 +31,7 @@ class FoodUsdaController extends Controller
     public function searchByQuery(Request $request)
     {
 
-        $apiKey = config('services.food_data.api_key');
+        $apiKey = env('FOOD_DATA_API_KEY');
 
         $query = $request->input('query');
         $pageNumber = $request->input('pageNumber',1);
