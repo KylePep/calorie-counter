@@ -124,12 +124,12 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="px-4">
+                <ResponsiveNavLink :href="route('account.show')" class="px-4">
                     <div class="font-medium text-base text-light-text">
                         {{ $page.props.auth.user.name }}
                     </div>
                     <div class="font-medium text-sm text-light-text/75">{{ $page.props.auth.user.email }}</div>
-                </div>
+                </ResponsiveNavLink>
 
                 <div class="mt-3 space-y-1">
                     <ResponsiveNavLink :href="route('account.show')"> Profile </ResponsiveNavLink>
