@@ -21,11 +21,9 @@ const renderHeroImage = computed(() => {
     }
 })
 
-const calorieDay = ref(props.calorieDay)
-const goal = computed(() => calorieDay.value?.goal);
-const bmr = computed(() => calorieDay.value?.bmr);
-
-const calorieCount = computed(() => calorieDay.value?.count ?? 0);
+const goal = computed(() => props.calorieDay.goal);
+const bmr = computed(() => props.calorieDay.bmr);
+const calorieCount = computed(() => props.calorieDay.count ?? 0);
 
 </script>
 
@@ -49,21 +47,7 @@ const calorieCount = computed(() => calorieDay.value?.count ?? 0);
         <CalorieDayLayout :account="account" :calorie-day="calorieDay" :with_fdc-id="with_fdcId"
             :without_fdc-id="without_fdcId" :carrots="carrots">
 
-            <p class="col-span-3 sm:col-span-1">
-                Today: {{ new Date().toLocaleDateString() }}
-            </p>
-            <p>
-                calories:
-                {{ calorieCount }}
-            </p>
-            <p>
-                Goal:
-                {{ goal }}
-            </p>
-            <p>
-                BMR:
-                {{ bmr }}
-            </p>
+            Today: {{ new Date().toLocaleDateString() }}
 
         </CalorieDayLayout>
 

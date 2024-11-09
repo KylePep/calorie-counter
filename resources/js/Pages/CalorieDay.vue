@@ -38,22 +38,9 @@ const getDayOfWeek = (date) => {
 
     <CalorieDayLayout :account="account" :calorie-day="calorieDay" :with_fdc-id="with_fdcId"
       :without_fdc-id="without_fdcId" :carrots="carrots">
-      <p class="col-span-3 sm:col-span-1">
-        {{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
-          Date(calorieDay.created_at).toLocaleDateString() }}
-      </p>
-      <p>
-        calories:
-        {{ calorieCount }}
-      </p>
-      <p>
-        Goal:
-        {{ goal }}
-      </p>
-      <p>
-        BMR:
-        {{ bmr }}
-      </p>
+
+      {{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
+        Date(calorieDay.created_at).toLocaleDateString() }}
 
     </CalorieDayLayout>
 

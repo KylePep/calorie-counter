@@ -96,8 +96,24 @@ function handleExtraButton(item, action, type) {
 
     <div v-else>
       <div
-        class="grid grid-cols-3 sm:flex sm:justify-around font-bold text-xs sm:text-base text-neutral-text text-center bg-gradient-to-b from-main via-main to-light border border-light rounded-t px-1 sm:px-3 -mb-4 uppercase">
-        <slot />
+        class="grid grid-cols-3 xl:grid-cols-4 font-bold text-xs xl:text-base text-neutral-text text-center bg-gradient-to-b from-main via-main to-light border border-light rounded-t px-1 sm:px-3 -mb-4 uppercase">
+
+        <p class="col-span-3 xl:col-span-1">
+          <slot />
+        </p>
+
+        <p>
+          calories:
+          {{ calorieCount }}
+        </p>
+        <p>
+          Goal:
+          {{ goal }}
+        </p>
+        <p>
+          BMR:
+          {{ bmr }}
+        </p>
       </div>
     </div>
   </section>
