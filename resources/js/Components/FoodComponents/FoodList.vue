@@ -182,8 +182,7 @@ async function favoriteItem(foodItem) {
 
 
           <div class="col-span-4 sm:col-span-5 relative flex items-center ">
-            <TextInput id="query" type="text" class="w-full h-8 rounded text-xs" v-model="form.query" required
-              autofocus />
+            <TextInput id="query" type="text" class="w-full h-8 rounded text-xs" v-model="form.query" required />
             <InputError :message="form.errors.query" />
 
             <button class="absolute right-0">
