@@ -167,7 +167,7 @@ function handleExtraButton(item, action) {
       <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
         <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)"
           :disabled="foodSearchResponse.currentPage <= 1"
-          :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-neutral text-light-text hover:text-main'"
+          :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
           class=" py-1 px-3 rounded">
           Previous
         </button>
@@ -184,7 +184,7 @@ function handleExtraButton(item, action) {
 
         <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
           :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
-          :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-neutral text-light-text hover:text-main'"
+          :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
           class="  py-1 px-3 rounded">
           Next
         </button>

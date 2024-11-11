@@ -1,6 +1,7 @@
 <script setup>
 import { usePage } from "@inertiajs/vue3";
 import FoodCardButton from "./FoodCardButton.vue";
+import { computed } from "vue";
 
 const props = defineProps(['foodItem']);
 const emit = defineEmits(['itemActivated', 'extraButton']);
@@ -11,6 +12,18 @@ const isCalorieDay = page.url.includes('calorie-day');
 
 function emitExtraButton(item, action) {
   emit('extraButton', item, action);
+}
+
+function blockClass(block) {
+  const blockCalorie = props.foodItem.calories - (block * 100);
+
+  if (blockCalorie >= 0) {
+    return 'bg-accent-dark'
+  } else if (blockCalorie >= -50) {
+    return 'bg-accent'
+  } else {
+    return 'bg-accent-light'
+  }
 }
 
 </script>
@@ -40,18 +53,17 @@ function emitExtraButton(item, action) {
 
       </div>
 
-      <div @click="emitExtraButton(foodItem, 'edit')" :title="'Edit'"
-        class="flex-1 text-light-text bg-neutral hover:bg-light hover:text-dark-text hover:cursor-pointer p-3 duration-300 border-x border-light">
-        <h1 class="text-sm truncate sm:text-balance ">{{ foodItem.description }}
+      <button @click="emitExtraButton(foodItem, 'edit')"
+        class="flex-1 bg-main text-dark-text hover:bg-neutral hover:text-light-text p-3 duration-300 border-x border-light">
+        <h1 class="text-sm truncate sm:text-balance font-bold">{{ foodItem.description }}
         </h1>
-      </div>
+      </button>
 
     </section>
 
-    <section
-      class="grid grid-cols-10 grid-rows-2 grid-flow-col gap-0.5 p-1 border border-t-0 border-light bg-dark rounded-b">
-      <div v-for="block in Math.round(foodItem.calories / 50) " title="50 Calories"
-        class="bg-accent h-3 border border-neutral rounded-sm">
+    <section class="grid grid-cols-10 gap-0.5 p-1 border border-t-0 border-light bg-main rounded-b">
+      <div v-for="block in Math.ceil(foodItem.calories / 100) " title="100 Calories"
+        class="h-3 border border-light rounded-sm" :class="blockClass(block)">
       </div>
     </section>
   </div>
