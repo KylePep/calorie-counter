@@ -2,6 +2,8 @@
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 
 const displayMode = defineModel('displayMode');
+
+
 </script>
 
 <template>
@@ -9,11 +11,16 @@ const displayMode = defineModel('displayMode');
     <div class="flex items-center col-span-2 font-bold px-2">
       Display: <span class="ms-2 font-normal uppercase">{{ displayMode }}</span>
     </div>
-    <PrimaryButton @click="displayMode = 'list'" class="flex justify-center"> <span class="hidden sm:block">List</span>
+    <button @click="displayMode = 'list'"
+      :class="[displayMode == 'list' ? 'bg-neutral text-light-text' : 'bg-accent hover:bg-dark text-dark-text hover:text-light-text']"
+      class="flex justify-center rounded"> <span class="hidden sm:block">List</span>
       <i class="ms-2 mdi mdi-card-text"></i>
-    </PrimaryButton>
-    <PrimaryButton @click="displayMode = 'bar'" class="flex justify-center"><span class="hidden sm:block">Progress
+    </button>
+
+    <button @click="displayMode = 'bar'"
+      :class="[displayMode == 'bar' ? 'bg-neutral text-light-text' : 'bg-accent hover:bg-dark text-dark-text hover:text-light-text']"
+      class="flex justify-center rounded"><span class="hidden sm:block">Progress
         Bar</span> <i class="ms-2 mdi mdi-poll rotate-90"></i>
-    </PrimaryButton>
+    </button>
   </div>
 </template>

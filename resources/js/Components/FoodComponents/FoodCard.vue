@@ -47,7 +47,7 @@ function blockClass(block) {
           <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'"
             @click.stop="emitExtraButton(foodItem, 'delete')" icon="delete">Delete
           </FoodCardButton>
-          <FoodCardButton v-if="!isDashboard && page.url == '/'" icon="signUp">SignUp
+          <FoodCardButton v-if="!isDashboard && page.url == '/'" icon="signUp">
           </FoodCardButton>
         </div>
 

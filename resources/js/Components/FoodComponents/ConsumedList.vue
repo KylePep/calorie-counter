@@ -53,7 +53,7 @@ async function confirmRemoveItem(item) {
 <template>
   <CollapsableFolder>
     <template #title>
-      <h1>Eaten</h1>
+      <h1>Counted</h1>
     </template>
 
     <template #config>
