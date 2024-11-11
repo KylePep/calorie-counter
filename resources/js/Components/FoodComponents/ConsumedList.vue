@@ -1,8 +1,12 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import CollapsableFolder from "../Displays/CollapsableFolder.vue";
+import Pop from "@/utils/Pop.js";
 
 const props = defineProps(['dayItems']);
-defineEmits(['removeFoodItem']);
+const emit = defineEmits(['removeFoodItem']);
+
+const displayList = ref(false);
 
 const firstRow = computed(() => props.dayItems.filter((_, index) => index % 2 === 0));
 const secondRow = computed(() => props.dayItems.filter((_, index) => index % 2 === 1));
@@ -16,12 +20,12 @@ function representativeWidth(item) {
     200: 'w-32',
     200: 'w-40',
     400: 'w-56',
-    500: 'w-60',
-    600: 'w-72',
-    700: 'w-80',
+    500: 'w-40',
+    600: 'w-60',
+    700: 'w-72',
     800: 'w-80',
-    900: 'w-80',
-    1000: 'w-80',
+    900: 'w-90',
+    1000: 'w-100',
   }[calorieBy100];
 }
 
@@ -36,27 +40,64 @@ const getAnimationClass = (item) => {
   return '';
 }
 
+async function confirmRemoveItem(item) {
+  const confirmRemove = await Pop.confirm(`Remove ${item.description} - ${item.count}? `)
+  if (!confirmRemove) {
+    return;
+  }
+  emit('removeFoodItem', item);
+}
+
 </script>
 
 <template>
+  <CollapsableFolder>
+    <template #title>
+      <h1>Eaten</h1>
+    </template>
 
-  <div class=" p-2 grid grid-rows-2 text-center overflow-x-auto whitespace-nowrap gap-1 ">
-    <div v-for="rowIndex in 2" class="flex space-x-1">
-      <button v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
-        @click="$emit('removeFoodItem', item)" :class="representativeWidth(item)"
-        :title="`${item.description}  -${item.count} Calories`"
-        class="group relative hover:bg-dark h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
-
-        <p ref="scrollingText" :class="getAnimationClass(item)"
-          class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
-          {{ item.description }}
-        </p>
-        <p
-          class="absolute left-1/2  object-center group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
-        </p>
-
+    <template #config>
+      <button @click="displayList = !displayList"
+        class="bg-accent hover:bg-dark text-dark-text hover:text-light-text rounded-md px-3 ">
+        <i :class="displayList ? 'mdi mdi-card-text' : 'mdi mdi-format-list-bulleted'"></i>
       </button>
-    </div>
+    </template>
 
-  </div>
+    <template #content>
+
+      <div v-if="!displayList" class=" p-2 grid grid-rows-2 text-center overflow-x-auto whitespace-nowrap gap-1 ">
+        <div v-for="rowIndex in 2" class="flex space-x-1">
+          <button v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
+            @click="confirmRemoveItem(item)" :class="representativeWidth(item)"
+            :title="`${item.description}  -${item.count} Calories`"
+            class="group relative hover:bg-dark h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
+
+            <p ref="scrollingText" :class="getAnimationClass(item)"
+              class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
+              {{ item.description }}
+            </p>
+            <p
+              class="absolute left-1/2  object-center group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
+            </p>
+
+          </button>
+        </div>
+      </div>
+
+      <div v-else class="grid grid-cols-2 sm:grid-cols-3">
+        <button v-for="(item, index) in dayItems" :key="index" @click="confirmRemoveItem(item)"
+          class="group relative hover:bg-dark h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
+
+          <p class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
+            {{ item.description }} - {{ item.count }}
+          </p>
+          <p
+            class="absolute left-1/2  object-center group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
+          </p>
+
+        </button>
+      </div>
+
+    </template>
+  </CollapsableFolder>
 </template>

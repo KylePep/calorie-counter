@@ -9,7 +9,6 @@ import FoodList from "@/Components/FoodComponents/FoodList.vue";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
 import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
-import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
 
@@ -125,15 +124,7 @@ function handleExtraButton(item, action, type) {
   </section>
 
   <section v-if="props.account && calorieDay.food_items.length">
-    <CollapsableFolder>
-      <template #title>
-        <h1>Eaten</h1>
-      </template>
-      <template #config></template>
-      <template #content>
-        <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
-      </template>
-    </CollapsableFolder>
+    <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
   </section>
 
   <section v-if="props.account">
