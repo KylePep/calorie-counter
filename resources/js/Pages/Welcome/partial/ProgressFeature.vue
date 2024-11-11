@@ -72,7 +72,7 @@ const getAnimationClass = (item) => {
         </div>
       </div>
 
-      <div>
+      <div class="col-span-2 sm:col-span-1 order-1 sm:order-1">
         <p class="px-4 py-2 bg-neutral text-sm lg:text-base  text-light-text h-full">
           Higher calorie foods will
           appear larger
@@ -84,7 +84,7 @@ const getAnimationClass = (item) => {
 
       </div>
 
-      <div>
+      <div class="col-span-2 sm:col-span-1 order-3 sm:order-2">
         <p class="px-4 py-2 bg-neutral text-sm lg:text-base text-light-text h-full">Selecting foods from the
           USDA's
           database
@@ -97,7 +97,7 @@ const getAnimationClass = (item) => {
         </p>
       </div>
 
-      <div class="flex flex-col mb-2">
+      <div class="col-span-2 sm:col-span-1 flex flex-col mb-2 order-2 sm:order-3">
         <div class="border-2 rounded border-neutral bg-light overflow-x-auto h-full">
           <div class=" p-2 grid grid-rows-2 text-center  whitespace-nowrap gap-1 ">
             <div v-for="rowIndex in 2" class="flex space-x-1">
@@ -116,7 +116,7 @@ const getAnimationClass = (item) => {
         </div>
       </div>
 
-      <div>
+      <div class="col-span-2 sm:col-span-1 order-4 sm:order-4">
         <div class="flex w-full space-x-4 overflow-x-auto mb-2">
           <FoodCard :foodItem="mockItem" />
           <FoodCard :foodItem="mockItem2" />
