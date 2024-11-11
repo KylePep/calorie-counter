@@ -35,6 +35,7 @@ function setActive(foodItem, type) {
   } else { showEditForm.value = true; }
   ActiveFoodItem.value = foodItem;
 }
+
 const closeModal = () => {
   showEditForm.value = false;
   showUsdaForm.value = false;
@@ -151,8 +152,7 @@ function handleExtraButton(item, action, type) {
   </section>
 
   <section>
-    <FoodList @increase-by="updateCalorieDayFoodItem"
-      @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
+    <FoodList />
   </section>
 
   <FoodEditModal :showModal="showEditForm" @close-modal="closeModal" :foodItem="ActiveFoodItem" />

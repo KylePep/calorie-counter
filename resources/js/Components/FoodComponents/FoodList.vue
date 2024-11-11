@@ -1,22 +1,15 @@
 <script setup>
 import InputError from "@/Components/Form/InputError.vue";
 import TextInput from "@/Components/Form/TextInput.vue";
-import { router, useForm } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import { computed, reactive, ref } from "vue";
 import { FoodSearchResponse } from "../../models/FoodSearchResponse.js";
 import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
-import Pop from "@/utils/Pop.js";
 import Dropdown from "../Form/Dropdown.vue";
 import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
-
-const emit = defineEmits(['increase-by', 'extraButton']);
-
-function handleIncreaseBy(item) {
-  emit('increase-by', item);
-}
 
 const form = useForm({
   query: '',
@@ -83,35 +76,6 @@ async function fetchFoodData(page = 1) {
   } catch (error) {
     loading.value = false;
     console.error(error, '[Error fetching food data]');
-  }
-}
-
-
-function handleExtraButton(item, action) {
-  if (action == 'edit' || action == 'add') {
-    emit('extraButton', item, action);
-  } else {
-    favoriteItem(item);
-  }
-}
-
-async function favoriteItem(foodItem) {
-  const data = {
-    ...foodItem,
-    calories: foodItem.calories
-  };
-
-  try {
-    // Post the food item data to your backend
-    const res = await axios.post(route('foodItem.store'), data);
-
-    router.reload({
-      only: ['with_fdcId', 'without_fdcId'],
-    });
-    Pop.success(`${foodItem.description} added to favorites`);
-
-  } catch (error) {
-    console.error(error);
   }
 }
 
@@ -220,7 +184,7 @@ async function favoriteItem(foodItem) {
         </button>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 bg-light text-center ">
+      <div class="grid grid-cols-2 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 bg-light text-center ">
 
         <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
           class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg h-40 rounded">
@@ -232,7 +196,7 @@ async function favoriteItem(foodItem) {
         </div>
 
         <div v-for="foodItem in foods">
-          <UsdaFoodCard :food-item="foodItem" @increase-by="handleIncreaseBy" @extraButton="handleExtraButton" />
+          <UsdaFoodCard :food-item="foodItem" />
         </div>
 
       </div>

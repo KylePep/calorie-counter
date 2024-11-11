@@ -17,7 +17,7 @@ function emitExtraButton(item, action) {
 
 <template>
 
-  <div class="flex flex-col h-full w-60 drop-shadow-lg">
+  <div class="flex flex-col h-full w-40 sm:w-60 drop-shadow-lg">
 
     <section class="flex flex-col flex-1  ">
 
