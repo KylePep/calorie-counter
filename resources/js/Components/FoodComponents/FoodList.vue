@@ -11,6 +11,8 @@ import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 
+const emit = defineEmits(['extraButton']);
+
 const form = useForm({
   query: '',
   type: 'Branded',
@@ -61,7 +63,7 @@ async function fetchFoodData(page = 1) {
       params: {
         query: query,
         pageNumber: page,
-        pageSize: 9,
+        pageSize: 10,
         dataType: form.type
       },
     });
@@ -77,6 +79,10 @@ async function fetchFoodData(page = 1) {
     loading.value = false;
     console.error(error, '[Error fetching food data]');
   }
+}
+
+function handleExtraButton(item, action) {
+  emit('extraButton', item, action);
 }
 
 </script>
@@ -187,16 +193,16 @@ async function fetchFoodData(page = 1) {
       <div class="grid grid-cols-2 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 bg-light text-center ">
 
         <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
-          class="break-inside-avoid relative flex flex-col justify-center w-full text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg h-40 rounded">
+          class="break-inside-avoid relative flex flex-col justify-center w-full text-sm sm:text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg min-h-24 rounded">
           {{ !loading ? 'Search for an item to begin counting calories!' : 'Searching' }}
         </div>
         <div v-if="foodSearchResponse.currentPage && foods.length == 0"
-          class="break-inside-avoid relative flex flex-col justify-center w-full text-light-text text-xl font-bold bg-dark p-3 border-2 border-light drop-shadow-lg h-40 rounded">
+          class="break-inside-avoid relative flex flex-col justify-center w-full text-light-text text-xl font-bold bg-dark p-3 border-2 border-light drop-shadow-lg min-h-24 rounded">
           No results found
         </div>
 
         <div v-for="foodItem in foods">
-          <UsdaFoodCard :food-item="foodItem" />
+          <UsdaFoodCard :food-item="foodItem" @extraButton="handleExtraButton" />
         </div>
 
       </div>
