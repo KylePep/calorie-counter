@@ -5,17 +5,15 @@ import NumberInput from "@/Components/Form/NumberInput.vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import Pop from "@/utils/Pop.js";
 import { useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
 
 const props = defineProps(['account']);
-
-const form = useForm({
-  trackMacros: false,
-  macros: {
-    carbohydrates: 0,
-    protein: 0,
-    fats: 0,
-  }
-});
+const account = computed(() => {
+  props.account.trackMacros = Boolean(props.account.trackMacros);
+  return props.account;
+})
+console.log(account.value)
+const form = useForm(account.value ?? { peanut: 'butter' });
 
 function updateAccount() {
 
@@ -36,6 +34,8 @@ function updateAccount() {
 
 <template>
   <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
+
+    {{ form }}
     <h1 class="font-bold">
       Macros
     </h1>
@@ -46,7 +46,9 @@ function updateAccount() {
     <form @submit.prevent="updateAccount" class="my-3">
       <div class="flex flex-col space-y-2">
         <div class="flex space-x-4">
-          <Checkbox name="trackMacros" class="h-6 w-6 group-hover:text-accent" v-model:checked="form.trackMacros" />
+          <Checkbox name="trackMacros" class="h-6 w-6 group-hover:text-accent" v-model:checked="form.trackMacros"
+            :checked="Boolean(form.trackMacros)" />
+          {{ Boolean(form.trackMacros) }}
           <p>Track Macros</p>
         </div>
 

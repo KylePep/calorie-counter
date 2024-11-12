@@ -11,6 +11,10 @@ class Account extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'macros' => 'object'
+    ];
+
     public function user()
     {
         return $this -> belongsTo(User::class);

@@ -78,7 +78,6 @@ class AccountController extends Controller
 
         $carrots = $user->carrots()->get();
 
-
         return Inertia::render('Account/Show', [
             'status' => session('status'),
             'carrots' => $carrots,
@@ -117,15 +116,10 @@ class AccountController extends Controller
             'macros.carbohydrates' => ['numeric', 'min:0'],
             'macros.protein' => ['numeric', 'min:0'],
             'macros.fats' => ['numeric', 'min:0'],
-            'macros' => ['json']
         ]);
-
-        $macros = [
-            'carbohydrates' => $validated['macros']['carbohydrates'] ?? 0,
-            'protein' => $validated['macros']['protein'] ?? 0,
-            'fats' => $validated['macros']['fats'] ?? 0,
-        ];
-
+        
+        $account->update($validated);
+        
         $latestCalorieDay = $user->calorieDays()->orderBy('created_at', 'desc')->first();
 
         if($latestCalorieDay){
@@ -133,8 +127,6 @@ class AccountController extends Controller
             $latestCalorieDay->bmr = $validated['bmr'];
             $latestCalorieDay->save();
         }
-
-        $account->update($validated);
 
         return Redirect::route('account.show');
     }
