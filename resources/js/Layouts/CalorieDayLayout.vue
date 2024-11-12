@@ -62,7 +62,7 @@ async function updateCalorieDayFoodItem(foodItem) {
     const data = {
       goal: calorieDay.value.goal,
       count: foodItem.calories,
-      food_items: [{ description: foodItem.description, count: foodItem.calories }]
+      food_items: [{ description: foodItem.description, count: foodItem.calories, protein: foodItem.protein, carbohydrate: foodItem.carbohydrate, fats: foodItem.fats }]
     };
     const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
     calorieDay.value = res.data

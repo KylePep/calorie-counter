@@ -31,19 +31,19 @@ const calorieDayMacros = computed(() => {
     <div class="font-bold">Macros</div>
     <div v-for="macro, index in account.macros" class="grid grid-cols-6 text-xs">
 
-      <span class="col-span-3 font-bold uppercase">
+      <span class="col-span-2 sm:col-span-3 font-bold uppercase">
         {{ index }}
       </span>
 
-      <span class="">
+      <span class="text-center">
         <p>{{ calorieDayMacros[index] / macro * 100 }}%</p>
       </span>
 
-      <span class="">
+      <span class="text-center">
         <p>{{ calorieDayMacros[index] }}</p>
       </span>
 
-      <span>
+      <span class="col-span-2 sm:col-span-1 text-end">
         <p>{{ macro }} Goal</p>
       </span>
 
