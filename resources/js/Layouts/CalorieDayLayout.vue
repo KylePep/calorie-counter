@@ -59,13 +59,10 @@ async function removeAndSubtractFoodItem(foodItem) {
 
 async function updateCalorieDayFoodItem(foodItem) {
   try {
-    const protein = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'protein');
-    const carbohydrates = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates');
-    const fats = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'fats');
     const data = {
       goal: calorieDay.value.goal,
-      count: foodItem.calories,
-      food_items: [{ description: foodItem.description, count: foodItem.calories, protein: protein.value, carbohydrates: carbohydrates.value, fats: fats.value }]
+      count: foodItem.count,
+      food_items: [{ description: foodItem.description, count: foodItem.count, protein: foodItem.protein.value, carbohydrates: foodItem.carbohydrates.value, fats: foodItem.fats.value }]
     };
     const res = await axios.put(route('calorieDay.update', calorieDay.value.id), data)
     calorieDay.value = res.data
@@ -122,7 +119,7 @@ function handleExtraButton(item, action, type) {
   </section>
 
   <CalorieDisplay v-if="props.account" :goal="goal" :calorieCount="calorieCount" :bmr="bmr" />
-  {{ calorieDay.food_items }}
+
   <MacroDisplay v-if="props.account && props.account.trackMacros == true" :account="account" :calorieDay="calorieDay" />
 
   <section v-if="props.account" class="block lg:hidden">

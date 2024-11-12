@@ -1,10 +1,17 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import CollapsableFolder from "./CollapsableFolder.vue";
 
 
 const props = defineProps(['account', 'calorieDay']);
 
-console.log(props.calorieDay)
+const displayList = ref(false);
+
+const sortedFoodItems = computed(() => {
+  return (key) => {
+    return [...props.calorieDay.food_items].sort((a, b) => b[key] - a[key]);
+  };
+})
 
 const calorieDayMacros = computed(() => {
   let protein = 0;
@@ -21,32 +28,82 @@ const calorieDayMacros = computed(() => {
   });
 
   return { protein, carbohydrates, fats }
-})
+});
+
+function macroClass(index) {
+  return {
+    protein: 'bg-accent/50',
+    carbohydrates: 'bg-accent-dark/50',
+    fats: 'bg-accent-light/50'
+  }[index]
+};
 
 </script>
 
 
 <template>
-  <div class="bg-main border border-light rounded px-3 py-1">
-    <div class="font-bold">Macros</div>
-    <div v-for="macro, index in account.macros" class="grid grid-cols-6 text-xs">
 
-      <span class="col-span-2 sm:col-span-3 font-bold uppercase">
-        {{ index }}
-      </span>
+  <div>
+    <CollapsableFolder>
+      <template #title>
+        <p>
+          Macros
+        </p>
+      </template>
 
-      <span class="text-center">
-        <p>{{ calorieDayMacros[index] / macro * 100 }}%</p>
-      </span>
+      <template #config>
+        <button @click="displayList = !displayList"
+          class="bg-accent hover:bg-dark text-dark-text hover:text-light-text rounded-md px-3 ">
+          <i :class="displayList ? 'mdi mdi-card-text' : 'mdi mdi-format-list-bulleted'"></i>
+        </button>
+      </template>
 
-      <span class="text-center">
-        <p>{{ calorieDayMacros[index] }}</p>
-      </span>
+      <template #content>
+        <div v-if="!displayList">
+          <div v-for="macro, index in account.macros" class="relative bg-main h-6">
 
-      <span class="col-span-2 sm:col-span-1 text-end">
-        <p>{{ macro }} Goal</p>
-      </span>
+            <div class="absolute h-full" :class="macroClass(index)"
+              :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100)}%` }">
+            </div>
 
-    </div>
+            <div class="absolute w-full h-full grid grid-cols-6 border border-neutral p-1 text-xs">
+              <span class="col-span-2 sm:col-span-3 font-bold uppercase">
+                {{ index }}
+              </span>
+
+              <span class="text-center">
+                <p>{{ Math.round(calorieDayMacros[index] / macro * 100) }}%</p>
+              </span>
+
+              <span class="text-center">
+                <p>{{ Math.round(calorieDayMacros[index]) }}</p>
+              </span>
+
+              <span class="col-span-2 sm:col-span-1 text-end">
+                <p>{{ macro }}g Goal</p>
+              </span>
+            </div>
+
+          </div>
+        </div>
+        <div v-else class="grid grid-cols-1 gap-4">
+          <div v-for="macro, index in account.macros">
+            <h1 class="font-bold">
+              <span class="uppercase">{{ index }}</span>
+              - {{ macro }}g - {{ Math.round(calorieDayMacros[index]) }}g -{{
+                Math.round(calorieDayMacros[index] / macro * 100) }}%
+            </h1>
+            <div v-for="item, i in sortedFoodItems(index)" :class="macroClass(index)"
+              class="grid grid-cols-5 text-center px-1 py-0.5 my-1">
+              <span class="col-span-3 text-start pe-2 truncate">{{ i + 1 }}. {{ item.description }}</span>
+              <span>{{ item[index] }}</span>
+              <span>{{ Math.round(item[index] / macro * 100) }}%</span>
+
+            </div>
+          </div>
+        </div>
+      </template>
+    </CollapsableFolder>
   </div>
+
 </template>

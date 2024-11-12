@@ -40,7 +40,7 @@ const showClasses = computed(() => {
     leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
 
     <div v-show="showFolder" :class="$slots.config ? 'rounded-tr' : 'rounded-tr-none'"
-      class="origin-top w-full p-2 bg-light border-2 rounded-b border-light mt-0 shadow-inner">
+      class="origin-top w-full p-2 bg-main border-2 rounded-b border-light mt-0 shadow-inner">
       <slot name="content" />
     </div>
 

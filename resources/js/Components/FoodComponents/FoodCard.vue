@@ -11,7 +11,18 @@ const isDashboard = page.url.includes('dashboard');
 const isCalorieDay = page.url.includes('calorie-day');
 
 function emitExtraButton(item, action) {
-  emit('extraButton', item, action);
+  const protein = item.foodNutrients.find((fn) => fn.nutrientName.toLowerCase() == 'protein');
+  const carbohydrates = item.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates' || fn.nutrientName.toLowerCase() == 'carbohydrate, by difference');
+  const fats = item.foodNutrients.find((fn) => fn.nutrientName == 'fats' || fn.nutrientName.toLowerCase() == 'total lipid (fat)');
+  const simplifiedFoodItem = {
+    description: item.description,
+    count: item.calories,
+    protein: protein,
+    carbohydrates: carbohydrates,
+    fats: fats
+  }
+  console.log('[FOOD CARD]', simplifiedFoodItem)
+  emit('extraButton', simplifiedFoodItem, action);
 }
 
 function blockClass(block) {
