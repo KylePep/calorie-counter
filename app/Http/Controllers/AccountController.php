@@ -113,7 +113,18 @@ class AccountController extends Controller
             'activity' => ['string'],
             'theme' => ['string'],
             'timezone' => ['string'],
+            'trackMacros' => ['boolean'],
+            'macros.carbohydrates' => ['numeric', 'min:0'],
+            'macros.protein' => ['numeric', 'min:0'],
+            'macros.fats' => ['numeric', 'min:0'],
+            'macros' => ['json']
         ]);
+
+        $macros = [
+            'carbohydrates' => $validated['macros']['carbohydrates'] ?? 0,
+            'protein' => $validated['macros']['protein'] ?? 0,
+            'fats' => $validated['macros']['fats'] ?? 0,
+        ];
 
         $latestCalorieDay = $user->calorieDays()->orderBy('created_at', 'desc')->first();
 
