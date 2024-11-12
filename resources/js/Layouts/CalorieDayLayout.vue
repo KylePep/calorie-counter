@@ -9,6 +9,7 @@ import FoodList from "@/Components/FoodComponents/FoodList.vue";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
 import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
+import MacroDisplay from "@/Components/Displays/MacroDisplay.vue";
 
 const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
 
@@ -118,6 +119,8 @@ function handleExtraButton(item, action, type) {
   </section>
 
   <CalorieDisplay v-if="props.account" :goal="goal" :calorieCount="calorieCount" :bmr="bmr" />
+
+  <MacroDisplay v-if="props.account && props.account.trackMacros == true" :account="account" :calorieDay="calorieDay" />
 
   <section v-if="props.account" class="block lg:hidden">
     <CreateFood />

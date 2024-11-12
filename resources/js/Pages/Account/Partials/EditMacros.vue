@@ -34,8 +34,6 @@ function updateAccount() {
 
 <template>
   <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
-
-    {{ form }}
     <h1 class="font-bold">
       Macros
     </h1>
@@ -48,7 +46,6 @@ function updateAccount() {
         <div class="flex space-x-4">
           <Checkbox name="trackMacros" class="h-6 w-6 group-hover:text-accent" v-model:checked="form.trackMacros"
             :checked="Boolean(form.trackMacros)" />
-          {{ Boolean(form.trackMacros) }}
           <p>Track Macros</p>
         </div>
 
