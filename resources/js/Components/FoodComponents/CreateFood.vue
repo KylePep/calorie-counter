@@ -26,7 +26,8 @@ const form = useForm({
   calories: 0,
   foodNutrients: [
     { nutrientName: "protein", value: 0, unitName: 'G' },
-    { nutrientName: "carbs", value: 0, unitName: 'G' },
+    { nutrientName: "carbohydrates", value: 0, unitName: 'G' },
+    { nutrientName: "fats", value: 0, unitName: 'G' },
     { nutrientName: "sugar", value: 0, unitName: 'G' },
     { nutrientName: "fiber", value: 0, unitName: 'G' },
     { nutrientName: "calcium", value: 0, unitName: 'MG' },

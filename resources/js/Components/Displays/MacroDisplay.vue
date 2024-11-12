@@ -4,19 +4,19 @@ import { computed } from "vue";
 
 const props = defineProps(['account', 'calorieDay']);
 
-const mockMacros = [{ "description": "Mega PB&J", "cal": 500, "protein": 15, 'carbohydrates': 5, 'fats': 3 }, { "description": "Mega PB&J", "cal": 500, "protein": 15, 'carbohydrates': 5, 'fats': 3 }];
+console.log(props.calorieDay)
 
 const calorieDayMacros = computed(() => {
   let protein = 0;
-  mockMacros.forEach(m => {
+  props.calorieDay.food_items.forEach(m => {
     protein += m.protein;
   });
   let carbohydrates = 0;
-  mockMacros.forEach(m => {
+  props.calorieDay.food_items.forEach(m => {
     carbohydrates += m.carbohydrates;
   });
   let fats = 0;
-  mockMacros.forEach(m => {
+  props.calorieDay.food_items.forEach(m => {
     fats += m.fats;
   });
 

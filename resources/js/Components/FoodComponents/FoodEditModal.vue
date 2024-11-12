@@ -85,10 +85,6 @@ async function deleteItem() {
 }
 
 async function updateItem() {
-  const confirmUpdate = await Pop.confirm(`Update ${form.description}? `)
-  if (!confirmUpdate) {
-    return;
-  }
   form.put(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
