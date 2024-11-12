@@ -14,7 +14,7 @@ export class BrandedFoodItem {
     this.labelNutrients = data.labelNutrients || 'N/A';
     this.ingredients = data.ingredients || 'N/A';
     this.foodNutrients = data.foodNutrients
-      .filter(nutrient => ['protein', 'energy', 'caffeine', 'iron, fe', 'carbohydrate, by difference', 'total sugars', 'calcium, ca', 'fiber, total dietary', 'sodium, na'].includes(nutrient.nutrientName.toLowerCase()))
+      .filter(nutrient => ['protein', 'energy', 'caffeine', 'total lipid (fat)', 'iron, fe', 'carbohydrate, by difference', 'total sugars', 'calcium, ca', 'fiber, total dietary', 'sodium, na'].includes(nutrient.nutrientName.toLowerCase()))
       .map(nutrient => new FoodNutrient(nutrient));
   }
 }

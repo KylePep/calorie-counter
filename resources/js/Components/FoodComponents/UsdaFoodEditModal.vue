@@ -98,7 +98,7 @@ const setForm = (foodItem) => {
     form.householdServingFullText = foodItem.householdServingFullText ?? '',
     form.servingSize = foodItem.servingSize || 1,
     form.servingSizeUnit = foodItem.servingSizeUnit || '',
-    form.foodCategory = foodItem.foodCategory,
+    form.foodCategory = '',
     form.labelNutrients = foodItem.labelNutrients || 'N/A',
     form.ingredients = foodItem.ingredients || 'N/A',
     form.foodNutrients = foodItem.foodNutrients

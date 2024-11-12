@@ -18,7 +18,7 @@ export class UsdaFoodItem {
     this.labelNutrients = data.labelNutrients || 'N/A';
     this.ingredients = data.ingredients || 'N/A';
     this.foodNutrients = data.foodNutrients
-      .filter(nutrient => ['protein', 'energy', 'caffeine', 'iron, fe', 'carbohydrate, by difference', 'total sugars', 'calcium, ca', 'fiber, total dietary', 'sodium, na'].includes(nutrient.nutrient.name.toLowerCase()))
+      .filter(nutrient => ['protein', 'energy', 'total lipid (fat)', 'caffeine', 'iron, fe', 'carbohydrate, by difference', 'total sugars', 'calcium, ca', 'fiber, total dietary', 'sodium, na'].includes(nutrient.nutrient.name.toLowerCase()))
       .map(nutrient => new FoodNutrient({
         value: nutrient.amount,
         nutrientName: nutrient.nutrient.name,

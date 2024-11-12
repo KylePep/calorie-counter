@@ -4,14 +4,13 @@ import TextInput from "@/Components/Form/TextInput.vue";
 import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
 import { computed, ref } from "vue";
+import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
 const props = defineProps(['formData']);
 
 const form = computed(() => props.formData);
-
-const showNutrients = ref(false);
 
 const unitName = computed(() => {
   return {
@@ -121,24 +120,32 @@ const unitName = computed(() => {
     </div>
 
     <div>
-      <button type="button" @click="showNutrients = !showNutrients" class="rounded-lg bg-gray-300 px-3 py-2">Nutrients
-        <span :class="[!showNutrients ? 'mdi mdi-menu-down' : 'mdi mdi-menu-up']"></span> </button>
-      <div v-if="showNutrients" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-center gap-2 mt-3">
-        <div v-for="(nutrient, index) in form.foodNutrients" :key="index">
-          <InputLabel :for="nutrient.nutrientName" :value="nutrient.nutrientName"></InputLabel>
-          <div class="relative">
-            <NumberInput :id="nutrient.nutrientName" v-model="form.foodNutrients[index].value"
-              class="w-full text-sm text-center">
-            </NumberInput>
-            <div
-              class="absolute flex items-center justify-center pe-1 sm:pe-3 h-full right-0 top-0 text-black/50 text-xs sm:text-base font-bold">
-              {{
-                nutrient.unitName }}
+      <CollapsableFolder :state="false">
+        <template #title>
+          <p> Nutrients</p>
+        </template>
+
+        <template #config />
+
+        <template #content>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-center gap-2">
+            <div v-for="(nutrient, index) in form.foodNutrients" :key="index">
+              <InputLabel :for="nutrient.nutrientName" :value="nutrient.nutrientName"></InputLabel>
+              <div class="relative">
+                <NumberInput :id="nutrient.nutrientName" v-model="form.foodNutrients[index].value"
+                  class="w-full text-sm text-center">
+                </NumberInput>
+                <div
+                  class="absolute flex items-center justify-center pe-1 sm:pe-3 h-full right-0 top-0 text-black/50 text-xs sm:text-base font-bold">
+                  {{
+                    nutrient.unitName }}
+                </div>
+              </div>
+
             </div>
           </div>
-
-        </div>
-      </div>
+        </template>
+      </CollapsableFolder>
 
     </div>
 
