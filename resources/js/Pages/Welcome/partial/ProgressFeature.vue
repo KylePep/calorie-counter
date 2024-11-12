@@ -60,7 +60,7 @@ const getAnimationClass = (item) => {
             diet.</p>
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4 px-2">
           <p class="text-neutral-text text-center text-xl font-bold">Goal:1600, BMR: 1800</p>
           <div
             class="grid grid-cols-10 gap-1 text-transparent sm:text-neutral px-1.5 py-0.5 rounded ring-1 ring-main ring-inset border-2  border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
@@ -73,7 +73,7 @@ const getAnimationClass = (item) => {
       </div>
 
       <div class="col-span-2 sm:col-span-1 order-1 sm:order-1">
-        <p class="px-4 py-2 bg-neutral text-sm lg:text-base  text-light-text h-full">
+        <p class="px-4 py-2 bg-neutral text-sm lg:text-base  text-light-text text-start h-full">
           Higher calorie foods will
           appear larger
           compared to other foods in your
@@ -85,7 +85,8 @@ const getAnimationClass = (item) => {
       </div>
 
       <div class="col-span-2 sm:col-span-1 order-3 sm:order-2">
-        <p class="px-4 py-2 bg-neutral text-sm lg:text-base text-light-text h-full">Selecting foods from the
+        <p class="px-4 py-2 bg-neutral text-sm lg:text-base text-light-text text-start h-full">Selecting
+          foods from the
           USDA's
           database
           or from your saved or
@@ -97,7 +98,7 @@ const getAnimationClass = (item) => {
         </p>
       </div>
 
-      <div class="col-span-2 sm:col-span-1 flex flex-col mb-2 order-2 sm:order-3">
+      <div class="col-span-2 sm:col-span-1 flex flex-col mb-2 order-2 sm:order-3 px-2">
         <div class="border-2 rounded border-neutral bg-light overflow-x-auto h-full">
           <div class=" p-2 grid grid-rows-2 text-center  whitespace-nowrap gap-1 ">
             <div v-for="rowIndex in 2" class="flex space-x-1">
@@ -116,10 +117,12 @@ const getAnimationClass = (item) => {
         </div>
       </div>
 
-      <div class="col-span-2 sm:col-span-1 order-4 sm:order-4">
-        <div class="flex w-full space-x-4 overflow-x-auto mb-2">
-          <FoodCard :foodItem="mockItem" />
-          <FoodCard :foodItem="mockItem2" />
+      <div class="col-span-2 sm:col-span-1 order-4 sm:order-4 px-2">
+        <div class="flex overflow-x-auto mb-2">
+          <div class="flex space-x-4">
+            <FoodCard :foodItem="mockItem" />
+            <FoodCard :foodItem="mockItem2" />
+          </div>
         </div>
       </div>
     </div>
