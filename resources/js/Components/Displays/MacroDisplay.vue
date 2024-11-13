@@ -76,7 +76,7 @@ function macroClass(index) {
               </span>
 
               <span class="text-center">
-                <p>{{ Math.round(calorieDayMacros[index]) }}</p>
+                <p>{{ Math.round(calorieDayMacros[index]) }}g</p>
               </span>
 
               <span class="col-span-2 sm:col-span-1 text-end">
