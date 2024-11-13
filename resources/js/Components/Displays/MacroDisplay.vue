@@ -60,13 +60,13 @@ function macroClass(index) {
 
       <template #content>
         <div v-if="!displayList">
-          <div v-for="macro, index in account.macros" class="relative bg-main h-6">
+          <div v-for="macro, index in account.macros" class="relative bg-main h-6 my-1">
 
-            <div class="absolute h-full" :class="macroClass(index)"
-              :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100)}%` }">
+            <div class="absolute h-full rounded-sm" :class="macroClass(index)"
+              :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100, 100)}%` }">
             </div>
 
-            <div class="absolute w-full h-full grid grid-cols-6 border border-neutral p-1 text-xs">
+            <div class="absolute w-full h-full grid grid-cols-6 border border-neutral rounded-sm p-1 text-xs">
               <span class="col-span-2 sm:col-span-3 font-bold uppercase">
                 {{ index }}
               </span>
