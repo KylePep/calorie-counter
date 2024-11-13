@@ -7,6 +7,12 @@ const props = defineProps(['account', 'calorieDay']);
 
 const displayList = ref(false);
 
+const macros = computed(() => {
+  return Object.fromEntries(
+    Object.entries(props.account.macros).filter(([key, value]) => value > 0)
+  );
+});
+
 const sortedFoodItems = computed(() => {
   return (key) => {
     return [...props.calorieDay.food_items].sort((a, b) => b[key] - a[key]);
@@ -60,7 +66,7 @@ function macroClass(index) {
 
       <template #content>
         <div v-if="!displayList">
-          <div v-for="macro, index in account.macros" class="relative bg-main h-6 my-1">
+          <div v-for="macro, index in macros" class="relative bg-main h-6 my-1">
 
             <div class="absolute h-full rounded-sm" :class="macroClass(index)"
               :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100, 100)}%` }">
@@ -87,7 +93,7 @@ function macroClass(index) {
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-4">
-          <div v-for="macro, index in account.macros">
+          <div v-for="macro, index in macros">
             <h1 class="font-bold text-sm">
               <span class="uppercase">{{ index }}</span>
               - {{ macro }}g - {{ Math.round(calorieDayMacros[index]) }}g -{{

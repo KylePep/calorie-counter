@@ -143,6 +143,8 @@ function updateAccount() {
           <p>Track Macros</p>
         </div>
 
+        <p>* Setting a macro to 0 will remove it from tracking.</p>
+
         <div v-for=" macro, index in form.macros" :key="index" class="grid grid-cols-4">
           <InputLabel class="flex items-center col-span-4 sm:col-span-1 ">
             <h2 class="font-bold text-base">{{ index }} :</h2>
