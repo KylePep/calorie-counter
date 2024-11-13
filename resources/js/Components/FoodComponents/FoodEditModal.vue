@@ -7,6 +7,7 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../Form/DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
+import ConsumedList from "./ConsumedList.vue";
 
 const emit = defineEmits(['closeModal']);
 
@@ -30,15 +31,7 @@ const form = useForm({
   servingSizeUnit: 'g',
   foodCategory: '',
   calories: 0,
-  foodNutrients: [
-    { nutrientName: "protein", value: 0, unitName: 'G' },
-    { nutrientName: "carbs", value: 0, unitName: 'G' },
-    { nutrientName: "sugar", value: 0, unitName: 'G' },
-    { nutrientName: "fiber", value: 0, unitName: 'G' },
-    { nutrientName: "calcium", value: 0, unitName: 'MG' },
-    { nutrientName: "iron", value: 0, unitName: 'MG' },
-    { nutrientName: "sodium", value: 0, unitName: 'MG' },
-  ],
+  foodNutrients: [],
   ingredients: '',
 });
 
@@ -54,6 +47,9 @@ const setForm = () => {
     form.ingredients = props.foodItem.ingredients || '',
 
     form.foodNutrients = props.foodItem.foodNutrients
+
+  console.log(props.foodItem)
+
 }
 
 watch(props.foodItem, setForm);
@@ -111,7 +107,7 @@ async function updateItem() {
       <SecondaryButton type="button" @click="closeModal">
         Cancel
       </SecondaryButton>
-      <DangerButton @click="deleteItem">
+      <DangerButton type="button" @click="deleteItem">
         Delete
       </DangerButton>
       <PrimaryButton @click="updateItem">

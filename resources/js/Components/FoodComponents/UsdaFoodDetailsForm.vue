@@ -70,7 +70,7 @@ const modifier = computed(() => {
       <div class="basis-3/5 me-3">
         <InputLabel for="calories" value="Amount of calories"></InputLabel>
         <div id="calories" :class="loadingClasses" class="rounded px-2 py-1 mt-2 text-sm">
-          {{ Math.round(form.realCalories * modifier) }}
+          {{ Math.round(form.calories * modifier) }}
         </div>
       </div>
 
@@ -95,10 +95,10 @@ const modifier = computed(() => {
               required></NumberInput>
             <span class="absolute hidden sm:block right-0 bottom-0 pb-3 pe-3 font-bold text-black/50 text-sm">{{
               unitName
-            }}</span>
+              }}</span>
             <span class="absolute block sm:hidden right-0 bottom-0 pb-3 pe-3 font-bold text-black/50 text-sm">{{
               formData.servingSizeUnit
-            }}</span>
+              }}</span>
             <InputError :message="form.errors.servingSize"></InputError>
           </div>
         </div>
@@ -150,13 +150,13 @@ const modifier = computed(() => {
         <template #config />
 
         <template #content>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-center gap-2">
+          <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 text-center gap-2">
             <div v-for="(nutrient, index) in form.foodNutrients" :key="index"
               class="flex flex-col justify-end relative">
-              <p class="text-dark-text">{{ nutrient.nutrientName }}</p>
+              <p class="text-dark-text text-xs sm:text-base">{{ nutrient.nutrientName }}</p>
               <div class="relative">
                 <div :class="loadingClasses" class="bg-page rounded shadow-sm w-full text-sm text-center py-1.5">
-                  {{ form.foodNutrients[index].value }}
+                  {{ Math.round(form.foodNutrients[index].value * modifier) }}
                 </div>
                 <div
                   class="absolute flex items-center justify-center pe-1 sm:pe-3 h-full right-0 top-0 text-black/50 text-sm sm:text-base font-bold">

@@ -88,14 +88,14 @@ function macroClass(index) {
         </div>
         <div v-else class="grid grid-cols-1 gap-4">
           <div v-for="macro, index in account.macros">
-            <h1 class="font-bold">
+            <h1 class="font-bold text-sm">
               <span class="uppercase">{{ index }}</span>
               - {{ macro }}g - {{ Math.round(calorieDayMacros[index]) }}g -{{
                 Math.round(calorieDayMacros[index] / macro * 100) }}%
             </h1>
             <div v-for="item, i in sortedFoodItems(index)" :class="macroClass(index)"
-              class="grid grid-cols-5 text-center px-1 py-0.5 my-1">
-              <span class="col-span-3 text-start pe-2 truncate">{{ i + 1 }}. {{ item.description }}</span>
+              class="grid grid-cols-5 text-xs text-center px-1 py-0.5 my-1">
+              <span class="col-span-3 text-start pe-2  truncate">{{ i + 1 }}. {{ item.description }}</span>
               <span>{{ item[index] }}</span>
               <span>{{ Math.round(item[index] / macro * 100) }}%</span>
 

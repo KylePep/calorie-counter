@@ -14,15 +14,13 @@ function emitExtraButton(item, action) {
   const protein = item.foodNutrients.find((fn) => fn.nutrientName.toLowerCase() == 'protein');
   const carbohydrates = item.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates' || fn.nutrientName.toLowerCase() == 'carbohydrate, by difference');
   const fats = item.foodNutrients.find((fn) => fn.nutrientName == 'fats' || fn.nutrientName.toLowerCase() == 'total lipid (fat)');
-  const simplifiedFoodItem = {
-    description: item.description,
-    count: item.calories,
-    protein: protein,
-    carbohydrates: carbohydrates,
-    fats: fats
-  }
-  console.log('[FOOD CARD]', simplifiedFoodItem)
-  emit('extraButton', simplifiedFoodItem, action);
+
+  const modifiedItem = item
+  modifiedItem.count = item.calories
+  modifiedItem.protein = protein
+  modifiedItem.carbohydrates = carbohydrates
+  modifiedItem.fats = fats
+  emit('extraButton', modifiedItem, action);
 }
 
 function blockClass(block) {

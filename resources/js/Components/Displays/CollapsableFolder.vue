@@ -19,7 +19,8 @@ const showClasses = computed(() => {
 
 
   <div class="flex justify-between">
-    <button @click="showFolder = !showFolder" :class="showClasses, $slots.config ? 'w-48 sm:w-60 ' : 'w-full'"
+    <button type="button" @click="showFolder = !showFolder"
+      :class="showClasses, $slots.config ? 'w-48 sm:w-60 ' : 'w-full'"
       class="flex justify-between items-center font-bold border py-1 px-3 border-light duration-300">
       <slot name="title" />
       <i :class="showFolder ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-1  text-lg"></i>
