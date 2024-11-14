@@ -10,7 +10,7 @@ function changeTheme(theme) {
 
   form.transform((data) => ({
     ...data,
-    theme: data.theme
+    theme: theme
   })).put(route('account.update', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
@@ -38,17 +38,17 @@ function changeTheme(theme) {
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
         <button @click="changeTheme('theme-sunRise')"
           class="p-3 font-bold hover:bg-dark hover:text-light-text rounded shadow-lg"
-          :class="account.theme == 'theme-light' ? 'bg-[#f6a327] text-neutral-text' : 'bg-[#eb5e28] text-dark-text'">
+          :class="account.theme == 'theme-sunRise' ? 'bg-[#f6a327] text-neutral-text' : 'bg-[#eb5e28] text-black'">
           Sun Rise
         </button>
         <button @click="changeTheme('theme-coolTides')"
           class="p-3 font-bold hover:bg-dark hover:text-light-text rounded shadow-lg"
-          :class="account.theme == 'theme-dark' ? 'bg-[#a8dadc] text-neutral-text' : 'bg-[#457b9d] text-dark-text'">
+          :class="account.theme == 'theme-coolTides' ? 'bg-[#a8dadc] text-neutral-text' : 'bg-[#457b9d] text-black'">
           Cool Tides
         </button>
         <button @click="changeTheme('theme-sketchPad')"
           class="p-3 font-bold hover:bg-dark hover:text-light-text rounded shadow-lg"
-          :class="account.theme == 'theme-dark' ? 'bg-[#2F7ED4] text-neutral-text' : 'bg-[#428AD8] text-dark-text'">
+          :class="account.theme == 'theme-sketchPad' ? 'bg-[#2F7ED4] text-neutral-text' : 'bg-[#428AD8] text-black'">
           Sketch Pad
         </button>
       </div>

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('activity');
             $table->boolean('trackMacros')->default(false);
             $table->json('macros')->default(json_encode(['carbohydrates' => 0, 'protein' => 0, 'fats' => 0]));
-            $table->string('theme')->default('theme-light');
+            $table->string('theme')->default('theme-sunRise');
             $table->string('timezone');
             $table->timestamps();
         });
