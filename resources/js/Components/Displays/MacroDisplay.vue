@@ -102,7 +102,7 @@ function macroClass(index) {
             <div v-for="item, i in sortedFoodItems(index)" :class="macroClass(index)"
               class="grid grid-cols-5 text-xs text-center px-1 py-0.5 my-1">
               <span class="col-span-3 text-start pe-2  truncate">{{ i + 1 }}. {{ item.description }}</span>
-              <span>{{ item[index] }}</span>
+              <span>{{ item[index] }}g</span>
               <span>{{ Math.round(item[index] / macro * 100) }}%</span>
 
             </div>
