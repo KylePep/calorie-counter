@@ -77,7 +77,7 @@ async function confirmRemoveItem(item) {
               {{ item.description }}
             </p>
             <p
-              class="absolute left-1/2  object-center group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
+              class="absolute w-full group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
             </p>
 
           </button>
@@ -92,7 +92,7 @@ async function confirmRemoveItem(item) {
             {{ item.description }} - {{ item.count }}
           </p>
           <p
-            class="absolute left-1/2  object-center group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
+            class="absolute w-full group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
           </p>
 
         </button>

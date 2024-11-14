@@ -96,7 +96,7 @@ function handleExtraButton(item, action, type) {
 
     <div v-else>
       <div
-        class="grid grid-cols-3 xl:grid-cols-4 font-bold text-xs xl:text-base text-neutral-text text-center bg-gradient-to-b from-main via-main to-light border border-light rounded-t px-1 sm:px-3 -mb-4 uppercase">
+        class="grid grid-cols-3 xl:grid-cols-4 font-bold text-xs xl:text-base text-neutral-text text-center bg-main border border-light border-b-0 rounded-t px-1 sm:px-3 -mb-4 py-1 uppercase">
 
         <p class="col-span-3 xl:col-span-1">
           <slot />

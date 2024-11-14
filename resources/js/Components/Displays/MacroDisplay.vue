@@ -72,7 +72,8 @@ function macroClass(index) {
               :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100, 100)}%` }">
             </div>
 
-            <div class="absolute w-full h-full grid grid-cols-6 border border-neutral rounded-sm p-1 text-xs">
+            <div
+              class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-sm p-1 text-xs">
               <span class="col-span-2 sm:col-span-3 font-bold uppercase">
                 {{ index }}
               </span>
@@ -100,7 +101,7 @@ function macroClass(index) {
                 Math.round(calorieDayMacros[index] / macro * 100) }}%
             </h1>
             <div v-for="item, i in sortedFoodItems(index)" :class="macroClass(index)"
-              class="grid grid-cols-5 text-xs text-center px-1 py-0.5 my-1">
+              class="grid grid-cols-5 text-xs text-center  px-1 py-0.5 my-1">
               <span class="col-span-3 text-start pe-2  truncate">{{ i + 1 }}. {{ item.description }}</span>
               <span>{{ item[index] }}g</span>
               <span>{{ Math.round(item[index] / macro * 100) }}%</span>
