@@ -73,7 +73,7 @@ function cellsOverClasses(value) {
   </section>
 
   <section id="extra calorie display" v-if="calorieCount > bmr"
-    class="sticky top-16 z-20 p-1.5 rounded border-2 border border-light drop-shadow-xl bg-main">
+    class="sticky top-16 z-20 p-1.5 rounded border border-light drop-shadow-xl bg-main">
 
     <div class=" grid grid-cols-10 gap-1">
       <div v-for="index in 20" :class="cellsOverClasses(index)"
