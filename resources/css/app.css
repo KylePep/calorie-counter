@@ -4,11 +4,6 @@
 @tailwind utilities;
 
 
-
-* {
-  scrollbar-gutter: stable;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

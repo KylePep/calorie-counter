@@ -54,7 +54,7 @@ const currentSizeClass = computed(() => {
 
 <template>
 
-  <CollapsableFolder :state="props.list.length">
+  <CollapsableFolder :state="Boolean(props.list.length)">
 
     <template #title>
       <slot />

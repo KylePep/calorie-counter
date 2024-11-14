@@ -43,7 +43,7 @@ function blockClass(block) {
 
     <section class="flex flex-col flex-1  ">
 
-      <div class="flex bg-main justify-between items-end py-1 px-2 rounded-t border border-b-0 border-light">
+      <div class="flex bg-white justify-between items-end py-1 px-2 rounded-t border border-b-0 border-light">
 
         <div class=" text-neutral-text font-bold ">
           {{ foodItem.calories }}
@@ -63,14 +63,14 @@ function blockClass(block) {
       </div>
 
       <button @click="emitExtraButton(foodItem, 'edit')"
-        class="flex-1 bg-main text-dark-text hover:bg-neutral hover:text-light-text p-3 duration-300 border-x border-light">
+        class="flex-1 bg-white text-dark-text hover:bg-neutral hover:text-light-text p-3 duration-300 border-x border-light">
         <h1 class="text-sm truncate sm:text-balance font-bold">{{ foodItem.description }}
         </h1>
       </button>
 
     </section>
 
-    <section class="grid grid-cols-10 gap-0.5 p-1 border border-t-0 border-light bg-main rounded-b">
+    <section class="grid grid-cols-10 gap-0.5 p-1 border border-t-0 border-light bg-white rounded-b">
       <div v-for="block in Math.ceil(foodItem.calories / 100) " title="100 Calories"
         class="h-3 border border-light rounded-sm" :class="blockClass(block)">
       </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { computed, watch } from "vue";
 import Modal from "../Form/Modal.vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
@@ -7,7 +7,6 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../Form/DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
-import ConsumedList from "./ConsumedList.vue";
 
 const emit = defineEmits(['closeModal']);
 
@@ -47,9 +46,6 @@ const setForm = () => {
     form.ingredients = props.foodItem.ingredients || '',
 
     form.foodNutrients = props.foodItem.foodNutrients
-
-  console.log(props.foodItem)
-
 }
 
 watch(props.foodItem, setForm);

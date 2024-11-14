@@ -70,7 +70,7 @@ async function confirmRemoveItem(item) {
           <button v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
             @click="confirmRemoveItem(item)" :class="representativeWidth(item)"
             :title="`${item.description}  -${item.count} Calories`"
-            class="group relative hover:bg-dark h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
+            class="group relative hover:bg-dark h-8 inline-block bg-white border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
 
             <p ref="scrollingText" :class="getAnimationClass(item)"
               class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
@@ -84,9 +84,9 @@ async function confirmRemoveItem(item) {
         </div>
       </div>
 
-      <div v-else class="grid grid-cols-2 sm:grid-cols-3">
+      <div v-else class="grid grid-cols-2 sm:grid-cols-3 gap-2">
         <button v-for="(item, index) in dayItems" :key="index" @click="confirmRemoveItem(item)"
-          class="group relative hover:bg-dark h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
+          class="group relative hover:bg-dark h-8 inline-block bg-white border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
 
           <p class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
             {{ item.description }} - {{ item.count }}

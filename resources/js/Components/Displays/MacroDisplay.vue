@@ -66,7 +66,7 @@ function macroClass(index) {
 
       <template #content>
         <div v-if="!displayList">
-          <div v-for="macro, index in macros" class="relative bg-main h-6 my-1">
+          <div v-for="macro, index in macros" class="relative bg-white h-6 my-1">
 
             <div class="absolute h-full rounded-sm" :class="macroClass(index)"
               :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100, 100)}%` }">
