@@ -43,12 +43,12 @@ class DashboardController extends Controller
                         'bmr' => $account->bmr ?? 2000,
                         'count' => 0,
                         'user_id' => $user->id,
-                        'food_items' => json_encode([]),
+                        'food_items' => [],
                         'created_at' => $today->setTimezone('UTC')
                     ]);
                 } 
 
-                $CalorieDay->food_items = json_decode($CalorieDay->food_items, true);
+                $CalorieDay->food_items = $CalorieDay->food_items;
                 
                 $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
                     return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
@@ -56,7 +56,7 @@ class DashboardController extends Controller
 
                 foreach($groupedFoodItems as $group => $items){
                     foreach($items as $item){
-                        $item->foodNutrients = json_decode($item->foodNutrients, true);
+                        $item->foodNutrients = $item->foodNutrients;
                     }
                 }
 

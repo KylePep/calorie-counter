@@ -61,7 +61,7 @@ class CalorieDayController extends Controller
             'bmr' => $account->bmr ?? 2000,
             'count' => 0,
             'user_id' => $user->id,
-            'food_items' => json_encode([]),
+            'food_items' => [],
             'created_at' => $givenDay
         ]);
 
@@ -79,7 +79,7 @@ class CalorieDayController extends Controller
         $account = $user->account;
 
 
-        $calorieDay->food_items = json_decode($calorieDay->food_items, true);
+        $calorieDay->food_items = $calorieDay->food_items;
 
         $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
             return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
@@ -87,7 +87,7 @@ class CalorieDayController extends Controller
 
         foreach($groupedFoodItems as $group => $items){
             foreach($items as $item){
-                $item->foodNutrients = json_decode($item->foodNutrients, true);
+                $item->foodNutrients = $item->foodNutrients;
             }
         }
 
@@ -129,11 +129,11 @@ class CalorieDayController extends Controller
         
         $calorieDay->journal = $validated['journal'] ?? $calorieDay->journal;
 
-        $existingFoodItems = json_decode($calorieDay->food_items, true) ?? [];
+        $existingFoodItems = $calorieDay->food_items ?? [];
 
         if ($request->remove && isset($validated['food_items'])) {
             
-            $existingFoodItems = json_decode($calorieDay->food_items, true) ?? [];
+            $existingFoodItems = $calorieDay->food_items ?? [];
 
             
             if (!empty($existingFoodItems)) {
@@ -166,16 +166,16 @@ class CalorieDayController extends Controller
             }
     
             // Re-encode back to JSON
-            $calorieDay->food_items = json_encode($existingFoodItems);
+            $calorieDay->food_items = $existingFoodItems;
             $calorieDay->count -= $validated['count'] ?? 0;
         } else {
-            $calorieDay->food_items = json_encode(array_merge($existingFoodItems, $validated['food_items']));
+            $calorieDay->food_items = array_merge($existingFoodItems, $validated['food_items']);
             $calorieDay->count += $validated['count'] ?? 0;
         }
 
 
         $calorieDay->save();
-        $calorieDay->food_items = json_decode($calorieDay->food_items, true);
+        $calorieDay->food_items = $calorieDay->food_items;
         return $calorieDay;
 
     }

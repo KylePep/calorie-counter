@@ -10,6 +10,9 @@ import { computed, ref } from "vue";
 
 const props = defineProps(['account']);
 const account = computed(() => {
+  if (!props.account?.trackMacros) {
+    return {};
+  }
   props.account.trackMacros = Boolean(props.account.trackMacros);
   return props.account;
 })

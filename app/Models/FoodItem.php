@@ -11,6 +11,10 @@ class FoodItem extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'foodNutrients' => 'array'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

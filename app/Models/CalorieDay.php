@@ -11,6 +11,10 @@ class CalorieDay extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'food_items' => 'array'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

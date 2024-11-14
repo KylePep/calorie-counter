@@ -24,7 +24,7 @@ class FoodItemController extends Controller
 
         foreach($groupedFoodItems as $group => $items){
             foreach($items as $item){
-                $item->foodNutrients = json_decode($item->foodNutrients, true);
+                $item->foodNutrients = $item->foodNutrients;
             }
         }
 
@@ -62,7 +62,7 @@ class FoodItemController extends Controller
             'servingSizeUnit' => $attributes['servingSizeUnit'],
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
-            'foodNutrients' => json_encode($attributes['foodNutrients']), 
+            'foodNutrients' => $attributes['foodNutrients'], 
             'ingredients' => $attributes['ingredients'] 
         ]);
 
@@ -96,7 +96,7 @@ class FoodItemController extends Controller
             'servingSizeUnit' => $attributes['servingSizeUnit'],
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
-            'foodNutrients' => json_encode($attributes['foodNutrients']), 
+            'foodNutrients' => $attributes['foodNutrients'], 
             'ingredients' => $attributes['ingredients']
         ]);
 
