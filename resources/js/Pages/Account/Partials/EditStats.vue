@@ -31,17 +31,21 @@ const form = useForm({
 
 const updateAccount = () => {
 
-  form.height = ((form.heightFeet * 12) + form.heightInches) * 2.54
 
-  form.put(route('account.update', props.account.id), {
-    preserveScroll: true,
-    onSuccess: () => {
-      Pop.success('Stats updated')
-    },
-    onError: (errors) => {
-      console.log(errors);
-    },
-  });
+
+  form.transform((data) => ({
+    ...data,
+    height: ((data.heightFeet * 12) + data.heightInches) * 2.54
+  }))
+    .put(route('account.update', props.account.id), {
+      preserveScroll: true,
+      onSuccess: () => {
+        Pop.success('Stats updated')
+      },
+      onError: (errors) => {
+        console.log(errors);
+      },
+    });
 };
 </script>
 

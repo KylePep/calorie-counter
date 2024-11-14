@@ -8,9 +8,10 @@ const form = useForm(props.account ?? { peanut: 'butter' });
 
 function changeTheme(theme) {
 
-  form.theme = theme;
-
-  form.put(route('account.update', props.account.id), {
+  form.transform((data) => ({
+    ...data,
+    theme: data.theme
+  })).put(route('account.update', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
       Pop.success('Theme set!')

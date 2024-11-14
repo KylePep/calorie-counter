@@ -12,7 +12,6 @@ const account = computed(() => props.account);
 
 const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
 const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
-// const height = computed(() => props.account.height);
 
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -33,29 +32,35 @@ const form = useForm({
 
 
 const createOrUpdateAccount = () => {
-  form.goal = Math.round(form.bmr * (form.goalModifier * .01))
 
-  form.post(route('account.store'), {
-    preserveScroll: true,
-    onSuccess: () => form.reset(),
-    onError: (errors) => {
-      console.log(errors);
-    },
-  });
+  form.transform((data) => ({
+    ...data,
+    goal: Math.round(data.bmr * (data.goalModifier * .01))
+  }))
+    .post(route('account.store'), {
+      preserveScroll: true,
+      onSuccess: () => form.reset(),
+      onError: (errors) => {
+        console.log(errors);
+      },
+    });
 };
 
 const updateAccount = () => {
-  form.goal = Math.round(form.bmr * (form.goalModifier * .01))
 
-  form.put(route('account.update', props.account.id), {
-    preserveScroll: true,
-    onSuccess: () => {
-      Pop.success('Goal updated')
-    },
-    onError: (errors) => {
-      console.log(errors);
-    },
-  });
+  form.transform((data) => ({
+    ...data,
+    goal: Math.round(data.bmr * (data.goalModifier * .01))
+  }))
+    .put(route('account.update', props.account.id), {
+      preserveScroll: true,
+      onSuccess: () => {
+        Pop.success('Goal updated')
+      },
+      onError: (errors) => {
+        console.log(errors);
+      },
+    });
 };
 
 </script>
