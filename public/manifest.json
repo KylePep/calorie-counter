@@ -1,6 +1,6 @@
 {
     "name": "Calorie Counter",
-    "short_name": "CC",
+    "short_name": "Calorie Counter",
     "start_url": "/index.php",
     "background_color": "#6777ef",
     "description": "Calorie Counter PWA",
