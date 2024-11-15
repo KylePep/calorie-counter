@@ -23,7 +23,7 @@
 
     <div class="sm:hidden border-b border-neutral my-4 mx-4"></div>
 
-    <div class="flex flex-col justify-around items-center lg:items-end me-0 lg:me-4">
+    <div class="flex flex-col justify-around items-start lg:items-end ms-4 lg:ms-0 me-0 lg:me-4">
       <Link :href="route('calculator')" class="text-base hover:text-accent-light duration-300 pe-2 pb-2 lg:pb-0">GET
       COUNTING!</Link>
 
