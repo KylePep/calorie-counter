@@ -17,7 +17,7 @@ document.body.setAttribute('body-theme', theme);
 
 <template>
   <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
-    <nav class="sticky top-0 z-20 shadow-xl">
+    <nav class="fixed top-0 z-20 w-full">
       <GuestNav v-if="!$page.props.auth?.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
       <AuthenticatedNav v-else></AuthenticatedNav>
     </nav>
@@ -31,12 +31,13 @@ document.body.setAttribute('body-theme', theme);
         <div class="font-semibold text-7xl leading-tight text-shadow-2xl text-white text-center sm:text-start">
           <slot name="header"></slot>
         </div>
-
       </div>
 
-      <div v-else class="flex justify-between space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div v-else
+        class="h-40 sm:h-48 flex justify-between items-end space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 uppercase">
         <slot name="header"></slot>
       </div>
+
       <CalculateBanner position="header" />
 
     </header>

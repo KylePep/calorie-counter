@@ -21,10 +21,6 @@ const renderHeroImage = computed(() => {
     }
 })
 
-const goal = computed(() => props.calorieDay.goal);
-const bmr = computed(() => props.calorieDay.bmr);
-const calorieCount = computed(() => props.calorieDay.count ?? 0);
-
 </script>
 
 <template>

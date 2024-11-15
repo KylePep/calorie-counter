@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import NavLink from "./NavLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
 import ApplicationLogo from "../ApplicationLogo.vue";
@@ -8,25 +8,42 @@ const props = defineProps(['canLogin', 'canRegister']);
 
 const showingNavigationDropdown = ref(false);
 
+const isAtTop = ref(true);
+
+const handleScroll = () => {
+  isAtTop.value = Math.round(window.scrollY == 0);
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+});
+
 </script>
 
 
 <template>
 
-  <nav class="bg-dark">
+  <nav class="duration-1000"
+    :class="[showingNavigationDropdown ? 'bg-dark py-2' : isAtTop ? 'bg-gradient-to-b from-dark/100 via-dark/50 to-transparent py-4 sm:py-8' : 'bg-dark py-2']">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
           <!-- Logo -->
-          <div class="flex  sm:-my-px">
-            <NavLink :href="route('welcome')" :active="route().current('welcome')">
-              <ApplicationLogo class="text-accent text-5xl " />
-            </NavLink>
+          <div class="flex -my-2">
+            <Link class="inline-flex items-center px-1 py-1" :href="route('welcome')"
+              :active="route().current('welcome')">
+            <ApplicationLogo class="duration-1000"
+              :class="[showingNavigationDropdown ? 'text-5xl' : isAtTop ? 'text-6xl sm:text-7xl' : 'text-5xl']" />
+            </Link>
           </div>
 
           <!-- Navigation Links -->
-          <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+          <div class="hidden space-x-8 sm:-my-2 sm:ms-10 sm:flex">
 
             <NavLink :href="route('calculator')" :active="route().current('calculator')">
               Calculator
@@ -34,7 +51,8 @@ const showingNavigationDropdown = ref(false);
           </div>
         </div>
 
-        <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
+        <div class="hidden space-x-8 sm:ms-10 sm:flex duration-1000"
+          :class="[showingNavigationDropdown ? 'sm:-my-2' : isAtTop ? 'sm:-my-0' : 'sm:-my-2']">
           <!-- Settings Dropdown -->
           <NavLink :href="route('login')" :active="route().current('login')">
             Login

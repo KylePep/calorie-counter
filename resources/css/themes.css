@@ -35,15 +35,15 @@ body[body-theme="theme-coolTides"] {
   --hero-gradient: 43, 83, 65;
   --color-page: 241 250 238;
   --color-main: 241 250 238;
-  --color-light: 128 155 139;
-  --color-light-text: 128 155 139;
-  --color-neutral: 71 107 90;
+  --color-light: 128 179 139;
+  --color-light-text: 178 214 192;
+  --color-neutral: 67 122 98;
   --color-neutral-text: 71 107 90;
-  --color-dark: 43 83 65;
+  --color-dark: 6 64 57;
   --color-dark-text: 14 59 40;
-  --color-accent: 69 123 157;
-  --color-accent-light: 168 218 220;
-  --color-accent-dark: 29 53 87;
+  --color-accent: 99 136 190;
+  --color-accent-light: 168 218 242;
+  --color-accent-dark: 29 53 138;
   --color-special: 230 57 70;
 }
 
