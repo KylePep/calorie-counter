@@ -6,8 +6,8 @@ const props = defineProps(['href', 'active']);
 
 const classes = computed(() =>
     props.active
-        ? ' border-accent-light text-lg font-bold leading-5 text-accent-light focus:outline-none focus:border-light transition duration-150 ease-in-out'
-        : ' border-transparent text-lg font-medium leading-5 text-light-text hover:text-light-text hover:border-light focus:outline-none focus:text-light-text focus:border-light transition duration-150 ease-in-out'
+        ? ' border-accent-light font-bold leading-5 text-accent-light focus:outline-none focus:border-light transition duration-150 ease-in-out'
+        : ' border-transparent font-medium leading-5 text-light-text hover:text-light-text hover:border-light focus:outline-none focus:text-light-text focus:border-light transition duration-150 ease-in-out'
 );
 </script>
 
