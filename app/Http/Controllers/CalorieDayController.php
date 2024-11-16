@@ -77,7 +77,11 @@ class CalorieDayController extends Controller
 
         $user = User::find(Auth::id());
 
-        Gate::authorize('view', $calorieDay);
+        $response = Gate::inspect('view', $calorieDay);
+
+        if ($response->denied()) {
+            return redirect()->route('history');
+        } 
 
         $account = $user->account;
 
