@@ -7,6 +7,7 @@ use App\Models\WeighIn;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
 class WeighInController extends Controller
@@ -51,6 +52,7 @@ class WeighInController extends Controller
 
     public function update(Request $request, WeighIn $weighIn)
     {
+        Gate::authorize('update', $weighIn);
         $validated = $request->validate([
             'weight' => ['required', 'integer']
         ]);
@@ -67,6 +69,8 @@ class WeighInController extends Controller
 
     public function destroy(WeighIn $weighIn)
     {
+        Gate::authorize('delete', $weighIn);
+
         $user = User::find(Auth::id());
         if($user->weigh_ins()->where('id', $weighIn->id)->exists()){
             $weighIn->delete();

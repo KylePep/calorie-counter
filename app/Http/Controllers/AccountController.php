@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAccountRequest;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -19,7 +20,22 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        
+        
+        $user = User::find(Auth::id());
+        
+        $account = $user->account;
+        if($account){
+            Gate::authorize('view', $account);
+        }
+
+        $carrots = $user->carrots()->get();
+
+        return Inertia::render('Account/Index', [
+            'status' => session('status'),
+            'carrots' => $carrots,
+            'account' => $account,
+        ]);
     }
 
     /**
@@ -72,17 +88,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        $user = User::find(Auth::id());
 
-        $account = $user->account;
-
-        $carrots = $user->carrots()->get();
-
-        return Inertia::render('Account/Show', [
-            'status' => session('status'),
-            'carrots' => $carrots,
-            'account' => $account,
-        ]);
     }
 
     /**
@@ -98,6 +104,7 @@ class AccountController extends Controller
      */
     public function update(UpdateAccountRequest $request, Account $account)
     {
+        Gate::authorize('update', $account);
 
         $user = User::find(Auth::id());
 

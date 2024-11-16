@@ -31,7 +31,7 @@
       <ul class="text-sm text-neutral-text lg:space-y-1 flex flex-col items-start lg:items-end ">
         <li class="flex flex-wrap">
 
-          <Link :href="route('account.show')" class="hover:text-light-text duration-300">
+          <Link :href="route('account.index')" class="hover:text-light-text duration-300">
           Contact
           </Link>
           <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>
@@ -40,7 +40,7 @@
 
         <li class="flex flex-wrap">
 
-          <Link :href="route('account.show')" class="hover:text-light-text duration-300">
+          <Link :href="route('account.index')" class="hover:text-light-text duration-300">
           Terms of Use
           </Link>
           <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>
@@ -49,14 +49,14 @@
         <li class="flex flex-col lg:flex-row justify-end items-start lg:items-end space-y-1">
           <div class="flex">
 
-            <Link :href="route('account.show')" class="hover:text-light-text duration-300">
+            <Link :href="route('account.index')" class="hover:text-light-text duration-300">
             Privacy Policy
             </Link>
             <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>
           </div>
 
           <div class="flex">
-            <Link :href="route('account.show')" class="hover:text-light-text duration-300">
+            <Link :href="route('account.index')" class="hover:text-light-text duration-300">
             Manage My Preferences
             </Link>
             <i class="mdi mdi-circle-medium px-1 lg:px-2"></i>

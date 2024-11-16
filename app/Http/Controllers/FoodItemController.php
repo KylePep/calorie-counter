@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateFoodItemRequest;
 use App\Models\FoodItem;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class FoodItemController extends Controller
@@ -74,6 +75,9 @@ class FoodItemController extends Controller
 
     public function update(UpdateFoodItemRequest $request, FoodItem $foodItem)
     {
+
+        Gate::authorize('update', $foodItem);
+
         $attributes = $request->validate([
             'fdcId' => ['nullable'],
             'description' => ['required'],
@@ -108,6 +112,9 @@ class FoodItemController extends Controller
 
     public function destroy( FoodItem $foodItem)
     {
+
+        Gate::authorize('delete', $foodItem);
+
         $user = User::find(Auth::id());
 
         if($user->foodItems()->where('id', $foodItem->id)->exists()){

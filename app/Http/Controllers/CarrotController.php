@@ -6,6 +6,7 @@ use App\Models\Carrot;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CarrotController extends Controller
 {
@@ -31,6 +32,9 @@ class CarrotController extends Controller
 
     public function update(Request $request, Carrot $carrot)
     {
+
+        Gate::authorize('update', $carrot);
+
         $attributes = $request->validate([
             'description' => ['required'],
             'goalPost' => ['required'],
@@ -49,6 +53,8 @@ class CarrotController extends Controller
 
     public function destroy( Carrot $carrot)
     {
+        Gate::authorize('delete', $carrot);
+
         $user = User::find(Auth::id());
 
         if($user->carrots()->where('id', $carrot->id)->exists()){

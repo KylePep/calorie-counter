@@ -15,7 +15,7 @@ const props = defineProps(['mustVerifyEmail', 'status']);
 
         <template #header>
             <h2 class="font-semibold text-xl leading-tight">Profile</h2>
-            <NavLink :href="route('account.show')">
+            <NavLink :href="route('account.index')">
                 Return
             </NavLink>
         </template>
