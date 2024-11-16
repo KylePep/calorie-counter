@@ -90,7 +90,7 @@ onUnmounted(() => {
 
                             <template #content>
                                 <div class="flex flex-col p-2 bg-dark rounded">
-                                    <DropdownLink :href="route('account.show')"> Profile </DropdownLink>
+                                    <DropdownLink :href="route('account.index')"> Profile </DropdownLink>
                                     <DropdownLink :href="route('logout')" method="post" as="button">
                                         Log Out
                                     </DropdownLink>
@@ -139,7 +139,7 @@ onUnmounted(() => {
 
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
-                <ResponsiveNavLink :href="route('account.show')" class="px-4">
+                <ResponsiveNavLink :href="route('account.index')" class="px-4">
                     <div class="font-medium text-base text-light-text">
                         {{ $page.props.auth.user.name }}
                     </div>
@@ -147,7 +147,7 @@ onUnmounted(() => {
                 </ResponsiveNavLink>
 
                 <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('account.show')"> Profile </ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('account.index')"> Profile </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Log Out
                     </ResponsiveNavLink>

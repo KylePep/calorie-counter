@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCalorieDayRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
@@ -76,8 +77,9 @@ class CalorieDayController extends Controller
 
         $user = User::find(Auth::id());
 
-        $account = $user->account;
+        Gate::authorize('view', $calorieDay);
 
+        $account = $user->account;
 
         $calorieDay->food_items = $calorieDay->food_items;
 
@@ -117,6 +119,12 @@ class CalorieDayController extends Controller
      */
     public function update(UpdateCalorieDayRequest $request, CalorieDay $calorieDay)
     {
+
+        $user = User::find(Auth::id());
+
+        if ($user->id != $calorieDay->user_id){
+            return $calorieDay->with('error', 'You are not authorized to update this.');
+        }
 
         $validated = $request->validate([
             'goal' => ['integer'],
@@ -183,6 +191,8 @@ class CalorieDayController extends Controller
     public function patch(UpdateCalorieDayRequest $request, CalorieDay $calorieDay)
     {
 
+        Gate::authorize('update', $calorieDay);
+
         $attributes = $request->validate([
             'goal' => ['integer', 'nullable'],
             'journal' => ['string', 'nullable'],
@@ -192,7 +202,7 @@ class CalorieDayController extends Controller
 
         $calorieDay->update($filteredAttributes);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Calorie Day updated successfully.');
 
     }
 
