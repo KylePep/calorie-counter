@@ -135,7 +135,7 @@ class AccountController extends Controller
             $latestCalorieDay->save();
         }
 
-        return Redirect::route('account.show');
+        return Redirect::route('account.index');
     }
 
     /**
