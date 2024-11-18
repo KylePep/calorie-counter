@@ -11,7 +11,7 @@ import CalorieKey from '@/Components/Displays/CalorieKey.vue'
 import WeighInEntry from "@/Components/Displays/WeighInEntry.vue";
 
 
-const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
+const props = defineProps(['account', 'calorieDay', 'carrots', 'weighIn', 'foodItems', 'without_fdcId', 'with_fdcId']);
 
 const renderHeroImage = computed(() => {
     if (props.account) {
@@ -31,7 +31,7 @@ const renderHeroImage = computed(() => {
 
     <GlobalLayout :heroImage="renderHeroImage" heroHeight="20">
         <template #header>
-            <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Dashboard</h2>
+            <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Calorie Counter</h2>
             <h2 v-else>
                 <Link :href="route('calculator')"
                     class="text-accent-light hover:text-white hover:animate-none duration-300">
@@ -41,25 +41,23 @@ const renderHeroImage = computed(() => {
         </template>
 
         <CalorieDayLayout :account="account" :calorie-day="calorieDay" :with_fdc-id="with_fdcId"
-            :without_fdc-id="without_fdcId" :carrots="carrots">
+            :without_fdc-id="without_fdcId" :foodItems="foodItems">
 
             Today: {{ new Date().toLocaleDateString() }}
 
         </CalorieDayLayout>
 
         <template #leftSide>
-            <Side side="left" v-if="props.account">
+            <!-- <Side side="left" v-if="props.account">
                 <CalorieKey />
-            </Side>
+            </Side> -->
         </template>
 
         <template #rightSide>
-            <Side v-if="props.account" side="right">
+            <Side v-if="props.account" side="right" class="hidden sm:block">
                 <WeighInEntry :weighIn="weighIn" />
                 <JournalEntry :calorieDay="calorieDay" />
                 <CarrotDisplay :carrots="carrots" />
-            </Side>
-            <Side v-if="props.account" side="right" class="hidden sm:block">
                 <CreateFood />
             </Side>
         </template>

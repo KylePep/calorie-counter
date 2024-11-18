@@ -61,29 +61,28 @@ const closeModal = () => {
 </script>
 
 <template>
-  <div>
-    <PrimaryButton class="shadow" v-if="!showCreateForm" @click="confirmFoodDetails">
-      Create New Food
-    </PrimaryButton>
+  <PrimaryButton class="shadow" v-if="!showCreateForm" @click="confirmFoodDetails">
+    <span class="block sm:hidden mdi mdi-plus-thick"> Food</span>
+    <span class="hidden sm:block">Create Food</span>
+  </PrimaryButton>
 
-    <Modal :show="confirmingFoodDetails" @close="closeModal">
+  <Modal :show="confirmingFoodDetails" @close="closeModal">
 
-      <FoodDetailsForm :formData="form" @cancel="closeModal">
+    <FoodDetailsForm :formData="form" @cancel="closeModal">
 
-        <template #title>
-          <h1 class="text-center text-xl font-bold">Create a Food</h1>
-          <h2 class="text-center text-sm max-w-xs mx-auto">Complete this form, then use your new food to help track your
-            calories!
-          </h2>
-        </template>
+      <template #title>
+        <h1 class="text-center text-xl font-bold">Create a Food</h1>
+        <h2 class="text-center text-sm max-w-xs mx-auto">Complete this form, then use your new food to help track your
+          calories!
+        </h2>
+      </template>
 
-        <SecondaryButton type="button" @click="closeModal">
-          Cancel
-        </SecondaryButton>
-        <PrimaryButton @click="createFoodItem">
-          Create
-        </PrimaryButton>
-      </FoodDetailsForm>
-    </Modal>
-  </div>
+      <SecondaryButton type="button" @click="closeModal">
+        Cancel
+      </SecondaryButton>
+      <PrimaryButton @click="createFoodItem">
+        Create
+      </PrimaryButton>
+    </FoodDetailsForm>
+  </Modal>
 </template>

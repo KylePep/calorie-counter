@@ -65,35 +65,40 @@ function macroClass(index) {
       </template>
 
       <template #content>
-        <div v-if="!displayList">
-          <div v-for="macro, index in macros" class="relative bg-white h-6 my-1">
+        <div v-if="!displayList" class="grid grid-cols-3 gap-1">
+          <div v-for="macro, index in macros" class="text-center text-xs sm:font-bold uppercase">
+            {{ index }}
+          </div>
+
+          <div v-for="macro, index in macros" class="relative bg-white h-6">
 
             <div class="absolute h-full rounded-sm" :class="macroClass(index)"
               :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100, 100)}%` }">
             </div>
 
+
             <div
               class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-sm p-1 text-xs">
-              <span class="col-span-2 sm:col-span-3 font-bold uppercase">
+              <!-- <span class="hidden sm:block col-span-2 sm:col-span-3 font-bold uppercase">
                 {{ index }}
+              </span> -->
+
+              <span class="text-start sm:text-center font-bold col-span-6 sm:col-span-2">
+                <p>{{ Math.round(calorieDayMacros[index] / macro * 100) }} %</p>
               </span>
 
-              <span class="text-center">
-                <p>{{ Math.round(calorieDayMacros[index] / macro * 100) }}%</p>
-              </span>
-
-              <span class="text-center">
+              <span class="hidden sm:block text-center col-span-2 ">
                 <p>{{ Math.round(calorieDayMacros[index]) }}g</p>
               </span>
 
-              <span class="col-span-2 sm:col-span-1 text-end">
+              <span class="hidden sm:block col-span-2 sm:col-span-2 text-end">
                 <p>{{ macro }}g Goal</p>
               </span>
             </div>
 
           </div>
         </div>
-        <div v-else class="grid grid-cols-1 gap-4">
+        <div v-else class="grid grid-cols-1 gap-1 sm:gap-4">
           <div v-for="macro, index in macros">
             <h1 class="font-bold text-sm">
               <span class="uppercase">{{ index }}</span>

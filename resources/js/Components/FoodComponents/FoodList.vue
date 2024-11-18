@@ -96,12 +96,9 @@ function handleExtraButton(item, action) {
 
     <template #content>
 
-
-      <label for="" class="block font-bold hidden">Search for food</label>
-
-      <div class="mb-3 -m-2">
+      <div class="-mb-4 -mx-2 -mt-2">
         <form @submit.prevent="fetchFoodData(1)"
-          class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark text-xs p-1.5">
+          class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark rounded-b text-xs p-1.5">
 
           <div class="col-span-3 sm:col-span-2 flex items-center ">
             <Dropdown align="left" width="100" class="w-full">
@@ -164,7 +161,7 @@ function handleExtraButton(item, action) {
         </form>
       </div>
 
-      <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
+      <!-- <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
         <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)"
           :disabled="foodSearchResponse.currentPage <= 1"
           :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
@@ -205,7 +202,7 @@ function handleExtraButton(item, action) {
           <UsdaFoodCard :food-item="foodItem" @extraButton="handleExtraButton" />
         </div>
 
-      </div>
+      </div> -->
     </template>
 
   </CollapsableFolder>

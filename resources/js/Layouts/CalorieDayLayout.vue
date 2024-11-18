@@ -10,11 +10,9 @@ import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue
 import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
 import MacroDisplay from "@/Components/Displays/MacroDisplay.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 
-const props = defineProps(['account', 'calorieDay', 'with_fdcId', 'without_fdcId', 'carrots']);
-
-const with_fdcId = computed(() => props.with_fdcId);
-const without_fdcId = computed(() => props.without_fdcId);
+const props = defineProps(['account', 'calorieDay', 'foodItems', 'with_fdcId', 'without_fdcId']);
 
 const calorieDay = ref(props.calorieDay)
 
@@ -122,25 +120,37 @@ function handleExtraButton(item, action, type) {
 
   <MacroDisplay v-if="props.account && props.account.trackMacros == true" :account="account" :calorieDay="calorieDay" />
 
-  <section v-if="props.account" class="block lg:hidden">
-    <CreateFood />
-  </section>
-
   <section v-if="props.account && calorieDay.food_items.length">
     <ConsumedList :dayItems="calorieDay.food_items" @remove-food-item="removeAndSubtractFoodItem" />
   </section>
 
-  <section v-if="props.account">
-    <ItemsDisplay size="sm" :list="without_fdcId" @item-Activated="updateCalorieDayFoodItem"
+  <section v-if="props.account" class="block lg:hidden grid grid-cols-3 gap-1 ">
+    <CreateFood />
+    <PrimaryButton class=""> <span class="block sm:hidden mdi mdi-plus-thick"> WeighIn</span></PrimaryButton>
+    <PrimaryButton class=""> <span class="block sm:hidden mdi mdi-plus-thick"> Journal</span></PrimaryButton>
+    <PrimaryButton class="col-span-3 flex justify-center"><span class="block sm:hidden mdi mdi-menu-down">
+        Carrot</span>
+    </PrimaryButton>
+  </section>
+
+  <section v-if="props.account" class="block sm:hidden">
+    <ItemsDisplay size="sm" :list="props.foodItems" @item-Activated="updateCalorieDayFoodItem"
       @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
       <h1>Your Foods</h1>
     </ItemsDisplay>
   </section>
 
-  <section v-if="props.account">
-    <ItemsDisplay size="sm" :list="with_fdcId" @item-Activated="updateCalorieDayFoodItem"
+  <section v-if="props.account" class="hidden sm:block">
+    <ItemsDisplay size="sm" :list="props.without_fdcId" @item-Activated="updateCalorieDayFoodItem"
       @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
-      <h1>Favorite Foods</h1>
+      <h1>Created Foods</h1>
+    </ItemsDisplay>
+  </section>
+
+  <section v-if="props.account" class="hidden sm:block">
+    <ItemsDisplay size="sm" :list="props.with_fdcId" @item-Activated="updateCalorieDayFoodItem"
+      @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
+      <h1>Saved Foods</h1>
     </ItemsDisplay>
   </section>
 

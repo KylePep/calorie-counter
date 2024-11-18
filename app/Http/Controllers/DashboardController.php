@@ -13,13 +13,14 @@ class DashboardController extends Controller
 
     public function index() 
     {
-        $user = User::find(Auth::id());
+        $user = User::with(['foodItems', 'carrots'])->find(Auth::id());
 
         $account = $user->account;
         if(!$account){
             return Inertia::render('Dashboard', [
                 'account' => $account,
                 'calorieDay' => [],
+                'foodItems' => [],
                 'with_fdcId' => [],
                 'without_fdcId' => [],
             ]);
@@ -48,17 +49,11 @@ class DashboardController extends Controller
                     ]);
                 } 
 
-                $CalorieDay->food_items = $CalorieDay->food_items;
+                $foodItems = $user->foodItems;
                 
                 $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
                     return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
                 });
-
-                foreach($groupedFoodItems as $group => $items){
-                    foreach($items as $item){
-                        $item->foodNutrients = $item->foodNutrients;
-                    }
-                }
 
                 $sortedCarrots = $user->carrots->groupBy(function($carrot){
                     return $carrot->complete ? 'complete' : 'incomplete';
@@ -87,6 +82,7 @@ class DashboardController extends Controller
                 return Inertia::render('Dashboard', [
                     'account' => $account,
                     'calorieDay' => $CalorieDay,
+                    'foodItems' => $foodItems,
                     'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
                     'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
                     'carrots' => $sortedCarrots,
