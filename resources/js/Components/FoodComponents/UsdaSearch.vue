@@ -9,9 +9,19 @@ import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
 import Dropdown from "../Form/Dropdown.vue";
 import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
-import CollapsableFolder from "../Displays/CollapsableFolder.vue";
+import Modal from "../Form/Modal.vue";
 
 const emit = defineEmits(['extraButton']);
+
+const showModal = ref(false);
+
+function showResults() {
+  showModal.value = true;
+}
+
+const closeModal = () => {
+  showModal.value = false;
+}
 
 const form = useForm({
   query: '',
@@ -76,6 +86,8 @@ async function fetchFoodData(page = 1) {
     usdaResponse.foodSearchResponse = foodSearchResponse;
     usdaResponse.foods = foods;
 
+    showResults();
+
   } catch (error) {
     loading.value = false;
     console.error(error, '[Error fetching food data]');
@@ -84,6 +96,7 @@ async function fetchFoodData(page = 1) {
 
 function handleExtraButton(item, action) {
   emit('extraButton', item, action);
+  closeModal();
 }
 
 </script>
@@ -158,46 +171,48 @@ function handleExtraButton(item, action) {
     </form>
   </div>
 
-  <!-- <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
-        <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)"
-          :disabled="foodSearchResponse.currentPage <= 1"
-          :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
-          class=" py-1 px-3 rounded">
-          Previous
-        </button>
+  <Modal :show="showModal" @close="closeModal">
 
-        <p :class="foodSearchResponse.totalHits ? 'text-dark-text' : 'text-neutral/75'"
-          class="text-xs sm:text-base font-semibold ">
-          Hits:
-          {{
-            foodSearchResponse.totalHits }}</p>
-        <p :class="foodSearchResponse.currentPage ? 'text-dark-text' : 'text-neutral/75'"
-          class="text-xs sm:text-base font-semibold ">
-          Page: {{ foodSearchResponse.currentPage }} - {{
-            foodSearchResponse.totalPages }} </p>
+    <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
+      <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)" :disabled="foodSearchResponse.currentPage <= 1"
+        :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
+        class=" py-1 px-3 rounded">
+        Previous
+      </button>
 
-        <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
-          :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
-          :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
-          class="  py-1 px-3 rounded">
-          Next
-        </button>
+      <p :class="foodSearchResponse.totalHits ? 'text-dark-text' : 'text-neutral/75'"
+        class="text-xs sm:text-base font-semibold ">
+        Hits:
+        {{
+          foodSearchResponse.totalHits }}</p>
+      <p :class="foodSearchResponse.currentPage ? 'text-dark-text' : 'text-neutral/75'"
+        class="text-xs sm:text-base font-semibold ">
+        Page: {{ foodSearchResponse.currentPage }} - {{
+          foodSearchResponse.totalPages }} </p>
+
+      <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
+        :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
+        :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
+        class="  py-1 px-3 rounded">
+        Next
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 text-center ">
+
+      <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
+        class="break-inside-avoid relative flex flex-col justify-center w-full text-sm sm:text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg min-h-24 rounded">
+        {{ !loading ? 'Search for an item to begin counting calories!' : 'Searching' }}
+      </div>
+      <div v-if="foodSearchResponse.currentPage && foods.length == 0"
+        class="break-inside-avoid relative flex flex-col justify-center w-full text-light-text text-xl font-bold bg-dark p-3 border-2 border-light drop-shadow-lg min-h-24 rounded">
+        No results found
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 text-center ">
+      <div v-for="foodItem in foods">
+        <UsdaFoodCard :food-item="foodItem" @extraButton="handleExtraButton" />
+      </div>
 
-        <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
-          class="break-inside-avoid relative flex flex-col justify-center w-full text-sm sm:text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg min-h-24 rounded">
-          {{ !loading ? 'Search for an item to begin counting calories!' : 'Searching' }}
-        </div>
-        <div v-if="foodSearchResponse.currentPage && foods.length == 0"
-          class="break-inside-avoid relative flex flex-col justify-center w-full text-light-text text-xl font-bold bg-dark p-3 border-2 border-light drop-shadow-lg min-h-24 rounded">
-          No results found
-        </div>
-
-        <div v-for="foodItem in foods">
-          <UsdaFoodCard :food-item="foodItem" @extraButton="handleExtraButton" />
-        </div>
-
-      </div> -->
+    </div>
+  </Modal>
 </template>

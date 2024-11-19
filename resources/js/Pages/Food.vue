@@ -1,5 +1,5 @@
 <script setup>
-import FoodList from "@/Components/FoodComponents/FoodList.vue";
+import FoodList from "@/Components/FoodComponents/UsdaSearch.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";

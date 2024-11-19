@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref, watch } from "vue";
-import Modal from "../Form/Modal.vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
@@ -16,8 +15,6 @@ const page = usePage();
 const isDashboard = page.url.includes('dashboard');
 
 const loading = ref(false);
-
-// const confirmingFoodDetailsEdit = computed(() => props.showModal);
 
 const foodData = computed(() => props.foodItem);
 
@@ -42,10 +39,8 @@ async function getUsdaFoodById() {
     console.error(error, '[Error fetching food data]');
   }
 }
+getUsdaFoodById();
 
-watch(foodData, (newfoodData) => {
-  getUsdaFoodById();
-})
 
 
 const form = useForm({

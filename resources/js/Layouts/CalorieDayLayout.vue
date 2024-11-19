@@ -4,7 +4,7 @@ import axios from "axios";
 import { computed, ref } from "vue";
 import ConsumedList from "@/Components/FoodComponents/ConsumedList.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
-import FoodList from "@/Components/FoodComponents/FoodList.vue";
+import FoodList from "@/Components/FoodComponents/UsdaSearch.vue";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
 import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
@@ -66,10 +66,12 @@ function handleExtraButton(item, action, type) {
 }
 
 function setActive(type, foodItem) {
-  console.log('[Modal Content Type]', type);
+  console.log('[Modal Content Type]', type, foodItem);
   modalContent.value = type;
   showModal.value = true;
-  if (foodItem) { ActiveFoodItem.value = foodItem; }
+  // if (foodItem != undefined) { 
+  ActiveFoodItem.value = foodItem;
+  // }
 }
 
 const closeModal = () => {
@@ -120,7 +122,7 @@ const closeModal = () => {
     </section>
 
     <section v-if="props.account" class="lg:hidden">
-      <MenuArray :account="account" :weighIn="weighIn" :carrots="carrots" :calorieDay="calorieDay" :foodItems />
+      <MenuArray :account :weighIn :carrots :calorieDay :foodItems />
     </section>
 
 

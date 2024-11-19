@@ -51,7 +51,7 @@ const renderHeroImage = computed(() => {
                 <WeighInEntry :weighIn="weighIn" />
                 <JournalEntry :calorieDay="calorieDay" />
                 <CarrotDisplay :carrots="carrots" />
-                <MenuArray />
+                <MenuArray :account :weighIn :carrots :calorieDay :foodItems />
             </Side>
         </template>
 
