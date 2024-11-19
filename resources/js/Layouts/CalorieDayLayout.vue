@@ -4,7 +4,7 @@ import axios from "axios";
 import { computed, ref } from "vue";
 import ConsumedList from "@/Components/FoodComponents/ConsumedList.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
-import FoodList from "@/Components/FoodComponents/UsdaSearch.vue";
+import UsdaSearch from "@/Components/FoodComponents/UsdaSearch.vue";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
 import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
@@ -135,7 +135,7 @@ const closeModal = () => {
 
     <section v-if="props.account">
       <h1 class="mb-2">Foods</h1>
-      <FoodList @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
+      <UsdaSearch @extra-button="(item, action) => handleExtraButton(item, action, 'usda')" />
       <ItemsDisplay size="sm" :list="props.foodItems" @item-Activated="updateCalorieDayFoodItem"
         @extra-button="(item, action) => handleExtraButton(item, action, 'foodItem')">
         <h1>Your Foods</h1>

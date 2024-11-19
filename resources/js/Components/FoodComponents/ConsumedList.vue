@@ -1,8 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
-import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 import Pop from "@/utils/Pop.js";
-import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const props = defineProps(['dayItems']);
 const emit = defineEmits(['removeFoodItem']);
@@ -61,12 +59,6 @@ async function confirmRemoveItem(item) {
 
   <section class="flex justify-between">
     <h1>Consumed</h1>
-    <!-- <PrimaryButton>Counted</PrimaryButton>
-
-    <button @click="displayList = !displayList"
-      class="bg-accent hover:bg-dark text-dark-text hover:text-light-text rounded-md px-3 ">
-      <i :class="displayList ? 'mdi mdi-card-text' : 'mdi mdi-format-list-bulleted'"></i>
-    </button> -->
   </section>
 
   <section>
@@ -108,55 +100,4 @@ async function confirmRemoveItem(item) {
       </button>
     </div>
   </section>
-
-
-  <!-- <CollapsableFolder>
-    <template #title>
-      <h1>Counted</h1>
-    </template>
-
-<template #config>
-      <button @click="displayList = !displayList"
-        class="bg-accent hover:bg-dark text-dark-text hover:text-light-text rounded-md px-3 ">
-        <i :class="displayList ? 'mdi mdi-card-text' : 'mdi mdi-format-list-bulleted'"></i>
-      </button>
-    </template>
-
-<template #content>
-
-      <div v-if="!displayList" class=" p-2 grid grid-rows-2 text-center overflow-x-auto whitespace-nowrap gap-1 ">
-        <div v-for="rowIndex in 2" class="flex space-x-1">
-          <button v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
-            @click="confirmRemoveItem(item)" :class="representativeWidth(item)"
-            :title="`${item.description}  -${item.count} Calories`"
-            class="group relative hover:bg-dark h-8 inline-block bg-white border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
-
-            <p ref="scrollingText" :class="getAnimationClass(item)"
-              class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
-              {{ item.description }}
-            </p>
-            <p
-              class="absolute w-full group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
-            </p>
-
-          </button>
-        </div>
-      </div>
-
-      <div v-else class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-        <button v-for="(item, index) in dayItems" :key="index" @click="confirmRemoveItem(item)"
-          class="group relative hover:bg-dark h-8 inline-block bg-white border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
-
-          <p class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
-            {{ item.description }} - {{ item.count }}
-          </p>
-          <p
-            class="absolute w-full group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
-          </p>
-
-        </button>
-      </div>
-
-    </template>
-</CollapsableFolder> -->
 </template>

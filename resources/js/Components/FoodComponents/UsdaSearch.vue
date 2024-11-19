@@ -172,7 +172,6 @@ function handleExtraButton(item, action) {
   </div>
 
   <Modal :show="showModal" @close="closeModal">
-
     <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
       <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)" :disabled="foodSearchResponse.currentPage <= 1"
         :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
