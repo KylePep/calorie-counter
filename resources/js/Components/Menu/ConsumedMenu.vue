@@ -59,16 +59,26 @@ async function confirmRemoveItem(item) {
 
 
 <template>
-  <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-    <button v-for="(item, index) in dayItems" :key="index" @click="confirmRemoveItem(item)"
-      class="group relative hover:bg-dark h-8 inline-block bg-white border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
 
-      <p class=" relative text-neutral-text text-xs group-hover:text-neutral-text ps-3 font-bold duration-400">
-        {{ item.description }} - {{ item.count }}
-      </p>
-      <p class="absolute w-full group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
-      </p>
+  <div class="space-y-3">
+    <h1 class="text-center text-xl font-bold">Consumed List</h1>
+    <h2 class="text-center text-sm max-w-xs mx-auto">A simple list view of all of your foods for the day an their
+      calories.
+    </h2>
 
-    </button>
+    <div class="">
+      <button v-for="(item, index) in dayItems" :key="index" @click="confirmRemoveItem(item)"
+        class="group relative flex justify-center items-center w-full hover:bg-dark bg-white border border-light rounded-sm py-2 duration-500 overflow-hidden shadow-lg mb-1">
+
+        <p
+          class="relative grid grid-cols-6 w-full text-neutral-text text-xs group-hover:text-light-text px-3 font-bold duration-400">
+          <span class="text-start col-span-5 ">{{ item.description }}</span>
+          <span class="text-end">{{ item.count }} cal</span>
+        </p>
+        <p class="absolute w-full group-hover:text-special text-transparent font-bold mdi mdi-close-thick duration-300">
+        </p>
+
+      </button>
+    </div>
   </div>
 </template>

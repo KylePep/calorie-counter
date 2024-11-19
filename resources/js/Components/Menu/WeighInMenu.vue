@@ -51,32 +51,39 @@ async function deleteWeighIn(weighIn) {
 
 
 <template>
-  <div v-if="!weighIn" class="w-full">
-    <form @submit.prevent="createWeighIn">
-      <InputLabel for="weighIn" value="Weigh In" class="hidden" />
-      <div class="relative">
-        <NumberInput v-model="form.weight" class="w-full mb-1" placeholder="Create a new weigh in?" required />
-        <span class="absolute h-full flex items-center px-3 top-0 right-0 text-neutral-text/50 font-bold">lbs</span>
-      </div>
-      <div class="flex justify-end space-x-2">
-        <PrimaryButton>Submit</PrimaryButton>
-      </div>
-    </form>
-  </div>
+  <div class="space-y-3">
+    <h1 class="text-center text-xl font-bold">Weigh In</h1>
+    <h2 class="text-center text-sm max-w-xs mx-auto">It isn't necessary to create a new weigh in for every day. Just do
+      what feels right.
+    </h2>
 
-  <div v-else class="w-full ">
-    <button @click="deleteWeighIn(weighIn)"
-      class="group relative flex w-full justify-between bg-main hover:bg-dark rounded font-bold text-dark-text hover:text-light-text border py-2.5 px-3 bg-light border-light rounded duration-500">
-      <p>
-        {{ weighIn.weight }} lbs
-      </p>
-      <p>
-        Today
-      </p>
-      <p
-        class="absolute left-1/2  object-center group-hover:text-light-text text-transparent font-bold mdi mdi-close-thick duration-300">
-      </p>
+    <div v-if="!weighIn" class="w-full">
+      <form @submit.prevent="createWeighIn">
+        <InputLabel for="weighIn" value="Weigh In" class="hidden" />
+        <div class="relative">
+          <NumberInput v-model="form.weight" class="w-full " placeholder="Create a new weigh in?" required />
+          <span class="absolute h-full flex items-center px-3 top-0 right-0 text-neutral-text/50 font-bold">lbs</span>
+        </div>
+        <div class="flex justify-end space-x-2 mt-3">
+          <PrimaryButton>Submit</PrimaryButton>
+        </div>
+      </form>
+    </div>
 
-    </button>
+    <div v-else class="w-full">
+      <button @click="deleteWeighIn(weighIn)"
+        class="group relative flex w-full justify-between bg-main hover:bg-dark rounded font-bold text-dark-text hover:text-light-text border py-2.5 px-3 bg-light border-light rounded duration-500">
+        <p>
+          {{ weighIn.weight }} lbs
+        </p>
+        <p>
+          Today
+        </p>
+        <p
+          class="absolute left-1/2  object-center group-hover:text-light-text text-transparent font-bold mdi mdi-close-thick duration-300">
+        </p>
+
+      </button>
+    </div>
   </div>
 </template>

@@ -46,9 +46,13 @@ async function updateJournal() {
 
 
 <template>
-  <div class="w-full">
+  <div class="space-y-3">
+    <h1 class="text-center text-xl font-bold">Journal Entry</h1>
+    <h2 class="text-center text-sm max-w-xs mx-auto">
+      Record what you ate, how it made you feel or something positive about your meals today.
+    </h2>
 
-    <form @submit.prevent="updateJournal">
+    <form @submit.prevent="updateJournal" class="space-y-3">
       <InputLabel for="journal" value="Journal Entry" class="hidden" />
       <textarea id="journal" v-model="form.journal" :placeholder="promptSelector()"
         class="w-full h-32 md:h-52 resize-none border-gray-300 focus:border-accent focus:ring-accent rounded-md shadow-sm"></textarea>
@@ -57,7 +61,6 @@ async function updateJournal() {
         <PrimaryButton>Submit</PrimaryButton>
       </div>
     </form>
-
   </div>
 
 </template>

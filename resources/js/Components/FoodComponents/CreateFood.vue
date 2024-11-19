@@ -61,9 +61,6 @@ const closeModal = () => {
 
 <template>
   <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
-  <!-- <PrimaryButton class="hidden lg:block shadow flex" @click="confirmFoodDetails">
-    Create Food
-  </PrimaryButton> -->
 
   <Modal :show="showCreateForm" @close="closeModal">
 

@@ -47,9 +47,12 @@ function completeCarrot(carrot) {
 
 <template>
 
-  <div class="w-full">
+  <div class="space-y-3">
+    <h1 class="text-center text-xl font-bold">Carrots</h1>
+    <h2 class="text-center text-sm max-w-xs mx-auto">
+      Set up a carrot on a stick in you account, Carrots let remind you what your striving for and help with motivation.
+    </h2>
 
-    <p> Carrots</p>
     <div class="space-y-3">
       <h3 class="font-bold mdi mdi-human-male">Incomplete</h3>
       <div v-if="props.carrots.incomplete">

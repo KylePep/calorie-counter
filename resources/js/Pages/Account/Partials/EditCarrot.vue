@@ -172,7 +172,7 @@ const closeModal = () => {
   </div>
 
   <Modal :show="confirmingCarrotDetails" @close="closeModal">
-    <form @submit.prevent="submitForm" @cancel="closeModal" class="grid grid-cols-2 gap-3 justify-start p-6">
+    <form @submit.prevent="submitForm" @cancel="closeModal" class="grid grid-cols-2 gap-3 justify-start">
 
       <h1 class="col-span-2 text-xl font-bold">Create new carrot</h1>
 

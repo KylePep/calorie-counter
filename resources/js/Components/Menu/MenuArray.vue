@@ -50,25 +50,23 @@ const closeModal = () => {
   </section>
 
   <Modal :show="showModal" @close="closeModal">
-    <div class="p-4">
-      <section v-if="modalContent == 'weighIn'">
-        <WeighInMenu :weighIn="weighIn" />
-      </section>
-      <section v-if="modalContent == 'macroList'">
-        <MacroMenu :account="account" :calorieDay="calorieDay" />
-      </section>
-      <section v-if="modalContent == 'consumedList'">
-        <ConsumedMenu :dayItems="calorieDay.food_items" />
-      </section>
-      <section v-if="modalContent == 'foodList'">
-        <FoodMenu size="xl" :list="props.foodItems" />
-      </section>
-      <section v-if="modalContent == 'journalEntry'">
-        <JournalMenu :calorieDay="calorieDay" />
-      </section>
-      <section v-if="modalContent == 'carrots'">
-        <CarrotMenu :carrots="carrots" />
-      </section>
-    </div>
+    <section v-if="modalContent == 'weighIn'">
+      <WeighInMenu :weighIn="weighIn" />
+    </section>
+    <section v-if="modalContent == 'macroList'">
+      <MacroMenu :account="account" :calorieDay="calorieDay" />
+    </section>
+    <section v-if="modalContent == 'consumedList'">
+      <ConsumedMenu :dayItems="calorieDay.food_items" />
+    </section>
+    <section v-if="modalContent == 'foodList'">
+      <FoodMenu size="xl" :list="props.foodItems" />
+    </section>
+    <section v-if="modalContent == 'journalEntry'">
+      <JournalMenu :calorieDay="calorieDay" />
+    </section>
+    <section v-if="modalContent == 'carrots'">
+      <CarrotMenu :carrots="carrots" />
+    </section>
   </Modal>
 </template>

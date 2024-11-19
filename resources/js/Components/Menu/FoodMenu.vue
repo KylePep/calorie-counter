@@ -44,23 +44,28 @@ const currentSizeClass = computed(() => {
 
 
 <template>
+  <div class="space-y-3">
+    <h1 class="text-center text-xl font-bold">Your Foods</h1>
+    <h2 class="text-center text-sm max-w-xs mx-auto">
+      Filter and search your foods.
+    </h2>
 
+    <section class=" grid grid-flow-col auto-cols-min gap-1 sm:gap-3 py-2 text-center overflow-x-auto whitespace-nowrap"
+      :class="currentSizeClass">
 
-  <section class=" grid grid-flow-col auto-cols-min gap-1 sm:gap-3 py-2 text-center overflow-x-auto whitespace-nowrap"
-    :class="currentSizeClass">
-
-    <div v-for="foodItem in props.list">
-      <FoodCard :foodItem="foodItem" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
-    </div>
-
-    <div v-if="props.list.length == 0"
-      class="inline-block justify-center text-center text-light-text font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
-      <div class="flex flex-col min-h-24 justify-around">
-        <p>
-          No foods to show
-        </p>
+      <div v-for="foodItem in props.list">
+        <FoodCard :foodItem="foodItem" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
       </div>
-    </div>
-  </section>
+
+      <div v-if="props.list.length == 0"
+        class="inline-block justify-center text-center text-light-text font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
+        <div class="flex flex-col min-h-24 justify-around">
+          <p>
+            No foods to show
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
 
 </template>
