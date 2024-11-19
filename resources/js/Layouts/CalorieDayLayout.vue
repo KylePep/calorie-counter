@@ -10,7 +10,7 @@ import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
 import MacroDisplay from "@/Components/Displays/MacroDisplay.vue";
 import Modal from "@/Components/Form/Modal.vue";
-import MenuArray from "@/Components/Displays/MenuArray.vue";
+import MenuArray from "@/Components/Menu/MenuArray.vue";
 
 const props = defineProps(['account', 'calorieDay', 'foodItems', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
 

@@ -6,7 +6,7 @@ import { ref } from "vue";
 import Pop from "@/utils/Pop.js";
 import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
-import MenuButton from "../Displays/MenuButton.vue";
+import MenuButton from "../Menu/MenuButton.vue";
 
 const showCreateForm = ref(false);
 
