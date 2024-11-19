@@ -10,9 +10,9 @@ import Pop from "@/utils/Pop.js";
 
 const emit = defineEmits(['closeModal']);
 
-const props = defineProps(['showModal', 'foodItem']);
+const props = defineProps(['foodItem']);
 
-const confirmingFoodDetailsEdit = computed(() => props.showModal);
+// const confirmingFoodDetailsEdit = computed(() => props.showModal);
 
 const foodData = computed(() => props.foodItem);
 
@@ -94,23 +94,20 @@ async function updateItem() {
 
 
 <template>
-  <Modal :show="confirmingFoodDetailsEdit" @close="closeModal">
-    <FoodDetailsForm :formData="form" @cancel="closeModal">
-      <template #title>
-        <h1 class="text-center text-xl font-bold">Updating {{ form.description }}</h1>
-      </template>
+  <FoodDetailsForm :formData="form" @cancel="closeModal">
+    <template #title>
+      <h1 class="text-center text-xl font-bold">Updating {{ form.description }}</h1>
+    </template>
 
-      <SecondaryButton type="button" @click="closeModal">
-        Cancel
-      </SecondaryButton>
-      <DangerButton type="button" @click="deleteItem">
-        Delete
-      </DangerButton>
-      <PrimaryButton @click="updateItem">
-        Update
-      </PrimaryButton>
-    </FoodDetailsForm>
-
-  </Modal>
+    <SecondaryButton type="button" @click="closeModal">
+      Cancel
+    </SecondaryButton>
+    <DangerButton type="button" @click="deleteItem">
+      Delete
+    </DangerButton>
+    <PrimaryButton @click="updateItem">
+      Update
+    </PrimaryButton>
+  </FoodDetailsForm>
 
 </template>

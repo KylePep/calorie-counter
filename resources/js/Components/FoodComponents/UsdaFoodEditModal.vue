@@ -8,7 +8,7 @@ import Pop from "@/utils/Pop.js";
 import { UsdaFoodItem } from "@/models/UsdaFoodItem.js";
 import UsdaFoodDetailsForm from "./UsdaFoodDetailsForm.vue";
 
-const props = defineProps(['showModal', 'foodItem']);
+const props = defineProps(['foodItem']);
 
 const emit = defineEmits(['closeModal', 'useItem']);
 
@@ -17,7 +17,7 @@ const isDashboard = page.url.includes('dashboard');
 
 const loading = ref(false);
 
-const confirmingFoodDetailsEdit = computed(() => props.showModal);
+// const confirmingFoodDetailsEdit = computed(() => props.showModal);
 
 const foodData = computed(() => props.foodItem);
 
@@ -132,29 +132,24 @@ function createFoodItem() {
 
 
 <template>
-  <Modal :show="confirmingFoodDetailsEdit" @close="closeModal">
 
-    <UsdaFoodDetailsForm :formData="form" @cancel="closeModal" :loading="loading">
-      <template #title>
-        <h1 v-if="!loading" class="text-center text-base font-bold text-gray-700">Edit <span
-            class="text-xl text-black">{{
-              form.description }}</span>?
-        </h1>
-        <h1 v-else class="text-center text-xl font-bold">Loading</h1>
-      </template>
+  <UsdaFoodDetailsForm :formData="form" @cancel="closeModal" :loading="loading">
+    <template #title>
+      <h1 v-if="!loading" class="text-center text-base font-bold text-gray-700">Edit <span class="text-xl text-black">{{
+        form.description }}</span>?
+      </h1>
+      <h1 v-else class="text-center text-xl font-bold">Loading</h1>
+    </template>
 
-      <SecondaryButton type="button" @click="closeModal">
-        Cancel
-      </SecondaryButton>
-      <PrimaryButton v-if="isDashboard" @click="useItem">
-        Use
-      </PrimaryButton>
-      <PrimaryButton @click="createFoodItem()">
-        Save
-      </PrimaryButton>
-    </UsdaFoodDetailsForm>
-
-  </Modal>
-
+    <SecondaryButton type="button" @click="closeModal">
+      Cancel
+    </SecondaryButton>
+    <PrimaryButton v-if="isDashboard" @click="useItem">
+      Use
+    </PrimaryButton>
+    <PrimaryButton @click="createFoodItem()">
+      Save
+    </PrimaryButton>
+  </UsdaFoodDetailsForm>
 
 </template>

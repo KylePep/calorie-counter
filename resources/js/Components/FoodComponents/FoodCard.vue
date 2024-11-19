@@ -44,7 +44,7 @@ function blockClass(block) {
 
     <section class="flex flex-col flex-1  ">
 
-      <div class="flex  justify-between items-end py-1 px-2 rounded-t border border-b-0 border-light">
+      <div class="flex  justify-between items-end sm:py-1 px-1 sm:px-2 rounded-t border border-b-0 border-light">
 
         <div class="font-bold ">
           {{ foodItem.calories }}

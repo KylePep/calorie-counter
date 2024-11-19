@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import CollapsableFolder from "./CollapsableFolder.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
 
 
 const props = defineProps(['account', 'calorieDay']);
@@ -49,7 +50,67 @@ function macroClass(index) {
 
 <template>
 
-  <div>
+  <section class="flex justify-between">
+    <!-- <h1>Macros</h1> -->
+
+    <!-- <PrimaryButton>Macros</PrimaryButton> -->
+  </section>
+
+  <section>
+    <div v-if="!displayList" class="grid grid-cols-3 gap-x-2">
+
+
+      <div v-for="macro, index in macros" class="relative bg-white h-6">
+
+        <div class="absolute h-full rounded-md" :class="macroClass(index)"
+          :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100, 100)}%` }">
+        </div>
+
+
+        <div
+          class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-md p-1 text-xs">
+          <!-- <span class="hidden sm:block col-span-2 sm:col-span-3 font-bold uppercase">
+                {{ index }}
+              </span> -->
+
+          <span class="text-start sm:text-center font-bold text-dark-text/75 col-span-6 sm:col-span-2">
+            <p>{{ Math.round(calorieDayMacros[index] / macro * 100) }} %</p>
+          </span>
+
+          <span class="hidden sm:block text-center font-bold text-dark-text/50 col-span-2 ">
+            <p>{{ Math.round(calorieDayMacros[index]) }}g</p>
+          </span>
+
+          <span class="hidden sm:block col-span-2 sm:col-span-2 text-end font-bold text-dark-text/50">
+            <p>{{ macro }}g</p>
+          </span>
+        </div>
+
+      </div>
+
+      <div v-for="macro, index in macros" class="text-center text-xs font-bold text-dark-text/50 uppercase">
+        {{ index }}
+      </div>
+    </div>
+    <div v-else class="grid grid-cols-1 gap-1 sm:gap-4">
+      <div v-for="macro, index in macros">
+        <h1 class="font-bold text-sm">
+          <span class="uppercase">{{ index }}</span>
+          - {{ macro }}g - {{ Math.round(calorieDayMacros[index]) }}g -{{
+            Math.round(calorieDayMacros[index] / macro * 100) }}%
+        </h1>
+        <div v-for="item, i in sortedFoodItems(index)" :class="macroClass(index)"
+          class="grid grid-cols-5 text-xs text-center  px-1 py-0.5 my-1">
+          <span class="col-span-3 text-start pe-2  truncate">{{ i + 1 }}. {{ item.description }}</span>
+          <span>{{ item[index] }}g</span>
+          <span>{{ Math.round(item[index] / macro * 100) }}%</span>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <div>
     <CollapsableFolder>
       <template #title>
         <p>
@@ -57,14 +118,14 @@ function macroClass(index) {
         </p>
       </template>
 
-      <template #config>
+<template #config>
         <button @click="displayList = !displayList"
           class="bg-accent hover:bg-dark text-dark-text hover:text-light-text rounded-md px-3 ">
           <i :class="displayList ? 'mdi mdi-card-text' : 'mdi mdi-format-list-bulleted'"></i>
         </button>
       </template>
 
-      <template #content>
+<template #content>
         <div v-if="!displayList" class="grid grid-cols-3 gap-1">
           <div v-for="macro, index in macros" class="text-center text-xs sm:font-bold uppercase">
             {{ index }}
@@ -79,20 +140,17 @@ function macroClass(index) {
 
             <div
               class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-sm p-1 text-xs">
-              <!-- <span class="hidden sm:block col-span-2 sm:col-span-3 font-bold uppercase">
-                {{ index }}
-              </span> -->
 
-              <span class="text-start sm:text-center font-bold col-span-6 sm:col-span-2">
+              <span class="text-start sm:text-center font-bold text-dark-text/75 col-span-6 sm:col-span-2">
                 <p>{{ Math.round(calorieDayMacros[index] / macro * 100) }} %</p>
               </span>
 
-              <span class="hidden sm:block text-center col-span-2 ">
+              <span class="hidden sm:block text-center font-bold text-dark-text/50 col-span-2 ">
                 <p>{{ Math.round(calorieDayMacros[index]) }}g</p>
               </span>
 
-              <span class="hidden sm:block col-span-2 sm:col-span-2 text-end">
-                <p>{{ macro }}g Goal</p>
+              <span class="hidden sm:block col-span-2 sm:col-span-2 text-end font-bold text-dark-text/50">
+                <p>{{ macro }}g</p>
               </span>
             </div>
 
@@ -115,7 +173,7 @@ function macroClass(index) {
           </div>
         </div>
       </template>
-    </CollapsableFolder>
-  </div>
+</CollapsableFolder>
+</div> -->
 
 </template>

@@ -45,7 +45,8 @@ const typeName = computed(() => {
   return {
     "SR Legacy": 'Legacy',
     Foundation: 'Foundation',
-    Branded: 'Branded'
+    Branded: 'Branded',
+    App: 'App'
   }[form.type]
 })
 
@@ -88,80 +89,76 @@ function handleExtraButton(item, action) {
 </script>
 
 <template>
-  <CollapsableFolder>
 
-    <template #title>
-      <h1>Search USDA Database</h1>
-    </template>
+  <div class="">
+    <form @submit.prevent="fetchFoodData(1)"
+      class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark rounded text-xs p-1.5">
 
-    <template #content>
+      <div class="col-span-3 sm:col-span-2 flex items-center ">
+        <Dropdown align="left" width="100" class="w-full">
 
-      <div class="-mb-4 -mx-2 -mt-2">
-        <form @submit.prevent="fetchFoodData(1)"
-          class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark rounded-b text-xs p-1.5">
+          <template #trigger>
+            <button type="button"
+              class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
-          <div class="col-span-3 sm:col-span-2 flex items-center ">
-            <Dropdown align="left" width="100" class="w-full">
-
-              <template #trigger>
-                <button type="button"
-                  class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
-
-                  <p class="flex-1 flex items-center text-center">
-                    {{ typeName }}
-                  </p>
-                  <i class="mdi mdi-menu-down text-lg"></i>
-                </button>
-              </template>
-
-              <template #content>
-                <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
-                  <button class="text-start p-1"
-                    :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']" type="button"
-                    @click="form.type = 'Branded'">Branded</button>
-                  <button class="text-start p-1"
-                    :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
-                    @click="form.type = 'Foundation'">Foundational</button>
-                  <button class="text-start p-1"
-                    :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']" type="button"
-                    @click="form.type = 'SR Legacy'">Legacy</button>
-                </div>
-              </template>
-
-            </Dropdown>
-          </div>
-
-          <div
-            class="col-span-3 sm:col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
-            <span
-              class="block sm:hidden ps-1 text-[6px] leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
-              <br>
-              All <br>
-              Words</span>
-            <span
-              class="hidden sm:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
-              All
-              Words</span>
-            <Checkbox name="requireAllWords" class="h-6 w-6 group-hover:text-accent"
-              v-model:checked="form.requireAllWords" />
-          </div>
-
-
-
-          <div class="col-span-4 sm:col-span-5 relative flex items-center ">
-            <TextInput id="query" type="text" class="w-full h-8 rounded text-xs" v-model="form.query" required />
-            <InputError :message="form.errors.query" />
-
-            <button class="absolute right-0">
-              <i
-                class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl sm:text-2xl ps-8 pe-2 duration-300"></i>
+              <p class="flex-1 flex items-center text-center">
+                {{ typeName }}
+              </p>
+              <i class="mdi mdi-menu-down text-lg"></i>
             </button>
-          </div>
+          </template>
 
-        </form>
+          <template #content>
+            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
+              <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'Branded'">Branded</button>
+              <button class="text-start p-1" :class="[form.type == 'App' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'App'">App</button>
+              <button class="text-start p-1"
+                :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
+                @click="form.type = 'Foundation'">Foundational</button>
+              <button class="text-start p-1" :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'SR Legacy'">Legacy</button>
+            </div>
+          </template>
+
+        </Dropdown>
       </div>
 
-      <!-- <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
+      <div v-if="form.type != 'App'"
+        class="col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
+        <span
+          class="block sm:hidden ps-1 text-[6px] leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
+          <br>
+          All <br>
+          Words</span>
+        <span
+          class="hidden sm:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
+          All
+          Words</span>
+        <Checkbox name="requireAllWords" class="h-6 w-6 group-hover:text-accent"
+          v-model:checked="form.requireAllWords" />
+      </div>
+      <div v-else class="col-span-3">
+
+      </div>
+
+
+
+      <div class="col-span-4 sm:col-span-5 relative flex items-center ">
+        <TextInput id="query" type="text" class="w-full h-8 rounded text-xs" v-model="form.query" required />
+        <InputError :message="form.errors.query" />
+
+        <button class="absolute right-0">
+          <i
+            class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl sm:text-2xl ps-8 pe-2 duration-300"></i>
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
         <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)"
           :disabled="foodSearchResponse.currentPage <= 1"
           :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
@@ -203,7 +200,4 @@ function handleExtraButton(item, action) {
         </div>
 
       </div> -->
-    </template>
-
-  </CollapsableFolder>
 </template>

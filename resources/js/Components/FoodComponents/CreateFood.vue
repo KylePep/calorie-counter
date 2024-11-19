@@ -6,13 +6,12 @@ import { ref } from "vue";
 import Pop from "@/utils/Pop.js";
 import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
+import MenuButton from "../Displays/MenuButton.vue";
 
 const showCreateForm = ref(false);
 
-const confirmingFoodDetails = ref(false);
-
 const confirmFoodDetails = () => {
-  confirmingFoodDetails.value = true;
+  showCreateForm.value = true;
 };
 
 const form = useForm({
@@ -46,13 +45,13 @@ const createFoodItem = () => {
       closeModal();
     },
     onError: (errors) => {
-      console.log(errors); // Log validation errors
+      console.log(errors);
     },
   });
 };
 
 const closeModal = () => {
-  confirmingFoodDetails.value = false;
+  showCreateForm.value = false;
 
   form.clearErrors();
   form.reset();
@@ -61,12 +60,12 @@ const closeModal = () => {
 </script>
 
 <template>
-  <PrimaryButton class="shadow" v-if="!showCreateForm" @click="confirmFoodDetails">
-    <span class="block sm:hidden mdi mdi-plus-thick"> Food</span>
-    <span class="hidden sm:block">Create Food</span>
-  </PrimaryButton>
+  <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
+  <!-- <PrimaryButton class="hidden lg:block shadow flex" @click="confirmFoodDetails">
+    Create Food
+  </PrimaryButton> -->
 
-  <Modal :show="confirmingFoodDetails" @close="closeModal">
+  <Modal :show="showCreateForm" @close="closeModal">
 
     <FoodDetailsForm :formData="form" @cancel="closeModal">
 

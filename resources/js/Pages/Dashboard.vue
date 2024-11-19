@@ -1,5 +1,4 @@
 <script setup>
-import CreateFood from "@/Components/FoodComponents/CreateFood.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
 import { computed, ref } from "vue";
@@ -7,8 +6,8 @@ import Side from "@/Components/Displays/Side.vue";
 import JournalEntry from "@/Components/Displays/JournalEntry.vue";
 import CarrotDisplay from '../Components/Displays/CarrotDisplay.vue'
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
-import CalorieKey from '@/Components/Displays/CalorieKey.vue'
 import WeighInEntry from "@/Components/Displays/WeighInEntry.vue";
+import MenuArray from "@/Components/Displays/MenuArray.vue";
 
 
 const props = defineProps(['account', 'calorieDay', 'carrots', 'weighIn', 'foodItems', 'without_fdcId', 'with_fdcId']);
@@ -19,7 +18,7 @@ const renderHeroImage = computed(() => {
     } else {
         return '/assets/dashboardNoAccount.jpeg'
     }
-})
+});
 
 </script>
 
@@ -40,25 +39,19 @@ const renderHeroImage = computed(() => {
             </h2>
         </template>
 
-        <CalorieDayLayout :account="account" :calorie-day="calorieDay" :with_fdc-id="with_fdcId"
-            :without_fdc-id="without_fdcId" :foodItems="foodItems">
-
+        <CalorieDayLayout :account="account" :calorieDay="calorieDay" :with_fdc-id="with_fdcId"
+            :without_fdc-id="without_fdcId" :foodItems="foodItems" :carrots="carrots" :weighIn="weighIn">
             Today: {{ new Date().toLocaleDateString() }}
-
         </CalorieDayLayout>
 
-        <template #leftSide>
-            <!-- <Side side="left" v-if="props.account">
-                <CalorieKey />
-            </Side> -->
-        </template>
+        <template #leftSide></template>
 
         <template #rightSide>
             <Side v-if="props.account" side="right" class="hidden sm:block">
                 <WeighInEntry :weighIn="weighIn" />
                 <JournalEntry :calorieDay="calorieDay" />
                 <CarrotDisplay :carrots="carrots" />
-                <CreateFood />
+                <MenuArray />
             </Side>
         </template>
 
