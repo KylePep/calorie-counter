@@ -12,15 +12,6 @@ const emit = defineEmits(['closeModal']);
 
 const props = defineProps(['foodItem']);
 
-// const confirmingFoodDetailsEdit = computed(() => props.showModal);
-
-const foodData = computed(() => props.foodItem);
-
-watch(foodData, (newfoodData) => {
-  setForm();
-})
-
-
 const form = useForm({
   fdcId: '',
   description: '',
@@ -34,7 +25,7 @@ const form = useForm({
   ingredients: '',
 });
 
-const setForm = () => {
+function setForm() {
   form.fdcId = props.foodItem?.fdcId || '',
     form.description = props.foodItem.description || '',
     form.brandName = props.foodItem.brandName || '',
@@ -47,8 +38,7 @@ const setForm = () => {
 
     form.foodNutrients = props.foodItem.foodNutrients
 }
-
-watch(props.foodItem, setForm);
+setForm();
 
 
 const closeModal = () => {
