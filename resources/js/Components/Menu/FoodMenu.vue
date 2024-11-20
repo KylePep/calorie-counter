@@ -80,7 +80,7 @@ async function deleteItem(foodItem) {
     </h2>
 
     <section>
-      <div class="col-span-3 sm:col-span-2 flex items-center">
+      <div class="col-span-3 sm:col-span-2 flex items-center bg-light rounded">
         <Dropdown align="left" width="100" class="w-full">
 
           <template #trigger>
@@ -94,7 +94,7 @@ async function deleteItem(foodItem) {
           </template>
 
           <template #content>
-            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
+            <div class="flex flex-col p-2 bg-light rounded text-dark-text text-xs">
               <button class="text-start p-1" :class="[filter == 'All' ? 'border border-black/25 rounded' : '']"
                 type="button" @click="filter = 'All'">All</button>
               <button class="text-start p-1" :class="[filter == 'Breakfast' ? 'border border-black/25 rounded' : '']"
@@ -114,12 +114,19 @@ async function deleteItem(foodItem) {
       </div>
     </section>
 
-    <section>
+    <section v-if="filteredList.length == 0"
+      class="justify-center min-h-8 w-full text-center text-dark-text text-xs border border-light rounded py-2">
+      <p>
+        No foods to show
+      </p>
+    </section>
+
+    <section v-else>
 
       <div v-for="foodItem in filteredList">
-        <div class="grid grid-cols-8 min-h-8 bg-white border border-light rounded text-xs p-2 ps-0 sm:ps-2 my-1">
+        <div class="grid grid-cols-10 min-h-8 bg-white border border-light rounded text-xs p-2 ps-0 sm:ps-2 my-1">
 
-          <div class="flex flex-col ">
+          <div class="col-span-2 flex flex-col items-start px-2">
             <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="useItem(foodItem)" icon="plus">
               Add
             </FoodCardButton>
@@ -128,23 +135,21 @@ async function deleteItem(foodItem) {
             </FoodCardButton>
           </div>
 
-          <div class="col-span-6 flex flex-col sm:flex-row space-x-2 ps-2">
-            <div class="truncate text-sm">
+          <div class="col-span-7 grid grid-cols-4 ps-2">
+            <div class="col-span-4 lg:col-span-3 truncate text-sm font-bold">
               {{ foodItem.description }}
             </div>
-            <div class="">{{ foodItem.foodCategory }} - {{ foodItem.servingSize }}{{ foodItem.servingSizeUnit }}</div>
+            <div class="col-span-4 lg:col-span-1">{{ foodItem.foodCategory }} - {{ foodItem.servingSize }}{{
+              foodItem.servingSizeUnit
+            }}
+            </div>
           </div>
 
           <div class="col-span-1 text-end my-auto">{{ foodItem.calories }} cal</div>
         </div>
       </div>
 
-      <div v-if="filteredList.length == 0"
-        class="justify-center w-full text-center text-light-text text-xs bg-neutral py-2">
-        <p>
-          No foods to show
-        </p>
-      </div>
+
     </section>
   </div>
 

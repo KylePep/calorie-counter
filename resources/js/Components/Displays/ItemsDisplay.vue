@@ -98,7 +98,7 @@ const stopDragging = () => {
         </template>
 
         <template #content>
-          <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
+          <div class="flex flex-col p-2 bg-light rounded text-dark-text text-xs">
             <button class="text-start p-1" :class="[filter == 'All' ? 'border border-black/25 rounded' : '']"
               type="button" @click="filter = 'All'">All</button>
             <button class="text-start p-1" :class="[filter == 'Breakfast' ? 'border border-black/25 rounded' : '']"
