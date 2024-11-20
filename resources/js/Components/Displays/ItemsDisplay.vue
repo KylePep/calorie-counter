@@ -87,7 +87,7 @@ const stopDragging = () => {
 
 <template>
 
-  <section class="grid grid-cols-10 gap-1 bg-light rounded-b p-1">
+  <section class="grid grid-cols-10 gap-1 bg-light rounded p-1">
 
     <div class="col-span-3 sm:col-span-2 flex items-center">
       <Dropdown align="left" width="100" class="w-full">
@@ -146,7 +146,7 @@ const stopDragging = () => {
       <FoodCard :foodItem="foodItem" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
     </div>
 
-    <div v-if="props.list.length == 0"
+    <div v-if="filteredList.length == 0"
       class="inline-block justify-center text-center text-light-text font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
       <div class="flex flex-col min-h-24 justify-around">
         <p>

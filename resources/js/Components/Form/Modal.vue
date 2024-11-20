@@ -77,8 +77,10 @@ const maxWidthClass = computed(() => {
                     leave-from-class="opacity-100 translate-y-0 sm:scale-100"
                     leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                     <div v-show="show"
-                        class="bg-page rounded-lg shadow-xl transform transition-all w-full sm:mx-auto p-6 space-y-3"
+                        class="relative bg-page rounded-lg shadow-xl transform transition-all w-full sm:mx-auto p-6 space-y-3"
                         :class="maxWidthClass">
+                        <button type="button" @click="close"
+                            class="absolute mdi mdi-close-thick text-dark-text/50 hover:text-dark-text text-xl  top-0 right-0 py-2 px-4"></button>
                         <slot v-if="show" />
                     </div>
                 </Transition>

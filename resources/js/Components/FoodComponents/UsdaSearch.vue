@@ -105,7 +105,7 @@ function handleExtraButton(item, action) {
 
   <div class="">
     <form @submit.prevent="fetchFoodData(1)"
-      class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark rounded-t text-xs p-1.5">
+      class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
 
       <div class="col-span-3 sm:col-span-2 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
