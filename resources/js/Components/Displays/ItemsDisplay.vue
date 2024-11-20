@@ -131,8 +131,13 @@ const stopDragging = () => {
 
 
 
-
-  <section ref="scrollContainer"
+  <section v-if="filteredList.length == 0"
+    class="text-center text-dark-text text-sm font-bold border border-light rounded w-full py-6 my-2">
+    <p>
+      No foods to show
+    </p>
+  </section>
+  <section v-else ref="scrollContainer"
     class="select-none grid grid-flow-col auto-cols-min gap-1 sm:gap-3 py-2 text-center overflow-x-auto whitespace-nowrap cursor-grab"
     :class="currentSizeClass" @mousedown="startDragging" @mousemove="drag" @mouseup="stopDragging"
     @mouseleave="stopDragging">
@@ -141,14 +146,7 @@ const stopDragging = () => {
       <FoodCard :foodItem="foodItem" :calorieDay @set-active="setActive" />
     </div>
 
-    <div v-if="filteredList.length == 0"
-      class="inline-block justify-center text-center text-light-text font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
-      <div class="flex flex-col min-h-24 justify-around">
-        <p>
-          No foods to show
-        </p>
-      </div>
-    </div>
+
   </section>
 
 </template>
