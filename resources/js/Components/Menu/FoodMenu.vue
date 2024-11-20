@@ -1,44 +1,31 @@
 <script setup>
 import { computed, ref } from "vue";
-import FoodCard from "@/Components/FoodComponents/FoodCard.vue";
+import Dropdown from "../Form/Dropdown.vue";
+import FoodCardButton from "../FoodComponents/FoodCardButton.vue";
+import { usePage } from "@inertiajs/vue3";
 
-const props = defineProps(['list', 'size']);
-const emit = defineEmits(['itemActivated', 'extraButton']);
+const props = defineProps(['list']);
 
-const currentSize = ref('xl');
+const page = usePage();
+const isDashboard = page.url.includes('dashboard');
+const isCalorieDay = page.url.includes('calorie-day');
+const filter = ref('All');
 
-function emitItemActivated(item) {
-  emit('itemActivated', item);
-}
-
-function handleExtraButton(item, action) {
-  emit('extraButton', item, action);
-}
-
-
-const maxSize = 'xl'
-
-const currentSizeClass = computed(() => {
-  let newSize = {
-    sm: 'grid-rows-1',
-    lg: 'grid-rows-2',
-    xl: 'grid-rows-3',
-  }[currentSize.value];
-
-  if (maxSize.value == 'lg') {
-    if (currentSize.value == 'xl') {
-      newSize = 'lg';
-      currentSize.value = 'lg';
-    }
-  } else if (maxSize.value == 'sm') {
-    if (currentSize.value == 'xl' || currentSize.value == 'lg') {
-      newSize = 'sm';
-      currentSize.value = 'sm';
-    }
-  }
-
-  return newSize;
+const filteredList = computed(() => {
+  if (filter.value != 'All') {
+    return props.list.filter((li) => li.foodCategory == filter.value.toLocaleLowerCase());
+  } else return props.list;
 });
+
+function addFoodItem(foodItem) {
+
+};
+
+function deleteFoodItem(foodItem) {
+
+};
+
+
 </script>
 
 
@@ -50,20 +37,71 @@ const currentSizeClass = computed(() => {
       Filter and search your foods.
     </h2>
 
-    <section class=" grid grid-flow-col auto-cols-min gap-1 sm:gap-3 py-2 text-center overflow-x-auto whitespace-nowrap"
-      :class="currentSizeClass">
+    <section>
+      <div class="col-span-3 sm:col-span-2 flex items-center">
+        <Dropdown align="left" width="100" class="w-full">
 
-      <div v-for="foodItem in props.list">
-        <FoodCard :foodItem="foodItem" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
+          <template #trigger>
+            <button type="button"
+              class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-dark-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
+              <p class="flex-1 flex items-center text-center">
+                {{ filter }}
+              </p>
+              <i class="mdi mdi-menu-down text-lg"></i>
+            </button>
+          </template>
+
+          <template #content>
+            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
+              <button class="text-start p-1" :class="[filter == 'All' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="filter = 'All'">All</button>
+              <button class="text-start p-1" :class="[filter == 'Breakfast' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="filter = 'Breakfast'">Breakfast</button>
+              <button class="text-start p-1" :class="[filter == 'Lunch' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="filter = 'Lunch'">Lunch</button>
+              <button class="text-start p-1" :class="[filter == 'Dinner' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="filter = 'Dinner'">Dinner</button>
+              <button class="text-start p-1" :class="[filter == 'Beverage' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="filter = 'Beverage'">Beverage</button>
+              <button class="text-start p-1" :class="[filter == 'Snack' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="filter = 'Snack'">Snack</button>
+            </div>
+          </template>
+
+        </Dropdown>
+      </div>
+    </section>
+
+    <section class=" " :class="currentSizeClass">
+
+      <div v-for="foodItem in filteredList">
+        <div class="grid grid-cols-8 min-h-8 bg-white border border-light rounded text-xs p-2 ps-0 sm:ps-2 my-1">
+
+          <div>
+            <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="addFoodItem(foodItem)" icon="plus">
+              Add
+            </FoodCardButton>
+            <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'"
+              @click.stop="deleteFoodItem(foodItem)" icon="delete">Delete
+            </FoodCardButton>
+          </div>
+
+          <div class="col-span-6 flex flex-col sm:flex-row space-x-2 ps-2">
+            <div class="truncate text-sm">
+              {{ foodItem.description }}
+            </div>
+            <div class="">{{ foodItem.foodCategory }} - {{ foodItem.servingSize }}{{ foodItem.servingSizeUnit }}</div>
+          </div>
+
+          <div class="col-span-1 text-end my-auto">{{ foodItem.calories }} cal</div>
+        </div>
       </div>
 
-      <div v-if="props.list.length == 0"
-        class="inline-block justify-center text-center text-light-text font-bold w-60 bg-neutral border border-light rounded drop-shadow-lg">
-        <div class="flex flex-col min-h-24 justify-around">
-          <p>
-            No foods to show
-          </p>
-        </div>
+      <div v-if="filteredList.length == 0"
+        class="justify-center w-full text-center text-light-text text-xs bg-neutral py-2">
+        <p>
+          No foods to show
+        </p>
       </div>
     </section>
   </div>
