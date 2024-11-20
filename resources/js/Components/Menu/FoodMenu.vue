@@ -77,7 +77,7 @@ function deleteFoodItem(foodItem) {
       <div v-for="foodItem in filteredList">
         <div class="grid grid-cols-8 min-h-8 bg-white border border-light rounded text-xs p-2 ps-0 sm:ps-2 my-1">
 
-          <div>
+          <div class="flex flex-col ">
             <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="addFoodItem(foodItem)" icon="plus">
               Add
             </FoodCardButton>

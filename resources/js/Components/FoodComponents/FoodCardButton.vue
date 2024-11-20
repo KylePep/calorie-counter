@@ -18,7 +18,7 @@ const iconClass = computed(() => {
 
 <template>
 
-  <div class=" group flex justify-end items-center h-full">
+  <div class=" group flex justify-end items-center">
 
     <button
       class="group min-w-8 relative flex items-center justify-end text-xl bg-accent text-dark-text rounded group-hover:bg-neutral focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ps-2 transition ease-in-out duration-300">
