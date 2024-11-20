@@ -126,17 +126,10 @@ async function deleteItem(foodItem) {
       <div v-for="foodItem in filteredList">
         <div class="grid grid-cols-10 min-h-8 bg-white border border-light rounded text-xs p-2 ps-0 sm:ps-2 my-1">
 
-          <div class="col-span-2 flex flex-col items-start px-2">
-            <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="useItem(foodItem)" icon="plus">
-              Add
-            </FoodCardButton>
-            <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'" @click.stop="deleteItem(foodItem)"
-              icon="delete">Delete
-            </FoodCardButton>
-          </div>
+          <div class="col-span-1 text-start font-bold my-auto ps-2 tabular-nums">{{ foodItem.calories }} cal</div>
 
           <div class="col-span-7 grid grid-cols-4 ps-2">
-            <div class="col-span-4 lg:col-span-3 truncate text-sm font-bold">
+            <div class="col-span-4 lg:col-span-3 truncate text-sm ">
               {{ foodItem.description }}
             </div>
             <div class="col-span-4 lg:col-span-1">{{ foodItem.foodCategory }} - {{ foodItem.servingSize }}{{
@@ -145,7 +138,15 @@ async function deleteItem(foodItem) {
             </div>
           </div>
 
-          <div class="col-span-1 text-end my-auto">{{ foodItem.calories }} cal</div>
+          <div class="col-span-2 flex flex-col items-end">
+            <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="useItem(foodItem)" icon="plus">
+              Add
+            </FoodCardButton>
+            <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'" @click.stop="deleteItem(foodItem)"
+              icon="delete">Delete
+            </FoodCardButton>
+          </div>
+
         </div>
       </div>
 
