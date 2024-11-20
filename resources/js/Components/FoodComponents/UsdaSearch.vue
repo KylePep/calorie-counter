@@ -11,7 +11,7 @@ import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import Modal from "../Form/Modal.vue";
 
-const emit = defineEmits(['extraButton']);
+const emit = defineEmits(['setActive']);
 
 const showModal = ref(false);
 
@@ -94,8 +94,8 @@ async function fetchFoodData(page = 1) {
   }
 }
 
-function handleExtraButton(item, action) {
-  emit('extraButton', item, action);
+function setActive(item) {
+  emit('setActive', item);
   closeModal();
 }
 
@@ -209,7 +209,7 @@ function handleExtraButton(item, action) {
       </div>
 
       <div v-for="foodItem in foods">
-        <UsdaFoodCard :food-item="foodItem" @extraButton="handleExtraButton" />
+        <UsdaFoodCard :food-item="foodItem" @set-active="setActive" />
       </div>
 
     </div>

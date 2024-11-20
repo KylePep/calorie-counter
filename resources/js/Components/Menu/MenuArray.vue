@@ -42,7 +42,7 @@ const closeModal = () => {
     </MenuButton>
     <MenuButton @click="setActive('journalEntry')" class="lg:hidden">Journal Entry
     </MenuButton>
-    <MenuButton @click="setActive('carrots')" class="lg:hidden">Carrots
+    <MenuButton v-if="carrots" @click="setActive('carrots')" class="lg:hidden">Carrots
     </MenuButton>
     <div class="col-span-2 lg:col-span-1">
       <CreateFood />
@@ -57,15 +57,15 @@ const closeModal = () => {
       <MacroMenu :account="account" :calorieDay="calorieDay" />
     </section>
     <section v-if="modalContent == 'consumedList'">
-      <ConsumedMenu :dayItems="calorieDay.food_items" />
+      <ConsumedMenu :dayItems="calorieDay.food_items" :calorieDay />
     </section>
     <section v-if="modalContent == 'foodList'">
-      <FoodMenu size="xl" :list="props.foodItems" />
+      <FoodMenu size="xl" :list="props.foodItems" :calorieDay />
     </section>
     <section v-if="modalContent == 'journalEntry'">
       <JournalMenu :calorieDay="calorieDay" />
     </section>
-    <section v-if="modalContent == 'carrots'">
+    <section v-if="modalContent == 'carrots' && carrots">
       <CarrotMenu :carrots="carrots" />
     </section>
   </Modal>

@@ -87,15 +87,7 @@ class CalorieDayController extends Controller
 
         $calorieDay->food_items = $calorieDay->food_items;
 
-        $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
-            return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
-        });
-
-        foreach($groupedFoodItems as $group => $items){
-            foreach($items as $item){
-                $item->foodNutrients = $item->foodNutrients;
-            }
-        }
+        $foodItems = $user->foodItems;
 
         $weighIn = $user->weigh_ins()
         ->whereDate('created_at', Carbon::parse($calorieDay->created_at))
@@ -104,8 +96,7 @@ class CalorieDayController extends Controller
         return Inertia::render('CalorieDay', [
             'account' => $account,
             'calorieDay' => $calorieDay,
-            'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
-            'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
+            'foodItems' => $foodItems,
             'weighIn' => $weighIn,
         ]);
     }
@@ -131,7 +122,7 @@ class CalorieDayController extends Controller
         }
 
         $validated = $request->validate([
-            'goal' => ['integer'],
+            'goal' => ['integer', 'nullable'],
             'count' => ['integer'],
             'journal' => ['string'],
             'food_items'=> ['array'],
@@ -188,7 +179,7 @@ class CalorieDayController extends Controller
 
         $calorieDay->save();
         $calorieDay->food_items = $calorieDay->food_items;
-        return $calorieDay;
+        return redirect()->back()->with('success', 'Calorie Day updated successfully.');
 
     }
 

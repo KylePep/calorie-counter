@@ -2,9 +2,10 @@
 import { computed, ref } from "vue";
 import Dropdown from "../Form/Dropdown.vue";
 import FoodCardButton from "../FoodComponents/FoodCardButton.vue";
-import { usePage } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
+import Pop from "@/utils/Pop.js";
 
-const props = defineProps(['list']);
+const props = defineProps(['list', 'calorieDay']);
 
 const page = usePage();
 const isDashboard = page.url.includes('dashboard');
@@ -17,12 +18,53 @@ const filteredList = computed(() => {
   } else return props.list;
 });
 
-function addFoodItem(foodItem) {
+function useItem(foodItem) {
 
+  const protein = foodItem.foodNutrients.find((fn) => fn.nutrientName.toLowerCase() == 'protein');
+  const carbohydrates = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates' || fn.nutrientName.toLowerCase() == 'carbohydrate, by difference');
+  const fats = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'fats' || fn.nutrientName.toLowerCase() == 'total lipid (fat)');
+
+  const useItemForm = useForm({
+    count: foodItem.calories,
+    food_items: [{
+      description: foodItem.description,
+      count: foodItem.calories,
+      protein: protein.value,
+      carbohydrates: carbohydrates.value,
+      fats: fats.value
+    }]
+  });
+
+  useItemForm.put(route('calorieDay.update', props.calorieDay.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`+ ${useItemForm.count} Calories`);
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 };
 
-function deleteFoodItem(foodItem) {
+async function deleteItem(foodItem) {
+  const confirmDelete = await Pop.confirm(`Delete ${foodItem.description}?`)
+  if (!confirmDelete) {
+    return;
+  }
 
+  const form = useForm(foodItem);
+
+  form.delete(route('foodItem.destroy', foodItem.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`${form.description} deleted`);
+      form.reset();
+      closeModal();
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 };
 
 
@@ -72,17 +114,17 @@ function deleteFoodItem(foodItem) {
       </div>
     </section>
 
-    <section class=" " :class="currentSizeClass">
+    <section>
 
       <div v-for="foodItem in filteredList">
         <div class="grid grid-cols-8 min-h-8 bg-white border border-light rounded text-xs p-2 ps-0 sm:ps-2 my-1">
 
           <div class="flex flex-col ">
-            <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="addFoodItem(foodItem)" icon="plus">
+            <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="useItem(foodItem)" icon="plus">
               Add
             </FoodCardButton>
-            <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'"
-              @click.stop="deleteFoodItem(foodItem)" icon="delete">Delete
+            <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'" @click.stop="deleteItem(foodItem)"
+              icon="delete">Delete
             </FoodCardButton>
           </div>
 

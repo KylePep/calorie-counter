@@ -1,6 +1,4 @@
 <script setup>
-import { computed, watch } from "vue";
-import Modal from "../Form/Modal.vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";

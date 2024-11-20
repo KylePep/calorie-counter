@@ -4,8 +4,8 @@ import FoodCard from "@/Components/FoodComponents/FoodCard.vue";
 import SizeButton from './SizeButton.vue';
 import Dropdown from "../Form/Dropdown.vue";
 
-const props = defineProps(['list', 'size']);
-const emit = defineEmits(['itemActivated', 'extraButton']);
+const props = defineProps(['list', 'size', 'calorieDay']);
+const emit = defineEmits(['setActive']);
 
 const currentSize = ref(props.size);
 
@@ -17,14 +17,9 @@ const filteredList = computed(() => {
   } else return props.list;
 });
 
-function emitItemActivated(item) {
-  emit('itemActivated', item);
+function setActive(item) {
+  emit('setActive', item);
 }
-
-function handleExtraButton(item, action) {
-  emit('extraButton', item, action);
-}
-
 
 const maxSize = computed(() => {
   if (props.list.length < 5 && props.list.length >= 0) {
@@ -143,7 +138,7 @@ const stopDragging = () => {
     @mouseleave="stopDragging">
 
     <div v-for="foodItem in filteredList">
-      <FoodCard :foodItem="foodItem" @itemActivated="emitItemActivated" @extraButton="handleExtraButton" />
+      <FoodCard :foodItem="foodItem" :calorieDay @set-active="setActive" />
     </div>
 
     <div v-if="filteredList.length == 0"

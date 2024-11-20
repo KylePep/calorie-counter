@@ -1,27 +1,67 @@
 <script setup>
-import { usePage } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 import FoodCardButton from "./FoodCardButton.vue";
-import { computed } from "vue";
+import Pop from "@/utils/Pop.js";
 
-const props = defineProps(['foodItem']);
-const emit = defineEmits(['itemActivated', 'extraButton']);
+const props = defineProps(['foodItem', 'calorieDay']);
+const emit = defineEmits(['setActive']);
+
+function setActive(item) {
+  emit('setActive', item);
+}
 
 const page = usePage();
 const isDashboard = page.url.includes('dashboard');
 const isCalorieDay = page.url.includes('calorie-day');
 
-function emitExtraButton(item, action) {
-  const protein = item.foodNutrients.find((fn) => fn.nutrientName.toLowerCase() == 'protein');
-  const carbohydrates = item.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates' || fn.nutrientName.toLowerCase() == 'carbohydrate, by difference');
-  const fats = item.foodNutrients.find((fn) => fn.nutrientName == 'fats' || fn.nutrientName.toLowerCase() == 'total lipid (fat)');
+function useItem() {
 
-  const modifiedItem = item
-  modifiedItem.count = item.calories
-  modifiedItem.protein = protein
-  modifiedItem.carbohydrates = carbohydrates
-  modifiedItem.fats = fats
-  emit('extraButton', modifiedItem, action);
-}
+  const protein = props.foodItem.foodNutrients.find((fn) => fn.nutrientName.toLowerCase() == 'protein');
+  const carbohydrates = props.foodItem.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates' || fn.nutrientName.toLowerCase() == 'carbohydrate, by difference');
+  const fats = props.foodItem.foodNutrients.find((fn) => fn.nutrientName == 'fats' || fn.nutrientName.toLowerCase() == 'total lipid (fat)');
+
+  const useItemForm = useForm({
+    count: props.foodItem.calories,
+    food_items: [{
+      description: props.foodItem.description,
+      count: props.foodItem.calories,
+      protein: protein.value,
+      carbohydrates: carbohydrates.value,
+      fats: fats.value
+    }]
+  });
+
+  useItemForm.put(route('calorieDay.update', props.calorieDay.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`+ ${useItemForm.count} Calories`);
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
+};
+
+async function deleteItem() {
+  const confirmDelete = await Pop.confirm(`Delete ${props.foodItem.description}?`)
+  if (!confirmDelete) {
+    return;
+  }
+
+  const form = useForm(props.foodItem);
+
+  form.delete(route('foodItem.destroy', props.foodItem.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`${form.description} deleted`);
+      form.reset();
+      closeModal();
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
+};
 
 function blockClass(block) {
   const blockCalorie = props.foodItem.calories - (block * 100);
@@ -51,11 +91,11 @@ function blockClass(block) {
         </div>
 
         <div class="flex space-x-2">
-          <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="emitExtraButton(foodItem, 'add')" icon="plus">
+          <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="useItem()" icon="plus">
             Add
           </FoodCardButton>
-          <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'"
-            @click.stop="emitExtraButton(foodItem, 'delete')" icon="delete">Delete
+          <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'" @click.stop="deleteItem()"
+            icon="delete">Delete
           </FoodCardButton>
           <FoodCardButton v-if="!isDashboard && page.url == '/'" icon="signUp">
           </FoodCardButton>
@@ -63,7 +103,7 @@ function blockClass(block) {
 
       </div>
 
-      <button @click="emitExtraButton(foodItem, 'edit')" class="flex-1 py-1 px-2 sm:p-3 border-x border-light">
+      <button @click="setActive(foodItem)" class="flex-1 py-1 px-2 sm:p-3 border-x border-light">
         <h1 class="text-xs sm:text-sm truncate sm:text-balance font-bold">{{ foodItem.description }}
         </h1>
       </button>

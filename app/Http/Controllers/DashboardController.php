@@ -51,9 +51,6 @@ class DashboardController extends Controller
 
                 $foodItems = $user->foodItems;
                 
-                $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
-                    return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
-                });
 
                 $sortedCarrots = $user->carrots->groupBy(function($carrot){
                     return $carrot->complete ? 'complete' : 'incomplete';
@@ -83,8 +80,6 @@ class DashboardController extends Controller
                     'account' => $account,
                     'calorieDay' => $CalorieDay,
                     'foodItems' => $foodItems,
-                    'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
-                    'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
                     'carrots' => $sortedCarrots,
                     'weighIn' => $weighIn
                 ]);
