@@ -79,6 +79,12 @@ async function removeAndSubtractFoodItem(item) {
     <h1>Consumed</h1>
   </section>
 
+  <section v-if="!foodItems.length">
+    <div class="h-16 flex justify-center items-center font-bold text-dark-text/50">
+      No foods yet
+    </div>
+  </section>
+
   <section>
     <div class=" py-2 grid grid-rows-2 text-center overflow-x-auto whitespace-nowrap gap-1 ">
       <div v-for="rowIndex in 2" class="flex space-x-1">

@@ -83,7 +83,7 @@ const closeModal = () => {
     </section>
 
 
-    <section v-if="props.account && calorieDay.food_items.length">
+    <section v-if="props.account">
       <ConsumedList :foodItems="calorieDay.food_items" :calorieDay />
     </section>
 
