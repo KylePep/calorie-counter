@@ -3,12 +3,17 @@ import InputLabel from "@/Components/Form/InputLabel.vue";
 import TextInput from "@/Components/Form/TextInput.vue";
 import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
+import { usePage } from "@inertiajs/vue3";
 
-const emit = defineEmits(['submitForm', 'cancel']);
+const emit = defineEmits(['cancel', 'useItem', 'createFoodItem']);
 
 const props = defineProps(['formData', 'loading']);
+
+const page = usePage();
+const isDashboard = page.url.includes('dashboard');
 
 const form = computed(() => props.formData);
 
@@ -33,13 +38,21 @@ const modifier = computed(() => {
   return props.formData.portionModifier / 100;
 });
 
+function useItem() {
+  emit('useItem');
+}
+
+function createFoodItem() {
+  emit('createFoodItem');
+}
+
 
 </script>
 
 
 <template>
 
-  <form @submit.prevent="createFoodItem" action="" class="p-6 space-y-3">
+  <form @submit.prevent="createFoodItem()" class="space-y-3">
     <slot name="title"></slot>
 
     <div class="flex  ">
@@ -170,8 +183,17 @@ const modifier = computed(() => {
     </div>
 
     <div class="flex justify-end gap-4">
-      <slot />
 
+      <!-- <slot /> -->
+
+      <PrimaryButton type="button" v-if="isDashboard" @click="useItem()">
+        Use
+      </PrimaryButton>
+
+      <PrimaryButton>
+        Save
+      </PrimaryButton>
     </div>
+
   </form>
 </template>

@@ -12,7 +12,7 @@ input::-webkit-inner-spin-button {
 
 ::-webkit-scrollbar {
   /* width: 0; */
-  height: 0.6rem;
+  height: 0.25rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -20,7 +20,7 @@ input::-webkit-inner-spin-button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--color-neutral));
+  background: rgb(var(--color-light));
 }
 
 /* Firefox */

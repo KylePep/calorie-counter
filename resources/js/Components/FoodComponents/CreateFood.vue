@@ -6,13 +6,12 @@ import { ref } from "vue";
 import Pop from "@/utils/Pop.js";
 import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
+import MenuButton from "../Menu/MenuButton.vue";
 
 const showCreateForm = ref(false);
 
-const confirmingFoodDetails = ref(false);
-
 const confirmFoodDetails = () => {
-  confirmingFoodDetails.value = true;
+  showCreateForm.value = true;
 };
 
 const form = useForm({
@@ -46,13 +45,13 @@ const createFoodItem = () => {
       closeModal();
     },
     onError: (errors) => {
-      console.log(errors); // Log validation errors
+      console.log(errors);
     },
   });
 };
 
 const closeModal = () => {
-  confirmingFoodDetails.value = false;
+  showCreateForm.value = false;
 
   form.clearErrors();
   form.reset();
@@ -61,29 +60,25 @@ const closeModal = () => {
 </script>
 
 <template>
-  <div>
-    <PrimaryButton class="shadow" v-if="!showCreateForm" @click="confirmFoodDetails">
-      Create New Food
-    </PrimaryButton>
+  <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
 
-    <Modal :show="confirmingFoodDetails" @close="closeModal">
+  <Modal :show="showCreateForm" @close="closeModal">
 
-      <FoodDetailsForm :formData="form" @cancel="closeModal">
+    <FoodDetailsForm :formData="form" @cancel="closeModal">
 
-        <template #title>
-          <h1 class="text-center text-xl font-bold">Create a Food</h1>
-          <h2 class="text-center text-sm max-w-xs mx-auto">Complete this form, then use your new food to help track your
-            calories!
-          </h2>
-        </template>
+      <template #title>
+        <h1 class="text-center text-xl font-bold">Create a Food</h1>
+        <h2 class="text-center text-sm max-w-xs mx-auto">Complete this form, then use your new food to help track your
+          calories!
+        </h2>
+      </template>
 
-        <SecondaryButton type="button" @click="closeModal">
-          Cancel
-        </SecondaryButton>
-        <PrimaryButton @click="createFoodItem">
-          Create
-        </PrimaryButton>
-      </FoodDetailsForm>
-    </Modal>
-  </div>
+      <SecondaryButton type="button" @click="closeModal">
+        Cancel
+      </SecondaryButton>
+      <PrimaryButton @click="createFoodItem">
+        Create
+      </PrimaryButton>
+    </FoodDetailsForm>
+  </Modal>
 </template>

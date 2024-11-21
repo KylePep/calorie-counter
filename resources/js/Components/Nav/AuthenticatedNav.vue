@@ -35,24 +35,23 @@ onUnmounted(() => {
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex -my-2">
-                        <Link class="inline-flex items-center px-1 py-1" :href="route('welcome')"
+                        <Link class="inline-flex items-center p-2" :href="route('welcome')"
                             :active="route().current('welcome')">
-                        <ApplicationLogo class=" duration-1000"
-                            :class="[showingNavigationDropdown ? 'text-5xl' : isAtTop ? 'text-6xl sm:text-7xl' : 'text-5xl']" />
+                        <ApplicationLogo class=" duration-1000" />
                         </Link>
                     </div>
 
-                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')"
+                    <NavLink :href="route('calorieDay.index')" :active="route().current('calorieDay.index')"
                         class="sm:hidden ms-4 text-sm -my-2">
-                        Dashboard
+                        Count
                     </NavLink>
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-2 sm:ms-10 sm:flex duration-1000"
                         :class="[showingNavigationDropdown ? 'sm:-my-2' : isAtTop ? 'sm:-my-0' : 'sm:-my-2']">
 
-                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <NavLink :href="route('calorieDay.index')" :active="route().current('calorieDay.index')">
+                            Count
                         </NavLink>
                         <NavLink :href="route('calculator')" :active="route().current('calculator')">
                             Calculator

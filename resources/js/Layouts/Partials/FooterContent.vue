@@ -4,7 +4,7 @@
 <template>
   <div class="grid sm:grid-cols-2 bg-dark min-h-64 py-14 font-bold text-xl text-light-text md:px-32">
     <div class="flex flex-col justify-around items-center sm:items-start ms-0 sm:ms-6 h-full">
-      <div class="flex justify-between text-2xl w-1/2 md:w-1/3 mx-auto sm:mx-0">
+      <div class="flex justify-between text-2xl w-1/2 md:w-1/6 mx-auto sm:mx-0">
         <Link :href="route('calculator')" class="mdi mdi-instagram hover:text-accent-light duration-300 ">
         </Link>
         <Link :href="route('calculator')" class="mdi mdi-youtube hover:text-accent-light duration-300">

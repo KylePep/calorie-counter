@@ -27,7 +27,7 @@ const unitName = computed(() => {
 
 <template>
 
-  <form @submit.prevent="createFoodItem" action="" class="p-6 space-y-3">
+  <form @submit.prevent="createFoodItem" class="space-y-3">
     <slot name="title"></slot>
 
 

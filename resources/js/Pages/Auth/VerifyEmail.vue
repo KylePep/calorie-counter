@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue';
-import GuestLayout from '@/Layouts/PageLayout.vue';
 import PrimaryButton from '@/Components/Form/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 
 const props = defineProps({
     status: {
@@ -20,7 +20,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 </script>
 
 <template>
-    <GuestLayout>
+    <GlobalLayout>
 
         <Head title="Email Verification" />
 
@@ -44,5 +44,5 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
                 Log Out</Link>
             </div>
         </form>
-    </GuestLayout>
+    </GlobalLayout>
 </template>

@@ -35,12 +35,17 @@ export default {
                 special: 'rgb(var(--color-special))'
             },
             animation: {
-                'infinite-scroll': 'infinite-scroll 15s linear infinite',
+                'marquee-start': 'marquee-start 15s linear infinite',
+                'marquee-end': 'marquee-end 15s linear infinite',
             },
             keyframes: {
-                'infinite-scroll': {
-                    from: { transform: 'translateX(50%)' },
-                    to: { transform: 'translateX(-50%)' },
+                'marquee-start': {
+                    from: { transform: 'translateX(0%)' },
+                    to: { transform: 'translateX(-100%)' },
+                },
+                'marquee-end': {
+                    from: { transform: 'translateX(100%)' },
+                    to: { transform: 'translateX(0%)' },
                 }
             },
             fontFamily: {

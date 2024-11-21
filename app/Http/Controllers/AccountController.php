@@ -80,7 +80,7 @@ class AccountController extends Controller
             $user->account->update($validated);
         }
 
-        return redirect('/dashboard');
+        return redirect('/calorie-day');
     }
 
     /**

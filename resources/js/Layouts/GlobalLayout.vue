@@ -4,7 +4,6 @@ import AuthenticatedNav from "@/Components/Nav/AuthenticatedNav.vue";
 import GuestNav from "@/Components/Nav/GuestNav.vue";
 import { Head, usePage } from "@inertiajs/vue3";
 import FooterContent from "./Partials/FooterContent.vue";
-import PageLayout from "./PageLayout.vue";
 
 const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight']);
 
@@ -51,9 +50,11 @@ document.body.setAttribute('body-theme', theme);
         </div>
       </div>
 
-      <PageLayout class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
-        <slot />
-      </PageLayout>
+      <section class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
+        <div class="px-6 space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <slot />
+        </div>
+      </section>
 
       <div class="col-span-4 lg:col-span-1  lg:col-start-4">
         <div v-if="$slots.rightSide" class="sticky top-16">
@@ -64,9 +65,8 @@ document.body.setAttribute('body-theme', theme);
 
     <footer class="mt-20">
       <CalculateBanner position="footer" />
-      <FooterContent />
+      <FooterContent class="hidden sm:block" />
     </footer>
   </div>
-
 
 </template>

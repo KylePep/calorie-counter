@@ -23,10 +23,6 @@ Route::get('/calculator', [CalculatorController::class, 'create'])->name('calcul
 
 
 Route::middleware('auth')->group(function () {
-    
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->middleware(['verified'])
-        ->name('dashboard');
 
     Route::get('/history', [HistoryController::class, 'show'])
         ->name('history');
@@ -39,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
 
     Route::post('/calorie-day', [CalorieDayController::class, 'store'])->name('calorieDay.store');
+    Route::get('/calorie-day', [CalorieDayController::class, 'index'])
+    ->middleware(['verified'])
+    ->name('calorieDay.index');
     Route::get('/calorie-day/{calorieDay}', [CalorieDayController::class, 'show'])->name('calorieDay.show');
     Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
     Route::patch('/calorie-day/{calorieDay}', [CalorieDayController::class, 'patch'])->name('calorieDay.patch');

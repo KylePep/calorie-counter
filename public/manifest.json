@@ -2,10 +2,10 @@
     "name": "Calorie Counter",
     "short_name": "Calorie Counter",
     "start_url": "/index.php",
-    "background_color": "#6777ef",
+    "background_color": "#000000",
     "description": "Calorie Counter PWA",
     "display": "fullscreen",
-    "theme_color": "#6777ef",
+    "theme_color": "#000000",
     "icons": [
         {
             "src": "logo.png",
