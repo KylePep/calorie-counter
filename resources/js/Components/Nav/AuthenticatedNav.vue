@@ -35,10 +35,9 @@ onUnmounted(() => {
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex -my-2">
-                        <Link class="inline-flex items-center px-1 py-1" :href="route('welcome')"
+                        <Link class="inline-flex items-center p-2" :href="route('welcome')"
                             :active="route().current('welcome')">
-                        <ApplicationLogo class=" duration-1000"
-                            :class="[showingNavigationDropdown ? 'text-5xl' : isAtTop ? 'text-6xl sm:text-7xl' : 'text-5xl']" />
+                        <ApplicationLogo class=" duration-1000" />
                         </Link>
                     </div>
 
