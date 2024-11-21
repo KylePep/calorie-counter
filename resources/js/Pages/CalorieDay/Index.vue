@@ -47,7 +47,7 @@ const renderHeroImage = computed(() => {
         <template #leftSide></template>
 
         <template #rightSide>
-            <div v-if="props.account" class="hidden lg:block space-y-1">
+            <div v-if="props.account" class="hidden lg:block space-y-1 lg:space-y-3">
                 <WeighInEntry :weighIn="weighIn" />
                 <JournalEntry :calorieDay="calorieDay" />
                 <CarrotDisplay :carrots="carrots" />

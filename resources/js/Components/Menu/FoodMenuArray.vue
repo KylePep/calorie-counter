@@ -25,7 +25,7 @@ const closeModal = () => {
 
 
 <template>
-  <section class="grid grid-cols-1 gap-1 w-full">
+  <section class="grid grid-cols-1 gap-1 lg:gap-3 w-full">
     <MenuButton @click="setActive('foodList')"> Your Foods
     </MenuButton>
     <CreateFood />

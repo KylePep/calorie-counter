@@ -44,8 +44,8 @@ document.body.setAttribute('body-theme', theme);
     <main class="grid grid-cols-4 flex-1 mt-10 lg:mt-14">
 
 
-      <div class="col-span-4 lg:col-span-1 mb-3">
-        <div v-if="$slots.leftSide" class="sticky top-20 px-6 lg:px-4">
+      <div class="col-span-4 lg:col-span-1 mb-3 lg:mb-0">
+        <div v-if="$slots.leftSide" class="sticky top-32 px-6 lg:px-4">
           <slot name="leftSide" />
         </div>
       </div>
@@ -57,7 +57,7 @@ document.body.setAttribute('body-theme', theme);
       </section>
 
       <div class="col-span-4 lg:col-span-1 mt-3 sm:mt-0">
-        <div v-if="$slots.rightSide" class="sticky top-20 px-6 lg:px-4">
+        <div v-if="$slots.rightSide" class="sticky top-32 px-6 lg:px-4">
           <slot name="rightSide" />
         </div>
       </div>

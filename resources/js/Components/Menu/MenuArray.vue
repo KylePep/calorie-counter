@@ -41,7 +41,7 @@ const closeModal = () => {
 
 
 <template>
-  <section class="grid grid-cols-2 gap-1 w-full">
+  <section class="grid grid-cols-2 gap-1 lg:gap-3 w-full">
 
     <div v-for="option, index in menuOptions" :class="option.specialClass">
       <MenuButton :class="option.specialClass" @click="setActive(index)"> {{ option.name }}
