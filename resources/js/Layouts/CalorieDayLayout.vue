@@ -40,7 +40,7 @@ const closeModal = () => {
 
 <template>
 
-  <section>
+  <section class="lg:sticky top-24 z-10">
     <div v-if="!props.account" class="pb-3">
       Please complete setting up your account to begin tracking your progress or begin by
       <Link class="font-bold" :href="route('calculator')">
