@@ -22,7 +22,7 @@ const formattedDate = () => {
 <template>
 
   <div v-if="displayMode == 'list'" :class="index % 2 == 0 ? 'border-accent/50' : 'border-light'"
-    class="flex flex-col min-h-40 min-w-40 bg-white p-4 border-4 rounded  bg-main shadow-lg my-4">
+    class="flex flex-col min-h-40 min-w-40 p-4 border-4 rounded  bg-white shadow-lg my-4">
 
     <div class="flex flex-1 flex-col justify-between space-y-3">
 
@@ -46,26 +46,26 @@ const formattedDate = () => {
       </div>
 
       <div>
-        <h2 class="bg-light rounded-t pt-1 px-2 font-bold text-dark-text">
+        <h2 class="font-bold text-dark-text">
           Calorie Progress
         </h2>
 
         <!-- Progress bar container -->
-        <div class="relative bg-main border border-4 border-light h-5 rounded-b shadow">
+        <div class="relative bg-white ring-offset-0 ring-2 ring-light/50 h-4 rounded shadow">
 
           <!-- Base progress bar (normal progress) -->
-          <div class="bg-accent border-e border-light h-3 absolute top-0 left-0"
+          <div class="bg-accent border-e border-light h-4 absolute top-0 left-0"
             :style="{ width: `${Math.min((calorieDay.count / calorieDay.bmr) * 100, 100)}%` }"
             title="calories compared to bmr">
           </div>
 
           <!-- Goal range bar -->
-          <div class="bg-accent-light/50 border-s border-accent-dark h-3 absolute top-0 right-0"
+          <div class="bg-accent-light/50 border-s border-accent-dark h-4 absolute top-0 right-0"
             :style="{ width: `${100 - ((calorieDay.goal / calorieDay.bmr) * 100)}%` }" title="goal range">
           </div>
 
           <!-- Excess progress bar (only visible when calorieDay.count exceeds calorieDay.bmr) -->
-          <div v-if="calorieDay.count > calorieDay.bmr" class="bg-special h-3 absolute top-0 left-0"
+          <div v-if="calorieDay.count > calorieDay.bmr" class="bg-special h-4 absolute top-0 left-0"
             :style="{ width: `${Math.min(((calorieDay.count - calorieDay.bmr) / 2000) * 100, 100)}%` }"
             title="calories in excess of bmr">
           </div>
@@ -74,19 +74,19 @@ const formattedDate = () => {
       </div>
 
       <div v-if="calorieDay.food_items.length != 0">
-        <h3 class="bg-light rounded-t pt-1 px-2 font-bold text-dark-text">
+        <h3 class="font-bold text-dark-text">
           Food Eaten</h3>
-        <div class="bg-main border border-4 border-light rounded-b p-1">
+        <div class="bg-white border border-2 border-light/50 p-0.5 pb-1 rounded">
           <p v-for="item in calorieDay.food_items"
-            class="inline-block bg-light  rounded-lg px-2 mx-1 lowercase text-sm text-dark-text">
+            class="inline-block bg-light/20  rounded px-1 mx-1 lowercase text-sm text-dark-text">
             {{ item.description }} - {{ item.count }}
           </p>
         </div>
       </div>
 
       <div v-if="calorieDay.journal">
-        <h4 class="bg-light rounded-t pt-1 px-2 font-bold text-dark-text">Journal</h4>
-        <div class="bg-main rounded-b border border-4 border-light p-1">
+        <h4 class="font-bold text-dark-text">Journal</h4>
+        <div class="bg-white rounded border border-2 border-light/50 p-1">
           {{ calorieDay.journal }}
         </div>
       </div>
@@ -104,7 +104,7 @@ const formattedDate = () => {
       </Link>
     </div>
     <!-- Progress bar container -->
-    <div class="relative col-span-3 sm:col-span-4 bg-main border border-4 border-light h-5 rounded shadow">
+    <div class="relative col-span-3 sm:col-span-4 bg-white border border-4 border-light h-5 rounded shadow">
 
       <!-- Base progress bar (normal progress) -->
       <div class="bg-accent border-e border-light h-3 absolute top-0 left-0"

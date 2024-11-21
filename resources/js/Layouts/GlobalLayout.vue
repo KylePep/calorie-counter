@@ -34,31 +34,30 @@ document.body.setAttribute('body-theme', theme);
       </div>
 
       <div v-else
-        class="h-40 sm:h-48 flex justify-between items-end space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 uppercase">
-        <slot name="header"></slot>
+        class="h-40 sm:h-44 flex justify-center items-end space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 uppercase">
       </div>
 
       <CalculateBanner position="header" />
 
     </header>
 
-    <main class="grid grid-cols-4 flex-1 mt-10">
+    <main class="grid grid-cols-4 flex-1 mt-10 lg:mt-14">
 
 
-      <div class="col-span-4 lg:col-span-1 mb-3">
-        <div v-if="$slots.leftSide" class="sticky top-16">
+      <div class="col-span-4 lg:col-span-1 mb-3 lg:mb-0">
+        <div v-if="$slots.leftSide" class="sticky top-32 px-6 lg:px-4">
           <slot name="leftSide" />
         </div>
       </div>
 
-      <section class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
-        <div class="px-6 space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <section class="col-span-4 lg:col-span-2">
+        <div class="space-y-4 max-w-7xl mx-auto px-6 lg:px-8">
           <slot />
         </div>
       </section>
 
-      <div class="col-span-4 lg:col-span-1  lg:col-start-4">
-        <div v-if="$slots.rightSide" class="sticky top-16">
+      <div class="col-span-4 lg:col-span-1 mt-3 sm:mt-0">
+        <div v-if="$slots.rightSide" class="sticky top-32 px-6 lg:px-4">
           <slot name="rightSide" />
         </div>
       </div>

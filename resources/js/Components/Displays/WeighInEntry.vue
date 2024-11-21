@@ -5,6 +5,7 @@ import NumberInput from "../Form/NumberInput.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
 import CollapsableFolder from "./CollapsableFolder.vue";
 import Pop from "@/utils/Pop.js";
+import MenuButton from "../Menu/MenuButton.vue";
 
 const props = defineProps(['weighIn', 'date']);
 
@@ -75,8 +76,7 @@ async function deleteWeighIn(weighIn) {
     </CollapsableFolder>
   </div>
   <div v-else class="w-full ">
-    <button @click="deleteWeighIn(weighIn)"
-      class="group relative flex w-full justify-between bg-main hover:bg-dark rounded font-bold text-dark-text hover:text-light-text border py-2.5 px-3 bg-light border-light rounded duration-500">
+    <MenuButton @click="deleteWeighIn(weighIn)" class="group flex justify-between">
       <p>
         {{ weighIn.weight }} lbs
       </p>
@@ -87,6 +87,6 @@ async function deleteWeighIn(weighIn) {
         class="absolute left-1/2  object-center group-hover:text-light-text text-transparent font-bold mdi mdi-close-thick duration-300">
       </p>
 
-    </button>
+    </MenuButton>
   </div>
 </template>
