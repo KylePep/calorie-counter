@@ -45,19 +45,19 @@ document.body.setAttribute('body-theme', theme);
 
 
       <div class="col-span-4 lg:col-span-1 mb-3">
-        <div v-if="$slots.leftSide" class="sticky top-16">
+        <div v-if="$slots.leftSide" class="sticky top-20 px-6 lg:px-4">
           <slot name="leftSide" />
         </div>
       </div>
 
-      <section class="col-start-1 lg:col-start-2 col-span-4 lg:col-span-2">
-        <div class="px-6 space-y-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <section class="col-span-4 lg:col-span-2">
+        <div class="space-y-4 max-w-7xl mx-auto px-6 lg:px-8">
           <slot />
         </div>
       </section>
 
-      <div class="col-span-4 lg:col-span-1  lg:col-start-4">
-        <div v-if="$slots.rightSide" class="sticky top-16">
+      <div class="col-span-4 lg:col-span-1 mt-3 sm:mt-0">
+        <div v-if="$slots.rightSide" class="sticky top-20 px-6 lg:px-4">
           <slot name="rightSide" />
         </div>
       </div>

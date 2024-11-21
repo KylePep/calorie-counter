@@ -18,12 +18,12 @@ const ActiveFoodItem = ref({});
 
 const menuOptions = computed(() => {
   return {
-    weighIn: { name: `${props.weighIn ? props.weighIn.weight : 'Weigh In'}`, specialClass: '' },
-    macroList: { name: 'Macro List', specialClass: '' },
-    consumedList: { name: 'Consumed List', specialClass: '' },
-    foodList: { name: 'Your Foods', specialClass: '' },
-    journalEntry: { name: 'Journal Entry', specialClass: 'lg:hidden col-span-0' },
-    carrots: { name: 'Carrots', specialClass: 'lg:hidden col-span-0' },
+    weighIn: { name: `${props.weighIn ? props.weighIn.weight : 'Weigh In'}`, specialClass: 'lg:hidden' },
+    macroList: { name: 'Macro List', specialClass: 'lg:col-span-2' },
+    consumedList: { name: 'Consumed List', specialClass: 'lg:col-span-2' },
+    foodList: { name: 'Your Foods', specialClass: 'lg:col-span-2' },
+    journalEntry: { name: 'Journal Entry', specialClass: 'lg:hidden' },
+    carrots: { name: 'Carrots', specialClass: 'lg:hidden' },
   }
 });
 
@@ -41,9 +41,10 @@ const closeModal = () => {
 
 
 <template>
-  <section class="grid grid-cols-2 gap-x-1 w-full">
-    <div v-for="option, index in menuOptions">
-      <MenuButton :class="option.specialClass" class="mb-1" @click="setActive(index)"> {{ option.name }}
+  <section class="grid grid-cols-2 gap-1 w-full">
+
+    <div v-for="option, index in menuOptions" :class="option.specialClass">
+      <MenuButton :class="option.specialClass" @click="setActive(index)"> {{ option.name }}
       </MenuButton>
     </div>
 

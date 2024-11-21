@@ -114,9 +114,9 @@ const closeModal = () => {
 
 
     <template #rightSide>
-      <Side side="right" class="hidden lg:block" v-if="props.account">
+      <div class="hidden lg:block" v-if="props.account">
         <FoodMenuArray :foodItems />
-      </Side>
+      </div>
     </template>
 
     <Modal :show="showModal" @close="closeModal">

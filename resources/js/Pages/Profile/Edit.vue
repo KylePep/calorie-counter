@@ -36,13 +36,13 @@ const props = defineProps(['mustVerifyEmail', 'status']);
         </div>
 
         <template #rightSide>
-            <Side side="right">
+            <div>
                 <Link :href="route('account.index')" class="w-full">
                 <MenuButton>
                     Return
                 </MenuButton>
                 </Link>
-            </Side>
+            </div>
         </template>
 
     </GlobalLayout>
