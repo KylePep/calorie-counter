@@ -28,6 +28,15 @@ const calorieDayMacros = computed(() => {
   return { protein, carbohydrates, fats }
 });
 
+function gridClass(macros) {
+  const columns = Object.entries(macros).length;
+  return {
+    1: 'grid grid-cols-1',
+    2: 'grid grid-cols-2',
+    3: 'grid grid-cols-3',
+  }[columns] || 'grid grid-cols-1';
+};
+
 function macroClass(index) {
   return {
     protein: 'bg-accent/50',
@@ -41,7 +50,7 @@ function macroClass(index) {
 
 <template>
 
-  <div class="grid grid-cols-3 gap-x-2">
+  <div :class="gridClass(macros)" class="gap-x-2">
     <div v-for="macro, index in macros" class="relative bg-white h-6">
 
       <div class="absolute h-full rounded-md" :class="macroClass(index)"
