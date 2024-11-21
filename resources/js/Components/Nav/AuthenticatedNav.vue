@@ -42,17 +42,17 @@ onUnmounted(() => {
                         </Link>
                     </div>
 
-                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')"
+                    <NavLink :href="route('calorieDay.index')" :active="route().current('calorieDay.index')"
                         class="sm:hidden ms-4 text-sm -my-2">
-                        Dashboard
+                        Count
                     </NavLink>
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-2 sm:ms-10 sm:flex duration-1000"
                         :class="[showingNavigationDropdown ? 'sm:-my-2' : isAtTop ? 'sm:-my-0' : 'sm:-my-2']">
 
-                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <NavLink :href="route('calorieDay.index')" :active="route().current('calorieDay.index')">
+                            Count
                         </NavLink>
                         <NavLink :href="route('calculator')" :active="route().current('calculator')">
                             Calculator

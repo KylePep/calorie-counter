@@ -90,7 +90,7 @@ onUnmounted(() => {
         <ResponsiveNavLink :href="route('register')" :active="route().current('register')">
           Register
         </ResponsiveNavLink>
-        <ResponsiveNavLink :href="route('calculator')" :active="route().current('dashboard')">
+        <ResponsiveNavLink :href="route('calculator')" :active="route().current('calculator')">
           Calculator
         </ResponsiveNavLink>
       </div>

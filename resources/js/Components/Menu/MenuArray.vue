@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import CreateFood from "../FoodComponents/CreateFood.vue";
 import Modal from "../Form/Modal.vue";
 import MenuButton from "./MenuButton.vue";
@@ -16,6 +16,17 @@ const showModal = ref(false);
 const modalContent = ref('foodDetails');
 const ActiveFoodItem = ref({});
 
+const menuOptions = computed(() => {
+  return {
+    weighIn: { name: `${props.weighIn ? props.weighIn.weight : 'Weigh In'}`, specialClass: '' },
+    macroList: { name: 'Macro List', specialClass: '' },
+    consumedList: { name: 'Consumed List', specialClass: '' },
+    foodList: { name: 'Your Foods', specialClass: '' },
+    journalEntry: { name: 'Journal Entry', specialClass: 'lg:hidden col-span-0' },
+    carrots: { name: 'Carrots', specialClass: 'lg:hidden col-span-0' },
+  }
+});
+
 function setActive(type) {
   console.log('[Modal Content Type]', type);
   modalContent.value = type;
@@ -30,23 +41,16 @@ const closeModal = () => {
 
 
 <template>
-  <section class="grid grid-cols-2 gap-2 w-full">
-    <MenuButton v-if="!props.weighIn" @click="setActive('weighIn')" class="lg:hidden">Weigh In
-    </MenuButton>
-    <MenuButton v-else @click="setActive('weighIn')">{{ props.weighIn.weight }} lbs</MenuButton>
-    <MenuButton @click="setActive('macroList')"> Macros List
-    </MenuButton>
-    <MenuButton @click="setActive('consumedList')">Consumed List
-    </MenuButton>
-    <MenuButton @click="setActive('foodList')"> Your Foods
-    </MenuButton>
-    <MenuButton @click="setActive('journalEntry')" class="lg:hidden">Journal Entry
-    </MenuButton>
-    <MenuButton v-if="carrots" @click="setActive('carrots')" class="lg:hidden">Carrots
-    </MenuButton>
-    <div class="col-span-2 lg:col-span-1">
+  <section class="grid grid-cols-2 gap-x-1 w-full">
+    <div v-for="option, index in menuOptions">
+      <MenuButton :class="option.specialClass" class="mb-1" @click="setActive(index)"> {{ option.name }}
+      </MenuButton>
+    </div>
+
+    <div class="col-span-2">
       <CreateFood />
     </div>
+
   </section>
 
   <Modal :show="showModal" @close="closeModal">

@@ -26,7 +26,9 @@ const getDayOfWeek = (date) => {
   <GlobalLayout>
 
     <template #header>
-      <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Calorie Day</h2>
+      <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Calorie Counter - {{ getDayOfWeek(new
+        Date(calorieDay.created_at).getDay()) }}, {{ new
+          Date(calorieDay.created_at).toLocaleDateString() }}</h2>
     </template>
 
     <CalorieDayLayout :account="account" :calorieDay :foodItems :carrots>

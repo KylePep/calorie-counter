@@ -4,7 +4,7 @@ import { Head, } from '@inertiajs/vue3';
 import { computed, ref } from "vue";
 import Side from "@/Components/Displays/Side.vue";
 import JournalEntry from "@/Components/Displays/JournalEntry.vue";
-import CarrotDisplay from '../Components/Displays/CarrotDisplay.vue'
+import CarrotDisplay from '@/Components/Displays/CarrotDisplay.vue'
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
 import WeighInEntry from "@/Components/Displays/WeighInEntry.vue";
 import MenuArray from "@/Components/Menu/MenuArray.vue";
@@ -24,13 +24,13 @@ const renderHeroImage = computed(() => {
 
 <template>
 
-    <Head title="Dashboard">
-        <meta type="description" content="Dashboard of CalorieCount" head-key="Dashboard">
+    <Head title="calorie day">
+        <meta type="description" content="Calorie Count Day" head-key="Calorie Day">
     </Head>
 
     <GlobalLayout :heroImage="renderHeroImage" heroHeight="20">
         <template #header>
-            <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Calorie Counter</h2>
+            <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Today's Calorie Counter</h2>
             <h2 v-else>
                 <Link :href="route('calculator')"
                     class="text-accent-light hover:text-white hover:animate-none duration-300">
