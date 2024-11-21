@@ -18,7 +18,7 @@ const props = defineProps(['mustVerifyEmail', 'status']);
             <h2 class="font-semibold text-xl leading-tight">Profile</h2>
         </template>
 
-        <div class="py-12">
+        <div class="pb-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
                     <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status"

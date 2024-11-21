@@ -27,7 +27,7 @@ const account = computed(() => props.account);
     </template>
 
 
-    <div class="py-12">
+    <div class="pb-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
         <EditTheme :account="account" />

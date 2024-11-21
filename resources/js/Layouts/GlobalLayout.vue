@@ -41,7 +41,7 @@ document.body.setAttribute('body-theme', theme);
 
     </header>
 
-    <main class="grid grid-cols-4 flex-1 mt-10">
+    <main class="grid grid-cols-4 flex-1 mt-10 lg:mt-14">
 
 
       <div class="col-span-4 lg:col-span-1 mb-3">

@@ -6,12 +6,13 @@ import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
 import Pop from "@/utils/Pop.js";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
-import Side from "@/Components/Displays/Side.vue";
 import UsdaSearch from "@/Components/FoodComponents/UsdaSearch.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import FoodMenuArray from "@/Components/Menu/FoodMenuArray.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
+
+const isSmallScreen = computed(() => { return window.innerWidth < 1024 });
 
 const with_fdcId = computed(() => props.with_fdcId);
 const without_fdcId = computed(() => props.without_fdcId);
@@ -87,7 +88,7 @@ const closeModal = () => {
       </div>
     </section>
 
-    <section v-if="props.account" class="block lg:hidden">
+    <section v-if="props.account && isSmallScreen" class="">
       <FoodMenuArray :foodItems />
     </section>
 
@@ -112,6 +113,7 @@ const closeModal = () => {
     </section>
 
 
+    <template #leftSide></template>
 
     <template #rightSide>
       <div class="hidden lg:block" v-if="props.account">

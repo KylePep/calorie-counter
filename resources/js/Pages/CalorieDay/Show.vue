@@ -41,7 +41,7 @@ const getDayOfWeek = (date) => {
     <template #leftSide></template>
 
     <template #rightSide>
-      <div v-if="props.account" class="hidden lg:block">
+      <div v-if="props.account" class="hidden lg:block space-y-1">
         <WeighInEntry :weighIn="weighIn" :date="new Date(calorieDay.created_at)" />
         <JournalEntry :calorieDay="calorieDay" />
         <MenuArray :account :weighIn :calorieDay :foodItems />
