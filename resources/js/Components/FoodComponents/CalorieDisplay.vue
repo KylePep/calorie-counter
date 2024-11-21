@@ -59,8 +59,7 @@ function cellsOverClasses(value) {
   <section id="calorie display" class="z-10 relative p-1.5 rounded border border border-light drop-shadow-xl bg-main"
     :class="calorieCount < bmr ? 'sticky top-20' : ''">
     <div class="grid grid-cols-10 gap-1">
-      <div v-for="cell in allCellsTotal"
-        class="h-6 sm:h-10 text-sm bg-neutral/50 border-4 border-neutral/25 rounded-sm">
+      <div v-for="cell in allCellsTotal" class="h-6 sm:h-10 text-sm bg-light/10 border-4 border-light/10 rounded-sm">
       </div>
     </div>
 
