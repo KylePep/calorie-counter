@@ -3,7 +3,8 @@ import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import NavLink from "@/Components/Nav/NavLink.vue";
+import Side from "@/Components/Displays/Side.vue";
+import MenuButton from "@/Components/Menu/MenuButton.vue";
 
 const props = defineProps(['mustVerifyEmail', 'status']);
 
@@ -15,9 +16,6 @@ const props = defineProps(['mustVerifyEmail', 'status']);
 
         <template #header>
             <h2 class="font-semibold text-xl leading-tight">Profile</h2>
-            <NavLink :href="route('account.index')">
-                Return
-            </NavLink>
         </template>
 
         <div class="py-12">
@@ -36,5 +34,17 @@ const props = defineProps(['mustVerifyEmail', 'status']);
                 </div>
             </div>
         </div>
+
+        <template #rightSide>
+            <Side side="right">
+                <Link :href="route('account.index')" class="w-full">
+                <MenuButton>
+                    Return
+                </MenuButton>
+                </Link>
+            </Side>
+        </template>
+
     </GlobalLayout>
+
 </template>

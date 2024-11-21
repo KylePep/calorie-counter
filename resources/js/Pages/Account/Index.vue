@@ -1,5 +1,4 @@
 <script setup>
-import NavLink from "@/Components/Nav/NavLink.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { computed } from "vue";
 import EditGoal from "./Partials/EditGoal.vue";
@@ -7,6 +6,8 @@ import EditStats from "./Partials/EditStats.vue";
 import EditCarrot from "./Partials/EditCarrot.vue";
 import EditTheme from "./Partials/EditTheme.vue";
 import EditMacros from "./Partials/EditMacros.vue";
+import Side from "@/Components/Displays/Side.vue";
+import MenuButton from "@/Components/Menu/MenuButton.vue";
 
 const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
 
@@ -19,12 +20,10 @@ const account = computed(() => props.account);
 
 <template>
 
-  <GlobalLayout head="Profile">
+  <GlobalLayout head="Account">
+
     <template #header>
       <h2 class="font-semibold text-xl leading-tight">Profile</h2>
-      <NavLink :href="route('profile.edit')">
-        Edit Account
-      </NavLink>
     </template>
 
 
@@ -43,5 +42,16 @@ const account = computed(() => props.account);
 
       </div>
     </div>
+
+    <template #rightSide>
+      <Side side="right">
+        <Link :href="route('profile.edit')" class="w-full">
+        <MenuButton>
+          Edit Account
+        </MenuButton>
+        </Link>
+      </Side>
+    </template>
+
   </GlobalLayout>
 </template>
