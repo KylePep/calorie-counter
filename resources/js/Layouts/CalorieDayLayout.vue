@@ -9,7 +9,6 @@ import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
 import MacroDisplay from "@/Components/Displays/MacroDisplay.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import MenuArray from "@/Components/Menu/MenuArray.vue";
-import BarcodeScanner from "@/Components/BarcodeScanner.vue";
 
 const props = defineProps(['account', 'calorieDay', 'foodItems', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
 
@@ -42,8 +41,6 @@ const closeModal = () => {
 </script>
 
 <template>
-
-  <BarcodeScanner />
 
   <section class="lg:sticky top-24 z-10">
     <div v-if="!props.account" class="pb-3">

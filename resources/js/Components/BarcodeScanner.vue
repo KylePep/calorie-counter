@@ -95,17 +95,23 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <PrimaryButton @click="openModal">Scan Barcode</PrimaryButton>
+
+  <PrimaryButton type="button" @click="openModal" class="relative flex justify-center w-full h-full">
+    <span class="lg:hidden w-20 font-bold text-center text-[10px]">Scan </span>
+    <span class="w-2"></span>
+    <span class="lg:hidden w-20 font-bold text-end text-[10px]"> Barcode</span>
+    <i class="absolute mdi mdi-barcode-scan text-center -top-0.5 left-0 w-full h-full text-2xl pt-0.5"></i>
+  </PrimaryButton>
 
   <Modal :show="showModal" @close="closeModal">
 
 
-    <section class="w-full h-96 bg-white mt-12">
+    <section class="w-full h-56 lg:h-96 mt-12" :class="isScanning && !scanResult ? 'bg-dark' : 'bg-white'">
       <!-- QR Code Scanner Area -->
       <div id="reader"
-        class="flex justify-center items-center w-full h-96 border-4 border-light rounded overflow-hidden mt-12">
+        class="flex justify-center items-center w-full h-56 lg:h-96 border-4 border-light rounded overflow-hidden mt-12">
         <p v-if="!isScanning && !scanResult" class="animate-pulse text-neutral-text font-bold text-2xl">Loading...</p>
-        <p v-else-if="isScanning && scanResult" class="text-neutral-text font-bold text-2xl">{{ scanResult }}</p>
+        <p v-else-if="isScanning && scanResult" class="text-neutral-text font-bold lg:text-2xl">{{ scanResult }}</p>
       </div>
     </section>
 
