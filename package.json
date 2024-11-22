@@ -10,6 +10,7 @@
         "node": "20.x"
     },
     "dependencies": {
+        "html5-qrcode": "^2.3.8",
         "sweetalert2": "11.7.10"
     },
     "devDependencies": {

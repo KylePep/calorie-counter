@@ -1,34 +1,133 @@
 <script setup>
-import { StreamBarcodeReader } from "vue-barcode-reader";
+import { ref, nextTick, onUnmounted } from 'vue';
+import { Html5Qrcode } from 'html5-qrcode';
 import PrimaryButton from "./Form/PrimaryButton.vue";
 import Modal from "./Form/Modal.vue";
-import { ref } from "vue";
+import SecondaryButton from "./Form/SecondaryButton.vue";
+import InputLabel from "./Form/InputLabel.vue";
 
 const showModal = ref(false);
-
 const scanResult = ref('');
+let html5Qrcode = null;
 
-function onDecode(result) {
-  scanResult.value = result;
-  console.log('[onLoaded]', result);
-}
-function onLoaded() {
-  console.log('[onLoaded]');
-}
+const isScanning = ref(false);
 
+// List of cameras
+const cameras = ref([]);
+const selectedCamera = ref(null);
+const config = {
+  fps: 2,
+  qrbox: 250,
+};
+
+// Initialize scanner and fetch camera devices
+async function initializeScanner() {
+  try {
+    html5Qrcode = new Html5Qrcode("reader");
+    const devices = await Html5Qrcode.getCameras();
+    cameras.value = devices;
+
+    if (devices.length > 0) {
+      selectedCamera.value = devices[0].id; // Default to the first camera
+      startScanner();
+    } else {
+      console.error("No cameras found.");
+    }
+  } catch (error) {
+    console.error("Error initializing scanner:", error);
+  }
+};
+
+// Start scanning using the selected camera
+const startScanner = () => {
+  if (!selectedCamera.value || !html5Qrcode) return;
+  scanResult.value = '';
+  isScanning.value = true;
+  html5Qrcode.start(
+    { deviceId: { exact: selectedCamera.value } }, // Camera ID
+    config, // Options
+    (decodedText, decodedResult) => {
+      console.log(`Scan result: ${decodedText}`, decodedResult);
+      scanResult.value = decodedText;
+      stopScanner(); // Stop the scanner on a successful scan
+    },
+    (error) => {
+      console.log(`Scan error: ${error}`);
+    }
+  ).catch((err) => {
+    console.error("Failed to start scanner:", err);
+  });
+};
+
+// Stop scanning and clear resources
+const stopScanner = () => {
+  if (html5Qrcode) {
+    html5Qrcode.stop().then(() => {
+      console.log("Scanner stopped.");
+    }).catch((err) => {
+      console.error("Error stopping scanner:", err);
+    });
+  }
+};
+
+// Open modal and initialize scanner
+const openModal = () => {
+  showModal.value = true;
+  nextTick(() => {
+    initializeScanner();
+  });
+};
+
+// Close modal and stop scanner
 const closeModal = () => {
+  isScanning.value = false;
   showModal.value = false;
-}
+  stopScanner();
+};
 
+// Clean up resources on component unmount
+onUnmounted(() => {
+  if (html5Qrcode) {
+    // html5Qrcode.stop();
+    html5Qrcode = null;
+  }
+});
 </script>
 
-
 <template>
-  <PrimaryButton @click="showModal = true">Scan Barcode</PrimaryButton>
+  <PrimaryButton @click="openModal">Scan Barcode</PrimaryButton>
 
   <Modal :show="showModal" @close="closeModal">
-    <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded">
-    </StreamBarcodeReader>
-    Result: {{ scanResult }}
+
+
+    <section class="w-full h-96 bg-white mt-12">
+      <!-- QR Code Scanner Area -->
+      <div id="reader"
+        class="flex justify-center items-center w-full h-96 border-4 border-light rounded overflow-hidden mt-12">
+        <p v-if="!isScanning && !scanResult" class="animate-pulse text-neutral-text font-bold text-2xl">Loading...</p>
+        <p v-else-if="isScanning && scanResult" class="text-neutral-text font-bold text-2xl">{{ scanResult }}</p>
+      </div>
+    </section>
+
+    <section class="flex flex-col justify-between h-32 p-2">
+      <!-- Camera Selection Dropdown -->
+      <div v-if="cameras.length > 0" class="">
+        <InputLabel for="camera" class="">Select Camera:</InputLabel>
+        <select id="camera" v-model="selectedCamera" @change="startScanner"
+          class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
+          <option v-for="camera in cameras" :key="camera.id" :value="camera.id">
+            {{ camera.label || `Camera ${camera.id}` }}
+          </option>
+        </select>
+      </div>
+
+      <div v-if="scanResult" class="flex justify-between">
+        <SecondaryButton @click="startScanner">Retry</SecondaryButton>
+        <div>
+          <PrimaryButton>Search USDA </PrimaryButton>
+        </div>
+      </div>
+    </section>
+
   </Modal>
 </template>
