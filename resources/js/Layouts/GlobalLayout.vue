@@ -65,7 +65,7 @@ document.body.setAttribute('body-theme', theme);
 
     <footer class="mt-20">
       <CalculateBanner position="footer" />
-      <FooterContent class="hidden sm:block" />
+      <FooterContent class="hidden sm:grid" />
     </footer>
   </div>
 
