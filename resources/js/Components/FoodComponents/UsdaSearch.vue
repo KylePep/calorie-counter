@@ -10,6 +10,8 @@ import Dropdown from "../Form/Dropdown.vue";
 import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import Modal from "../Form/Modal.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
+import BarcodeScanner from "../BarcodeScanner.vue";
 
 const emit = defineEmits(['setActive']);
 
@@ -103,9 +105,8 @@ function setActive(item) {
 
 <template>
 
-  <div class="">
-    <form @submit.prevent="fetchFoodData(1)"
-      class="grid grid-cols-10 gap-1 bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
+  <div class="bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
+    <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-10 gap-1 ">
 
       <div class="col-span-3 sm:col-span-2 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
@@ -158,8 +159,8 @@ function setActive(item) {
 
 
 
-      <div class="col-span-4 sm:col-span-5 relative flex items-center ">
-        <TextInput id="query" type="text" class="w-full h-8 rounded text-xs" v-model="form.query" required />
+      <div class="col-span-4 relative flex items-center ">
+        <TextInput id="query" type="text" class="w-full h-8 rounded text-xs lg:text-sm" v-model="form.query" required />
         <InputError :message="form.errors.query" />
 
         <button class="absolute right-0">
@@ -167,8 +168,15 @@ function setActive(item) {
             class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl sm:text-2xl ps-8 pe-2 duration-300"></i>
         </button>
       </div>
+      <div class="hidden lg:block">
+        <BarcodeScanner @set-active="setActive" />
+      </div>
 
     </form>
+
+    <div class="lg:hidden mt-1.5">
+      <BarcodeScanner @set-active="setActive" />
+    </div>
   </div>
 
   <Modal :show="showModal" @close="closeModal">

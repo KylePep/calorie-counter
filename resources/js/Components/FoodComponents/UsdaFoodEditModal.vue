@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
@@ -12,28 +12,49 @@ const emit = defineEmits(['closeModal']);
 
 const loading = ref(false);
 
+const errorPage = ref(false);
+
+// Receive either fdcId or upc
+
 async function getUsdaFoodById() {
   loading.value = true;
   try {
-    let foodId = props.foodItem.fdcId;
+    let foodId;
 
-    if (!props.foodItem.fdcId) {
+    if (!props.foodItem.fdcId && !props.foodItem.barcode) {
       loading.value = false;
       return;
+    } else if (!props.foodItem.fdcId) {
+      foodId = props.foodItem.barcode
+    } else {
+      foodId = props.foodItem.fdcId
     }
 
-    const response = await axios.get(`/foodUsda/${foodId}`);
-    const foodItem = new UsdaFoodItem(response.data);
 
-    setForm(foodItem);
+    if (foodId.length != 12) {
+      console.log('[FDC_ID]');
+      const response = await axios.get(`/foodUsda/${foodId}`);
+      const foodItem = new UsdaFoodItem(response.data);
+      setForm(foodItem);
+    } else {
+      console.log('[UPC]');
+      const response = await axios.get(`/foodUsda/${foodId}/upc`);
+      const foodItem = new UsdaFoodItem(response.data);
+      setForm(foodItem);
+    }
+
     loading.value = false;
 
   } catch (error) {
+    errorPage.value = true;
     loading.value = false;
     console.error(error, '[Error fetching food data]');
   }
 }
-getUsdaFoodById();
+onMounted(() => {
+  getUsdaFoodById();
+})
+
 
 
 
@@ -141,7 +162,7 @@ function createFoodItem() {
 
 <template>
 
-  <UsdaFoodDetailsForm :formData="form" @cancel="closeModal" :loading="loading" @useItem="useItem"
+  <UsdaFoodDetailsForm v-if="!errorPage" :formData="form" @cancel="closeModal" :loading="loading" @useItem="useItem"
     @createFoodItem="createFoodItem">
     <template #title>
       <h1 v-if="!loading" class="text-center text-base font-bold text-gray-700">Edit <span class="text-xl text-black">{{
@@ -155,5 +176,9 @@ function createFoodItem() {
     </SecondaryButton>
 
   </UsdaFoodDetailsForm>
+
+  <div v-else class="text-special text-2xl">
+    No foods were found.
+  </div>
 
 </template>
