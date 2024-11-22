@@ -117,7 +117,7 @@ function setActive(scanResult) {
     <span class="w-10"></span>
     <span class="lg:hidden w-20 font-bold text-start text-[10px]"> Barcode</span>
     <i
-      class="absolute mdi mdi-barcode-scan text-center -top-1 lg:-top-0.5 left-0 w-full h-full text-lg lg:text-2xl pt-0.5"></i>
+      class="absolute mdi mdi-barcode-scan text-center -top-1.5 lg:-top-0.5 left-0 w-full h-full text-lg lg:text-2xl pt-0.5"></i>
   </PrimaryButton>
 
   <Modal :show="showModal" @close="closeModal">
