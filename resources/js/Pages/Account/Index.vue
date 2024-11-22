@@ -8,6 +8,7 @@ import EditTheme from "./Partials/EditTheme.vue";
 import EditMacros from "./Partials/EditMacros.vue";
 import Side from "@/Components/Displays/Side.vue";
 import MenuButton from "@/Components/Menu/MenuButton.vue";
+import BarcodeScanner from "@/Components/BarcodeScanner.vue";
 
 const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
 
@@ -39,6 +40,9 @@ const account = computed(() => props.account);
         <EditStats :account="account" />
 
         <EditCarrot :account="account" :carrots="carrots" />
+
+        <BarcodeScanner />
+
 
       </div>
     </div>
