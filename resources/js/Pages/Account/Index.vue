@@ -6,7 +6,6 @@ import EditStats from "./Partials/EditStats.vue";
 import EditCarrot from "./Partials/EditCarrot.vue";
 import EditTheme from "./Partials/EditTheme.vue";
 import EditMacros from "./Partials/EditMacros.vue";
-import Side from "@/Components/Displays/Side.vue";
 import MenuButton from "@/Components/Menu/MenuButton.vue";
 
 const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
