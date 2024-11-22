@@ -74,7 +74,9 @@ const stopScanner = () => {
 
 const restartScanner = () => {
   stopScanner();
-  startScanner();
+  nextTick(() => {
+    startScanner();
+  });
 }
 
 // Open modal and initialize scanner
