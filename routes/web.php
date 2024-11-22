@@ -17,6 +17,7 @@ Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
 
 Route::get('/foodUsda/{id}', [FoodUsdaController::class, 'getById']);
+Route::get('/foodUsda/{upc}/upc', [FoodUsdaController::class, 'getByUpc']);
 Route::get('/search-foodUsda', [FoodUsdaController::class, 'searchByQuery']);
 
 Route::get('/calculator', [CalculatorController::class, 'create'])->name('calculator');
