@@ -43,7 +43,6 @@ const closeModal = () => {
 
 <template>
 
-  <BarcodeScanner />
 
   <section class="lg:sticky top-24 z-10">
     <div v-if="!props.account" class="pb-3">
