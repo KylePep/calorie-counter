@@ -5,6 +5,7 @@ import Dropdown from '@/Components/Form/Dropdown.vue';
 import DropdownLink from '@/Components/Form/DropdownLink.vue';
 import NavLink from '@/Components/Nav/NavLink.vue';
 import ResponsiveNavLink from '@/Components/Nav/ResponsiveNavLink.vue';
+import ShareButton from "./ShareButton.vue";
 
 const props = defineProps(['account']);
 
@@ -132,16 +133,14 @@ onUnmounted(() => {
             </div>
 
             <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <ResponsiveNavLink :href="route('account.index')" class="px-4">
-                    <div class="font-medium text-base text-light-text">
-                        {{ $page.props.auth.user.name }}
-                    </div>
-                    <div class="font-medium text-sm text-light-text/75">{{ $page.props.auth.user.email }}</div>
-                </ResponsiveNavLink>
+            <div class="relative pt-4 pb-1 border-t border-gray-200">
+                <div class="absolute top-0 right-0  text-light-text text-lg px-3 mt-2">
+                    <ShareButton />
+                </div>
 
-                <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('account.index')"> Profile </ResponsiveNavLink>
+                <div class="mt-4 space-y-1">
+                    <ResponsiveNavLink :href="route('account.index')"> Profile - {{ $page.props.auth.user.name }}
+                    </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Log Out
                     </ResponsiveNavLink>
