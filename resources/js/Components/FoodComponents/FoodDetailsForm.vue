@@ -76,11 +76,11 @@ const unitName = computed(() => {
           <div class="flex font-bold">
             <button id="g" type="button" @click="form.servingSizeUnit = 'g'"
               class="rounded-l-lg px-3 py-2 border-r border-white"
-              :class="[form.servingSizeUnit == 'g' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">g</button>
+              :class="[form.servingSizeUnit == 'g' ? 'bg-accent-dark text-white' : 'bg-light hover:bg-gray-400 ']">g</button>
             <button id="u" type="button" @click="form.servingSizeUnit = 'u'" class="border-r border-white px-3 py-2  "
-              :class="[form.servingSizeUnit == 'u' ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">u</button>
+              :class="[form.servingSizeUnit == 'u' ? 'bg-accent-dark text-white' : 'bg-light hover:bg-gray-400 ']">u</button>
             <button id="ml" type="button" @click="form.servingSizeUnit = 'ml'" class=" rounded-r-lg px-3 py-2"
-              :class="[(form.servingSizeUnit == 'ml' || form.servingSizeUnit == 'MLT') ? 'bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-400 ']">ml</button>
+              :class="[(form.servingSizeUnit == 'ml' || form.servingSizeUnit == 'MLT') ? 'bg-accent-dark text-white' : 'bg-light hover:bg-gray-400 ']">ml</button>
           </div>
         </div>
       </div>

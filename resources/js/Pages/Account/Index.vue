@@ -40,6 +40,7 @@ const account = computed(() => props.account);
 
         <EditCarrot :account="account" :carrots="carrots" />
 
+
       </div>
     </div>
 
