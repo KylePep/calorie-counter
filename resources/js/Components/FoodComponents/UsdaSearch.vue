@@ -169,13 +169,13 @@ function setActive(item) {
         </button>
       </div>
       <div class="hidden lg:block">
-        <BarcodeScanner />
+        <BarcodeScanner @set-active="setActive" />
       </div>
 
     </form>
 
     <div class="lg:hidden mt-1.5">
-      <BarcodeScanner />
+      <BarcodeScanner @set-active="setActive" />
     </div>
   </div>
 

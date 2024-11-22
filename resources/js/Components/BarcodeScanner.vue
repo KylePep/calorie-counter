@@ -6,6 +6,8 @@ import Modal from "./Form/Modal.vue";
 import SecondaryButton from "./Form/SecondaryButton.vue";
 import InputLabel from "./Form/InputLabel.vue";
 
+const emit = defineEmits(['setActive']);
+
 const showModal = ref(false);
 const scanResult = ref('');
 let html5Qrcode = null;
@@ -92,6 +94,13 @@ onUnmounted(() => {
     html5Qrcode = null;
   }
 });
+
+
+function setActive(scanResult) {
+  const foodItem = { barcode: scanResult }
+  emit('setActive', foodItem);
+  closeModal();
+}
 </script>
 
 <template>
@@ -105,11 +114,18 @@ onUnmounted(() => {
 
   <Modal :show="showModal" @close="closeModal">
 
+    <h1 class="text-center text-xl font-bold mt-12 mb-3">Scan a Barcode</h1>
+    <h2 class="text-center text-sm px-4 mb-3">
+      Search the USDA for a products UPC <br> *upc's and food items in general are submitted to the USDA
+      Database
+      voluntarily. Your upc may not be available.
+    </h2>
 
-    <section class="w-full h-56 lg:h-96 mt-12" :class="isScanning && !scanResult ? 'bg-dark' : 'bg-white'">
+
+    <section class="w-full h-56 lg:h-96" :class="isScanning && !scanResult ? 'bg-dark' : 'bg-white'">
       <!-- QR Code Scanner Area -->
       <div id="reader"
-        class="flex justify-center items-center w-full h-56 lg:h-96 border-4 border-light rounded overflow-hidden mt-12">
+        class="flex justify-center items-center w-full h-56 lg:h-96 border-4 border-light rounded overflow-hidden">
         <p v-if="!isScanning && !scanResult" class="animate-pulse text-neutral-text font-bold text-2xl">Loading...</p>
         <p v-else-if="isScanning && scanResult" class="text-neutral-text font-bold lg:text-2xl">{{ scanResult }}</p>
       </div>
@@ -130,7 +146,7 @@ onUnmounted(() => {
       <div v-if="scanResult" class="flex justify-between">
         <SecondaryButton @click="startScanner">Retry</SecondaryButton>
         <div>
-          <PrimaryButton>Search USDA </PrimaryButton>
+          <PrimaryButton @click="setActive(scanResult)">Search USDA </PrimaryButton>
         </div>
       </div>
     </section>
