@@ -19,7 +19,7 @@ const cameras = ref([]);
 const selectedCamera = ref(null);
 const config = {
   fps: 2,
-  qrbox: 250,
+  qrbox: 350,
 };
 
 // Initialize scanner and fetch camera devices
@@ -112,11 +112,12 @@ function setActive(scanResult) {
 
 <template>
 
-  <PrimaryButton type="button" @click="openModal" class="relative flex justify-center w-full h-full">
-    <span class="lg:hidden w-20 font-bold text-center text-[10px]">Scan </span>
-    <span class="w-2"></span>
-    <span class="lg:hidden w-20 font-bold text-end text-[10px]"> Barcode</span>
-    <i class="absolute mdi mdi-barcode-scan text-center -top-0.5 left-0 w-full h-full text-2xl pt-0.5"></i>
+  <PrimaryButton type="button" @click="openModal" class="relative flex justify-center w-full h-6 lg:h-full">
+    <span class="lg:hidden w-20 font-bold text-end text-[10px]">Scan </span>
+    <span class="w-10"></span>
+    <span class="lg:hidden w-20 font-bold text-start text-[10px]"> Barcode</span>
+    <i
+      class="absolute mdi mdi-barcode-scan text-center -top-1 lg:-top-0.5 left-0 w-full h-full text-lg lg:text-2xl pt-0.5"></i>
   </PrimaryButton>
 
   <Modal :show="showModal" @close="closeModal">
@@ -129,7 +130,7 @@ function setActive(scanResult) {
     </h2>
 
 
-    <section class="w-full h-56 lg:h-96" :class="isScanning && !scanResult ? 'bg-dark' : 'bg-white'">
+    <section class="w-full h-56 lg:h-96 rounded-md" :class="isScanning && !scanResult ? 'bg-dark' : 'bg-white'">
       <!-- QR Code Scanner Area -->
       <div id="reader"
         class="flex justify-center items-center w-full h-56 lg:h-96 border-4 border-light rounded overflow-hidden">
