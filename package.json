@@ -10,8 +10,7 @@
         "node": "20.x"
     },
     "dependencies": {
-        "sweetalert2": "11.7.10",
-        "vue-barcode-reader": "^1.0.3"
+        "sweetalert2": "11.7.10"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
