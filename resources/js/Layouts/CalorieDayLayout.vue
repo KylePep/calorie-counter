@@ -9,6 +9,7 @@ import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
 import MacroDisplay from "@/Components/Displays/MacroDisplay.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import MenuArray from "@/Components/Menu/MenuArray.vue";
+import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 
 const props = defineProps(['account', 'calorieDay', 'foodItems', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
 
@@ -94,7 +95,7 @@ const closeModal = () => {
 
     <section v-if="props.account">
       <h1 class="mb-2">Foods</h1>
-      <UsdaSearch @set-active="(item) => setActive('usda', item)" />
+      <UsdaSearch @set-active="setActive" />
 
       <ItemsDisplay size="sm" :list="props.foodItems" :calorieDay @set-active="(item) => setActive('foodItem', item)">
         <h1>Your Foods</h1>
@@ -105,6 +106,7 @@ const closeModal = () => {
 
   <Modal :show="showModal" @close="closeModal">
     <FoodEditModal v-if="modalContent == 'foodItem'" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+    <FoodCopyModal v-if="modalContent == 'app'" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
     <UsdaFoodEditModal v-if="modalContent == 'usda'" @close-modal="closeModal" :foodItem="ActiveFoodItem" :calorieDay />
   </Modal>
 
