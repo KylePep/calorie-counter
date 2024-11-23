@@ -18,16 +18,16 @@ const iconClass = computed(() => {
 
 <template>
 
-  <div class=" group flex justify-end items-center h-full">
+  <div class=" group flex justify-end items-center">
 
     <button
-      class="group min-w-8 relative flex items-center justify-end text-xl bg-accent text-dark-text rounded group-hover:bg-neutral focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ps-2 transition ease-in-out duration-300">
+      class="group min-w-8 relative flex items-center justify-end text-xl bg-accent-dark border-b-2 border-accent text-white  rounded hover:bg-neutral hover:border-light focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ps-2 transition ease-in-out duration-300">
       <span
-        class="text-xs px-1 left-0 group-hover:-translate-x-0 group-hover:text-main text-transparent ease-in-out text-sm me-1 translate-x-10 delay-0 group-hover:delay-300 transition ">
+        class="hidden sm:block text-xs px-1 left-0 group-hover:-translate-x-0 text-transparent group-hover:text-main ease-in-out text-sm me-1 translate-x-10 delay-0 group-hover:delay-300 transition ">
         <slot />
       </span>
       <span :class="iconClass"
-        class="text-sm mdi pe-2 rounded-xl bg-accent group-hover:bg-neutral group-hover:text-main scale-90 group-hover:scale-100 transition ease-in-out duration-300"></span>
+        class="text-sm mdi pe-2 rounded bg-accent-dark group-hover:bg-neutral group-hover:text-main scale-90 group-hover:scale-100 transition ease-in-out duration-300"></span>
     </button>
   </div>
 

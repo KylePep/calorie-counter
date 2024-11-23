@@ -1,56 +1,61 @@
 <script setup>
-import { computed, ref, watch } from "vue";
-import Modal from "../Form/Modal.vue";
+import { onMounted, ref } from "vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
-import PrimaryButton from "../Form/PrimaryButton.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
 import { UsdaFoodItem } from "@/models/UsdaFoodItem.js";
 import UsdaFoodDetailsForm from "./UsdaFoodDetailsForm.vue";
 
-const emit = defineEmits(['closeModal', 'useItem']);
+const props = defineProps(['foodItem', 'calorieDay']);
 
-const props = defineProps(['showModal', 'foodItem']);
-
-const page = usePage();
-const isDashboard = page.url.includes('dashboard');
+const emit = defineEmits(['closeModal']);
 
 const loading = ref(false);
 
-const confirmingFoodDetailsEdit = computed(() => props.showModal);
+const errorPage = ref(false);
 
-const foodData = computed(() => props.foodItem);
+// Receive either fdcId or upc
 
 async function getUsdaFoodById() {
   loading.value = true;
   try {
+    let foodId;
 
-    let foodId = props.foodItem.fdcId;
-
-    if (!props.foodItem.fdcId) {
+    if (!props.foodItem.fdcId && !props.foodItem.barcode) {
       loading.value = false;
       return;
+    } else if (!props.foodItem.fdcId) {
+      foodId = props.foodItem.barcode
+    } else {
+      foodId = props.foodItem.fdcId
     }
 
-    const response = await axios.get(`/foodUsda/${foodId}`);
 
+    if (foodId.length != 12) {
+      console.log('[FDC_ID]');
+      const response = await axios.get(`/foodUsda/${foodId}`);
+      const foodItem = new UsdaFoodItem(response.data);
+      setForm(foodItem);
+    } else {
+      console.log('[UPC]');
+      const response = await axios.get(`/foodUsda/${foodId}/upc`);
+      const foodItem = new UsdaFoodItem(response.data);
+      setForm(foodItem);
+    }
 
-    const foodItem = new UsdaFoodItem(response.data);
-
-    setForm(foodItem);
     loading.value = false;
 
   } catch (error) {
+    errorPage.value = true;
     loading.value = false;
     console.error(error, '[Error fetching food data]');
   }
 }
-
-watch(foodData, (newfoodData) => {
-
+onMounted(() => {
   getUsdaFoodById();
-
 })
+
+
 
 
 const form = useForm({
@@ -59,118 +64,121 @@ const form = useForm({
   ndbNumber: 0,
   description: '',
   calories: 0,
-  realCalories: 0,
   dataType: '',
-  foodClass: '',
   brandOwner: '',
   brandName: '',
   foodPortions: [],
-  householdServingFullText: '',
+  portionModifier: 0,
   servingSize: 1,
   servingSizeUnit: '',
   foodCategory: '',
-  labelNutrients: '',
   ingredients: '',
-  foodNutrients: [
-    { nutrientName: "protein", value: 0, unitName: 'G' },
-    { nutrientName: "carbs", value: 0, unitName: 'G' },
-    { nutrientName: "sugar", value: 0, unitName: 'G' },
-    { nutrientName: "fiber", value: 0, unitName: 'G' },
-    { nutrientName: "calcium", value: 0, unitName: 'MG' },
-    { nutrientName: "iron", value: 0, unitName: 'MG' },
-    { nutrientName: "sodium", value: 0, unitName: 'MG' },
-  ],
+  foodNutrients: [],
 });
 
 const setForm = (foodItem) => {
   form.fdcId = foodItem.fdcId || 0,
     form.gtinUpc = foodItem.gtinUpc || 0,
     form.ndbNumber = foodItem.ndbNumber || 0,
-    form.calories = 0,
-    form.realCalories = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'Energy').value || 0,
+    form.calories = foodItem.foodNutrients.find((fn) => fn.nutrientName == 'Energy').value || 0,
     form.description = foodItem.description,
     form.dataType = foodItem.dataType,
-    form.foodClass = foodItem.foodClass,
     form.brandName = foodItem.brandName || 'N/A',
     form.brandOwner = foodItem.brandOwner || 'N/A',
     form.foodPortions = foodItem.foodPortions,
     form.portionModifier = foodItem.servingSize ? foodItem.servingSize : 100,
-    form.householdServingFullText = foodItem.householdServingFullText ?? '',
     form.servingSize = foodItem.servingSize || 1,
     form.servingSizeUnit = foodItem.servingSizeUnit || '',
-    form.foodCategory = foodItem.foodCategory,
-    form.labelNutrients = foodItem.labelNutrients || 'N/A',
+    form.foodCategory = '',
     form.ingredients = foodItem.ingredients || 'N/A',
     form.foodNutrients = foodItem.foodNutrients
 }
 
-watch(props.foodItem, setForm);
-
-
 const closeModal = () => {
   emit('closeModal');
-
   form.clearErrors();
   form.reset();
   loading.value = false;
 };
 
-const realCalories = computed(() => {
-  return Math.round(form.realCalories * (form.portionModifier / 100));
-});
-
 function useItem() {
-  form.calories = realCalories.value;
-  emit('useItem', form);
-  emit('closeModal');
-}
 
-const createFoodItem = () => {
+  const protein = form.foodNutrients.find((fn) => fn.nutrientName.toLowerCase() == 'protein');
+  const carbohydrates = form.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates' || fn.nutrientName.toLowerCase() == 'carbohydrate, by difference');
+  const fats = form.foodNutrients.find((fn) => fn.nutrientName == 'fats' || fn.nutrientName.toLowerCase() == 'total lipid (fat)');
 
-  form.calories = realCalories.value;
-  if (!form.servingSizeUnit) {
-    form.servingSize = 100;
-    form.servingSizeUnit = 'g';
-  }
+  const useItemForm = useForm({
+    goal: props.calorieDay.goal,
+    count: Math.round(form.calories * form.portionModifier / 100),
+    food_items: [{
+      description: form.description,
+      count: Math.round(form.calories * form.portionModifier / 100),
+      protein: Math.round(protein.value * form.portionModifier / 100),
+      carbohydrates: Math.round(carbohydrates.value * form.portionModifier / 100),
+      fats: Math.round(fats.value * form.portionModifier / 100)
+    }]
+  });
 
-  form.post(route('foodItem.store'), {
+  useItemForm.put(route('calorieDay.update', props.calorieDay.id), {
+    preserveScroll: true,
     onSuccess: () => {
-      Pop.success(`${form.description} created`);
-      closeModal();
+      Pop.success(`+ ${useItemForm.count} Calories`)
+      emit('closeModal');
     },
     onError: (errors) => {
-      console.log(errors); // Log validation errors
+      console.log(errors);
     },
   });
+};
+
+function createFoodItem() {
+
+  if (!form.servingSizeUnit) {
+    form.servingSize = form.portionModifier;
+    form.servingSizeUnit = 'g';
+  }
+  form.transform((data) => ({
+    ...data,
+    calories: Math.round(data.calories * data.portionModifier / 100),
+    foodNutrients: data.foodNutrients.map(n => ({
+      ...n,
+      value: Math.round(n.value * data.portionModifier / 100)
+    }))
+  }))
+    .post(route('foodItem.store'), {
+      preserveScroll: true,
+      onSuccess: () => {
+        Pop.success(`${form.description} created`);
+        closeModal();
+      },
+      onError: (errors) => {
+        console.log(errors);
+      },
+    });
 };
 
 </script>
 
 
 <template>
-  <Modal :show="confirmingFoodDetailsEdit" @close="closeModal">
 
-    <UsdaFoodDetailsForm :formData="form" @cancel="closeModal" :loading="loading">
-      <template #title>
-        <h1 v-if="!loading" class="text-center text-base font-bold text-gray-700">Edit <span
-            class="text-xl text-black">{{
-              form.description }}</span>?
-        </h1>
-        <h1 v-else class="text-center text-xl font-bold">Loading</h1>
-      </template>
+  <UsdaFoodDetailsForm v-if="!errorPage" :formData="form" @cancel="closeModal" :loading="loading" @useItem="useItem"
+    @createFoodItem="createFoodItem">
+    <template #title>
+      <h1 v-if="!loading" class="text-center text-base font-bold text-gray-700">Edit <span class="text-xl text-black">{{
+        form.description }}</span>?
+      </h1>
+      <h1 v-else class="text-center text-xl font-bold">Loading</h1>
+    </template>
 
-      <SecondaryButton type="button" @click="closeModal">
-        Cancel
-      </SecondaryButton>
-      <PrimaryButton v-if="isDashboard" @click="useItem">
-        Use
-      </PrimaryButton>
-      <PrimaryButton @click="createFoodItem">
-        Save
-      </PrimaryButton>
-    </UsdaFoodDetailsForm>
+    <SecondaryButton type="button" @click="closeModal">
+      Cancel
+    </SecondaryButton>
 
-  </Modal>
+  </UsdaFoodDetailsForm>
 
+  <div v-else class="text-special text-2xl">
+    No foods were found.
+  </div>
 
 </template>

@@ -28,18 +28,20 @@ function comparisonClasses(carrot) {
 
 function completeCarrot(carrot) {
   const form = useForm(carrot);
-  form.complete = true;
-
-  form.put(route('carrot.update', carrot.id), {
-    preserveScroll: true,
-    onSuccess: () => {
-      Pop.success(`Carrot ${form.description} completed!`);
-      form.reset();
-    },
-    onError: (errors) => {
-      console.log(errors);
-    },
-  });
+  form.transform((data) => ({
+    ...data,
+    complete: true
+  }))
+    .put(route('carrot.update', carrot.id), {
+      preserveScroll: true,
+      onSuccess: () => {
+        Pop.success(`Carrot ${form.description} completed!`);
+        form.reset();
+      },
+      onError: (errors) => {
+        console.log(errors);
+      },
+    });
 }
 
 </script>

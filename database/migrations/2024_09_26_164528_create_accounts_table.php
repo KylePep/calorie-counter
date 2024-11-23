@@ -23,7 +23,9 @@ return new class extends Migration
             $table->float('height');
             $table->float('weight');
             $table->string('activity');
-            $table->string('theme')->default('theme-light');
+            $table->boolean('trackMacros')->default(false);
+            $table->json('macros')->default(json_encode(['carbohydrates' => 0, 'protein' => 0, 'fats' => 0]));
+            $table->string('theme')->default('theme-sunRise');
             $table->string('timezone');
             $table->timestamps();
         });

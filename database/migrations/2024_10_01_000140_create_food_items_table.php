@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('servingSizeUnit');
             $table->string('foodCategory');
             $table->integer('calories');
-            $table->text('foodNutrients');
+            $table->json('foodNutrients');
             $table->text('ingredients')->nullable();
             $table->timestamps();
         });

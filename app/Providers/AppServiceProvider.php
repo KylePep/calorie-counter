@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\CalorieDay;
+use App\Policies\CalorieDayPolicy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
         Vite::prefetch(concurrency: 3);
 
         Model::unguard();

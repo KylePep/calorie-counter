@@ -1,6 +1,4 @@
 <script setup>
-import { computed, nextTick, onMounted, ref, watch } from "vue";
-import Modal from "../Form/Modal.vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
@@ -10,16 +8,7 @@ import Pop from "@/utils/Pop.js";
 
 const emit = defineEmits(['closeModal']);
 
-const props = defineProps(['showModal', 'foodItem']);
-
-const confirmingFoodDetailsEdit = computed(() => props.showModal);
-
-const foodData = computed(() => props.foodItem);
-
-watch(foodData, (newfoodData) => {
-  setForm();
-})
-
+const props = defineProps(['foodItem']);
 
 const form = useForm({
   fdcId: '',
@@ -30,19 +19,11 @@ const form = useForm({
   servingSizeUnit: 'g',
   foodCategory: '',
   calories: 0,
-  foodNutrients: [
-    { nutrientName: "protein", value: 0, unitName: 'G' },
-    { nutrientName: "carbs", value: 0, unitName: 'G' },
-    { nutrientName: "sugar", value: 0, unitName: 'G' },
-    { nutrientName: "fiber", value: 0, unitName: 'G' },
-    { nutrientName: "calcium", value: 0, unitName: 'MG' },
-    { nutrientName: "iron", value: 0, unitName: 'MG' },
-    { nutrientName: "sodium", value: 0, unitName: 'MG' },
-  ],
+  foodNutrients: [],
   ingredients: '',
 });
 
-const setForm = () => {
+function setForm() {
   form.fdcId = props.foodItem?.fdcId || '',
     form.description = props.foodItem.description || '',
     form.brandName = props.foodItem.brandName || '',
@@ -55,8 +36,7 @@ const setForm = () => {
 
     form.foodNutrients = props.foodItem.foodNutrients
 }
-
-watch(props.foodItem, setForm);
+setForm();
 
 
 const closeModal = () => {
@@ -85,10 +65,6 @@ async function deleteItem() {
 }
 
 async function updateItem() {
-  const confirmUpdate = await Pop.confirm(`Update ${form.description}? `)
-  if (!confirmUpdate) {
-    return;
-  }
   form.put(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
@@ -106,23 +82,20 @@ async function updateItem() {
 
 
 <template>
-  <Modal :show="confirmingFoodDetailsEdit" @close="closeModal">
-    <FoodDetailsForm :formData="form" @cancel="closeModal">
-      <template #title>
-        <h1 class="text-center text-xl font-bold">Updating {{ form.description }}</h1>
-      </template>
+  <FoodDetailsForm :formData="form" @cancel="closeModal">
+    <template #title>
+      <h1 class="text-center text-xl font-bold">Updating {{ form.description }}</h1>
+    </template>
 
-      <SecondaryButton type="button" @click="closeModal">
-        Cancel
-      </SecondaryButton>
-      <DangerButton @click="deleteItem">
-        Delete
-      </DangerButton>
-      <PrimaryButton @click="updateItem">
-        Update
-      </PrimaryButton>
-    </FoodDetailsForm>
-
-  </Modal>
+    <SecondaryButton type="button" @click="closeModal">
+      Cancel
+    </SecondaryButton>
+    <DangerButton type="button" @click="deleteItem">
+      Delete
+    </DangerButton>
+    <PrimaryButton @click="updateItem">
+      Update
+    </PrimaryButton>
+  </FoodDetailsForm>
 
 </template>

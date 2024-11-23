@@ -17,16 +17,13 @@ Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
 
 Route::get('/foodUsda/{id}', [FoodUsdaController::class, 'getById']);
+Route::get('/foodUsda/{upc}/upc', [FoodUsdaController::class, 'getByUpc']);
 Route::get('/search-foodUsda', [FoodUsdaController::class, 'searchByQuery']);
 
 Route::get('/calculator', [CalculatorController::class, 'create'])->name('calculator');
 
 
 Route::middleware('auth')->group(function () {
-    
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->middleware(['verified'])
-        ->name('dashboard');
 
     Route::get('/history', [HistoryController::class, 'show'])
         ->name('history');
@@ -39,11 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
 
     Route::post('/calorie-day', [CalorieDayController::class, 'store'])->name('calorieDay.store');
+    Route::get('/calorie-day', [CalorieDayController::class, 'index'])
+    ->middleware(['verified'])
+    ->name('calorieDay.index');
     Route::get('/calorie-day/{calorieDay}', [CalorieDayController::class, 'show'])->name('calorieDay.show');
     Route::put('/calorie-day/{calorieDay}', [CalorieDayController::class, 'update'])->name('calorieDay.update');
     Route::patch('/calorie-day/{calorieDay}', [CalorieDayController::class, 'patch'])->name('calorieDay.patch');
 
-    Route::get('/account', [AccountController::class, 'show'])->name('account.show');
+    Route::get('/account', [AccountController::class, 'index'])->name('account.index');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
 

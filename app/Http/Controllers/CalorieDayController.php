@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCalorieDayRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
@@ -19,7 +20,78 @@ class CalorieDayController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::with(['foodItems', 'carrots'])->find(Auth::id());
+
+        $account = $user->account;
+        if(!$account){
+            return Inertia::render('CalorieDay/Index', [
+                'account' => $account,
+                'calorieDay' => [],
+                'foodItems' => [],
+                'with_fdcId' => [],
+                'without_fdcId' => [],
+            ]);
+        } else {
+
+            $userTimezone = $account->timezone;
+    
+            // Get today's date in the user's timezone
+            $today = Carbon::now($userTimezone)->startOfDay();
+    
+            // Retrieve all calorie days and manually filter by user's timezone
+            $CalorieDay = $user->calorieDays->filter(function ($calorieDay) use ($today, $userTimezone) {
+                $createdAt = Carbon::parse($calorieDay->created_at)->setTimezone($userTimezone)->startOfDay();
+                return $createdAt->equalTo($today);
+            })->first();
+        
+                
+                if (!$CalorieDay){
+                    $CalorieDay = $user->calorieDays()->create([
+                        'goal' => $account->goal ?? 2000,
+                        'bmr' => $account->bmr ?? 2000,
+                        'count' => 0,
+                        'user_id' => $user->id,
+                        'food_items' => [],
+                        'created_at' => $today->setTimezone('UTC')
+                    ]);
+                } 
+
+                $foodItems = $user->foodItems;
+                
+
+                $sortedCarrots = $user->carrots->groupBy(function($carrot){
+                    return $carrot->complete ? 'complete' : 'incomplete';
+                });
+
+                
+                // Retrieve all weighIns and manually filter by user's timezone
+                $weighIn = $user->weigh_ins->filter(function ($weighIn) use ($today, $userTimezone) {
+                    
+                    $createdAt = Carbon::parse($weighIn->created_at)
+                    ->setTimezone($userTimezone)
+                    ->startOfDay();
+                    
+                    return $createdAt->equalTo($today);
+                })->first();
+
+                if(isset($weighIn, $sortedCarrots['incomplete'])){
+                    foreach($sortedCarrots['incomplete'] as $item){
+                        if($item['category'] == 'weightLoss' || $item['category'] == 'weightGain'){
+                            $item['currentValue'] = $weighIn['weight'];
+                        }
+                    }
+                    unset($item);
+                }
+
+                return Inertia::render('CalorieDay/Index', [
+                    'account' => $account,
+                    'calorieDay' => $CalorieDay,
+                    'foodItems' => $foodItems,
+                    'carrots' => $sortedCarrots,
+                    'weighIn' => $weighIn
+                ]);
+        }
+        
     }
 
     /**
@@ -61,7 +133,7 @@ class CalorieDayController extends Controller
             'bmr' => $account->bmr ?? 2000,
             'count' => 0,
             'user_id' => $user->id,
-            'food_items' => json_encode([]),
+            'food_items' => [],
             'created_at' => $givenDay
         ]);
 
@@ -76,30 +148,26 @@ class CalorieDayController extends Controller
 
         $user = User::find(Auth::id());
 
+        $response = Gate::inspect('view', $calorieDay);
+
+        if ($response->denied()) {
+            return redirect()->route('history');
+        } 
+
         $account = $user->account;
 
+        $calorieDay->food_items = $calorieDay->food_items;
 
-        $calorieDay->food_items = json_decode($calorieDay->food_items, true);
-
-        $groupedFoodItems = $user->foodItems->sortByDesc('created_at')->groupBy(function ($item) {
-            return $item->fdcId ? 'with_fdcId' : 'without_fdcId';
-        });
-
-        foreach($groupedFoodItems as $group => $items){
-            foreach($items as $item){
-                $item->foodNutrients = json_decode($item->foodNutrients, true);
-            }
-        }
+        $foodItems = $user->foodItems;
 
         $weighIn = $user->weigh_ins()
         ->whereDate('created_at', Carbon::parse($calorieDay->created_at))
         ->first();
 
-        return Inertia::render('CalorieDay', [
+        return Inertia::render('CalorieDay/Show', [
             'account' => $account,
             'calorieDay' => $calorieDay,
-            'with_fdcId' => $groupedFoodItems->get('with_fdcId', []),
-            'without_fdcId' => $groupedFoodItems->get('without_fdcId', []),
+            'foodItems' => $foodItems,
             'weighIn' => $weighIn,
         ]);
     }
@@ -118,8 +186,14 @@ class CalorieDayController extends Controller
     public function update(UpdateCalorieDayRequest $request, CalorieDay $calorieDay)
     {
 
+        $user = User::find(Auth::id());
+
+        if ($user->id != $calorieDay->user_id){
+            return $calorieDay->with('error', 'You are not authorized to update this.');
+        }
+
         $validated = $request->validate([
-            'goal' => ['integer'],
+            'goal' => ['integer', 'nullable'],
             'count' => ['integer'],
             'journal' => ['string'],
             'food_items'=> ['array'],
@@ -129,11 +203,11 @@ class CalorieDayController extends Controller
         
         $calorieDay->journal = $validated['journal'] ?? $calorieDay->journal;
 
-        $existingFoodItems = json_decode($calorieDay->food_items, true) ?? [];
+        $existingFoodItems = $calorieDay->food_items ?? [];
 
         if ($request->remove && isset($validated['food_items'])) {
             
-            $existingFoodItems = json_decode($calorieDay->food_items, true) ?? [];
+            $existingFoodItems = $calorieDay->food_items ?? [];
 
             
             if (!empty($existingFoodItems)) {
@@ -166,22 +240,24 @@ class CalorieDayController extends Controller
             }
     
             // Re-encode back to JSON
-            $calorieDay->food_items = json_encode($existingFoodItems);
+            $calorieDay->food_items = $existingFoodItems;
             $calorieDay->count -= $validated['count'] ?? 0;
         } else {
-            $calorieDay->food_items = json_encode(array_merge($existingFoodItems, $validated['food_items']));
+            $calorieDay->food_items = array_merge($existingFoodItems, $validated['food_items']);
             $calorieDay->count += $validated['count'] ?? 0;
         }
 
 
         $calorieDay->save();
-        $calorieDay->food_items = json_decode($calorieDay->food_items, true);
-        return $calorieDay;
+        $calorieDay->food_items = $calorieDay->food_items;
+        return redirect()->back()->with('success', 'Calorie Day updated successfully.');
 
     }
 
     public function patch(UpdateCalorieDayRequest $request, CalorieDay $calorieDay)
     {
+
+        Gate::authorize('update', $calorieDay);
 
         $attributes = $request->validate([
             'goal' => ['integer', 'nullable'],
@@ -192,7 +268,7 @@ class CalorieDayController extends Controller
 
         $calorieDay->update($filteredAttributes);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Calorie Day updated successfully.');
 
     }
 

@@ -24,7 +24,7 @@ class HistoryController extends Controller
 
         // Decode food_items for each CalorieDay in the collection
         $calorieDays->transform(function ($calorieDay) {
-            $calorieDay->food_items = json_decode($calorieDay->food_items, true);
+            $calorieDay->food_items = $calorieDay->food_items;
             return $calorieDay;
         });
 
@@ -87,7 +87,7 @@ class HistoryController extends Controller
 
         // Decode food_items for each CalorieDay in the collection
         $calorieDays->transform(function ($calorieDay) {
-            $calorieDay->food_items = json_decode($calorieDay->food_items, true);
+            $calorieDay->food_items = $calorieDay->food_items;
             return $calorieDay;
         });
 

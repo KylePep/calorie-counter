@@ -3,13 +3,14 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import CalorieHistory from "@/Components/FoodComponents/CalorieHistory.vue";
 import { Head } from "@inertiajs/vue3";
 import NewDay from "./Partials/NewDay.vue";
-import Side from "@/Components/Displays/Side.vue";
 import SearchBar from "./Partials/SearchBar.vue";
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import DisplayMode from './Partials/DisplayMode.vue'
 import WeighInHistory from "./Partials/WeighInHistory.vue";
 
 const props = defineProps(['account', 'calorieDays', 'results', 'weighIns']);
+
+const isSmallScreen = computed(() => { return window.innerWidth < 1024 });
 
 const displayMode = ref(sessionStorage.getItem('displayMode') || 'list');
 
@@ -36,7 +37,7 @@ onMounted(() => {
       Your History
     </template>
 
-    <section v-if="props.account" class="lg:hidden space-y-3">
+    <section v-if="props.account && isSmallScreen">
       <NewDay />
     </section>
 
@@ -59,15 +60,15 @@ onMounted(() => {
     </section>
 
     <template #leftSide>
-      <Side v-if="props.account" side="left">
+      <div v-if="props.account">
         <WeighInHistory :weighIns="props.weighIns" />
-      </Side>
+      </div>
     </template>
 
     <template #rightSide>
-      <Side v-if="props.account" side="right" class="hidden lg:block">
+      <div v-if="props.account" class="hidden lg:block">
         <NewDay />
-      </Side>
+      </div>
     </template>
 
   </GlobalLayout>

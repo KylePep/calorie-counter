@@ -1,11 +1,44 @@
 <script setup>
-import ConsumedList from "@/Components/FoodComponents/ConsumedList.vue";
 import FoodCard from "@/Components/FoodComponents/FoodCard.vue";
+import { computed } from "vue";
 
 const mockItem = { "id": 1, "fdcId": null, "description": "Mega PB&J", "calories": 500, }
 const mockItem2 = { "id": 2, "fdcId": null, "description": "Fried Egg", "calories": 100, }
 
 const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description": "Fried Egg", "count": 100 }, { "description": "Fried Egg", "count": 100 }]
+
+const firstRow = computed(() => mockList.filter((_, index) => index % 2 === 0));
+const secondRow = computed(() => mockList.filter((_, index) => index % 2 === 1));
+
+function representativeWidth(item) {
+
+  const calorieBy100 = Math.round(item.count / 100) * 100;
+  return {
+    0: 'w-10',
+    100: 'w-20',
+    200: 'w-32',
+    200: 'w-40',
+    400: 'w-56',
+    500: 'w-40',
+    600: 'w-60',
+    700: 'w-72',
+    800: 'w-80',
+    900: 'w-90',
+    1000: 'w-100',
+  }[calorieBy100];
+}
+
+// Function to return animation class based on conditions
+const getAnimationClass = (item) => {
+  const textWidth = item.description.length;
+  const calorieWidth = Number(representativeWidth(item).split('-')[1]);
+
+  if (textWidth > calorieWidth) {
+    return 'animate-infinite-scroll';
+  }
+  return '';
+}
+
 </script>
 
 
@@ -27,7 +60,7 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
             diet.</p>
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4 px-2">
           <p class="text-neutral-text text-center text-xl font-bold">Goal:1600, BMR: 1800</p>
           <div
             class="grid grid-cols-10 gap-1 text-transparent sm:text-neutral px-1.5 py-0.5 rounded ring-1 ring-main ring-inset border-2  border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
@@ -39,8 +72,8 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
         </div>
       </div>
 
-      <div>
-        <p class="px-4 py-2 bg-neutral text-sm lg:text-base  text-light-text h-full">
+      <div class="col-span-2 sm:col-span-1 order-1 sm:order-1">
+        <p class="px-4 py-2 bg-neutral text-sm lg:text-base  text-light-text text-start h-full">
           Higher calorie foods will
           appear larger
           compared to other foods in your
@@ -51,8 +84,9 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
 
       </div>
 
-      <div>
-        <p class="px-4 py-2 bg-neutral text-sm lg:text-base text-light-text h-full">Selecting foods from the
+      <div class="col-span-2 sm:col-span-1 order-3 sm:order-2">
+        <p class="px-4 py-2 bg-neutral text-sm lg:text-base text-light-text text-start h-full">Selecting
+          foods from the
           USDA's
           database
           or from your saved or
@@ -64,16 +98,31 @@ const mockList = [{ "description": "Mega PB&J", "count": 500 }, { "description":
         </p>
       </div>
 
-      <div class="flex flex-col justify-end">
-        <div class="border-2 rounded border-neutral bg-light">
-          <ConsumedList :dayItems="mockList" />
+      <div class="col-span-2 sm:col-span-1 flex flex-col mb-2 order-2 sm:order-3 px-2">
+        <div class="border-2 rounded border-neutral bg-light overflow-x-auto h-full">
+          <div class=" p-2 grid grid-rows-2 text-center  whitespace-nowrap gap-1 ">
+            <div v-for="rowIndex in 2" class="flex space-x-1">
+              <div v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
+                :class="representativeWidth(item)" :title="`${item.description}  -${item.count} Calories`"
+                class="h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">
+
+                <p ref="scrollingText" :class="getAnimationClass(item)"
+                  class="text-neutral-text text-xs ps-3 font-bold duration-400">
+                  {{ item.description }}
+                </p>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div>
-        <div class="flex w-full overflow-x-auto">
-          <FoodCard :foodItem="mockItem" />
-          <FoodCard :foodItem="mockItem2" />
+      <div class="col-span-2 sm:col-span-1 order-4 sm:order-4 px-2">
+        <div class="flex overflow-x-auto mb-2">
+          <div class="flex space-x-4">
+            <FoodCard :foodItem="mockItem" />
+            <FoodCard :foodItem="mockItem2" />
+          </div>
         </div>
       </div>
     </div>

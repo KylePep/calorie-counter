@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('goal');
             $table->integer('count');
             $table->string('journal')->nullable();
-            $table->text('food_items')->nullable();
+            $table->json('food_items')->nullable();
             $table->timestamps();
         });
     }

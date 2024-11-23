@@ -1,11 +1,13 @@
 <script setup>
-import NavLink from "@/Components/Nav/NavLink.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { computed } from "vue";
 import EditGoal from "./Partials/EditGoal.vue";
 import EditStats from "./Partials/EditStats.vue";
 import EditCarrot from "./Partials/EditCarrot.vue";
 import EditTheme from "./Partials/EditTheme.vue";
+import EditMacros from "./Partials/EditMacros.vue";
+import MenuButton from "@/Components/Menu/MenuButton.vue";
+import BarcodeScanner from "@/Components/BarcodeScanner.vue";
 
 const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
 
@@ -18,27 +20,37 @@ const account = computed(() => props.account);
 
 <template>
 
-  <GlobalLayout head="Profile">
+  <GlobalLayout head="Account">
+
     <template #header>
       <h2 class="font-semibold text-xl leading-tight">Profile</h2>
-      <NavLink :href="route('profile.edit')">
-        Edit Account
-      </NavLink>
     </template>
 
 
-    <div class="py-12">
+    <div class="pb-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
         <EditTheme :account="account" />
 
         <EditGoal :account="account" />
 
-        <EditCarrot :account="account" :carrots="carrots" />
+        <EditMacros :account="account" />
 
         <EditStats :account="account" />
 
+        <EditCarrot :account="account" :carrots="carrots" />
+
+
       </div>
     </div>
+
+    <template #rightSide>
+      <Link :href="route('profile.edit')" class="w-full">
+      <MenuButton>
+        Edit Account
+      </MenuButton>
+      </Link>
+    </template>
+
   </GlobalLayout>
 </template>

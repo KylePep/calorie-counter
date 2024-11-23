@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
+import MenuButton from "../Menu/MenuButton.vue";
 
 const props = defineProps(['state']);
 
@@ -19,11 +20,11 @@ const showClasses = computed(() => {
 
 
   <div class="flex justify-between">
-    <button @click="showFolder = !showFolder" :class="showClasses, $slots.config ? 'w-48 sm:w-60 ' : 'w-full'"
-      class="flex justify-between items-center font-bold border py-1 px-3 border-light duration-300">
+    <MenuButton type="button" @click="showFolder = !showFolder" :class="$slots.config ? 'w-48 sm:w-60 ' : 'w-full'"
+      class="relative flex justify-center items-center duration-300">
       <slot name="title" />
-      <i :class="showFolder ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="mx-1  text-lg"></i>
-    </button>
+      <i :class="showFolder ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'" class="absolute right-0 mx-1"></i>
+    </MenuButton>
 
     <Transition v-if="$slots.config" enter-active-class="ease-out duration-300" enter-from-class="opacity-0"
       enter-to-class="opacity-100" leave-active-class="ease-in duration-200" leave-from-class="opacity-100"
@@ -39,8 +40,7 @@ const showClasses = computed(() => {
     enter-to-class="scale-y-100 max-h-[1000px] opacity-100" leave-active-class="ease-in duration-200"
     leave-from-class="scale-y-100 max-h-[1000px] opacity-100" leave-to-class="scale-y-0 max-h-0 opacity-0">
 
-    <div v-show="showFolder" :class="$slots.config ? 'rounded-tr' : 'rounded-tr-none'"
-      class="origin-top w-full p-2 bg-light border-2 rounded-b border-light mt-0 shadow-inner">
+    <div v-show="showFolder" class="origin-top w-full p-2 bg-white rounded border border-light mt-1 shadow-inner">
       <slot name="content" />
     </div>
 

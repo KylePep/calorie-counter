@@ -67,18 +67,19 @@ const calculateResult = () => {
 
 const createOrUpdateAccount = () => {
 
-  form.goal = Math.round(form.bmr * (form.goalModifier * .01))
-
-  form.post(route('account.store'), {
-    // preserveScroll: true,
-    onSuccess: () => {
-      form.reset()
-      Pop.success('New Goal Set!')
-    },
-    onError: (errors) => {
-      console.log(errors); // Log validation errors
-    },
-  });
+  form.transform((data) => ({
+    ...data,
+    goal: Math.round(data.bmr * (data.goalModifier * .01))
+  }))
+    .post(route('account.store'), {
+      onSuccess: () => {
+        form.reset()
+        Pop.success('New Goal Set!')
+      },
+      onError: (errors) => {
+        console.log(errors); // Log validation errors
+      },
+    });
 };
 
 </script>
