@@ -40,7 +40,6 @@ const createFoodItem = () => {
   form.post(route('foodItem.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`);
-      console.log('made it here');
       form.reset();
       closeModal();
     },

@@ -8,6 +8,7 @@ import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue
 import UsdaSearch from "@/Components/FoodComponents/UsdaSearch.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import FoodMenuArray from "@/Components/Menu/FoodMenuArray.vue";
+import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
 
@@ -64,7 +65,7 @@ const closeModal = () => {
     </section>
 
     <section>
-      <UsdaSearch @set-active="(item) => setActive('usda', item)" />
+      <UsdaSearch @set-active="setActive" />
     </section>
 
     <section v-if="props.account">
@@ -92,8 +93,8 @@ const closeModal = () => {
 
     <Modal :show="showModal" @close="closeModal">
       <FoodEditModal v-if="modalContent == 'foodItem'" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
-      <UsdaFoodEditModal v-if="modalContent == 'usda'" @close-modal="closeModal" @useItem="updateCalorieDayFoodItem"
-        :foodItem="ActiveFoodItem" />
+      <FoodCopyModal v-if="modalContent == 'app'" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+      <UsdaFoodEditModal v-if="modalContent == 'usda'" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
     </Modal>
 
   </GlobalLayout>

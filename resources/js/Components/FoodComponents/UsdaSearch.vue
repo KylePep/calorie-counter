@@ -10,7 +10,6 @@ import Dropdown from "../Form/Dropdown.vue";
 import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import Modal from "../Form/Modal.vue";
-import PrimaryButton from "../Form/PrimaryButton.vue";
 import BarcodeScanner from "../BarcodeScanner.vue";
 
 const emit = defineEmits(['setActive']);
@@ -96,8 +95,50 @@ async function fetchFoodData(page = 1) {
   }
 }
 
+async function fetchUserFoodItems(page = 1) {
+  try {
+    loading.value = true;
+
+    const response = await axios.get('/foodItem/search', {
+      params: {
+        query: form.query,
+        pageNumber: page,
+        pageSize: 10,
+      },
+    });
+
+    loading.value = false;
+
+    console.log(response.data);
+
+    const foods = response.data;
+    usdaResponse.foodSearchResponse = {
+      "totalHits": 10,
+      "currentPage": 1,
+      "totalPages": 1
+    };
+    usdaResponse.foods = foods;
+
+    showResults();
+
+  } catch (error) {
+    loading.value = false;
+    console.error(error, '[Error fetching food data]');
+  }
+}
+
+
+function parseFetchType() {
+  if (form.type != 'App') {
+    fetchFoodData(1)
+  } else {
+    fetchUserFoodItems(1)
+  }
+}
+
 function setActive(item) {
-  emit('setActive', item);
+  const type = form.type != 'App' ? 'usda' : 'app'
+  emit('setActive', type, item);
   closeModal();
 }
 
@@ -106,7 +147,7 @@ function setActive(item) {
 <template>
 
   <div class="bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
-    <form @submit.prevent="fetchFoodData(1)" class="grid grid-cols-10 gap-1 ">
+    <form @submit.prevent="parseFetchType" class="grid grid-cols-10 gap-1 ">
 
       <div class="col-span-3 sm:col-span-2 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">

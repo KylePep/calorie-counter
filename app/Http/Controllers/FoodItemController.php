@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFoodItemRequest;
 use App\Http\Requests\UpdateFoodItemRequest;
 use App\Models\FoodItem;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -35,6 +36,21 @@ class FoodItemController extends Controller
             'with_fdcId' => $groupedFoodItems->get('with_fdcId', []), 
             'without_fdcId' => $groupedFoodItems->get('without_fdcId', [])
         ]);
+    }
+
+    public function search(Request $request)
+    {
+
+        $query = $request->input('query');
+        $pageNumber = $request->input('pageNumber',1);
+        $pageSize = $request->input('pageSize', 10);
+        $dataType = $request->input('dataType', 'Branded');
+
+        $foodItems = FoodItem::with(['user'])
+        ->where('description', 'LIKE', '%'.$query.'%')
+        ->get();
+
+        return $foodItems;
     }
 
     public function store(StoreFoodItemRequest $request)

@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
         ->name('history.search');
     
     Route::get('/foodItem', [FoodItemController::class, 'index'])->name('foodItem.index');
+    Route::get('/foodItem/search', [FoodItemController::class, 'search'])->name('foodItem.search');
     Route::post('/foodItem', [FoodItemController::class, 'store'])->name('foodItem.store');
     Route::put('/foodItem/{foodItem}', [FoodItemController::class, 'update'])->name('foodItem.update');
     Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
