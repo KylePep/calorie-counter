@@ -5,7 +5,6 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../Form/DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
-import { computed } from "vue";
 
 const emit = defineEmits(['closeModal']);
 
@@ -68,6 +67,7 @@ async function deleteItem() {
 }
 
 async function updateItem() {
+  console.log(form)
   form.put(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
@@ -91,15 +91,18 @@ async function updateItem() {
       </h1>
     </template>
 
-    <SecondaryButton type="button" @click="closeModal">
-      Cancel
-    </SecondaryButton>
-    <DangerButton type="button" @click="deleteItem">
-      Delete
-    </DangerButton>
-    <PrimaryButton @click="updateItem">
-      Update
-    </PrimaryButton>
+    <template #buttons>
+      <SecondaryButton type="button" @click="closeModal">
+        Cancel
+      </SecondaryButton>
+      <DangerButton type="button" @click="deleteItem">
+        Delete
+      </DangerButton>
+      <PrimaryButton @click="updateItem">
+        Update
+      </PrimaryButton>
+    </template>
+
   </FoodDetailsForm>
 
 </template>

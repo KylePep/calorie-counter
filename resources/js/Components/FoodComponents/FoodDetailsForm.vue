@@ -9,7 +9,7 @@ import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
-const props = defineProps(['formData']);
+const props = defineProps(['formData', 'previewImageURL']);
 
 const form = computed(() => props.formData);
 
@@ -21,54 +21,6 @@ const unitName = computed(() => {
     MLT: 'MilliLiter(s)'
   }[props.formData.servingSizeUnit];
 });
-
-const fileInput = ref(null);
-const cameraInput = ref(null);
-const previewImageURL = ref(null);
-
-const selectedFile = ref("");
-
-const hasBackCamera = ref(false);
-
-const triggerFileInput = () => {
-  fileInput.value.click();
-};
-
-const triggerCameraInput = () => {
-  cameraInput.value.click();
-};
-
-const handleFileChange = () => {
-  const file = fileInput.value.files[0];
-  props.formData.photo = file;
-  previewImageURL.value = URL.createObjectURL(file);
-  selectedFile.value = file ? file.name : "";
-};
-
-const handleCameraCapture = () => {
-  const file = cameraInput.value.files[0];
-  props.formData.photo = file;
-  previewImageURL.value = URL.createObjectURL(file);
-  selectedFile.value = file ? `captured: ${file.name}` : "";
-}
-
-const checkBackCamera = async () => {
-  try {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    hasBackCamera.value = devices.some(
-      (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
-    );
-  } catch (error) {
-    console.error("Error checking for back camera:", error);
-  }
-};
-
-onMounted(() => {
-  checkBackCamera();
-});
-
-
-
 </script>
 
 
@@ -76,8 +28,6 @@ onMounted(() => {
 
   <form @submit.prevent="createFoodItem" class="space-y-3">
     <slot name="title"></slot>
-
-
 
     <div class="flex">
       <div class="basis-3/5 me-3">
@@ -142,7 +92,7 @@ onMounted(() => {
         <div class="basis-1/2 me-3">
           <InputLabel for="brandName" value="Brand Name"></InputLabel>
           <TextInput id="brandName" v-model="form.brandName" class="w-full text-sm"></TextInput>
-          <InputError :message="form.errors.description"></InputError>
+          <InputError :message="form.errors.brandName"></InputError>
 
         </div>
         <div class="basis-1/2">
@@ -168,27 +118,13 @@ onMounted(() => {
     </div>
 
     <div class="flex flex-col">
-      <div v-if="previewImageURL" class="w-1/2">
-        <img :src="previewImageURL" :alt="formData.photo.name">
+      <div v-if="props.previewImageURL" class="w-1/2">
+        <img :src="props.previewImageURL" :alt="formData.photo.name">
       </div>
       <div v-else-if="formData.photo" class="w-1/2">
         <img :src="formData.photo" :alt="formData.photo">
       </div>
-      <InputLabel value="Add Image" for="photo" />
-      <div class="flex space-x-1">
-        <div v-if="hasBackCamera">
-          <input ref="cameraInput" type="file" name="camera" id="camera" accept="image/*" capture="environment"
-            class="hidden" @change="handleCameraCapture" />
-          <PrimaryButton type="button" @click="triggerCameraInput"><i class="mdi mdi-camera"></i></PrimaryButton>
-        </div>
-        <div class="flex items-center">
-          <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
-          <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
-          <p v-if="selectedFile" class="pe-10 ms-2 text-sm truncate">
-            {{ selectedFile }}
-          </p>
-        </div>
-      </div>
+      <slot name="photoButton" />
     </div>
 
     <div class="pb-3">
@@ -222,7 +158,7 @@ onMounted(() => {
     </div>
 
     <div class="flex justify-end gap-4 mt-3">
-      <slot />
+      <slot name="buttons" />
     </div>
 
   </form>
