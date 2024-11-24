@@ -21,6 +21,7 @@ const form = useForm({
   calories: 0,
   foodNutrients: [],
   ingredients: '',
+  photo: ''
 });
 
 function setForm() {
@@ -34,7 +35,8 @@ function setForm() {
     form.calories = props.foodItem.calories || 0,
     form.ingredients = props.foodItem.ingredients || '',
 
-    form.foodNutrients = props.foodItem.foodNutrients
+    form.foodNutrients = props.foodItem.foodNutrients,
+    form.photo = props.foodItem.photo;
 }
 setForm();
 
@@ -65,6 +67,7 @@ async function deleteItem() {
 }
 
 async function updateItem() {
+  console.log(form)
   form.put(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {
@@ -88,15 +91,18 @@ async function updateItem() {
       </h1>
     </template>
 
-    <SecondaryButton type="button" @click="closeModal">
-      Cancel
-    </SecondaryButton>
-    <DangerButton type="button" @click="deleteItem">
-      Delete
-    </DangerButton>
-    <PrimaryButton @click="updateItem">
-      Update
-    </PrimaryButton>
+    <template #buttons>
+      <SecondaryButton type="button" @click="closeModal">
+        Cancel
+      </SecondaryButton>
+      <DangerButton type="button" @click="deleteItem">
+        Delete
+      </DangerButton>
+      <PrimaryButton @click="updateItem">
+        Update
+      </PrimaryButton>
+    </template>
+
   </FoodDetailsForm>
 
 </template>

@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 
 class FoodItemController extends Controller
@@ -68,7 +70,14 @@ class FoodItemController extends Controller
             'calories' => ['required'],
             'foodNutrients' => ['nullable'],
             'ingredients' => ['nullable'], 
+            'photo' => ['nullable', File::types(['png','jpg','webp'])]
         ]);
+
+        if ($request->hasFile('photo')){
+            $photoPath = $request->file('photo')->store('photos','public');
+        } else {
+            $photoPath = null;
+        }
 
         $foodItem = $user->foodItems()->create([
             'fdcId' => $attributes['fdcId'],
@@ -80,7 +89,8 @@ class FoodItemController extends Controller
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => $attributes['foodNutrients'], 
-            'ingredients' => $attributes['ingredients'] 
+            'ingredients' => $attributes['ingredients'],
+            'photo' => $photoPath
         ]);
 
         return back()->with([
@@ -105,6 +115,7 @@ class FoodItemController extends Controller
             'calories' => ['required'],
             'foodNutrients' => ['nullable'], 
             'ingredients' => ['nullable'],
+            'photo' => ['nullable']
         ]);
 
         $foodItem->update([
@@ -117,7 +128,8 @@ class FoodItemController extends Controller
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => $attributes['foodNutrients'], 
-            'ingredients' => $attributes['ingredients']
+            'ingredients' => $attributes['ingredients'],
+            'photo' => $attributes['photo'],
         ]);
 
         return back()->with([

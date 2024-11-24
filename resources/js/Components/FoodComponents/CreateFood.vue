@@ -2,11 +2,12 @@
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Pop from "@/utils/Pop.js";
 import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
 import MenuButton from "../Menu/MenuButton.vue";
+import InputLabel from "../Form/InputLabel.vue";
 
 const showCreateForm = ref(false);
 
@@ -34,9 +35,11 @@ const form = useForm({
     { nutrientName: "sodium", value: 0, unitName: 'MG' },
   ],
   ingredients: '',
+  photo: ''
 });
 
 const createFoodItem = () => {
+  console.log(form)
   form.post(route('foodItem.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`);
@@ -56,14 +59,58 @@ const closeModal = () => {
   form.reset();
 };
 
+const fileInput = ref(null);
+const cameraInput = ref(null);
+const previewImageURL = ref(null);
+
+const selectedFile = ref("");
+
+const hasBackCamera = ref(false);
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+};
+
+const triggerCameraInput = () => {
+  cameraInput.value.click();
+};
+
+const handleFileChange = () => {
+  const file = fileInput.value.files[0];
+  form.photo = file;
+  previewImageURL.value = URL.createObjectURL(file);
+  selectedFile.value = file ? file.name : "";
+};
+
+const handleCameraCapture = () => {
+  const file = cameraInput.value.files[0];
+  form.photo = file;
+  previewImageURL.value = URL.createObjectURL(file);
+  selectedFile.value = file ? `captured: ${file.name}` : "";
+}
+
+const checkBackCamera = async () => {
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    hasBackCamera.value = devices.some(
+      (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
+    );
+  } catch (error) {
+    console.error("Error checking for back camera:", error);
+  }
+};
+
+onMounted(() => {
+  checkBackCamera();
+});
+
 </script>
 
 <template>
   <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
 
   <Modal :show="showCreateForm" @close="closeModal">
-
-    <FoodDetailsForm :formData="form" @cancel="closeModal">
+    <FoodDetailsForm :formData="form" :previewImageURL="previewImageURL" @cancel="closeModal">
 
       <template #title>
         <h1 class="text-center text-xl font-bold">Create a Food</h1>
@@ -72,12 +119,32 @@ const closeModal = () => {
         </h2>
       </template>
 
-      <SecondaryButton type="button" @click="closeModal">
-        Cancel
-      </SecondaryButton>
-      <PrimaryButton @click="createFoodItem">
-        Create
-      </PrimaryButton>
+      <template #photoButton>
+        <InputLabel value="Add Image" for="photo" />
+        <div class="flex space-x-1">
+          <div v-if="hasBackCamera">
+            <input ref="cameraInput" type="file" name="camera" id="camera" accept="image/*" capture="environment"
+              class="hidden" @change="handleCameraCapture" />
+            <PrimaryButton type="button" @click="triggerCameraInput"><i class="mdi mdi-camera"></i></PrimaryButton>
+          </div>
+          <div class="flex items-center">
+            <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
+            <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
+            <p v-if="selectedFile" class="pe-10 ms-2 text-sm truncate">
+              {{ selectedFile }}
+            </p>
+          </div>
+        </div>
+      </template>
+
+      <template #buttons>
+        <SecondaryButton type="button" @click="closeModal">
+          Cancel
+        </SecondaryButton>
+        <PrimaryButton @click="createFoodItem">
+          Create
+        </PrimaryButton>
+      </template>
     </FoodDetailsForm>
   </Modal>
 </template>

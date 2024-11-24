@@ -3,12 +3,13 @@ import InputLabel from "@/Components/Form/InputLabel.vue";
 import TextInput from "@/Components/Form/TextInput.vue";
 import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
-const props = defineProps(['formData']);
+const props = defineProps(['formData', 'previewImageURL']);
 
 const form = computed(() => props.formData);
 
@@ -19,9 +20,7 @@ const unitName = computed(() => {
     ml: 'MilliLiter(s)',
     MLT: 'MilliLiter(s)'
   }[props.formData.servingSizeUnit];
-})
-
-
+});
 </script>
 
 
@@ -29,7 +28,6 @@ const unitName = computed(() => {
 
   <form @submit.prevent="createFoodItem" class="space-y-3">
     <slot name="title"></slot>
-
 
     <div class="flex">
       <div class="basis-3/5 me-3">
@@ -94,7 +92,7 @@ const unitName = computed(() => {
         <div class="basis-1/2 me-3">
           <InputLabel for="brandName" value="Brand Name"></InputLabel>
           <TextInput id="brandName" v-model="form.brandName" class="w-full text-sm"></TextInput>
-          <InputError :message="form.errors.description"></InputError>
+          <InputError :message="form.errors.brandName"></InputError>
 
         </div>
         <div class="basis-1/2">
@@ -119,7 +117,17 @@ const unitName = computed(() => {
       <InputError :message="form.errors.ingredients"></InputError>
     </div>
 
-    <div>
+    <div class="flex flex-col">
+      <div v-if="props.previewImageURL" class="w-1/2">
+        <img :src="props.previewImageURL" :alt="formData.photo.name">
+      </div>
+      <div v-else-if="formData.photo" class="w-1/2">
+        <img :src="formData.photo" :alt="formData.photo">
+      </div>
+      <slot name="photoButton" />
+    </div>
+
+    <div class="pb-3">
       <CollapsableFolder :state="false">
         <template #title>
           <p> Nutrients</p>
@@ -149,8 +157,8 @@ const unitName = computed(() => {
 
     </div>
 
-    <div class="flex justify-end gap-4">
-      <slot />
+    <div class="flex justify-end gap-4 mt-3">
+      <slot name="buttons" />
     </div>
 
   </form>
