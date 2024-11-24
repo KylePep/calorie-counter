@@ -115,7 +115,19 @@ class FoodItemController extends Controller
             'calories' => ['required'],
             'foodNutrients' => ['nullable'], 
             'ingredients' => ['nullable'],
+            'photo' => ['nullable']
         ]);
+
+        if ($request->hasFile('photo')){
+            if ($foodItem->photo) {
+                // Use Storage to delete the old photo from the public disk
+                Storage::disk('public')->delete($foodItem->photo);
+            }
+
+            $photoPath = $request->file('photo')->store('photos','public');
+        } else {
+            $photoPath = $foodItem->photo;
+        }
 
         $foodItem->update([
             'fdcId' => $attributes['fdcId'],
@@ -127,7 +139,8 @@ class FoodItemController extends Controller
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => $attributes['foodNutrients'], 
-            'ingredients' => $attributes['ingredients']
+            'ingredients' => $attributes['ingredients'],
+            'photo' => $photoPath
         ]);
 
         return back()->with([
