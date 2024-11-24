@@ -3,8 +3,10 @@ import InputLabel from "@/Components/Form/InputLabel.vue";
 import TextInput from "@/Components/Form/TextInput.vue";
 import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
+import Pop from "@/utils/Pop.js";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
@@ -19,7 +21,48 @@ const unitName = computed(() => {
     ml: 'MilliLiter(s)',
     MLT: 'MilliLiter(s)'
   }[props.formData.servingSizeUnit];
-})
+});
+
+const fileInput = ref(null);
+const cameraInput = ref(null);
+
+const selectedFile = ref("");
+
+const hasBackCamera = ref(false);
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+};
+
+const triggerCameraInput = () => {
+  cameraInput.value.click();
+};
+
+const handleFileChange = () => {
+  const file = fileInput.value.files[0];
+  selectedFile.value = file ? file.name : "";
+};
+
+const handleCameraCapture = () => {
+  const file = cameraInput.value.files[0];
+  selectedFile.value = file ? `captured: ${file.name}` : "";
+}
+
+const checkBackCamera = async () => {
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    hasBackCamera.value = devices.some(
+      (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
+    );
+  } catch (error) {
+    console.error("Error checking for back camera:", error);
+  }
+};
+
+onMounted(() => {
+  checkBackCamera();
+});
+
 
 
 </script>
@@ -29,6 +72,7 @@ const unitName = computed(() => {
 
   <form @submit.prevent="createFoodItem" class="space-y-3">
     <slot name="title"></slot>
+
 
 
     <div class="flex">
@@ -119,7 +163,25 @@ const unitName = computed(() => {
       <InputError :message="form.errors.ingredients"></InputError>
     </div>
 
-    <div>
+    <div class="flex flex-col">
+      <InputLabel value="Add Image" for="photo" />
+      <div class="flex space-x-1">
+        <div v-if="hasBackCamera">
+          <input ref="cameraInput" type="file" name="camera" id="camera" accept="image/*" capture="environment"
+            class="hidden" @change="handleCameraCapture" />
+          <PrimaryButton type="button" @click="triggerCameraInput"><i class="mdi mdi-camera"></i></PrimaryButton>
+        </div>
+        <div class="flex items-center">
+          <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
+          <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
+          <p v-if="selectedFile" class="pe-10 ms-2 text-sm truncate">
+            {{ selectedFile }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pb-3">
       <CollapsableFolder :state="false">
         <template #title>
           <p> Nutrients</p>
@@ -149,7 +211,7 @@ const unitName = computed(() => {
 
     </div>
 
-    <div class="flex justify-end gap-4">
+    <div class="flex justify-end gap-4 mt-3">
       <slot />
     </div>
 
