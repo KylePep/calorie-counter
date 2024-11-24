@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 
 class FoodItemController extends Controller
@@ -68,7 +69,10 @@ class FoodItemController extends Controller
             'calories' => ['required'],
             'foodNutrients' => ['nullable'],
             'ingredients' => ['nullable'], 
+            'photo' => ['nullable', File::types(['png','jpg','webp'])]
         ]);
+
+        $photoPath = $request->photo->store('photos');
 
         $foodItem = $user->foodItems()->create([
             'fdcId' => $attributes['fdcId'],
@@ -80,7 +84,8 @@ class FoodItemController extends Controller
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => $attributes['foodNutrients'], 
-            'ingredients' => $attributes['ingredients'] 
+            'ingredients' => $attributes['ingredients'],
+            'photo' => $photoPath
         ]);
 
         return back()->with([
