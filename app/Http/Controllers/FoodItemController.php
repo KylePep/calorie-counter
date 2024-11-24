@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 
@@ -73,7 +74,7 @@ class FoodItemController extends Controller
         ]);
 
         if ($request->hasFile('photo')){
-            $photoPath = $request->file('photo')->store('photos');
+            $photoPath = $request->file('photo')->store('photos','public');
         } else {
             $photoPath = null;
         }

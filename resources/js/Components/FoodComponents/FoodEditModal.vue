@@ -5,6 +5,7 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../Form/DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
+import { computed } from "vue";
 
 const emit = defineEmits(['closeModal']);
 
@@ -21,6 +22,7 @@ const form = useForm({
   calories: 0,
   foodNutrients: [],
   ingredients: '',
+  photo: ''
 });
 
 function setForm() {
@@ -34,7 +36,8 @@ function setForm() {
     form.calories = props.foodItem.calories || 0,
     form.ingredients = props.foodItem.ingredients || '',
 
-    form.foodNutrients = props.foodItem.foodNutrients
+    form.foodNutrients = props.foodItem.foodNutrients,
+    form.photo = props.foodItem.photo;
 }
 setForm();
 

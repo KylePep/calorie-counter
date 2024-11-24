@@ -168,8 +168,11 @@ onMounted(() => {
     </div>
 
     <div class="flex flex-col">
-      <div v-if="formData.photo" class="w-1/2">
+      <div v-if="previewImageURL" class="w-1/2">
         <img :src="previewImageURL" :alt="formData.photo.name">
+      </div>
+      <div v-else-if="formData.photo" class="w-1/2">
+        <img :src="formData.photo" :alt="formData.photo">
       </div>
       <InputLabel value="Add Image" for="photo" />
       <div class="flex space-x-1">
