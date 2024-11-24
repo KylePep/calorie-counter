@@ -34,6 +34,7 @@ const form = useForm({
     { nutrientName: "sodium", value: 0, unitName: 'MG' },
   ],
   ingredients: '',
+  photo: ''
 });
 
 const createFoodItem = () => {
@@ -62,7 +63,6 @@ const closeModal = () => {
   <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
 
   <Modal :show="showCreateForm" @close="closeModal">
-
     <FoodDetailsForm :formData="form" @cancel="closeModal">
 
       <template #title>

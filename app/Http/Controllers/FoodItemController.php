@@ -72,7 +72,11 @@ class FoodItemController extends Controller
             'photo' => ['nullable', File::types(['png','jpg','webp'])]
         ]);
 
-        $photoPath = $request->photo->store('photos');
+        if ($request->hasFile('photo')){
+            $photoPath = $request->file('photo')->store('photos');
+        } else {
+            $photoPath = null;
+        }
 
         $foodItem = $user->foodItems()->create([
             'fdcId' => $attributes['fdcId'],

@@ -6,7 +6,6 @@ import NumberInput from "@/Components/Form/NumberInput.vue";
 import { computed, onMounted, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
-import Pop from "@/utils/Pop.js";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
@@ -25,6 +24,7 @@ const unitName = computed(() => {
 
 const fileInput = ref(null);
 const cameraInput = ref(null);
+const previewImageURL = ref(null);
 
 const selectedFile = ref("");
 
@@ -40,11 +40,15 @@ const triggerCameraInput = () => {
 
 const handleFileChange = () => {
   const file = fileInput.value.files[0];
+  props.formData.photo = file;
+  previewImageURL.value = URL.createObjectURL(file);
   selectedFile.value = file ? file.name : "";
 };
 
 const handleCameraCapture = () => {
   const file = cameraInput.value.files[0];
+  props.formData.photo = file;
+  previewImageURL.value = URL.createObjectURL(file);
   selectedFile.value = file ? `captured: ${file.name}` : "";
 }
 
@@ -164,6 +168,9 @@ onMounted(() => {
     </div>
 
     <div class="flex flex-col">
+      <div v-if="formData.photo" class="w-1/2">
+        <img :src="previewImageURL" :alt="formData.photo.name">
+      </div>
       <InputLabel value="Add Image" for="photo" />
       <div class="flex space-x-1">
         <div v-if="hasBackCamera">
