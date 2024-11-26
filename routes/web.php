@@ -12,6 +12,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeighInController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+
+Route::get('/test-gcs', function () {
+    try {
+        Storage::disk('gcs')->put('test.txt', 'Hello, GCS!');
+        return 'File uploaded successfully!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');

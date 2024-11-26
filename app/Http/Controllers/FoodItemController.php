@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateFoodItemRequest;
 use App\Models\FoodItem;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
@@ -73,8 +75,14 @@ class FoodItemController extends Controller
             'photo' => ['nullable', File::types(['png','jpg','webp'])]
         ]);
 
-        if ($request->hasFile('photo')){
-            $photoPath = $request->file('photo')->store('photos','public');
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            
+            // Get the file's original name
+            $photoPath = $file->getClientOriginalName();
+            
+            Storage::disk('gcs')->put($photoPath, file_get_contents($file));
+            
         } else {
             $photoPath = null;
         }
