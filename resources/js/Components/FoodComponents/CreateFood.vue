@@ -92,7 +92,7 @@ const handleCameraCapture = () => {
   const file = cameraInput.value.files[0];
   form.photo = file;
   previewImageURL.value = URL.createObjectURL(file);
-  selectedFile.value = file ? `captured: ${file.name}` : "";
+  selectedFile.value = file ? `captured: ${file}` : "";
 }
 
 const checkBackCamera = async () => {
@@ -138,9 +138,7 @@ onMounted(() => {
             <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
             <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
             <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
-              <p>
-                {{ selectedFile }}
-              </p>
+              {{ selectedFile }}
             </div>
           </div>
         </div>
