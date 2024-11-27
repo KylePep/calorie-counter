@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 
+use function Termwind\parse;
+
 class FoodItemController extends Controller
 {
     public function index()
@@ -154,6 +156,13 @@ class FoodItemController extends Controller
         $user = User::find(Auth::id());
 
         if($user->foodItems()->where('id', $foodItem->id)->exists()){
+
+            if(!empty($foodItem->photo)){
+                $photoPath = parse_url($foodItem->photo, PHP_URL_PATH);
+                $photoPath = ltrim($photoPath, '/caloriecounter/');
+                Storage::disk('gcs')->delete($photoPath);
+            }
+
             $foodItem->delete();
         } 
         return redirect()->back();
