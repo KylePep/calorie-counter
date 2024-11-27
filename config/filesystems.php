@@ -61,7 +61,7 @@ return [
             'driver' => 'gcs',
             'project_id' => env('GOOGLE_CLOUD_PROJECT_ID'), 
             'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET'), 
-            'key_file' => storage_path('app/alien-proton-442704-s1-f67ffb8a28d1.json'),
+            'key_file' => env('GOOGLE_CLOUD_KEY_FILE', storage_path('app/alien-proton-442704-s1-f67ffb8a28d1.json')) ,
             'prefix' => env('GOOGLE_CLOUD_STORAGE_PREFIX', null),
             'visibility' => null, // Disable ACLs
         ],
