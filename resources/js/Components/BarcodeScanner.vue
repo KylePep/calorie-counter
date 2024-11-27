@@ -1,5 +1,5 @@
 <script setup>
-import { ref, nextTick, onUnmounted } from 'vue';
+import { ref, nextTick, onUnmounted, onMounted } from 'vue';
 import { Html5Qrcode } from 'html5-qrcode';
 import PrimaryButton from "./Form/PrimaryButton.vue";
 import Modal from "./Form/Modal.vue";
@@ -22,8 +22,26 @@ const config = {
   qrbox: 350,
 };
 
+const hasBackCamera = ref(false);
+
+const checkBackCamera = async () => {
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    console.log(devices)
+    hasBackCamera.value = devices.some(
+      (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
+    );
+  } catch (error) {
+    console.error("Error checking for back camera:", error);
+  }
+};
+onMounted(() => {
+  checkBackCamera();
+});
+
 // Initialize scanner and fetch camera devices
 async function initializeScanner() {
+  if (hasBackCamera == false) return
   try {
     html5Qrcode = new Html5Qrcode("reader");
     const devices = await Html5Qrcode.getCameras();
@@ -74,9 +92,9 @@ const stopScanner = () => {
 
 const restartScanner = () => {
   stopScanner();
-  nextTick(() => {
-    startScanner();
-  });
+  // nextTick(() => {
+  startScanner();
+  // });
 }
 
 // Open modal and initialize scanner
@@ -130,7 +148,8 @@ function setActive(scanResult) {
     </h2>
 
 
-    <section class="w-full h-56 lg:h-96 rounded-md" :class="isScanning && !scanResult ? 'bg-dark' : 'bg-white'">
+    <section v-if="hasBackCamera" class="w-full h-56 lg:h-96 rounded-md"
+      :class="isScanning && !scanResult ? 'bg-dark' : 'bg-white'">
       <!-- QR Code Scanner Area -->
       <div id="reader"
         class="flex justify-center items-center w-full h-56 lg:h-96 border-4 border-light rounded overflow-hidden">
@@ -139,7 +158,7 @@ function setActive(scanResult) {
       </div>
     </section>
 
-    <section class="flex flex-col justify-between h-32 p-2">
+    <section v-if="hasBackCamera" class="flex flex-col justify-between h-32 p-2">
       <!-- Camera Selection Dropdown -->
       <div v-if="cameras.length > 0" class="">
         <InputLabel for="camera" class="">Select Camera:</InputLabel>
@@ -157,6 +176,10 @@ function setActive(scanResult) {
           <PrimaryButton @click="setActive(scanResult)">Search USDA </PrimaryButton>
         </div>
       </div>
+    </section>
+
+    <section v-else class="flex justify-center py-12 font-bold text-xl">
+      Sorry no back camera was detected.
     </section>
 
   </Modal>

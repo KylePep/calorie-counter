@@ -54,6 +54,8 @@ const createFoodItem = () => {
 
 const closeModal = () => {
   showCreateForm.value = false;
+  selectedFile.value = "";
+  previewImageURL.value = null;
 
   form.clearErrors();
   form.reset();
@@ -92,6 +94,7 @@ const handleCameraCapture = () => {
 const checkBackCamera = async () => {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
+    console.log(devices)
     hasBackCamera.value = devices.some(
       (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
     );
