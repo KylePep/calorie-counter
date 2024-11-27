@@ -11,16 +11,16 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeighInController;
 use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/test-gcs', function () {
-    try {
-        Storage::disk('gcs')->put('test.txt', 'Hello, GCS!');
-        return 'File uploaded successfully!';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
+    $logo = storage_path('public/logo.png');
+    Storage::disk('gcs')->writeStream('logo', $logo);
+        // if (Storage::disk('gcs')->readStream('1StarDragonBall.png')) {
+        //     dd('worked');
+        // } else {dd("didn't work");}
 });
 
 Route::get('/', [WelcomeController::class, 'index'])
