@@ -90,11 +90,11 @@ const stopScanner = () => {
   }
 };
 
-const restartScanner = () => {
-  stopScanner();
-  // nextTick(() => {
-  startScanner();
-  // });
+async function restartScanner() {
+  await stopScanner();
+  nextTick(() => {
+    startScanner();
+  });
 }
 
 // Open modal and initialize scanner
@@ -162,7 +162,7 @@ function setActive(scanResult) {
       <!-- Camera Selection Dropdown -->
       <div v-if="cameras.length > 0" class="">
         <InputLabel for="camera" class="">Select Camera:</InputLabel>
-        <select id="camera" v-model="selectedCamera" @change="startScanner"
+        <select id="camera" v-model="selectedCamera" @change="restartScanner"
           class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6">
           <option v-for="camera in cameras" :key="camera.id" :value="camera.id">
             {{ camera.label || `Camera ${camera.id}` }}
