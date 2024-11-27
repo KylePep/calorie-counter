@@ -72,7 +72,7 @@ class FoodItemController extends Controller
             'calories' => ['required'],
             'foodNutrients' => ['nullable'],
             'ingredients' => ['nullable'], 
-            'photo' => ['nullable', File::types(['png','jpg','webp'])]
+            'photo' => ['nullable|image|max:5120']
         ]);
 
         if ($request->hasFile('photo')) {
