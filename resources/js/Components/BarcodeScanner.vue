@@ -48,7 +48,7 @@ async function initializeScanner() {
     cameras.value = devices;
 
     if (devices.length > 0) {
-      selectedCamera.value = devices[0].id; // Default to the first camera
+      selectedCamera.value = devices[1] ? devices[1].id : devices[0].id; // Default to the first camera
       startScanner();
     } else {
       console.error("No cameras found.");
