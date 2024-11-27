@@ -13,7 +13,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "league/flysystem": "^3.29",
-        "league/flysystem-google-cloud-storage": "^3.28",
+        "league/flysystem-google-cloud-storage": "*",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
