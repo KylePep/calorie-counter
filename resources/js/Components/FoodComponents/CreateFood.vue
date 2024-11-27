@@ -38,7 +38,7 @@ const form = useForm({
   photo: ''
 });
 
-const displayErrors = ref('')
+// const displayErrors = ref('')
 
 const createFoodItem = () => {
   console.log(form)
@@ -49,7 +49,7 @@ const createFoodItem = () => {
       closeModal();
     },
     onError: (errors) => {
-      displayErrors.value = errors
+      // displayErrors.value = errors
       console.log(errors);
     },
   });
@@ -66,20 +66,20 @@ const closeModal = () => {
 };
 
 const fileInput = ref(null);
-const cameraInput = ref(null);
+// const cameraInput = ref(null);
 const previewImageURL = ref(null);
 
 const selectedFile = ref("");
 
-const hasBackCamera = ref(false);
+// const hasBackCamera = ref(false);
 
 const triggerFileInput = () => {
   fileInput.value.click();
 };
 
-const triggerCameraInput = () => {
-  cameraInput.value.click();
-};
+// const triggerCameraInput = () => {
+//   cameraInput.value.click();
+// };
 
 const handleFileChange = () => {
   const file = fileInput.value.files[0];
@@ -88,76 +88,33 @@ const handleFileChange = () => {
   selectedFile.value = file ? file.name : "";
 };
 
-const handleCameraCapture = async () => {
-  const file = cameraInput.value.files[0];
+// const handleCameraCapture = async () => {
+//   const file = cameraInput.value.files[0];
 
-  if (!file) return;
+//   if (!file) return;
 
-  const resizedFile = await resizeImageFile(file, 800, 800); // Adjust resolution here
-  form.photo = resizedFile;
+//   const resizedFile = await resizeImageFile(file, 800, 800); // Adjust resolution here
+//   form.photo = resizedFile;
 
-  form.photo = file;
-  previewImageURL.value = URL.createObjectURL(file);
-  selectedFile.value = resizedFile ? `captured: ${file.name}` : "";
-}
+//   form.photo = file;
+//   previewImageURL.value = URL.createObjectURL(file);
+//   selectedFile.value = resizedFile ? `captured: ${file.name}` : "";
+// }
 
-const resizeImageFile = (file, maxWidth, maxHeight) => {
-  return new Promise((resolve) => {
-    const img = new Image();
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const reader = new FileReader();
+// const checkBackCamera = async () => {
+//   try {
+//     const devices = await navigator.mediaDevices.enumerateDevices();
+//     hasBackCamera.value = devices.some(
+//       (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
+//     );
+//   } catch (error) {
+//     console.error("Error checking for back camera:", error);
+//   }
+// };
 
-    reader.onload = (event) => {
-      img.src = event.target.result;
-    };
-
-    img.onload = () => {
-      let { width, height } = img;
-
-      // Calculate new dimensions while maintaining aspect ratio
-      if (width > height) {
-        if (width > maxWidth) {
-          height *= maxWidth / width;
-          width = maxWidth;
-        }
-      } else {
-        if (height > maxHeight) {
-          width *= maxHeight / height;
-          height = maxHeight;
-        }
-      }
-
-      // Set canvas size and draw the resized image
-      canvas.width = width;
-      canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
-
-      // Convert canvas back to a file
-      canvas.toBlob((blob) => {
-        const resizedFile = new File([blob], file.name, { type: file.type });
-        resolve(resizedFile);
-      }, file.type);
-    };
-
-    reader.readAsDataURL(file);
-  });
-};
-
-const checkBackCamera = async () => {
-  try {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    hasBackCamera.value = devices.some(
-      (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
-    );
-  } catch (error) {
-    console.error("Error checking for back camera:", error);
-  }
-};
-
-onMounted(() => {
-  checkBackCamera();
-});
+// onMounted(() => {
+//   checkBackCamera();
+// });
 
 </script>
 
@@ -175,14 +132,14 @@ onMounted(() => {
       </template>
 
       <template #photoButton>
-        {{ displayErrors }}
+        <!-- {{ displayErrors }} -->
         <InputLabel value="Add Image" for="photo" />
         <div class="flex space-x-1">
-          <div v-if="hasBackCamera">
+          <!-- <div v-if="hasBackCamera">
             <input ref="cameraInput" type="file" name="camera" id="camera" accept="image/*" capture="environment"
               class="hidden" @change="handleCameraCapture" />
             <PrimaryButton type="button" @click="triggerCameraInput"><i class="mdi mdi-camera"></i></PrimaryButton>
-          </div>
+          </div> -->
           <div class="flex items-center">
             <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
             <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
