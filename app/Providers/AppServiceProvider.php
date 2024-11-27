@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (env('GOOGLE_CONFIG')) {
+            $keyFilePath = storage_path('app/google-credentials-heroku.json');
+            file_put_contents($keyFilePath, env('GOOGLE_CONFIG'));
+        }
 
         Vite::prefetch(concurrency: 3);
 
