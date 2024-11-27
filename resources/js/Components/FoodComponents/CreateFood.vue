@@ -38,6 +38,8 @@ const form = useForm({
   photo: ''
 });
 
+const displayErrors = ref('')
+
 const createFoodItem = () => {
   console.log(form)
   form.post(route('foodItem.store'), {
@@ -47,10 +49,12 @@ const createFoodItem = () => {
       closeModal();
     },
     onError: (errors) => {
+      displayErrors.value = errors
       console.log(errors);
     },
   });
 };
+
 
 const closeModal = () => {
   showCreateForm.value = false;
@@ -94,7 +98,6 @@ const handleCameraCapture = () => {
 const checkBackCamera = async () => {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
-    console.log(devices)
     hasBackCamera.value = devices.some(
       (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
     );
@@ -123,6 +126,7 @@ onMounted(() => {
       </template>
 
       <template #photoButton>
+        {{ displayErrors }}
         <InputLabel value="Add Image" for="photo" />
         <div class="flex space-x-1">
           <div v-if="hasBackCamera">
@@ -133,9 +137,11 @@ onMounted(() => {
           <div class="flex items-center">
             <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
             <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
-            <p v-if="selectedFile" class="pe-10 ms-2 text-sm truncate">
-              {{ selectedFile }}
-            </p>
+            <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
+              <p>
+                {{ selectedFile }}
+              </p>
+            </div>
           </div>
         </div>
       </template>
