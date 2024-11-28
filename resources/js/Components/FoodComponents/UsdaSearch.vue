@@ -142,6 +142,12 @@ function setActive(item) {
   closeModal();
 }
 
+function buttonClasses(value) {
+  return value
+    ? 'bg-neutral text-light-text'
+    : 'bg-gradient-to-br from-accent to-accent-light border border-dark rounded font-bold text-dark-text hover:from-dark hover:to-neutral focus:from-dark focus:to-neutral hover:text-white focus:text-white active:bg-gray-900 transition ease-in-out duration-150 shadow-inner shadow-accent-light/20';
+}
+
 </script>
 
 <template>
@@ -223,8 +229,7 @@ function setActive(item) {
   <Modal :show="showModal" @close="closeModal">
     <div v-if="foodSearchResponse" class="flex justify-between items-center mb-3">
       <button @click="fetchFoodData(foodSearchResponse.currentPage - 1)" :disabled="foodSearchResponse.currentPage <= 1"
-        :class="foodSearchResponse.currentPage <= 1 ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
-        class=" py-1 px-3 rounded">
+        :class="buttonClasses(foodSearchResponse.currentPage <= 1)" class=" py-1 px-3 rounded">
         Previous
       </button>
 
@@ -240,7 +245,7 @@ function setActive(item) {
 
       <button @click="fetchFoodData(foodSearchResponse.currentPage + 1)"
         :disabled="foodSearchResponse.currentPage >= foodSearchResponse.totalPages"
-        :class="foodSearchResponse.currentPage >= foodSearchResponse.totalPages ? 'text-light-text bg-main border border-light' : 'hover:bg-dark bg-accent text-light-text hover:text-main'"
+        :class="buttonClasses(foodSearchResponse.currentPage >= foodSearchResponse.totalPages)"
         class="  py-1 px-3 rounded">
         Next
       </button>
