@@ -82,7 +82,7 @@ function blockClass(block) {
 <template>
   <div :style="{ backgroundImage: 'url(' + foodItem.photo + ')' }"
     :class="foodItem.photo ? 'text-white' : 'text-dark-text'"
-    class="group flex flex-col h-full w-32 sm:w-52 drop-shadow-lg bg-center bg-cover rounded hover:text-light-text duration-300">
+    class="group flex flex-col h-full w-32 sm:w-52 drop-shadow-lg bg-center bg-cover rounded duration-300">
 
     <section :class="foodItem.photo ? 'bg-gradient-to-b from-black to-transparent' : ''"
       class="flex flex-col flex-1  group-hover:bg-dark/90 rounded-t duration-300">
@@ -107,8 +107,10 @@ function blockClass(block) {
       </div>
 
       <button @click="setActive(foodItem)" class="flex-1 py-1 px-2 sm:p-3 border-x border-light">
-        <h1 class="text-xs sm:text-sm truncate sm:text-balance text-shadow-lg font-bold ">{{
-          foodItem.description }}
+        <h1 :class="foodItem.photo ? 'radial-gradient' : ''"
+          class="text-xs sm:text-sm truncate sm:text-balance font-bold px-1">
+          {{
+            foodItem.description }}
         </h1>
       </button>
 
@@ -123,3 +125,13 @@ function blockClass(block) {
   </div>
 
 </template>
+
+<style>
+.radial-gradient {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(5px);
+}
+</style>
