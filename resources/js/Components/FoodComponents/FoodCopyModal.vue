@@ -21,6 +21,7 @@ const form = useForm({
   calories: 0,
   foodNutrients: [],
   ingredients: '',
+  photo: ''
 });
 
 function setForm() {
@@ -35,6 +36,7 @@ function setForm() {
     form.ingredients = props.foodItem.ingredients || '',
 
     form.foodNutrients = props.foodItem.foodNutrients
+  form.photo = props.foodItem.photo
 }
 setForm();
 
@@ -70,12 +72,14 @@ const copyFoodItem = () => {
       <h2 class="text-center">By: {{ props.foodItem.user.name }}</h2>
     </template>
 
-    <SecondaryButton type="button" @click="closeModal">
-      Cancel
-    </SecondaryButton>
-    <PrimaryButton @click="copyFoodItem">
-      Copy
-    </PrimaryButton>
+    <template #buttons>
+      <SecondaryButton type="button" @click="closeModal">
+        Cancel
+      </SecondaryButton>
+      <PrimaryButton @click="copyFoodItem">
+        Copy
+      </PrimaryButton>
+    </template>
   </FoodDetailsForm>
 
 </template>

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateFoodItemRequest;
 use App\Models\FoodItem;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -61,7 +62,7 @@ class FoodItemController extends Controller
     {
         $user = User::find(Auth::id());
     
-        $attributes = $request->validate([
+        $validated = $request->validate([
             'fdcId' => ['nullable'],
             'description' => ['required'],
             'brandName' => ['nullable'],
@@ -72,7 +73,13 @@ class FoodItemController extends Controller
             'calories' => ['required'],
             'foodNutrients' => ['nullable'],
             'ingredients' => ['nullable'], 
-            'photo' => ['nullable', File::types(['png','jpg','webp'])]
+            'photo' => [ 'nullable',
+                function ($attribute, $value, $fail) {
+                    if (!is_string($value) && !($value instanceof UploadedFile)) {
+                        $fail('The '.$attribute.' must either be a string or file.');
+                    }
+                }
+            ],
         ]);
 
         if ($request->hasFile('photo')) {
@@ -85,21 +92,23 @@ class FoodItemController extends Controller
             Storage::disk('gcs')->writeStream($fileName, $stream);
 
             $photoPath = Storage::disk('gcs')->publicUrl($fileName);           
+        } elseif (is_string($request->photo)) {
+            $photoPath = $validated['photo']; // Treat as a URL
         } else {
             $photoPath = null;
         }
 
         $foodItem = $user->foodItems()->create([
-            'fdcId' => $attributes['fdcId'],
-            'description' => $attributes['description'],
-            'brandName' => $attributes['brandName'] ?? 'N/A',
-            'brandOwner' => $attributes['brandOwner'] ?? 'N/A',
-            'servingSize' => $attributes['servingSize'],
-            'servingSizeUnit' => $attributes['servingSizeUnit'],
-            'foodCategory' => $attributes['foodCategory'],
-            'calories' => $attributes['calories'],
-            'foodNutrients' => $attributes['foodNutrients'], 
-            'ingredients' => $attributes['ingredients'],
+            'fdcId' => $validated['fdcId'],
+            'description' => $validated['description'],
+            'brandName' => $validated['brandName'] ?? 'N/A',
+            'brandOwner' => $validated['brandOwner'] ?? 'N/A',
+            'servingSize' => $validated['servingSize'],
+            'servingSizeUnit' => $validated['servingSizeUnit'],
+            'foodCategory' => $validated['foodCategory'],
+            'calories' => $validated['calories'],
+            'foodNutrients' => $validated['foodNutrients'], 
+            'ingredients' => $validated['ingredients'],
             'photo' => $photoPath
         ]);
 
