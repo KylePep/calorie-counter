@@ -21,7 +21,8 @@ const form = useForm({
   calories: 0,
   foodNutrients: [],
   ingredients: '',
-  photo: ''
+  photo: '',
+  creator_id: ''
 });
 
 function setForm() {
@@ -35,8 +36,9 @@ function setForm() {
     form.calories = props.foodItem.calories || 0,
     form.ingredients = props.foodItem.ingredients || '',
 
-    form.foodNutrients = props.foodItem.foodNutrients
-  form.photo = props.foodItem.photo
+    form.foodNutrients = props.foodItem.foodNutrients,
+    form.photo = props.foodItem.photo,
+    form.creator_id = props.foodItem.creator_id
 }
 setForm();
 

@@ -50,7 +50,7 @@ function completeCarrot(carrot) {
   <div class="space-y-3">
     <h1 class="text-center text-xl font-bold">Carrots</h1>
     <h2 class="text-center text-sm max-w-xs mx-auto">
-      Set up a carrot on a stick in you account, Carrots let remind you what your striving for and help with motivation.
+      Set up a carrot on a stick in you account, Carrots remind you what your striving for and help with motivation.
     </h2>
 
     <div class="space-y-3">
