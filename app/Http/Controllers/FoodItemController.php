@@ -11,7 +11,6 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 
 use function Termwind\parse;
@@ -80,7 +79,12 @@ class FoodItemController extends Controller
                     }
                 }
             ],
+            'creator_id' => ['nullable']
         ]);
+
+        if (is_null($request->creator_id)){
+            $validated['creator_id'] = $user->id;
+        }
 
         if ($request->hasFile('photo')) {
 
@@ -109,7 +113,8 @@ class FoodItemController extends Controller
             'calories' => $validated['calories'],
             'foodNutrients' => $validated['foodNutrients'], 
             'ingredients' => $validated['ingredients'],
-            'photo' => $photoPath
+            'photo' => $photoPath,
+            'creator_id' => $validated['creator_id'],
         ]);
 
         return back()->with([
@@ -166,7 +171,7 @@ class FoodItemController extends Controller
 
         if($user->foodItems()->where('id', $foodItem->id)->exists()){
 
-            if(!empty($foodItem->photo)){
+            if(!empty($foodItem->photo) && $foodItem ->creator_id == $user->id ){
                 $photoPath = parse_url($foodItem->photo, PHP_URL_PATH);
                 $photoPath = ltrim($photoPath, '/caloriecounter/');
                 Storage::disk('gcs')->delete($photoPath);
