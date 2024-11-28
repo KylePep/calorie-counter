@@ -56,7 +56,7 @@ class CalorieDayController extends Controller
                     ]);
                 } 
 
-                $foodItems = $user->foodItems;
+                $foodItems = $user->foodItems()->orderBy('created_at', 'desc')->get();
                 
 
                 $sortedCarrots = $user->carrots->groupBy(function($carrot){

@@ -11,7 +11,8 @@ function setActive(item) {
 
 <template>
 
-  <button @click="setActive(foodItem)" :style="{ backgroundImage: 'url(' + foodItem.photo + ')' }"
+  <button @click="setActive(foodItem)"
+    :style="[foodItem.photo ? { backgroundImage: 'url(' + foodItem.photo + ')' } : '']"
     :class="foodItem.photo ? 'text-white text-shadow-2xl' : 'text-dark-text'"
     class="group h-full w-full min-h-24  bg-center bg-cover hover:text-light-text border-4 border-dark/50 hover:border-accent rounded-sm  duration-300 drop-shadow">
     <div

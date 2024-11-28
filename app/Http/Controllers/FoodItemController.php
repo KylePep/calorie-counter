@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-use function Termwind\parse;
-
 class FoodItemController extends Controller
 {
     public function index()
@@ -45,6 +43,8 @@ class FoodItemController extends Controller
     public function search(Request $request)
     {
 
+        $user = User::find(Auth::id());
+
         $query = $request->input('query');
         $pageNumber = $request->input('pageNumber',1);
         $pageSize = $request->input('pageSize', 10);
@@ -52,6 +52,8 @@ class FoodItemController extends Controller
 
         $foodItems = FoodItem::with(['user'])
         ->where('description', 'LIKE', '%'.$query.'%')
+        ->whereColumn('user_id', 'creator_id')
+        ->where('user_id', '!=', $user->id)
         ->get();
 
         return $foodItems;
