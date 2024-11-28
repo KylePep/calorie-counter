@@ -75,14 +75,17 @@ function blockClass(block) {
   }
 }
 
+
+
 </script>
 
 <template>
+  <div :style="{ backgroundImage: 'url(' + foodItem.photo + ')' }"
+    :class="foodItem.photo ? 'text-white' : 'text-dark-text'"
+    class="group flex flex-col h-full w-32 sm:w-52 drop-shadow-lg bg-center bg-cover rounded hover:text-light-text duration-300">
 
-  <div
-    class="flex flex-col h-full w-32 sm:w-52 drop-shadow-lg bg-white rounded hover:bg-dark hover:text-light-text duration-300">
-
-    <section class="flex flex-col flex-1  ">
+    <section :class="foodItem.photo ? 'bg-gradient-to-b from-black to-transparent' : ''"
+      class="flex flex-col flex-1  group-hover:bg-dark/90 rounded-t duration-300">
 
       <div class="flex  justify-between items-end sm:py-1 px-1 sm:px-2 rounded-t border border-b-0 border-light">
 
@@ -104,13 +107,15 @@ function blockClass(block) {
       </div>
 
       <button @click="setActive(foodItem)" class="flex-1 py-1 px-2 sm:p-3 border-x border-light">
-        <h1 class="text-xs sm:text-sm truncate sm:text-balance font-bold">{{ foodItem.description }}
+        <h1 class="text-xs sm:text-sm truncate sm:text-balance text-shadow-lg font-bold ">{{
+          foodItem.description }}
         </h1>
       </button>
 
     </section>
 
-    <section class="grid grid-cols-10 gap-0.5 p-1 border border-t-0 border-light rounded-b">
+    <section :class="foodItem.photo ? 'bg-gradient-to-t from-black to-transparent' : ''"
+      class="grid grid-cols-10 gap-0.5 p-1  group-hover:bg-dark/90 duration-300 border border-t-0 border-light rounded-b">
       <div v-for="block in Math.ceil(foodItem.calories / 100) " title="100 Calories"
         class="h-3 border border-light rounded-sm" :class="blockClass(block)">
       </div>
