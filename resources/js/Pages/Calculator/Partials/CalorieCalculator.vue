@@ -77,7 +77,7 @@ const createOrUpdateAccount = () => {
         Pop.success('New Goal Set!')
       },
       onError: (errors) => {
-        console.log(errors); // Log validation errors
+        console.log(errors);
       },
     });
 };

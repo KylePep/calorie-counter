@@ -32,12 +32,10 @@ async function getUsdaFoodById() {
 
 
     if (foodId.length != 12) {
-      console.log('[FDC_ID]');
       const response = await axios.get(`/foodUsda/${foodId}`);
       const foodItem = new UsdaFoodItem(response.data);
       setForm(foodItem);
     } else {
-      console.log('[UPC]');
       const response = await axios.get(`/foodUsda/${foodId}/upc`);
       const foodItem = new UsdaFoodItem(response.data);
       setForm(foodItem);

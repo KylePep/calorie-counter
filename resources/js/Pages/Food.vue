@@ -26,7 +26,6 @@ const modalContent = ref('foodDetails');
 const ActiveFoodItem = ref({});
 
 function setActive(type, foodItem) {
-  console.log('[Modal Content Type]', type, foodItem);
   modalContent.value = type;
   showModal.value = true;
   if (foodItem) {

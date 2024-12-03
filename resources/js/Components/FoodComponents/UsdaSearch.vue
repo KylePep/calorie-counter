@@ -109,8 +109,6 @@ async function fetchUserFoodItems(page = 1) {
 
     loading.value = false;
 
-    console.log(response.data);
-
     const foods = response.data;
     usdaResponse.foodSearchResponse = {
       "totalHits": 10,

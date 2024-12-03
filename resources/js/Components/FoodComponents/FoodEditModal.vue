@@ -67,7 +67,6 @@ async function deleteItem() {
 }
 
 async function updateItem() {
-  console.log(form)
   form.put(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     onSuccess: () => {

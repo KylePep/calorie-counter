@@ -27,7 +27,6 @@ const hasBackCamera = ref(false);
 const checkBackCamera = async () => {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
-    console.log(devices)
     hasBackCamera.value = devices.some(
       (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
     );

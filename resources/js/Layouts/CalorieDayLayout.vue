@@ -24,7 +24,6 @@ const bmr = computed(() => props.calorieDay.bmr);
 const calorieCount = computed(() => props.calorieDay.count ?? 0);
 
 function setActive(type, foodItem) {
-  console.log('[Modal Content Type]', type, foodItem);
   modalContent.value = type;
   showModal.value = true;
   if (foodItem) {
