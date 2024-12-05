@@ -5,7 +5,6 @@ import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
 import { computed, onMounted, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
-import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
