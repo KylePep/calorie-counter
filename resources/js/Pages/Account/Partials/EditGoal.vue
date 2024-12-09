@@ -81,7 +81,7 @@ const updateAccount = () => {
       <SecondaryButton v-else @click="edit = false">Cancel</SecondaryButton>
 
       <div v-if="account?.goal && !edit" class="max-w-xl my-3">
-        <div id="updateAccount" class="grid grid-cols-2 gap-3 justify-start ">
+        <div class="grid grid-cols-2 gap-3 justify-start ">
 
           <div class="flex flex-col">
             <h1>BMR</h1>
