@@ -139,7 +139,7 @@ const closeModal = () => {
     <h1 class="font-bold">
       Create a carrot:
     </h1>
-    <p>A carrot is a reward that give yourself once you've reached your goal.</p>
+    <p>A carrot is a reward that you give yourself once you've reached your goal.</p>
 
     <div v-if="!showCreateForm" @click="confirmCarrotDetails">
       <PrimaryButton>Create</PrimaryButton>
