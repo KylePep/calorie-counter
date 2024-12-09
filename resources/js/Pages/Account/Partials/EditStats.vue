@@ -68,9 +68,13 @@ const updateAccount = () => {
   <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
 
     <div class="space-y-3">
-      <h1 class="font-bold">Stats</h1>
-      <PrimaryButton v-if="!edit" @click="edit = true">Change Stats</PrimaryButton>
-      <SecondaryButton v-else @click="edit = false">Cancel</SecondaryButton>
+      <div class="lg:flex justify-between">
+        <h1 class="font-bold mb-3">Stats</h1>
+
+        <PrimaryButton v-if="!edit" @click="edit = true">Change Stats</PrimaryButton>
+
+        <SecondaryButton v-else @click="edit = false">Cancel</SecondaryButton>
+      </div>
 
       <div v-if="!edit" class="max-w-xl my-3">
         <div class="max-w-xl">

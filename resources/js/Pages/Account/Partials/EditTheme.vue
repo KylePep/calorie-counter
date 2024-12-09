@@ -55,25 +55,21 @@ const themeDisplayName = computed(() => {
 
 <template>
   <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-4">
+    <div class="lg:flex justify-between">
+      <h1 class="font-bold">
+        Active Theme: {{ themeDisplayName }}
+      </h1>
 
-    <h1 class="font-bold">
-      Active Theme: {{ themeDisplayName }}
-    </h1>
+      <PrimaryButton v-if="!showThemes" @click="showThemes = !showThemes">
+        Change theme
+      </PrimaryButton>
 
-    <PrimaryButton v-if="!showThemes" @click="showThemes = !showThemes">
-      Change theme
-    </PrimaryButton>
-
-    <div v-else class="space-x-4">
-
-      <PrimaryButton @click="changeTheme(newTheme)">Save</PrimaryButton>
-
-      <SecondaryButton @click="cancel">
+      <SecondaryButton v-else @click="cancel">
         Cancel
       </SecondaryButton>
     </div>
 
-    <form v-if="showThemes" @submit.prevent="" class="my-3">
+    <form v-if="showThemes" @submit.prevent="" class="my-3 space-y-3">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
         <button @click="selectTheme('theme-sunRise')"
           class="p-3 font-bold hover:bg-dark hover:text-light-text rounded shadow-lg"
@@ -91,6 +87,7 @@ const themeDisplayName = computed(() => {
           Sketch Pad
         </button> -->
       </div>
+      <PrimaryButton @click="changeTheme(newTheme)">Save</PrimaryButton>
     </form>
   </div>
 
