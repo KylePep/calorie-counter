@@ -4,7 +4,7 @@ import InputError from '@/Components/Form/InputError.vue';
 import InputLabel from '@/Components/Form/InputLabel.vue';
 import PrimaryButton from '@/Components/Form/PrimaryButton.vue';
 import TextInput from '@/Components/Form/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 
 defineProps({
