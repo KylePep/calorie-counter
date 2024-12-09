@@ -19,6 +19,8 @@ function selectTheme(theme) {
 
 function changeTheme(theme) {
 
+  showThemes.value = false
+
   form.transform((data) => ({
     ...data,
     theme: theme

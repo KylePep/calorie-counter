@@ -48,6 +48,8 @@ function setMacro(macro) {
 
 function updateAccount() {
 
+  edit.value = false
+
   form.put(route('account.update', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {

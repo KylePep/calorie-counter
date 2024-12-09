@@ -45,7 +45,7 @@ const form = useForm({
 
 const updateAccount = () => {
 
-
+  edit.value = false
 
   form.transform((data) => ({
     ...data,

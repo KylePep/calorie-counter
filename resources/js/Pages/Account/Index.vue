@@ -7,7 +7,6 @@ import EditCarrot from "./Partials/EditCarrot.vue";
 import EditTheme from "./Partials/EditTheme.vue";
 import EditMacros from "./Partials/EditMacros.vue";
 import MenuButton from "@/Components/Menu/MenuButton.vue";
-import BarcodeScanner from "@/Components/BarcodeScanner.vue";
 
 const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
 

@@ -37,6 +37,8 @@ const form = useForm({
 
 const createOrUpdateAccount = () => {
 
+  edit.value = false;
+
   form.transform((data) => ({
     ...data,
     goal: Math.round(data.bmr * (data.goalModifier * .01))
@@ -51,6 +53,8 @@ const createOrUpdateAccount = () => {
 };
 
 const updateAccount = () => {
+
+  edit.value = false;
 
   form.transform((data) => ({
     ...data,
@@ -115,7 +119,7 @@ const updateAccount = () => {
         <div class="max-w-xl my-3">
           <form @submit.prevent="createOrUpdateAccount" class="grid grid-cols-2 gap-3 justify-start">
 
-            <div class="flex flex-col">
+            <div class="flex flex-col justify-end">
               <h1 class="font-bold">
                 Set Basal Metabolic Rate:
               </h1>
@@ -123,7 +127,7 @@ const updateAccount = () => {
                 inputmode="numeric" pattern="^[0-9]*$" min="1000" max="20000" class="py-1" />
             </div>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col justify-end">
               <h1 class="font-bold">
                 Set Goal Modifier:
               </h1>
