@@ -55,16 +55,17 @@ const themeDisplayName = computed(() => {
 
 <template>
   <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-4">
-    <div class="lg:flex justify-between">
-      <h1 class="font-bold mb-3">
+    <div class="grid grid-cols-5">
+      <h1 class="font-bold mb-3 col-span-5 lg:col-span-3">
         Active Theme: {{ themeDisplayName }}
       </h1>
 
-      <PrimaryButton v-if="!showThemes" @click="showThemes = !showThemes">
+      <PrimaryButton v-if="!showThemes" @click="showThemes = !showThemes"
+        class="col-span-3 lg:col-span-2 justify-center">
         Change theme
       </PrimaryButton>
 
-      <SecondaryButton v-else @click="cancel">
+      <SecondaryButton v-else @click="cancel" class="col-span-3 lg:col-span-2 justify-center">
         Cancel
       </SecondaryButton>
     </div>
