@@ -7,6 +7,8 @@ import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
 import InputLabel from "../Form/InputLabel.vue";
 import { ref } from "vue";
+import { Cropper } from "vue-advanced-cropper";
+import "vue-advanced-cropper/dist/style.css";
 
 const emit = defineEmits(['closeModal']);
 
@@ -69,9 +71,12 @@ async function deleteItem() {
       console.log(errors);
     },
   });
-}
+};
 
 async function updateItem() {
+  if (cropped.value == false && previewImageURL.value) {
+    return
+  }
 
   form.post(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
@@ -87,13 +92,13 @@ async function updateItem() {
       console.log(errors);
     },
   });
-}
+};
 
 const fileInput = ref(null);
-
 const previewImageURL = ref(null);
-
 const selectedFile = ref("");
+const cropperRef = ref(null);
+const cropped = ref(false);
 
 const triggerFileInput = () => {
   fileInput.value.click();
@@ -101,9 +106,22 @@ const triggerFileInput = () => {
 
 const handleFileChange = () => {
   const file = fileInput.value.files[0];
-  form.photo = file;
-  previewImageURL.value = URL.createObjectURL(file);
-  selectedFile.value = file ? file.name : "";
+  if (file) {
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      previewImageURL.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    selectedFile.value = file.name;
+  }
+};
+
+function crop() {
+  cropped.value = true;
+  const { coordinates, canvas, } = cropperRef.value.getResult();
+  previewImageURL.value = canvas.toDataURL();
+  form.photo = previewImageURL.value;
 };
 
 </script>
@@ -130,6 +148,15 @@ const handleFileChange = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div v-if="previewImageURL" class="mt-4">
+        <Cropper v-if="!cropped" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
+          :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }" image-restriction="stencil"
+          class="border" />
+        <img v-else :src="previewImageURL" :alt="previewImageURL">
+        <PrimaryButton v-if="!cropped" @click="crop" class="mt-4">Crop</PrimaryButton>
+        <SecondaryButton v-else class="mt-4">Cropped</SecondaryButton>
       </div>
 
     </template>
