@@ -25,11 +25,13 @@ function useItem() {
     food_items: [{
       description: props.foodItem.description,
       count: props.foodItem.calories,
-      protein: protein.value,
-      carbohydrates: carbohydrates.value,
-      fats: fats.value
+      protein: Number(protein.value),
+      carbohydrates: Number(carbohydrates.value),
+      fats: Number(fats.value)
     }]
   });
+
+  console.log(useItemForm.food_items[0])
 
   useItemForm.put(route('calorieDay.update', props.calorieDay.id), {
     preserveScroll: true,

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 
 const props = defineProps(['account', 'calorieDay']);
@@ -14,15 +14,15 @@ const macros = computed(() => {
 const calorieDayMacros = computed(() => {
   let protein = 0;
   props.calorieDay.food_items.forEach(m => {
-    protein += m.protein;
+    protein += Number(m.protein);
   });
   let carbohydrates = 0;
   props.calorieDay.food_items.forEach(m => {
-    carbohydrates += m.carbohydrates;
+    carbohydrates += Number(m.carbohydrates);
   });
   let fats = 0;
   props.calorieDay.food_items.forEach(m => {
-    fats += m.fats;
+    fats += Number(m.fats);
   });
 
   return { protein, carbohydrates, fats }
