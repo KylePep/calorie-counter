@@ -20,13 +20,34 @@ const unitName = computed(() => {
     MLT: 'MilliLiter(s)'
   }[props.formData.servingSizeUnit];
 });
+
+const photoDisplay = computed(() => {
+  return props.previewImageURL ? props.previewImageURL : props.formData.photo
+})
 </script>
 
 
 <template>
 
   <form @submit.prevent="createFoodItem" class="space-y-3">
-    <slot name="title"></slot>
+
+    <div v-if="photoDisplay"
+      :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), url(${photoDisplay})`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
+      class="flex flex-col text-white text-shadow-2xl rounded">
+      <div class="h-full w-full p-2 rounded" :style="{ backdropFilter: 'blur(3px)' }">
+
+        <div class="w-1/2 mx-auto p-4 ">
+          <img :src="photoDisplay" :alt="photoDisplay" class="rounded">
+        </div>
+
+        <slot name="title"></slot>
+      </div>
+    </div>
+
+    <div v-else>
+      <slot name="title"></slot>
+    </div>
+
 
     <div class="flex">
       <div class="basis-3/5 me-3">
@@ -104,9 +125,6 @@ const unitName = computed(() => {
       </div>
     </div>
 
-
-
-
     <div>
       <InputLabel for="ingredients" value="Ingredients">
       </InputLabel>
@@ -116,21 +134,15 @@ const unitName = computed(() => {
       <InputError :message="form.errors.ingredients"></InputError>
     </div>
 
-    <div class="flex flex-col">
-      <div v-if="props.previewImageURL" class="w-1/2">
-        <img :src="props.previewImageURL" :alt="formData.photo.name">
-      </div>
-      <div v-else-if="formData.photo" class="w-1/2">
-        <img :src="formData.photo" :alt="formData.photo">
-      </div>
-      <slot name="photoButton" />
-    </div>
+    <slot name="photoButton" />
+
 
     <div class="pb-3">
       <CollapsableFolder :state="false">
         <template #title>
           <p> Nutrients</p>
         </template>
+
 
         <template #config />
 
@@ -162,3 +174,5 @@ const unitName = computed(() => {
 
   </form>
 </template>
+
+<style></style>

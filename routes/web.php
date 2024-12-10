@@ -4,24 +4,13 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\CarrotController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\FoodUsdaController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeighInController;
 use App\Http\Controllers\WelcomeController;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-
-Route::get('/test-gcs', function () {
-    $logo = storage_path('public/logo.png');
-    Storage::disk('gcs')->writeStream('logo', $logo);
-        // if (Storage::disk('gcs')->readStream('1StarDragonBall.png')) {
-        //     dd('worked');
-        // } else {dd("didn't work");}
-});
 
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
@@ -43,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/foodItem', [FoodItemController::class, 'index'])->name('foodItem.index');
     Route::get('/foodItem/search', [FoodItemController::class, 'search'])->name('foodItem.search');
     Route::post('/foodItem', [FoodItemController::class, 'store'])->name('foodItem.store');
-    Route::put('/foodItem/{foodItem}', [FoodItemController::class, 'update'])->name('foodItem.update');
+    Route::match(['PUT', 'POST'], '/foodItem/{foodItem}', [FoodItemController::class, 'update'])->name('foodItem.update');
     Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
 
     Route::post('/calorie-day', [CalorieDayController::class, 'store'])->name('calorieDay.store');

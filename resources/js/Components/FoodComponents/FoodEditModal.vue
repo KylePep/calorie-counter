@@ -5,6 +5,8 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../Form/DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
+import InputLabel from "../Form/InputLabel.vue";
+import { ref } from "vue";
 
 const emit = defineEmits(['closeModal']);
 
@@ -44,6 +46,9 @@ setForm();
 const closeModal = () => {
   emit('closeModal');
 
+  selectedFile.value = "";
+  previewImageURL.value = null;
+
   form.clearErrors();
   form.reset();
 };
@@ -67,8 +72,12 @@ async function deleteItem() {
 }
 
 async function updateItem() {
-  form.put(route('foodItem.update', props.foodItem.id), {
+
+  form.post(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
+    data: {
+      _method: 'PUT',
+    },
     onSuccess: () => {
       Pop.success(`${form.description} updated`);
       form.reset();
@@ -80,14 +89,49 @@ async function updateItem() {
   });
 }
 
+const fileInput = ref(null);
+
+const previewImageURL = ref(null);
+
+const selectedFile = ref("");
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+};
+
+const handleFileChange = () => {
+  const file = fileInput.value.files[0];
+  form.photo = file;
+  previewImageURL.value = URL.createObjectURL(file);
+  selectedFile.value = file ? file.name : "";
+};
+
 </script>
 
 
 <template>
-  <FoodDetailsForm :formData="form" @cancel="closeModal">
+  <FoodDetailsForm :formData="form" :previewImageURL="previewImageURL" @cancel="closeModal">
     <template #title>
       <h1 class="text-center text-xl font-bold">Updating {{ form.description }}
       </h1>
+    </template>
+
+    <template #photoButton>
+      <div v-if="!form.photo">
+
+        <InputLabel value="Add Image" for="photo" />
+
+        <div class="flex space-x-1">
+          <div class="flex items-center">
+            <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
+            <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
+            <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
+              {{ selectedFile }}
+            </div>
+          </div>
+        </div>
+      </div>
+
     </template>
 
     <template #buttons>
