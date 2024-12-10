@@ -168,9 +168,13 @@ function crop() {
       <DangerButton type="button" @click="deleteItem">
         Delete
       </DangerButton>
-      <PrimaryButton @click="updateItem">
+      <PrimaryButton v-if="!previewImageURL" @click="updateItem">
         Update
       </PrimaryButton>
+      <div v-else>
+        <PrimaryButton v-if="cropped" @click="updateItem">Update</PrimaryButton>
+        <SecondaryButton v-else>Update</SecondaryButton>
+      </div>
     </template>
 
   </FoodDetailsForm>
