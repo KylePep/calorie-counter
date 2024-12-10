@@ -173,11 +173,11 @@ class FoodItemController extends Controller
 
         if($user->foodItems()->where('id', $foodItem->id)->exists()){
 
-            if(!empty($foodItem->photo) && $foodItem ->creator_id == $user->id ){
-                $photoPath = parse_url($foodItem->photo, PHP_URL_PATH);
-                $photoPath = ltrim($photoPath, '/caloriecounter/');
-                Storage::disk('gcs')->delete($photoPath);
-            }
+            // if(!empty($foodItem->photo) && $foodItem ->creator_id == $user->id ){
+            //     $photoPath = parse_url($foodItem->photo, PHP_URL_PATH);
+            //     $photoPath = ltrim($photoPath, '/caloriecounter/');
+            //     Storage::disk('gcs')->delete($photoPath);
+            // }
 
             $foodItem->delete();
         } 
