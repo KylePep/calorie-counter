@@ -125,46 +125,6 @@ class FoodItemController extends Controller
         ]);
     }
 
-    // public function photo(UpdateFoodItemRequest $request, FoodItem $foodItem){
-
-    //     $user = User::find(Auth::id());
-    
-    //     $attributes = $request->validate([
-    //         'photo' => [ 'nullable',
-    //             function ($attribute, $value, $fail) {
-    //                 if (!is_string($value) && !($value instanceof UploadedFile)) {
-    //                     $fail('The '.$attribute.' must either be a string or file.');
-    //                 }
-    //             }
-    //         ]
-    //     ]);
-
-    //     if (is_null($request->creator_id)){
-    //         $attributes['creator_id'] = $user->id;
-    //     }
-
-    //     if ($request->hasFile('photo')) {
-
-    //         $file = $request->file('photo');
-    //         $fileName = $file->getClientOriginalName();
-
-    //         $stream = fopen($file->getRealPath(), 'r');
-
-    //         Storage::disk('gcs')->writeStream($fileName, $stream);
-
-    //         $photoPath = Storage::disk('gcs')->publicUrl($fileName);           
-    //     } elseif (is_string($request->photo)) {
-    //         $photoPath = $attributes['photo']; // Treat as a URL
-    //     } else {
-    //         $photoPath = null;
-    //     }
-
-    //     $foodItem->update([
-    //         'photo' => $photoPath,
-    //     ]);
-
-    // }
-
     public function update(UpdateFoodItemRequest $request, FoodItem $foodItem)
     {
         $user = User::find(Auth::id());
@@ -198,6 +158,7 @@ class FoodItemController extends Controller
         if ($request->hasFile('photo')) {
 
             $file = $request->file('photo');
+
             $fileName = $file->getClientOriginalName();
 
             $stream = fopen($file->getRealPath(), 'r');

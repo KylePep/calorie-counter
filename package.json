@@ -11,7 +11,8 @@
     },
     "dependencies": {
         "html5-qrcode": "^2.3.8",
-        "sweetalert2": "11.7.10"
+        "sweetalert2": "11.7.10",
+        "vue-advanced-cropper": "^2.8.9"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
