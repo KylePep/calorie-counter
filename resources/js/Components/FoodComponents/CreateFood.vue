@@ -8,6 +8,8 @@ import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
 import MenuButton from "../Menu/MenuButton.vue";
 import InputLabel from "../Form/InputLabel.vue";
+import { Cropper } from "vue-advanced-cropper";
+import "vue-advanced-cropper/dist/style.css";
 
 const showCreateForm = ref(false);
 
@@ -38,7 +40,6 @@ const form = useForm({
   photo: ''
 });
 
-// const displayErrors = ref('')
 
 const createFoodItem = () => {
   console.log(form)
@@ -49,7 +50,6 @@ const createFoodItem = () => {
       closeModal();
     },
     onError: (errors) => {
-      // displayErrors.value = errors
       console.log(errors);
     },
   });
@@ -66,55 +66,34 @@ const closeModal = () => {
 };
 
 const fileInput = ref(null);
-// const cameraInput = ref(null);
 const previewImageURL = ref(null);
-
 const selectedFile = ref("");
-
-// const hasBackCamera = ref(false);
+const cropperRef = ref(null);
+const cropped = ref(false);
 
 const triggerFileInput = () => {
   fileInput.value.click();
 };
 
-// const triggerCameraInput = () => {
-//   cameraInput.value.click();
-// };
-
 const handleFileChange = () => {
   const file = fileInput.value.files[0];
-  form.photo = file;
-  previewImageURL.value = URL.createObjectURL(file);
-  selectedFile.value = file ? file.name : "";
+  if (file) {
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      previewImageURL.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    selectedFile.value = file.name;
+  }
 };
 
-// const handleCameraCapture = async () => {
-//   const file = cameraInput.value.files[0];
-
-//   if (!file) return;
-
-//   const resizedFile = await resizeImageFile(file, 800, 800); // Adjust resolution here
-//   form.photo = resizedFile;
-
-//   form.photo = file;
-//   previewImageURL.value = URL.createObjectURL(file);
-//   selectedFile.value = resizedFile ? `captured: ${file.name}` : "";
-// }
-
-// const checkBackCamera = async () => {
-//   try {
-//     const devices = await navigator.mediaDevices.enumerateDevices();
-//     hasBackCamera.value = devices.some(
-//       (device) => device.kind == "videoinput" && device.label.toLowerCase().includes("back")
-//     );
-//   } catch (error) {
-//     console.error("Error checking for back camera:", error);
-//   }
-// };
-
-// onMounted(() => {
-//   checkBackCamera();
-// });
+function crop() {
+  cropped.value = true;
+  const { coordinates, canvas, } = cropperRef.value.getResult();
+  previewImageURL.value = canvas.toDataURL();
+  form.photo = previewImageURL.value;
+};
 
 </script>
 
@@ -131,32 +110,45 @@ const handleFileChange = () => {
         </h2>
       </template>
 
+
       <template #photoButton>
-        <!-- {{ displayErrors }} -->
-        <InputLabel value="Add Image" for="photo" />
-        <div class="flex space-x-1">
-          <!-- <div v-if="hasBackCamera">
-            <input ref="cameraInput" type="file" name="camera" id="camera" accept="image/*" capture="environment"
-              class="hidden" @change="handleCameraCapture" />
-            <PrimaryButton type="button" @click="triggerCameraInput"><i class="mdi mdi-camera"></i></PrimaryButton>
-          </div> -->
-          <div class="flex items-center">
-            <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
-            <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
-            <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
-              {{ selectedFile }}
+        <div v-if="!form.photo">
+
+          <InputLabel value="Add Image" for="photo" />
+
+          <div class="flex space-x-1">
+            <div class="flex items-center">
+              <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
+              <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
+              <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
+                {{ selectedFile }}
+              </div>
             </div>
           </div>
         </div>
+
+        <div v-if="previewImageURL" class="mt-4">
+          <Cropper v-if="!cropped" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
+            :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }"
+            image-restriction="stencil" class="border" />
+          <img v-else :src="previewImageURL" :alt="previewImageURL">
+          <PrimaryButton v-if="!cropped" @click="crop" class="mt-4">Crop</PrimaryButton>
+          <SecondaryButton v-else class="mt-4">Cropped</SecondaryButton>
+        </div>
+
       </template>
 
       <template #buttons>
         <SecondaryButton type="button" @click="closeModal">
           Cancel
         </SecondaryButton>
-        <PrimaryButton @click="createFoodItem">
+        <PrimaryButton v-if="!previewImageURL" @click="createFoodItem">
           Create
         </PrimaryButton>
+        <div v-else>
+          <PrimaryButton v-if="cropped" @click="createFoodItem">Create</PrimaryButton>
+          <SecondaryButton v-else>Create</SecondaryButton>
+        </div>
       </template>
     </FoodDetailsForm>
   </Modal>
