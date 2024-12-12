@@ -65,35 +65,7 @@ const closeModal = () => {
   form.reset();
 };
 
-const fileInput = ref(null);
-const previewImageURL = ref(null);
-const selectedFile = ref("");
-const cropperRef = ref(null);
-const cropped = ref(false);
 
-const triggerFileInput = () => {
-  fileInput.value.click();
-};
-
-const handleFileChange = () => {
-  const file = fileInput.value.files[0];
-  if (file) {
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      previewImageURL.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    selectedFile.value = file.name;
-  }
-};
-
-function crop() {
-  cropped.value = true;
-  const { coordinates, canvas, } = cropperRef.value.getResult();
-  previewImageURL.value = canvas.toDataURL();
-  form.photo = previewImageURL.value;
-};
 
 </script>
 
@@ -111,32 +83,10 @@ function crop() {
       </template>
 
 
-      <template #photoButton>
-        <div v-if="!form.photo">
+      <!-- <template #photoButton>
 
-          <InputLabel value="Add Image" for="photo" />
 
-          <div class="flex space-x-1">
-            <div class="flex items-center">
-              <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
-              <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
-              <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
-                {{ selectedFile }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div v-if="previewImageURL" class="mt-4">
-          <Cropper v-if="!cropped" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
-            :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }"
-            image-restriction="stencil" class="border" />
-          <img v-else :src="previewImageURL" :alt="previewImageURL">
-          <PrimaryButton v-if="!cropped" @click="crop" class="mt-4">Crop</PrimaryButton>
-          <SecondaryButton v-else class="mt-4">Cropped</SecondaryButton>
-        </div>
-
-      </template>
+      </template> -->
 
       <template #buttons>
         <SecondaryButton type="button" @click="closeModal">

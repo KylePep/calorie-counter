@@ -5,6 +5,9 @@ import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
 import { computed, onMounted, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
+import { Cropper } from "vue-advanced-cropper";
+import "vue-advanced-cropper/dist/style.css";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
@@ -20,6 +23,42 @@ const unitName = computed(() => {
     MLT: 'MilliLiter(s)'
   }[props.formData.servingSizeUnit];
 });
+
+const fileInput = ref(null);
+const previewImageURL = ref(null);
+const selectedFile = ref("");
+const cropperRef = ref(null);
+const croppedFile = ref(null);
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+};
+
+const handleFileChange = () => {
+  const file = fileInput.value.files[0];
+  if (file) {
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      previewImageURL.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    selectedFile.value = file.name;
+  }
+};
+
+function crop() {
+  const { coordinates, canvas, } = cropperRef.value.getResult();
+  canvas.toBlob((blob) => {
+    blob.name = form.photo + 'cropped';
+    blob.lastModified = new Date();
+    const myFile = new File([blob], blob.name + '.jpeg');
+    // console.log(myFile, myFile.image)
+    // previewImageURL.value = myFile;
+    croppedFile.value = myFile;
+  }, 'image/jpeg');
+  form.photo = previewImageURL.value;
+};
 
 const photoDisplay = computed(() => {
   return props.previewImageURL ? props.previewImageURL : props.formData.photo
@@ -134,7 +173,30 @@ const photoDisplay = computed(() => {
       <InputError :message="form.errors.ingredients"></InputError>
     </div>
 
-    <slot name="photoButton" />
+    <!-- <slot name="photoButton" /> -->
+    <div v-if="!form.photo">
+
+      <InputLabel value="Add Image" for="photo" />
+
+      <div class="flex space-x-1">
+        <div class="flex items-center">
+          <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
+          <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
+          <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
+            {{ selectedFile }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="previewImageURL" class="mt-4">
+      <Cropper v-if="!cropped" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
+        :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }" image-restriction="stencil"
+        class="border" />
+      <img v-else :src="previewImageURL" :alt="previewImageURL">
+      <PrimaryButton v-if="!cropped" @click="crop" class="mt-4">Crop</PrimaryButton>
+      <SecondaryButton v-else class="mt-4">Cropped</SecondaryButton>
+    </div>
 
 
     <div class="pb-3">

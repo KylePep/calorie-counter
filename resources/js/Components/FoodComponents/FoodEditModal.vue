@@ -94,35 +94,38 @@ async function updateItem() {
   });
 };
 
-const fileInput = ref(null);
-const previewImageURL = ref(null);
-const selectedFile = ref("");
-const cropperRef = ref(null);
-const cropped = ref(false);
+// const fileInput = ref(null);
+// const previewImageURL = ref(null);
+// const selectedFile = ref("");
+// const cropperRef = ref(null);
+// const cropped = ref(false);
 
-const triggerFileInput = () => {
-  fileInput.value.click();
-};
+// const triggerFileInput = () => {
+//   fileInput.value.click();
+// };
 
-const handleFileChange = () => {
-  const file = fileInput.value.files[0];
-  if (file) {
+// const handleFileChange = () => {
+//   const file = fileInput.value.files[0];
+//   if (file) {
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      previewImageURL.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    selectedFile.value = file.name;
-  }
-};
+//     const reader = new FileReader();
+//     reader.onload = (e) => {
+//       previewImageURL.value = e.target.result;
+//     };
+//     reader.readAsDataURL(file);
+//     selectedFile.value = file.name;
+//   }
+// };
 
-function crop() {
-  cropped.value = true;
-  const { coordinates, canvas, } = cropperRef.value.getResult();
-  previewImageURL.value = canvas.toDataURL();
-  form.photo = previewImageURL.value;
-};
+// function crop() {
+//   cropped.value = true;
+//   const { coordinates, canvas, } = cropperRef.value.getResult();
+//   canvas.toBlob((blob) => {
+//     // Do something with blob: upload to a server, download and etc.
+//     previewImageURL.value = blob;
+//   }, this.image.type);
+//   form.photo = previewImageURL.value;
+// };
 
 </script>
 
@@ -133,7 +136,7 @@ function crop() {
       <h1 class="text-center text-xl font-bold">Updating {{ form.description }}
       </h1>
     </template>
-
+    <!-- 
     <template #photoButton>
       <div v-if="!form.photo">
 
@@ -159,7 +162,7 @@ function crop() {
         <SecondaryButton v-else class="mt-4">Cropped</SecondaryButton>
       </div>
 
-    </template>
+    </template> -->
 
     <template #buttons>
       <SecondaryButton type="button" @click="closeModal">
