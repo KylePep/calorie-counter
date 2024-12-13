@@ -7,8 +7,8 @@ import { computed, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
-import "vue-advanced-cropper/dist/style.css";
 import { Cropper } from "vue-advanced-cropper";
+import "vue-advanced-cropper/dist/style.css";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
@@ -48,22 +48,23 @@ const handleFileChange = () => {
   }
 };
 
-// function crop() {
-//   const { coordinates, canvas, } = cropperRef.value.getResult();
-//   canvas.toBlob((blob) => {
-//     blob.name = form.photo + 'cropped';
-//     blob.lastModified = new Date();
-//     const myFile = new File([blob], blob.name + '.jpeg');
-//     // console.log(myFile, myFile.image)
-//     // previewImageURL.value = myFile;
-//     croppedFile.value = myFile;
-//   }, 'image/jpeg');
-//   form.photo = previewImageURL.value;
-// };
+function crop() {
+  const { coordinates, canvas, } = cropperRef.value.getResult();
+  canvas.toBlob((blob) => {
+    blob.name = form.photo + 'cropped';
+    blob.lastModified = new Date();
+    const myFile = new File([blob], blob.name + '.jpeg');
+    // console.log(myFile, myFile.image)
+    // previewImageURL.value = myFile;
+    croppedFile.value = myFile;
+  }, 'image/jpeg');
+  form.photo = croppedFile.value;
+};
 
-// const photoDisplay = computed(() => {
-//   return previewImageURL.value ? previewImageURL.value : props.formData.photo;
-// });
+const photoDisplay = computed(() => {
+  // return previewImageURL.value ? previewImageURL.value : props.formData.photo;
+  return croppedFile.value;
+});
 
 </script>
 
@@ -199,9 +200,9 @@ const handleFileChange = () => {
       <Cropper v-if="!croppedFile" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
         :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }" image-restriction="stencil"
         class="border" />
-      <img v-else :src="previewImageURL" :alt="previewImageURL">
-      <PrimaryButton v-if="!croppedFile" @click="crop" class="mt-4">Crop</PrimaryButton>
-      <SecondaryButton v-else class="mt-4">Cropped</SecondaryButton>
+      <img v-else :src="photoDisplay" :alt="photoDisplay">
+      <PrimaryButton type="button" v-if="!croppedFile" @click="crop" class="mt-4">Crop</PrimaryButton>
+      <SecondaryButton type="button" v-else class="mt-4">Cropped</SecondaryButton>
     </div>
 
     <!-- Nutrients -->
