@@ -2,14 +2,11 @@
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import Pop from "@/utils/Pop.js";
 import Modal from "../Form/Modal.vue";
 import FoodDetailsForm from "./FoodDetailsForm.vue";
 import MenuButton from "../Menu/MenuButton.vue";
-import InputLabel from "../Form/InputLabel.vue";
-import { Cropper } from "vue-advanced-cropper";
-import "vue-advanced-cropper/dist/style.css";
 
 const showCreateForm = ref(false);
 
@@ -55,17 +52,11 @@ const createFoodItem = () => {
   });
 };
 
-
 const closeModal = () => {
   showCreateForm.value = false;
-  selectedFile.value = "";
-  previewImageURL.value = null;
-
   form.clearErrors();
   form.reset();
 };
-
-
 
 </script>
 
@@ -73,7 +64,7 @@ const closeModal = () => {
   <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
 
   <Modal :show="showCreateForm" @close="closeModal">
-    <FoodDetailsForm :formData="form" :previewImageURL="previewImageURL" @cancel="closeModal">
+    <FoodDetailsForm :formData="form" @cancel="closeModal">
 
       <template #title>
         <h1 class="text-center text-xl font-bold">Create a Food</h1>
@@ -81,12 +72,6 @@ const closeModal = () => {
           calories!
         </h2>
       </template>
-
-
-      <!-- <template #photoButton>
-
-
-      </template> -->
 
       <template #buttons>
         <SecondaryButton type="button" @click="closeModal">
@@ -100,6 +85,7 @@ const closeModal = () => {
           <SecondaryButton v-else>Create</SecondaryButton>
         </div>
       </template>
+
     </FoodDetailsForm>
   </Modal>
 </template>

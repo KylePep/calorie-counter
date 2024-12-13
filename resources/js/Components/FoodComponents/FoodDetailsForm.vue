@@ -3,15 +3,16 @@ import InputLabel from "@/Components/Form/InputLabel.vue";
 import TextInput from "@/Components/Form/TextInput.vue";
 import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
-import { Cropper } from "vue-advanced-cropper";
+import SecondaryButton from "../Form/SecondaryButton.vue";
 import "vue-advanced-cropper/dist/style.css";
+import { Cropper } from "vue-advanced-cropper";
 
 const emit = defineEmits(['submitForm', 'cancel']);
 
-const props = defineProps(['formData', 'previewImageURL']);
+const props = defineProps(['formData']);
 
 const form = computed(() => props.formData);
 
@@ -25,8 +26,8 @@ const unitName = computed(() => {
 });
 
 const fileInput = ref(null);
-const previewImageURL = ref(null);
 const selectedFile = ref("");
+const previewImageURL = ref(null);
 const cropperRef = ref(null);
 const croppedFile = ref(null);
 
@@ -47,29 +48,31 @@ const handleFileChange = () => {
   }
 };
 
-function crop() {
-  const { coordinates, canvas, } = cropperRef.value.getResult();
-  canvas.toBlob((blob) => {
-    blob.name = form.photo + 'cropped';
-    blob.lastModified = new Date();
-    const myFile = new File([blob], blob.name + '.jpeg');
-    // console.log(myFile, myFile.image)
-    // previewImageURL.value = myFile;
-    croppedFile.value = myFile;
-  }, 'image/jpeg');
-  form.photo = previewImageURL.value;
-};
+// function crop() {
+//   const { coordinates, canvas, } = cropperRef.value.getResult();
+//   canvas.toBlob((blob) => {
+//     blob.name = form.photo + 'cropped';
+//     blob.lastModified = new Date();
+//     const myFile = new File([blob], blob.name + '.jpeg');
+//     // console.log(myFile, myFile.image)
+//     // previewImageURL.value = myFile;
+//     croppedFile.value = myFile;
+//   }, 'image/jpeg');
+//   form.photo = previewImageURL.value;
+// };
 
-const photoDisplay = computed(() => {
-  return props.previewImageURL ? props.previewImageURL : props.formData.photo
-})
+// const photoDisplay = computed(() => {
+//   return previewImageURL.value ? previewImageURL.value : props.formData.photo;
+// });
+
 </script>
 
 
 <template>
 
-  <form @submit.prevent="createFoodItem" class="space-y-3">
+  <form @submit.prevent="" class="space-y-3">
 
+    <!-- Header -->
     <div v-if="photoDisplay"
       :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), url(${photoDisplay})`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
       class="flex flex-col text-white text-shadow-2xl rounded">
@@ -87,7 +90,7 @@ const photoDisplay = computed(() => {
       <slot name="title"></slot>
     </div>
 
-
+    <!-- Description -->
     <div class="flex">
       <div class="basis-3/5 me-3">
         <InputLabel for="description" value="Name or description"></InputLabel>
@@ -110,6 +113,7 @@ const photoDisplay = computed(() => {
       </div>
     </div>
 
+    <!-- Calories, Serving Size, Serving Unit -->
     <div class="flex flex-col sm:flex-row  sm:items-center space-y-2 sm:space-y-0">
 
       <div class="sm:basis-3/5 me-3">
@@ -146,7 +150,7 @@ const photoDisplay = computed(() => {
 
     <div>
 
-
+      <!-- Brand -->
       <div class="flex ">
         <div class="basis-1/2 me-3">
           <InputLabel for="brandName" value="Brand Name"></InputLabel>
@@ -164,6 +168,7 @@ const photoDisplay = computed(() => {
       </div>
     </div>
 
+    <!-- Ingredients -->
     <div>
       <InputLabel for="ingredients" value="Ingredients">
       </InputLabel>
@@ -173,8 +178,9 @@ const photoDisplay = computed(() => {
       <InputError :message="form.errors.ingredients"></InputError>
     </div>
 
-    <!-- <slot name="photoButton" /> -->
-    <div v-if="!form.photo">
+    <!-- Photo -->
+
+    <div v-if="!props.formData.photo">
 
       <InputLabel value="Add Image" for="photo" />
 
@@ -190,15 +196,15 @@ const photoDisplay = computed(() => {
     </div>
 
     <div v-if="previewImageURL" class="mt-4">
-      <Cropper v-if="!cropped" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
+      <Cropper v-if="!croppedFile" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
         :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }" image-restriction="stencil"
         class="border" />
       <img v-else :src="previewImageURL" :alt="previewImageURL">
-      <PrimaryButton v-if="!cropped" @click="crop" class="mt-4">Crop</PrimaryButton>
+      <PrimaryButton v-if="!croppedFile" @click="crop" class="mt-4">Crop</PrimaryButton>
       <SecondaryButton v-else class="mt-4">Cropped</SecondaryButton>
     </div>
 
-
+    <!-- Nutrients -->
     <div class="pb-3">
       <CollapsableFolder :state="false">
         <template #title>
