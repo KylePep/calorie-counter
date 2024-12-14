@@ -9,6 +9,7 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import MenuButton from "../Menu/MenuButton.vue";
 
 const showCreateForm = ref(false);
+const imageState = ref(null);
 
 const confirmFoodDetails = () => {
   showCreateForm.value = true;
@@ -39,7 +40,7 @@ const form = useForm({
 
 
 const createFoodItem = () => {
-  console.log(form, '[PHOTO]', form.photo)
+  if (imageState == 'selected') return
   form.post(route('foodItem.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`);
@@ -52,10 +53,8 @@ const createFoodItem = () => {
   });
 };
 
-const cropped = ref(false);
-
-const croppedImage = () => {
-  cropped.value = true;
+const setImageState = (state) => {
+  imageState.value = state;
 }
 
 const closeModal = () => {
@@ -70,7 +69,7 @@ const closeModal = () => {
   <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
 
   <Modal :show="showCreateForm" @close="closeModal">
-    <FoodDetailsForm :formData="form" @cancel="closeModal" @cropped="croppedImage" :cropped="isCropped">
+    <FoodDetailsForm :formData="form" @cancel="closeModal" @imageState="setImageState" :imageState="currentImageState">
 
       <template #title>
         <h1 class="text-center text-xl font-bold">Create a Food</h1>
@@ -83,11 +82,11 @@ const closeModal = () => {
         <SecondaryButton type="button" @click="closeModal">
           Cancel
         </SecondaryButton>
-        <PrimaryButton v-if="!form.photo" @click="createFoodItem">
+        <PrimaryButton v-if="!imageState == 'selected'" @click="createFoodItem">
           Create
         </PrimaryButton>
         <div v-else>
-          <PrimaryButton v-if="cropped" @click="createFoodItem">Create</PrimaryButton>
+          <PrimaryButton v-if="imageState == 'cropped'" @click="createFoodItem">Create</PrimaryButton>
           <SecondaryButton v-else>Create</SecondaryButton>
         </div>
       </template>

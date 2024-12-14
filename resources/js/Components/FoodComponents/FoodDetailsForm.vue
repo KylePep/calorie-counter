@@ -3,16 +3,16 @@ import InputLabel from "@/Components/Form/InputLabel.vue";
 import TextInput from "@/Components/Form/TextInput.vue";
 import InputError from "@/Components/Form/InputError.vue";
 import NumberInput from "@/Components/Form/NumberInput.vue";
-import { computed, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import CollapsableFolder from "../Displays/CollapsableFolder.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
 import SecondaryButton from "../Form/SecondaryButton.vue";
 import { Cropper } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 
-const emit = defineEmits(['submitForm', 'cancel', 'cropped']);
+const emit = defineEmits(['submitForm', 'cancel', 'imageState']);
 
-const props = defineProps(['formData', 'isCropped']);
+const props = defineProps(['formData', 'currentImageState']);
 
 const form = computed(() => props.formData);
 
@@ -37,7 +37,6 @@ const triggerFileInput = () => {
 
 const handleFileChange = () => {
   const file = fileInput.value.files[0];
-  console.log('[File]', file)
 
   if (file) {
 
@@ -47,38 +46,41 @@ const handleFileChange = () => {
     };
     reader.readAsDataURL(file);
     selectedFile.value = file.name;
+    emit('imageState', 'selected');
   }
 };
 
 function crop() {
   const { coordinates, canvas } = cropperRef.value.getResult();
   const name = selectedFile.value.split('.')[0];
+  const truncatedName = name.substring(0, 10);
+  const currentDate = new Date().toISOString().slice(0, 10);
+  const finalName = `${truncatedName}-${currentDate}-cropped`;
 
   canvas.toBlob((blob) => {
-    // Set metadata for the file
-    blob.name = name + 'cropped';
+    blob.name = finalName;
     blob.lastModified = new Date();
 
-    // Create a File object if needed
     const myFile = new File([blob], blob.name + '.jpeg', { type: 'image/jpeg' });
 
-
-    // Create a URL for the image to use in <img>
     const objectURL = URL.createObjectURL(blob);
 
-    // Update croppedFile
     croppedFile.value = objectURL;
-    props.formData.photo = myFile; // Assign object URL to the photo field
+    form.value.photo = myFile;
+
   }, 'image/jpeg');
-  emit('cropped');
+  emit('imageState', 'cropped');
 }
 
-const photoBGDisplay = computed(() => {
-  return `url(${croppedFile.value ? croppedFile.value : form.value.photo})`
-});
 const photoDisplay = computed(() => {
   return croppedFile.value ? croppedFile.value : form.value.photo
 });
+
+onUnmounted(() => {
+  if (croppedFile.value) {
+    URL.revokeObjectURL(croppedFile.value);
+  }
+})
 
 </script>
 
@@ -88,7 +90,7 @@ const photoDisplay = computed(() => {
   <form @submit.prevent="" class="space-y-3">
     <!-- Header -->
     <div v-if="form.photo"
-      :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), ${photoBGDisplay}`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
+      :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), url(${photoDisplay})`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
       class="flex flex-col text-white text-shadow-2xl rounded">
       <div class="h-full w-full p-2 rounded" :style="{ backdropFilter: 'blur(3px)' }">
 

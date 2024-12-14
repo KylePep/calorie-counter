@@ -11,6 +11,8 @@ const emit = defineEmits(['closeModal']);
 
 const props = defineProps(['foodItem']);
 
+const imageState = ref(null);
+
 const form = useForm({
   fdcId: '',
   description: '',
@@ -61,6 +63,8 @@ async function deleteItem() {
 
 async function updateItem() {
 
+  if (imageState == 'selected') return
+
   form.post(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     data: {
@@ -77,10 +81,8 @@ async function updateItem() {
   });
 };
 
-const cropped = ref(false);
-
-const croppedImage = () => {
-  cropped.value = true;
+const setImageState = (state) => {
+  imageState.value = state;
 }
 
 const closeModal = () => {
@@ -93,7 +95,7 @@ const closeModal = () => {
 
 
 <template>
-  <FoodDetailsForm :formData="form" @cancel="closeModal" @cropped="croppedImage" :cropped="isCropped">
+  <FoodDetailsForm :formData="form" @cancel="closeModal" @imageState="setImageState" :imageState="currentImageState">
     <template #title>
       <h1 class="text-center text-xl font-bold">Updating {{ form.description }}
       </h1>
@@ -106,11 +108,11 @@ const closeModal = () => {
       <DangerButton type="button" @click="deleteItem">
         Delete
       </DangerButton>
-      <PrimaryButton v-if="!previewImageURL" @click="updateItem">
+      <PrimaryButton v-if="!imageState == 'selected'" @click="updateItem">
         Update
       </PrimaryButton>
       <div v-else>
-        <PrimaryButton v-if="cropped" @click="updateItem">Update</PrimaryButton>
+        <PrimaryButton v-if="imageState == 'cropped'" @click="updateItem">Update</PrimaryButton>
         <SecondaryButton v-else>Update</SecondaryButton>
       </div>
     </template>
