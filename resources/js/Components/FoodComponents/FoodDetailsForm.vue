@@ -12,7 +12,7 @@ import "vue-advanced-cropper/dist/style.css";
 
 const emit = defineEmits(['submitForm', 'cancel', 'cropped']);
 
-const props = defineProps(['formData']);
+const props = defineProps(['formData', 'isCropped']);
 
 const form = computed(() => props.formData);
 
@@ -47,7 +47,6 @@ const handleFileChange = () => {
     };
     reader.readAsDataURL(file);
     selectedFile.value = file.name;
-    props.formData.photo = file.name
   }
 };
 
@@ -74,8 +73,11 @@ function crop() {
   emit('cropped');
 }
 
+const photoBGDisplay = computed(() => {
+  return `url(${croppedFile.value ? croppedFile.value : form.value.photo})`
+});
 const photoDisplay = computed(() => {
-  return `url(${form.value.photo ? form.value.photo : croppedFile.value})`
+  return croppedFile.value ? croppedFile.value : form.value.photo
 });
 
 </script>
@@ -86,12 +88,12 @@ const photoDisplay = computed(() => {
   <form @submit.prevent="" class="space-y-3">
     <!-- Header -->
     <div v-if="form.photo"
-      :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), ${photoDisplay}`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
+      :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), ${photoBGDisplay}`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
       class="flex flex-col text-white text-shadow-2xl rounded">
       <div class="h-full w-full p-2 rounded" :style="{ backdropFilter: 'blur(3px)' }">
 
         <div class="w-1/2 mx-auto p-4 ">
-          <img :src="form.photo" :alt="photoDisplay" class="rounded">
+          <img :src="photoDisplay" :alt="photoDisplay" class="rounded">
         </div>
 
         <slot name="title"></slot>
@@ -211,7 +213,7 @@ const photoDisplay = computed(() => {
       <Cropper v-if="!croppedFile" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
         :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }" image-restriction="stencil"
         class="border" />
-      <img v-else :src="photoDisplay" :alt="photoDisplay">
+      <img v-else :src="form.photo" :alt="form.photo">
       <PrimaryButton type="button" v-if="!croppedFile" @click="crop" class="mt-4">Crop</PrimaryButton>
       <SecondaryButton type="button" v-else class="mt-4">Cropped</SecondaryButton>
     </div>

@@ -5,6 +5,7 @@ import FoodDetailsForm from "./FoodDetailsForm.vue";
 import DangerButton from "../Form/DangerButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import Pop from "@/utils/Pop.js";
+import { ref } from "vue";
 
 const emit = defineEmits(['closeModal']);
 
@@ -76,6 +77,12 @@ async function updateItem() {
   });
 };
 
+const cropped = ref(false);
+
+const croppedImage = () => {
+  cropped.value = true;
+}
+
 const closeModal = () => {
   emit('closeModal');
   form.clearErrors();
@@ -86,7 +93,7 @@ const closeModal = () => {
 
 
 <template>
-  <FoodDetailsForm :formData="form" @cancel="closeModal">
+  <FoodDetailsForm :formData="form" @cancel="closeModal" @cropped="croppedImage" :cropped="isCropped">
     <template #title>
       <h1 class="text-center text-xl font-bold">Updating {{ form.description }}
       </h1>
