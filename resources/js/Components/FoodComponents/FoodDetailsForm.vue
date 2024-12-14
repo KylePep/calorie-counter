@@ -108,8 +108,8 @@ onUnmounted(() => {
       class="flex flex-col text-white text-shadow-2xl rounded">
       <div class="h-full w-full p-2 rounded" :style="{ backdropFilter: 'blur(3px)' }">
 
-        <div class="w-1/2 mx-auto p-4 ">
-          <img :src="photoDisplay" :alt="photoDisplay" class="rounded">
+        <div class="w-1/2 mx-auto pb-2">
+          <img :src="photoDisplay" :alt="photoDisplay" class="rounded shadow-lg shadow-light/25">
         </div>
 
         <slot name="title"></slot>
