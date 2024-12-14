@@ -153,7 +153,7 @@ function buttonClasses(value) {
   <div class="bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
     <form @submit.prevent="parseFetchType" class="grid grid-cols-10 gap-1 ">
 
-      <div class="col-span-3 sm:col-span-2 flex items-center ">
+      <div class="col-span-3 lg:col-span-2 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
 
           <template #trigger>
@@ -187,12 +187,12 @@ function buttonClasses(value) {
       <div v-if="form.type != 'App'"
         class="col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
         <span
-          class="block sm:hidden ps-1 text-[6px] leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
+          class="block lg:hidden ps-1 text-[6px] leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
           <br>
           All <br>
           Words</span>
         <span
-          class="hidden sm:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
+          class="hidden lg:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
           All
           Words</span>
         <Checkbox name="requireAllWords" class="h-6 w-6 group-hover:text-accent"
@@ -204,17 +204,14 @@ function buttonClasses(value) {
 
 
 
-      <div class="col-span-4 relative flex items-center ">
+      <div class="col-span-4 lg:col-span-5 relative flex items-center ">
         <TextInput id="query" type="text" class="w-full h-8 rounded text-xs lg:text-sm" v-model="form.query" required />
         <InputError :message="form.errors.query" />
 
         <button class="absolute right-0">
           <i
-            class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl sm:text-2xl ps-8 pe-2 duration-300"></i>
+            class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl lg:text-2xl ps-8 pe-2 duration-300"></i>
         </button>
-      </div>
-      <div class="hidden lg:block">
-        <BarcodeScanner @set-active="setActive" />
       </div>
 
     </form>
