@@ -213,7 +213,7 @@ const photoDisplay = computed(() => {
       <Cropper v-if="!croppedFile" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
         :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }" image-restriction="stencil"
         class="border" />
-      <img v-else :src="form.photo" :alt="form.photo">
+      <img v-else :src="photoDisplay" :alt="photoDisplay">
       <PrimaryButton type="button" v-if="!croppedFile" @click="crop" class="mt-4">Crop</PrimaryButton>
       <SecondaryButton type="button" v-else class="mt-4">Cropped</SecondaryButton>
     </div>
