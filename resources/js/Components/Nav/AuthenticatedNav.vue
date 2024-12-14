@@ -71,7 +71,7 @@ onUnmounted(() => {
                     <Dropdown align="right" width="48">
                         <template #trigger>
                             <span class="inline-flex rounded-md">
-                                <button type="button"
+                                <button aria-label="nav drop down" type="button"
                                     class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-light-text bg-dark hover:text-accent focus:outline-none transition ease-in-out duration-150">
                                     {{ $page.props.auth.user.name }}
 
@@ -99,7 +99,7 @@ onUnmounted(() => {
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="showingNavigationDropdown = !showingNavigationDropdown"
+                <button aria-label="nav drop down" @click="showingNavigationDropdown = !showingNavigationDropdown"
                     class="inline-flex items-center justify-center p-2 rounded-md text-light-text hover:text-dark-text hover:bg-accent focus:outline-none focus:bg-accent focus:text-dark-text transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{

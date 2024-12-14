@@ -27,7 +27,7 @@ const bottomBannerPage = computed(() => {
     <p class="text-white text-sm font-bold">calorie calculation</p>
     <p class="text-white text-3xl">Use the calculator to set your goal</p>
     <Link :href="route('calculator')"
-      class="text-base text-accent hover:text-accent-light font-bold uppercase bg-white px-28 sm:px-32 py-4 duration-300">
+      class="text-base text-accent-dark hover:text-accent-light font-bold uppercase bg-white px-28 sm:px-32 py-4 duration-300">
     get your bmr!
     </Link>
   </div>

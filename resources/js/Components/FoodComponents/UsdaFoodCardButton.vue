@@ -19,7 +19,7 @@ const iconClass = computed(() => {
 
   <div class=" group flex justify-end items-center h-full">
 
-    <button
+    <button name="usda food item button"
       class="group relative flex items-center justify-end text-xl bg-accent text-dark-text rounded-xl group-hover:bg-neutral focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ps-2 transition ease-in-out duration-300">
       <span
         class="text-sm px-1 left-0 group-hover:-translate-x-0 group-hover:text-white text-transparent ease-in-out me-1 translate-x-10 delay-0 group-hover:delay-300 transition">
