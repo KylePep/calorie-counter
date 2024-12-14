@@ -10,7 +10,7 @@ import SecondaryButton from "../Form/SecondaryButton.vue";
 import { Cropper } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 
-const emit = defineEmits(['submitForm', 'cancel']);
+const emit = defineEmits(['submitForm', 'cancel', 'cropped']);
 
 const props = defineProps(['formData']);
 
@@ -37,6 +37,8 @@ const triggerFileInput = () => {
 
 const handleFileChange = () => {
   const file = fileInput.value.files[0];
+  console.log('[File]', file)
+
   if (file) {
 
     const reader = new FileReader();
@@ -45,25 +47,35 @@ const handleFileChange = () => {
     };
     reader.readAsDataURL(file);
     selectedFile.value = file.name;
+    props.formData.photo = file.name
   }
 };
 
 function crop() {
-  const { coordinates, canvas, } = cropperRef.value.getResult();
+  const { coordinates, canvas } = cropperRef.value.getResult();
+  const name = selectedFile.value.split('.')[0];
+
   canvas.toBlob((blob) => {
-    blob.name = form.photo + 'cropped';
+    // Set metadata for the file
+    blob.name = name + 'cropped';
     blob.lastModified = new Date();
-    const myFile = new File([blob], blob.name + '.jpeg');
-    // console.log(myFile, myFile.image)
-    // previewImageURL.value = myFile;
-    croppedFile.value = myFile;
+
+    // Create a File object if needed
+    const myFile = new File([blob], blob.name + '.jpeg', { type: 'image/jpeg' });
+
+
+    // Create a URL for the image to use in <img>
+    const objectURL = URL.createObjectURL(blob);
+
+    // Update croppedFile
+    croppedFile.value = objectURL;
+    props.formData.photo = myFile; // Assign object URL to the photo field
   }, 'image/jpeg');
-  form.photo = croppedFile.value;
-};
+  emit('cropped');
+}
 
 const photoDisplay = computed(() => {
-  // return previewImageURL.value ? previewImageURL.value : props.formData.photo;
-  return croppedFile.value;
+  return `url(${form.value.photo ? form.value.photo : croppedFile.value})`
 });
 
 </script>
@@ -72,15 +84,14 @@ const photoDisplay = computed(() => {
 <template>
 
   <form @submit.prevent="" class="space-y-3">
-
     <!-- Header -->
-    <div v-if="photoDisplay"
-      :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), url(${photoDisplay})`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
+    <div v-if="form.photo"
+      :style="{ backgroundImage: `linear-gradient(to bottom, rgba(var(--hero-gradient), 0.25) 10%, rgba(var(--hero-gradient), 0.75) 80%, rgba(var(--hero-gradient), 1) 100%), ${photoDisplay}`, backgroundPosition: `50% 50%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }"
       class="flex flex-col text-white text-shadow-2xl rounded">
       <div class="h-full w-full p-2 rounded" :style="{ backdropFilter: 'blur(3px)' }">
 
         <div class="w-1/2 mx-auto p-4 ">
-          <img :src="photoDisplay" :alt="photoDisplay" class="rounded">
+          <img :src="form.photo" :alt="photoDisplay" class="rounded">
         </div>
 
         <slot name="title"></slot>

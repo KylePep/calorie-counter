@@ -39,7 +39,7 @@ const form = useForm({
 
 
 const createFoodItem = () => {
-  console.log(form)
+  console.log(form, '[PHOTO]', form.photo)
   form.post(route('foodItem.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`);
@@ -51,6 +51,12 @@ const createFoodItem = () => {
     },
   });
 };
+
+const cropped = ref(false);
+
+const croppedImage = () => {
+  cropped.value = true;
+}
 
 const closeModal = () => {
   showCreateForm.value = false;
@@ -64,7 +70,7 @@ const closeModal = () => {
   <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
 
   <Modal :show="showCreateForm" @close="closeModal">
-    <FoodDetailsForm :formData="form" @cancel="closeModal">
+    <FoodDetailsForm :formData="form" @cancel="closeModal" @cropped="croppedImage">
 
       <template #title>
         <h1 class="text-center text-xl font-bold">Create a Food</h1>
@@ -77,7 +83,7 @@ const closeModal = () => {
         <SecondaryButton type="button" @click="closeModal">
           Cancel
         </SecondaryButton>
-        <PrimaryButton v-if="!previewImageURL" @click="createFoodItem">
+        <PrimaryButton v-if="!form.photo" @click="createFoodItem">
           Create
         </PrimaryButton>
         <div v-else>
