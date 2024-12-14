@@ -76,6 +76,20 @@ const photoDisplay = computed(() => {
   return croppedFile.value ? croppedFile.value : form.value.photo
 });
 
+function cancelImageUpload() {
+  if (croppedFile.value) {
+    URL.revokeObjectURL(croppedFile.value);
+  }
+
+  form.value.photo = '';
+  fileInput.value = null;
+  selectedFile.value = "";
+  previewImageURL.value = null;
+  cropperRef.value = null;
+  croppedFile.value = null;
+  emit('imageState', null);
+}
+
 onUnmounted(() => {
   if (croppedFile.value) {
     URL.revokeObjectURL(croppedFile.value);
@@ -200,22 +214,32 @@ onUnmounted(() => {
 
       <InputLabel value="Add Image" for="photo" />
 
-      <div class="flex space-x-1">
-        <div class="flex items-center">
-          <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
-          <PrimaryButton type="button" @click="triggerFileInput" class="text-nowrap">From File</PrimaryButton>
-          <div v-if="selectedFile" class="w-full pe-10 ms-2 text-sm text-nowrap truncate">
-            {{ selectedFile }}
-          </div>
+      <div class="grid grid-cols-4 gap-2">
+        <input ref="fileInput" type="file" name="photo" id="photo" class="hidden" @change="handleFileChange">
+        <PrimaryButton v-if="!selectedFile" type="button" @click="triggerFileInput"
+          class="col-span-2 flex justify-center">From
+          File
+        </PrimaryButton>
+        <SecondaryButton v-else type="button" @click="cancelImageUpload" class="col-span-2 flex justify-center">Cancel
+          Image Upload
+        </SecondaryButton>
+
+        <div v-if="selectedFile" class="col-span-4 lg:col-span-3 text-sm truncate">
+          {{ selectedFile }}
         </div>
       </div>
     </div>
 
     <div v-if="previewImageURL" class="mt-4">
       <Cropper v-if="!croppedFile" ref="cropperRef" :src="previewImageURL" :auto-zoom="true"
-        :stencil-size="{ width: 280, height: 140 }" :canvas="{ width: 280, height: 140 }" image-restriction="stencil"
+        :stencil-size="{ width: 280, height: 180 }" :canvas="{ width: 280, height: 180 }" image-restriction="stencil"
         class="border" />
-      <img v-else :src="photoDisplay" :alt="photoDisplay">
+      <div v-else class="space-y-2">
+        <SecondaryButton type="button" @click="cancelImageUpload" class="col-span-2 flex justify-center">Cancel
+          Image Upload
+        </SecondaryButton>
+        <img :src="photoDisplay" :alt="photoDisplay">
+      </div>
       <PrimaryButton type="button" v-if="!croppedFile" @click="crop" class="mt-4">Crop</PrimaryButton>
       <SecondaryButton type="button" v-else class="mt-4">Cropped</SecondaryButton>
     </div>

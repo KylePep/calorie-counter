@@ -108,7 +108,7 @@ const closeModal = () => {
       <DangerButton type="button" @click="deleteItem">
         Delete
       </DangerButton>
-      <PrimaryButton v-if="!imageState == 'selected'" @click="updateItem">
+      <PrimaryButton v-if="!imageState" @click="updateItem">
         Update
       </PrimaryButton>
       <div v-else>

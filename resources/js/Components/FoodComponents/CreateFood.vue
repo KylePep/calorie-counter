@@ -59,6 +59,7 @@ const setImageState = (state) => {
 
 const closeModal = () => {
   showCreateForm.value = false;
+  imageState.value = null;
   form.clearErrors();
   form.reset();
 };
@@ -82,7 +83,7 @@ const closeModal = () => {
         <SecondaryButton type="button" @click="closeModal">
           Cancel
         </SecondaryButton>
-        <PrimaryButton v-if="!imageState == 'selected'" @click="createFoodItem">
+        <PrimaryButton v-if="!imageState" @click="createFoodItem">
           Create
         </PrimaryButton>
         <div v-else>
