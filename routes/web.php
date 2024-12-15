@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\CarrotController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\FoodUsdaController;
 use App\Http\Controllers\HistoryController;
@@ -23,6 +24,9 @@ Route::get('/calculator', [CalculatorController::class, 'create'])->name('calcul
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
 
     Route::get('/history', [HistoryController::class, 'show'])
         ->name('history');

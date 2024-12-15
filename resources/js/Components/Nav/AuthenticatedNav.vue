@@ -35,8 +35,8 @@ onUnmounted(() => {
         <div class="flex justify-between h-16 mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Logo -->
             <div class="flex w-full -my-2">
-                <Link class="inline-flex items-center p-2" :href="route('welcome')"
-                    :active="route().current('welcome')">
+                <Link class="inline-flex items-center p-2" :href="route('dashboard')"
+                    :active="route().current('dashboard')">
                 <ApplicationLogo class=" duration-1000" />
                 </Link>
             </div>
