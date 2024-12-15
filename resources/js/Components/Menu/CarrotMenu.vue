@@ -19,7 +19,7 @@ function comparisonClasses(carrot) {
   const valueClass = carrotState(carrot);
 
   return {
-    success: 'text-light-text font-bold animate-pulse bg-special rounded px-1 hover:bg-neutral hover:text-light-text',
+    success: 'text-white font-bold animate-pulse bg-green-500 rounded px-2 py-1 hover:bg-green-800 hover:text-light-text border border-dark',
     fail: 'text-neutral',
   }[valueClass];
 
@@ -58,7 +58,7 @@ function completeCarrot(carrot) {
       <div v-if="props.carrots.incomplete">
         <div v-for="carrot in props.carrots.incomplete" :key="carrot.id"
           class="bg-main px-2 py-1 rounded-sm my-1 font-bold text-xs flex justify-between">
-          <div>
+          <div class="flex items-center">
             {{ carrot.description }} - {{ carrot.goalPost }}
           </div>
           <div v-if="carrot.currentValue" :class="comparisonClasses(carrot)">
