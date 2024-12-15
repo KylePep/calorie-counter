@@ -17,12 +17,12 @@ function buttonClasses(mode, button) {
     <div class="flex items-center col-span-2 font-bold px-2">
       Display: <span class="ms-2 font-normal uppercase">{{ displayMode }}</span>
     </div>
-    <button @click="displayMode = 'list'" :class="buttonClasses(displayMode, 'list')"
+    <button aria-label="list mode" @click="displayMode = 'list'" :class="buttonClasses(displayMode, 'list')"
       class="flex justify-center rounded"> <span class="hidden sm:block">List</span>
       <i class="ms-2 mdi mdi-card-text"></i>
     </button>
 
-    <button @click="displayMode = 'bar'" :class="buttonClasses(displayMode, 'bar')"
+    <button aria-label="bar mode" @click="displayMode = 'bar'" :class="buttonClasses(displayMode, 'bar')"
       class="flex justify-center rounded"><span class="hidden sm:block">Progress
         Bar</span> <i class="ms-2 mdi mdi-poll rotate-90"></i>
     </button>

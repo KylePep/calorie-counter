@@ -43,12 +43,12 @@ async function searchHistory(type) {
   <form @submit.prevent="" class="grid grid-cols-2 gap-2 bg-white rounded border border-light shadow-lg p-3">
 
     <div class="col-span-2 sm:col-span-1 grid grid-cols-2 space-x-2">
-      <DateInput type="date" v-model="form.day" id="day" />
+      <DateInput aria-label="Date Input" type="date" v-model="form.day" id="day" />
       <PrimaryButton @click="searchHistory('day')">Search day</PrimaryButton>
     </div>
 
     <div class="col-span-2 sm:col-span-1 grid grid-cols-2 space-x-2">
-      <MonthInput type="month" v-model="form.month" id="month" />
+      <MonthInput aria-label="Month Input" type="month" v-model="form.month" id="month" />
       <PrimaryButton @click="searchHistory('month')">Search Month</PrimaryButton>
     </div>
 
