@@ -148,15 +148,15 @@ const closeModal = () => {
 
     <h2 v-if="uncompletedCarrots.length" class="font-bold mdi mdi-human-male">Uncompleted</h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-      <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light/50 rounded px-2 py-1">
+      <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light/50 rounded px-2 py-2">
         <p class="font-semibold">{{ carrot.description }} : <span class="font-normal">{{ carrot.goalPost }}</span> </p>
         <div class="flex space-x-4">
           <button aria-label="Edit Carrot" @click="setEditForm(carrot)"
-            class="mdi mdi-pencil text-light-text bg-yellow-800 hover:bg-yellow-500 hover:text-dark-text px-1 rounded-sm duration-300"></button>
+            class="mdi mdi-pencil text-light-text bg-yellow-800 hover:bg-yellow-500 hover:text-dark-text border border-dark px-1 rounded-sm duration-300"></button>
           <button aria-label="Complete Carrot" @click="completeCarrot(carrot)"
-            class="mdi mdi-check-bold text-light-text bg-green-800 hover:bg-green-500 hover:text-dark-text px-1 rounded-sm duration-300"></button>
+            class="mdi mdi-check-bold text-light-text bg-green-800 hover:bg-green-500 hover:text-dark-text border border-dark px-1 rounded-sm duration-300"></button>
           <button aria-label="Delete Carrot" @click="deleteCarrot(carrot)"
-            class="mdi mdi-close-thick text-light-text bg-red-800 hover:bg-red-500 hover:text-dark-text px-1 rounded-sm duration-300"></button>
+            class="mdi mdi-close-thick text-light-text bg-red-800 hover:bg-red-500 hover:text-dark-text border border-dark px-1 rounded-sm duration-300"></button>
         </div>
       </div>
     </div>
