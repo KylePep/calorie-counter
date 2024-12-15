@@ -8,14 +8,14 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
 </script>
 
 <template>
-    <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Welcome" heroImage="/assets/CalorieCounter.jpeg"
+    <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Welcome" heroImage="/assets/CalorieCounter.webp"
         heroHeight="10">
 
         <template #header>
             Calories? Counted <i class="mdi mdi-heart-box"></i>
         </template>
 
-        <div class="min-h-screen flex flex-col justify-between space-y-24">
+        <div class="min-h-screen flex flex-col justify-between space-y-24 mt-60 lg:mt-48">
 
             <section class="text-center text-neutral sm:min-h-96">
                 <UsdaFeature />

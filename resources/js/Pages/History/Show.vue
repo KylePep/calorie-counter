@@ -31,7 +31,7 @@ onMounted(() => {
     <meta type="description" content="Calorie History" head-key="Food">
   </Head>
 
-  <GlobalLayout heroImage="/assets/calorieHistory.jpeg" heroHeight="50">
+  <GlobalLayout heroImage="/assets/calorieHistory.webp" heroHeight="50">
 
     <template #header>
       Your History

@@ -10,11 +10,10 @@
   <h3 class="capitalize text-neutral-text text-3xl font-bold">Powered By the usda database</h3>
   <h4 class="py-1 text-neutral-text text-sm">CalorieCalculator uses the usda's database to get accurate diet information
   </h4>
-  <div loading="lazy" class="border-2 border-light shadow-xl rounded h-52 sm:h-96 mt-4" :style="{
-    backgroundImage: `url(/assets/usdaDesktop.png)`,
-    backgroundSize: '190%',
-    backgroundPosition: '37% 80%',
-    backgroundRepeat: 'no-repeat'
-  }">
+
+  <div class="relative overflow-hidden w-full h-52 sm:h-96">
+    <img src="/assets/usdaDesktop.webp" loading="lazy" class="w-full h-full scale-[1.9] origin-[37%_80%]">
   </div>
 </template>
+
+<style></style>

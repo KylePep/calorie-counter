@@ -11,7 +11,7 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
 
 <template>
 
-  <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Calculator" heroImage="/assets/calculator.jpeg"
+  <GlobalLayout :canLogin="canLogin" :canRegister="canRegister" head="Calculator" heroImage="/assets/calculator.webp"
     heroHeight="10">
 
     <template #header>

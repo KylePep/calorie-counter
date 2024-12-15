@@ -16,7 +16,7 @@ const renderHeroImage = computed(() => {
     if (props.account) {
         return null
     } else {
-        return '/assets/dashboardNoAccount.jpeg'
+        return '/assets/dashboardNoAccount.webp'
     }
 });
 

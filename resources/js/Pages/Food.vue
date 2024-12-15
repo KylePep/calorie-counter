@@ -47,7 +47,7 @@ const closeModal = () => {
     <meta type="description" content="Profile's Food" head-key="Food">
   </Head>
 
-  <GlobalLayout heroImage="/assets/blueprintSammich.jpeg" heroHeight="60">
+  <GlobalLayout heroImage="/assets/blueprintSammich.webp" heroHeight="60">
     <template #header>
       Your Foods
     </template>

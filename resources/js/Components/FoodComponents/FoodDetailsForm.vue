@@ -61,7 +61,7 @@ function crop() {
     blob.name = finalName;
     blob.lastModified = new Date();
 
-    const myFile = new File([blob], blob.name + '.jpeg', { type: 'image/jpeg' });
+    const myFile = new File([blob], blob.name + '.webp', { type: 'image/jpeg' });
 
     const objectURL = URL.createObjectURL(blob);
 
