@@ -11,6 +11,7 @@ import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import Modal from "../Form/Modal.vue";
 import BarcodeScanner from "../BarcodeScanner.vue";
+import InputLabel from "../Form/InputLabel.vue";
 
 const emit = defineEmits(['setActive']);
 
@@ -195,7 +196,7 @@ function buttonClasses(value) {
           class="hidden lg:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
           All
           Words</span>
-        <Checkbox name="requireAllWords" class="h-6 w-6 group-hover:text-accent"
+        <Checkbox name="requireAllWords" aria-label="require all words" class="h-6 w-6 group-hover:text-accent"
           v-model:checked="form.requireAllWords" />
       </div>
       <div v-else class="col-span-3">
@@ -205,10 +206,10 @@ function buttonClasses(value) {
 
 
       <div class="col-span-4 lg:col-span-5 relative flex items-center ">
-        <TextInput id="query" type="text" class="w-full h-8 rounded text-xs lg:text-sm" v-model="form.query" required />
+        <TextInput id="query" aria-label="Food query text" type="text" class="w-full h-8 rounded text-xs lg:text-sm"
+          v-model="form.query" required />
         <InputError :message="form.errors.query" />
-
-        <button class="absolute right-0">
+        <button aria-label="Search for food" id="search" class="absolute right-0">
           <i
             class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl lg:text-2xl ps-8 pe-2 duration-300"></i>
         </button>

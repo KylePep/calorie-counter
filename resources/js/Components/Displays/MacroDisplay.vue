@@ -61,22 +61,22 @@ function macroClass(index) {
       <div
         class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-md py-1 px-3 text-xs">
 
-        <span class="text-start font-bold text-dark-text/75 col-span-4 sm:col-span-2">
+        <span class="text-start font-bold text-dark-text col-span-4 sm:col-span-2">
           <p>{{ Math.round(calorieDayMacros[index] / macro * 100) }} %</p>
         </span>
 
-        <span class="hidden sm:block text-center font-bold text-dark-text/50 col-span-2 ">
+        <span class="hidden sm:block text-center font-bold text-dark-text col-span-2 ">
           <p>{{ Math.round(calorieDayMacros[index]) }}g</p>
         </span>
 
-        <span class=" col-span-2 sm:col-span-2 text-end font-bold text-dark-text/50">
+        <span class=" col-span-2 sm:col-span-2 text-end font-bold text-dark-text">
           <p>{{ macro }}g</p>
         </span>
       </div>
 
     </div>
 
-    <div v-for="macro, index in macros" class="text-center text-xs font-bold text-dark-text/50 uppercase">
+    <div v-for="macro, index in macros" class="text-center text-xs font-bold text-dark-text uppercase">
       {{ index }}
     </div>
   </div>

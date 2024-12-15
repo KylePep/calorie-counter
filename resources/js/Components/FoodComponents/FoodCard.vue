@@ -96,12 +96,11 @@ function blockClass(block) {
         </div>
 
         <div class="flex space-x-2">
-          <FoodCardButton aria-label="add food item" v-if="isDashboard || isCalorieDay" @click.stop="useItem()"
-            icon="plus">
+          <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="useItem()" icon="plus">
             Add
           </FoodCardButton>
-          <FoodCardButton aria-label="delete food item" v-if="!isDashboard && !isCalorieDay && page.url != '/'"
-            @click.stop="deleteItem()" icon="delete">Delete
+          <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'" @click.stop="deleteItem()"
+            icon="delete">Delete
           </FoodCardButton>
         </div>
 

@@ -20,7 +20,7 @@ const iconClass = computed(() => {
 
   <div class=" group flex justify-end items-center">
 
-    <button
+    <button aria-label="food item action"
       class="group min-w-8 relative flex items-center justify-end text-xl bg-accent-dark border-b-2 border-accent text-white  rounded group-hover:bg-neutral hover:border-light focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ps-2 transition ease-in-out duration-300">
       <span
         class="hidden sm:block text-xs px-1 left-0 group-hover:-translate-x-0 text-transparent group-hover:text-main ease-in-out text-sm me-1 translate-x-10 delay-0 group-hover:delay-300 transition ">
