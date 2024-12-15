@@ -8,10 +8,26 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
   <GlobalLayout head="Dashboard">
 
     <template #header>
-      Dashboard
+      <h2 class="font-semibold text-xl leading-tight">Dashboard</h2>
     </template>
 
-    <div class="min-h-screen flex flex-col justify-between space-y-60 lg:space-y-80 my-80 lg:my-48">
+    <div class="space-y-32 my-32">
+
+      <div>
+        Dashboard will show results, a kind of status report
+      </div>
+      <div>
+        A link that leads to counting
+      </div>
+      <div>
+        A portion that shows repeated food items across the last 31 days or so
+      </div>
+      <div>
+        Show potential food items made by the community that might be suitable for your calorie goals
+      </div>
+      <div>
+        Build a meal schedule
+      </div>
 
     </div>
 
