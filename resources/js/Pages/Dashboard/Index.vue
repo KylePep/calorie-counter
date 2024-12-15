@@ -4,7 +4,8 @@ import CalorieCount from "./partial/CalorieCount.vue";
 import CalorieSchedule from "./partial/CalorieSchedule.vue";
 import ConsumedReport from "./partial/ConsumedReport.vue";
 
-const props = defineProps(['canLogin', 'canRegister', 'account']);
+const props = defineProps(['account']);
+
 </script>
 
 <template>
@@ -14,19 +15,13 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
       <h2 class="font-semibold text-xl leading-tight">Dashboard</h2>
     </template>
 
-    <div class="space-y-32">
+    <div class="space-y-12">
 
-      <div>
-        <CalorieCount />
-      </div>
+      <CalorieCount />
 
-      <div>
-        <CalorieSchedule />
-      </div>
+      <CalorieSchedule />
 
-      <div>
-        <ConsumedReport />
-      </div>
+      <ConsumedReport />
 
     </div>
 
