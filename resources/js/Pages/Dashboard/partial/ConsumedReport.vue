@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+
+const props = defineProps(['account', 'calorieDays'])
+</script>
 
 
 <template>
@@ -11,6 +14,8 @@
     </h2>
     <div>Good days</div>
     <div>Bad days</div>
+    {{ props.account }}
+    {{ props.calorieDays }}
   </div>
 </template>
 

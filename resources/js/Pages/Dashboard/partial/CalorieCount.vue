@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+
+const props = defineProps(['calorieDay']);
+</script>
 
 
 <template>
@@ -10,6 +13,7 @@
       Todays calorie count
     </h2>
     <div>Heres how it is going</div>
+    {{ props.calorieDay }}
   </div>
 </template>
 

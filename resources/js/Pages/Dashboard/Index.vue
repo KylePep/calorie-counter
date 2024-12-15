@@ -4,7 +4,7 @@ import CalorieCount from "./partial/CalorieCount.vue";
 import CalorieSchedule from "./partial/CalorieSchedule.vue";
 import ConsumedReport from "./partial/ConsumedReport.vue";
 
-const props = defineProps(['account']);
+const props = defineProps(['account', 'calorieDay', 'calorieDays', 'foodItems']);
 
 </script>
 
@@ -17,11 +17,11 @@ const props = defineProps(['account']);
 
     <div class="space-y-12">
 
-      <CalorieCount />
+      <CalorieCount :calorieDay />
 
-      <CalorieSchedule />
+      <CalorieSchedule :account :foodItems />
 
-      <ConsumedReport />
+      <ConsumedReport :account :calorieDays />
 
     </div>
 

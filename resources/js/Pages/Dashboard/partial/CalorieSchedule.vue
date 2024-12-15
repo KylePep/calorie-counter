@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+
+const props = defineProps(['account', 'foodItems'])
+</script>
 
 
 <template>
@@ -10,6 +13,8 @@
       Designate where you would like your calories to go.
     </h2>
     <div>Find Meals that work for you.</div>
+    {{ account }}
+    {{ foodItems }}
   </div>
 </template>
 
