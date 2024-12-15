@@ -17,7 +17,7 @@ const props = defineProps(['account', 'calorieDay', 'calorieDays', 'foodItems'])
 
     <div class="space-y-12">
 
-      <CalorieCount :calorieDay />
+      <CalorieCount :account :calorieDay />
 
       <CalorieSchedule :account :foodItems />
 

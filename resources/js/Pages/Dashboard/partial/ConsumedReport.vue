@@ -14,8 +14,8 @@ const props = defineProps(['account', 'calorieDays'])
     </h2>
     <div>Good days</div>
     <div>Bad days</div>
-    {{ props.account }}
-    {{ props.calorieDays }}
+    <!-- {{ props.account }}
+    {{ props.calorieDays }} -->
   </div>
 </template>
 
