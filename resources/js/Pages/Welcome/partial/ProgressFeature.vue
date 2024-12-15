@@ -52,7 +52,7 @@ const getAnimationClass = (item) => {
   <div class=" grid grid-cols-2 gap-4 mt-4 shadow-xl">
     <div class="col-span-2">
       <div class="flex flex-col h-full text-start ">
-        <div class="px-4 py-2 bg-neutral text-sm lg:text-base  text-light-text rounded-t ">
+        <div class="px-4 py-2 bg-neutral text-sm lg:text-base  text-white rounded-t ">
           <p>While tracking your calories, each square will represent 100 calories.</p>
           <p>Squares within your goal's range have a special border. </p>
           <p>Meaning you'll have a better representation of how much a single food item impacts
@@ -73,7 +73,7 @@ const getAnimationClass = (item) => {
       </div>
 
       <div class="col-span-2 sm:col-span-1 order-1 sm:order-1">
-        <p class="px-4 py-2 bg-neutral text-sm lg:text-base  text-light-text text-start h-full">
+        <p class="px-4 py-2 bg-neutral text-sm lg:text-base  text-white text-start h-full">
           Higher calorie foods will
           appear larger
           compared to other foods in your
@@ -85,7 +85,7 @@ const getAnimationClass = (item) => {
       </div>
 
       <div class="col-span-2 sm:col-span-1 order-3 sm:order-2">
-        <p class="px-4 py-2 bg-neutral text-sm lg:text-base text-light-text text-start h-full">Selecting
+        <p class="px-4 py-2 bg-neutral text-sm lg:text-base text-white text-start h-full">Selecting
           foods from the
           USDA's
           database

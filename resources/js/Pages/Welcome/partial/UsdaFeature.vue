@@ -12,7 +12,8 @@
   </h4>
 
   <div class="relative overflow-hidden w-full h-52 sm:h-96">
-    <img src="/assets/usdaDesktop.webp" loading="lazy" class="w-full h-full scale-[1.9] origin-[37%_80%]">
+    <img src="/assets/usdaDesktop.webp" alt="usda descriptions" loading="lazy"
+      class="w-full h-full scale-[1.9] origin-[37%_80%]">
   </div>
 </template>
 

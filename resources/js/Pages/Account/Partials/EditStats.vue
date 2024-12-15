@@ -95,7 +95,8 @@ const updateAccount = () => {
             </div>
 
             <div class="col-span-2">
-              <div class="text-sm font-semibold leading-6 text-gray-900">Gender</div>
+              <InputLabel for="gender" value="Gender" />
+
               <p>{{ props.account.gender }}</p>
             </div>
 
@@ -103,11 +104,11 @@ const updateAccount = () => {
               <InputLabel for="height" value="Height" />
               <div class="grid grid-cols-2 gap-3">
                 <div class="mt-2">
-                  <p>{{ heightFeet }}<span class="py-1.5 px-5 font-bold text-black/50">Feet</span></p>
+                  <p>{{ heightFeet }}<span class="py-1.5 px-5 font-bold text-dark-text/75">Feet</span></p>
 
                 </div>
                 <div class="mt-2">
-                  <p>{{ heightInches }}<span class="py-1.5 px-5 font-bold text-black/50">Inches</span></p>
+                  <p>{{ heightInches }}<span class="py-1.5 px-5 font-bold text-dark-text/75">Inches</span></p>
 
                 </div>
               </div>
@@ -139,8 +140,8 @@ const updateAccount = () => {
           </div>
 
           <div class="col-span-2">
-            <legend class="text-sm font-semibold leading-6 text-gray-900">Gender</legend>
-            <div class="flex justify-start gap-x-3">
+            <InputLabel for="gender" value="Gender" />
+            <div class="flex justify-start gap-x-3 pt-1">
               <div class="flex items-center gap-x-3">
                 <input v-model="form.gender" id="gender-male" name="gender" type="radio" value="Male"
                   class="h-4 w-4 border-gray-300 text-gray-600 focus:ring-gray-600" />

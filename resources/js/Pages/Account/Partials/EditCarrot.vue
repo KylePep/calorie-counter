@@ -141,20 +141,22 @@ const closeModal = () => {
     </h1>
     <p>A carrot is a reward that you give yourself once you've reached your goal.</p>
 
-    <div v-if="!showCreateForm" @click="confirmCarrotDetails">
-      <PrimaryButton>Create</PrimaryButton>
+    <div v-if="!showCreateForm">
+      <PrimaryButton @click="confirmCarrotDetails">Create</PrimaryButton>
     </div>
 
 
-    <h3 v-if="uncompletedCarrots.length" class="font-bold mdi mdi-human-male">Uncompleted</h3>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
-      <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light rounded px-2 py-1">
-        <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
-        <div class="flex space-x-1">
-          <button @click="setEditForm(carrot)" class="mdi mdi-pencil text-yellow-800 hover:text-yellow-500"></button>
-          <button @click="completeCarrot(carrot)"
-            class="mdi mdi-check-bold text-green-800 hover:text-green-500"></button>
-          <button @click="deleteCarrot(carrot)" class="mdi mdi-close-thick text-red-800 hover:text-red-500"></button>
+    <h2 v-if="uncompletedCarrots.length" class="font-bold mdi mdi-human-male">Uncompleted</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+      <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light/50 rounded px-2 py-1">
+        <p class="font-semibold">{{ carrot.description }} : <span class="font-normal">{{ carrot.goalPost }}</span> </p>
+        <div class="flex space-x-4">
+          <button aria-label="Edit Carrot" @click="setEditForm(carrot)"
+            class="mdi mdi-pencil text-light-text bg-yellow-800 hover:bg-yellow-500 hover:text-dark-text px-1 rounded-sm duration-300"></button>
+          <button aria-label="Complete Carrot" @click="completeCarrot(carrot)"
+            class="mdi mdi-check-bold text-light-text bg-green-800 hover:bg-green-500 hover:text-dark-text px-1 rounded-sm duration-300"></button>
+          <button aria-label="Delete Carrot" @click="deleteCarrot(carrot)"
+            class="mdi mdi-close-thick text-light-text bg-red-800 hover:bg-red-500 hover:text-dark-text px-1 rounded-sm duration-300"></button>
         </div>
       </div>
     </div>
@@ -165,7 +167,8 @@ const closeModal = () => {
         class="flex justify-between text-xs bg-neutral text-light-text rounded px-2 py-1">
         <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
         <div class="flex space-x-1">
-          <button @click="deleteCarrot(carrot)" class="mdi mdi-close-thick text-red-200 hover:text-red-400"></button>
+          <button aria-label="Delete Carrot" @click="deleteCarrot(carrot)"
+            class="mdi mdi-close-thick text-red-200 hover:text-red-400"></button>
         </div>
       </div>
     </div>

@@ -94,7 +94,7 @@ function updateAccount() {
             <div class="relative col-span-3 sm:col-span-2">
               {{ props.account.macros[index] }}
               <span
-                class="absolute h-full top-0 right-0 flex items-center pe-2 font-bold text-dark-text/50">Grams</span>
+                class="absolute h-full top-0 right-0 flex items-center pe-2 font-bold text-dark-text/75">Grams</span>
             </div>
 
             <p class="flex items-center ps-2">
