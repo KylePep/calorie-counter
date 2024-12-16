@@ -68,7 +68,7 @@ function transparencyClass(color, index) {
 
 
 <template>
-  <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-8">
+  <div class="p-4 sm:p-8 bg-main rounded-lg shadow-xl p-12 space-y-8">
     <div>
       <h1 class="font-bold">
         Consumed Report
