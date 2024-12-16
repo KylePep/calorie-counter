@@ -39,6 +39,7 @@ const props = defineProps(['account', 'calorieDay']);
 
 
   <div v-else class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-8 ">
+
     <h1 class="font-bold">
       Calorie Counter
     </h1>
