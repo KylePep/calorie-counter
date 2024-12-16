@@ -5,8 +5,8 @@ const props = defineProps(['account', 'foodItems'])
 
 
 <template>
-  <div class="p-4 sm:p-8 bg-main rounded-lg shadow-xl p-12">
-    <h1 class="font-bold">
+  <div class="text-neutral-text p-4 lg:p-8">
+    <h1 class="font-bold  mb-3">
       Calorie Schedule
     </h1>
     <h2>

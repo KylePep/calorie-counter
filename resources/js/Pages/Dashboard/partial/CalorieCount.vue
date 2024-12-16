@@ -10,8 +10,8 @@ const props = defineProps(['account', 'calorieDay']);
 
 
 <template>
-  <div v-if="account" class="p-4 sm:p-8 bg-main rounded-lg shadow-xl p-12">
-    <h1 class="font-bold">
+  <div v-if="account" class="text-neutral-text p-4 lg:p-8">
+    <h1 class="font-bold  mb-3">
       Calorie Counter
     </h1>
     <div

@@ -68,9 +68,9 @@ function transparencyClass(color, index) {
 
 
 <template>
-  <div class="p-4 sm:p-8 bg-main rounded-lg shadow-xl p-12 space-y-8">
+  <div class="text-neutral-text p-4 lg:p-8 space-y-8">
     <div>
-      <h1 class="font-bold">
+      <h1 class="font-bold mb-3">
         Consumed Report
       </h1>
       <h2>
@@ -84,9 +84,9 @@ function transparencyClass(color, index) {
 
       <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
         <button v-for="item, index in commonFoods(successful)" :class="transparencyClass('accent', index)"
-          class="grid grid-cols-10 focus:col-span-3 p-1 rounded items-start shadow-lg">
+          class="grid grid-cols-10 focus:col-span-3 text-dark-text p-1 rounded items-start shadow-lg">
 
-          <div class="text-dark text-xs font-bold px-2 text-start">
+          <div class=" text-xs font-bold px-2 text-start">
             {{ index + 1 }}
           </div>
           <div class="col-span-9 truncate font-semibold text-sm px-2">
@@ -108,9 +108,9 @@ function transparencyClass(color, index) {
 
       <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
         <button v-for="item, index in commonFoods(tooLow)" :class="transparencyClass('accent-light', index)"
-          class="grid grid-cols-10 focus:col-span-3 p-1 rounded items-start shadow-lg">
+          class="grid grid-cols-10 focus:col-span-3 text-dark-text p-1 rounded items-start shadow-lg">
 
-          <div class="text-dark text-xs font-bold px-2 text-start">
+          <div class="text-xs font-bold px-2 text-start">
             {{ index + 1 }}
           </div>
           <div class="col-span-9 truncate font-semibold text-sm px-2">
@@ -131,12 +131,12 @@ function transparencyClass(color, index) {
 
       <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
         <button v-for="item, index in commonFoods(tooHigh)" :class="transparencyClass('accent-dark', index)"
-          class="grid grid-cols-10 focus:col-span-3 p-1 rounded items-start shadow-lg">
+          class="grid grid-cols-10 focus:col-span-3 text-white p-1 rounded items-start shadow-lg">
 
-          <div class="text-white text-xs font-bold px-2 text-start">
+          <div class="text-xs font-bold px-2 text-start">
             {{ index + 1 }}
           </div>
-          <div class="col-span-9 text-white truncate font-semibold text-sm px-2">
+          <div class="col-span-9 truncate font-semibold text-sm px-2">
             {{ item[0] }}
             <div class="text-xs">
               {{ item[1] }} times
