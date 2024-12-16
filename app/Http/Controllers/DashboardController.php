@@ -16,6 +16,12 @@ class DashboardController extends Controller
 
         $account = $user->account;
 
+        $calorieDay = null;
+        $calorieDays = [];
+        $foodItems = [];
+
+        if($account) {
+
         $userTimezone = $account->timezone;
     
         // Get today's date in the user's timezone
@@ -31,27 +37,16 @@ class DashboardController extends Controller
             $createdAt = Carbon::parse($calorieDay->created_at)->setTimezone($userTimezone)->startOfDay();
             return $createdAt->equalTo($today);
         })->first();
-    
-            
-            if (!$calorieDay){
-                $calorieDay = null;
-                // $calorieDay = $user->calorieDays()->create([
-                //     'goal' => $account->goal ?? 2000,
-                //     'bmr' => $account->bmr ?? 2000,
-                //     'count' => 0,
-                //     'user_id' => $user->id,
-                //     'food_items' => [],
-                //     'created_at' => $today->setTimezone('UTC')
-                // ]);
-            } 
 
             $foodItems = $user->foodItems()->orderBy('created_at', 'desc')->get();
+        }
+
 
         return Inertia::render('Dashboard/Index', [
             'account' => $account,
-            'calorieDay' => $calorieDay,
-            'calorieDays' => $calorieDays,
-            'foodItems' => $foodItems,
+            'calorieDay' => $calorieDay ? $calorieDay : null,
+            'calorieDays' => $calorieDays ? $calorieDays : [],
+            'foodItems' => $foodItems ? $foodItems : [],
         ]);
     }
 }

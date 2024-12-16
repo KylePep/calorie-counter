@@ -19,9 +19,9 @@ const props = defineProps(['account', 'calorieDay', 'calorieDays', 'foodItems'])
 
       <CalorieCount :account :calorieDay />
 
-      <CalorieSchedule :account :foodItems />
+      <CalorieSchedule v-if="account" :account :foodItems />
 
-      <ConsumedReport :account :calorieDays />
+      <ConsumedReport v-if="account" :account :calorieDays />
 
     </div>
 

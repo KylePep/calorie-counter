@@ -1,5 +1,6 @@
 <script setup>
 import CalorieDisplay from "@/Components/FoodComponents/CalorieDisplay.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import { Link } from "@inertiajs/vue3";
 
 
@@ -8,7 +9,7 @@ const props = defineProps(['account', 'calorieDay']);
 
 
 <template>
-  <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
+  <div v-if="account" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
     <h1 class="font-bold">
       Calorie Counter
     </h1>
@@ -35,7 +36,25 @@ const props = defineProps(['account', 'calorieDay']);
       :bmr="props.calorieDay.bmr" />
     </Link>
   </div>
+
+
+  <div v-else class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-8 ">
+    <h1 class="font-bold">
+      Calorie Counter
+    </h1>
+
+    <div>
+      Get counting! Finish setting up your account, this is important to properly count your calories.
+    </div>
+
+    <div>
+      <Link class="font-bold" :href="route('calculator')">
+      <PrimaryButton>
+        calculate your goal!
+      </PrimaryButton>
+      </Link>
+    </div>
+  </div>
+
+
 </template>
-
-
-<style lang="scss" scoped></style>
