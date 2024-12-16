@@ -17,18 +17,18 @@ const successful = computed(() => {
   return calorieDaysToSort.filter((day) => day.count > day.goal && day.count < day.bmr);
 });
 
-const getDayOfWeek = (date) => {
-  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  return daysOfWeek[date];
-};
+// const getDayOfWeek = (date) => {
+//   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+//   return daysOfWeek[date];
+// };
 
-const formattedDate = (day) => {
-  return new Date(day.created_at).toLocaleDateString(props.account.timeZone, {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  });
-};
+// const formattedDate = (day) => {
+//   return new Date(day.created_at).toLocaleDateString(props.account.timeZone, {
+//     year: 'numeric',
+//     month: '2-digit',
+//     day: '2-digit'
+//   });
+// };
 
 function commonFoods(list) {
   const foodCounts = {};
@@ -82,74 +82,83 @@ function transparencyClass(color, index) {
 
 <template>
   <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-8">
-    <h1 class="font-bold">
-      Consumed Report
-    </h1>
-    <h2>
-      Find out what kind of foods are leading to success!
-    </h2>
-    <div class="bg-light p-2 rounded">
-      <h3 class="font-bold">
-        Good days
+    <div>
+      <h1 class="font-bold">
+        Consumed Report
+      </h1>
+      <h2>
+        From the last 31 available entries here are the foods that showed up the most.
+      </h2>
+    </div>
+    <div class="space-y-2">
+      <h3 class="font-semibold bg-light px-2 py-1 rounded-sm">
+        Within your goals range
       </h3>
 
       <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
-        <div v-for="item, index in commonFoods(successful)" :class="transparencyClass('accent', index)"
-          class="p-2 border border-dark rounded">
+        <button v-for="item, index in commonFoods(successful)" :class="transparencyClass('accent', index)"
+          class="grid grid-cols-10 focus:col-span-3 p-1 rounded items-start shadow-lg">
 
-          <div class="truncate font-semibold text-sm">
-            {{ index + 1 }} - {{ item[0] }}
+          <div class="text-dark text-xs font-bold px-2 text-start">
+            {{ index + 1 }}
           </div>
-          <div class="text-xs">
-            {{ item[1] }} times
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="bg-light p-2 rounded space-y-4">
-      <h3 class="font-bold">
-        Bad days
-      </h3>
-
-      <div class="bg-main p-1 rounded">
-        <h4 class="font-semibold">
-          Too Low
-        </h4>
-
-        <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
-          <div v-for="item, index in commonFoods(tooLow)" :class="transparencyClass('accent-light', index)"
-            class="p-2 border border-dark rounded">
-            <div class="truncate font-semibold text-sm">
-              {{ item[0] }}
-            </div>
+          <div class="col-span-9 truncate font-semibold text-sm px-2">
+            {{ item[0] }}
             <div class="text-xs">
               {{ item[1] }} times
             </div>
           </div>
-        </div>
+        </button>
       </div>
 
+    </div>
 
-      <div class="bg-main p-1 rounded">
-        <h5 class="font-semibold">
-          Too High
-        </h5>
 
-        <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
-          <div v-for="item, index in commonFoods(tooHigh)" :class="transparencyClass('accent-dark', index)"
-            class="p-2 border border-dark rounded">
-            <div class="truncate font-semibold text-sm">
-              {{ item[0] }}
-            </div>
+    <div class="space-y-2">
+      <h4 class="font-semibold bg-light px-2 py-1 rounded-sm">
+        Lower than your goal - {{ account.goal }}
+      </h4>
+
+      <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
+        <button v-for="item, index in commonFoods(tooLow)" :class="transparencyClass('accent-light', index)"
+          class="grid grid-cols-10 focus:col-span-3 p-1 rounded items-start shadow-lg">
+
+          <div class="text-dark text-xs font-bold px-2 text-start">
+            {{ index + 1 }}
+          </div>
+          <div class="col-span-9 truncate font-semibold text-sm px-2">
+            {{ item[0] }}
             <div class="text-xs">
               {{ item[1] }} times
             </div>
           </div>
-        </div>
+        </button>
       </div>
-
     </div>
+
+
+    <div class="space-y-2">
+      <h5 class="font-semibold bg-light px-2 py-1 rounded-sm">
+        Higher than your BMR - {{ account.bmr }}
+      </h5>
+
+      <div class="grid grid-cols-3 lg:grid-cols-5 gap-2">
+        <button v-for="item, index in commonFoods(tooHigh)" :class="transparencyClass('accent-dark', index)"
+          class="grid grid-cols-10 focus:col-span-3 p-1 rounded items-start shadow-lg">
+
+          <div class="text-white text-xs font-bold px-2 text-start">
+            {{ index + 1 }}
+          </div>
+          <div class="col-span-9 text-white truncate font-semibold text-sm px-2">
+            {{ item[0] }}
+            <div class="text-xs">
+              {{ item[1] }} times
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+
   </div>
 </template>
 
