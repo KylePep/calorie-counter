@@ -25,7 +25,7 @@ const props = defineProps(['account', 'foodItems'])
       Decide and set calorie ratios - Breakfast, Lunch, Dinner, Snack (Beverage)
     </div>
 
-    <CalorieRatioSelector />
+    <CalorieRatioSelector :account />
 
     <FoodItemRatioResults>Breakfast</FoodItemRatioResults>
     <FoodItemRatioResults>Lunch</FoodItemRatioResults>

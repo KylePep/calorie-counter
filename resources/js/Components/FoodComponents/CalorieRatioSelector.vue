@@ -1,45 +1,132 @@
 <script setup>
-import PrimaryButton from "../Form/PrimaryButton.vue";
+import { computed, ref } from "vue";
+import InputLabel from "../Form/InputLabel.vue";
+import NumberInput from "../Form/NumberInput.vue";
+
+const props = defineProps(["account"]);
+
+const breakfastPercentage = ref(0);
+const lunchPercentage = ref(0);
+const dinnerPercentage = ref(0);
+const otherPercentage = computed(() => {
+  const total = breakfastPercentage.value + lunchPercentage.value + dinnerPercentage.value;
+  return total > 100 ? 0 : 100 - total;
+});
+
+const cellCount = ref(Math.ceil(props.account.bmr / 100));
+const calorieCountRows = ref(Math.ceil(props.account.bmr / 1000));
+const allCellsTotal = computed(() => calorieCountRows.value * 10);
+
+const calculateCellRange = (percentage) => Math.round((percentage / 100) * cellCount.value);
+
+const breakfastRange = computed(() => calculateCellRange(breakfastPercentage.value));
+const lunchRange = computed(() => calculateCellRange(lunchPercentage.value));
+const dinnerRange = computed(() => calculateCellRange(dinnerPercentage.value));
+const otherRange = computed(() => allCellsTotal.value - (breakfastRange.value + lunchRange.value + dinnerRange.value));
+
+function cellClasses(index) {
+  if (index < breakfastRange.value) {
+    return "bg-accent-light/50 border-accent-light";
+  } else if (index < breakfastRange.value + lunchRange.value) {
+    return "bg-accent/50 border-accent";
+  } else if (index < breakfastRange.value + lunchRange.value + dinnerRange.value) {
+    return "bg-accent-dark/50 border-accent-dark";
+  } else {
+    return "bg-special/50 border-special";
+  }
+}
 </script>
 
-
 <template>
-  <div class="bg-light p-2 rounded">
-    bar that you drag around to select calories
+  {{ props.account.bmr }}
 
-    <div class="w-full bg-dark h-6 relative mt-2 ring ring-dark ">
+  <section id="calorie display" class="z-10 relative p-1.5 rounded border border border-light drop-shadow-xl bg-main"
+    :class="calorieCount < bmr ? 'sticky top-20 lg:top-32' : ''">
+    <div class="grid grid-cols-10 gap-1">
+      <div v-for="cell in allCellsTotal" class="h-6 sm:h-10 text-sm bg-light/10 border-4 border-light/10 rounded-sm">
+      </div>
+    </div>
 
-      <div class="bg-accent-light h-6 w-full absolute">
-        <p class="absolute right-4 -top-2 my-2 text-dark-text font-bold">
-          Breakfast
-        </p>
+    <div class="absolute top-0 left-0 w-full grid grid-cols-10 gap-1 p-1.5">
+      <div v-for="cell in cellCount" :class="cellClasses(cell)"
+        class="h-6 sm:h-10 flex justify-center items-center text-sm  border-4 rounded-sm font-bold  duration-500"
+        :title="cell * 100">
+        <!-- 100 -->
+      </div>
+    </div>
+
+  </section>
+
+  <section id="input-fields" class="mt-4">
+    <div class="grid grid-cols-4 gap-2">
+
+      <div class="flex flex-col gap-1">
+        <div class="bg-accent-light/50 p-1 rounded font-bold text-center">
+          <label for="breakfast">Breakfast</label>
+        </div>
+        <NumberInput id="breakfast" v-model="breakfastPercentage" min="0" max="100" class="text-center" />
       </div>
 
-      <div class="bg-accent h-6 w-3/4 absolute">
-        <p class="absolute right-4 -top-2 my-2 text-dark-text font-bold">
-          Lunch
-        </p>
-        <div class="absolute bg-white border border-dark rounded-sm h-9 w-3 -top-2 right-0"></div>
+      <div class="flex flex-col gap-1">
+        <div class="bg-accent/50 p-1 rounded font-bold text-center">
+          <label for="lunch">Lunch</label>
+        </div>
+        <NumberInput id="lunch" v-model="lunchPercentage" min="0" max="100" class="text-center" />
       </div>
 
-      <div class="bg-accent-dark h-6 w-1/2 absolute">
-        <p class="absolute right-4 -top-2 my-2 text-white font-bold">
-          Dinner
-        </p>
-        <div class="absolute bg-white border border-dark rounded-sm h-9 w-3 -top-2 right-0"></div>
+      <div class="flex flex-col gap-1">
+        <div class="bg-accent-dark/50 p-1 rounded font-bold text-center">
+          <label for="dinner">Dinner</label>
+        </div>
+        <NumberInput id="dinner" v-model="dinnerPercentage" min="0" max="100" class="text-center" />
       </div>
 
-      <div class="bg-special h-6 w-1/4 absolute">
-        <p class="absolute right-4 -top-2 my-2 text-white font-bold">
-          Snack
-        </p>
-        <div class="absolute bg-white border border-dark rounded-sm h-9 w-3 -top-2 right-0"></div>
+      <div class="flex flex-col gap-1">
+        <div class="bg-special/50 p-1 rounded font-bold text-center">
+          <label>Other</label>
+        </div>
+        <span class="text-lg py-1.5 text-center">{{ otherPercentage }}</span>
       </div>
 
     </div>
+  </section>
 
-  </div>
-  <div>
-    <PrimaryButton>Set</PrimaryButton>
-  </div>
 </template>
+
+<!-- <style scoped>
+.bg-breakfast {
+  background-color: #f8b400;
+  /* Breakfast color */
+}
+
+.border-breakfast {
+  border-color: #e09b00;
+}
+
+.bg-lunch {
+  background-color: #4caf50;
+  /* Lunch color */
+}
+
+.border-lunch {
+  border-color: #388e3c;
+}
+
+.bg-dinner {
+  background-color: #2196f3;
+  /* Dinner color */
+}
+
+.border-dinner {
+  border-color: #1976d2;
+}
+
+.bg-other {
+  background-color: #9e9e9e;
+  /* Other color */
+}
+
+.border-other {
+  border-color: #757575;
+}
+</style> -->
