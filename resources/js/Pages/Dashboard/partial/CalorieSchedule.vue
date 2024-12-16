@@ -1,6 +1,6 @@
 <script setup>
 import CalorieRatioSelector from "@/Components/FoodComponents/CalorieRatioSelector.vue";
-import UsdaSearch from "@/Components/FoodComponents/UsdaSearch.vue";
+import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
 
 
 const props = defineProps(['account', 'foodItems'])
@@ -34,7 +34,7 @@ const props = defineProps(['account', 'foodItems'])
       Based on the ratios derived from your goal/bmr you can then search for food items from the apps ecosystem to help
       meet your goals.
     </div>
-    <UsdaSearch />
+    <FoodItemSearch />
   </div>
 </template>
 
