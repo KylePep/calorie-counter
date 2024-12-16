@@ -96,7 +96,7 @@ function blockClass(block) {
         </div>
 
         <div class="flex space-x-2">
-          <FoodCardButton v-if="isDashboard || isCalorieDay" @click.stop="useItem()" icon="plus">
+          <FoodCardButton v-if="isCalorieDay" @click.stop="useItem()" icon="plus">
             Add
           </FoodCardButton>
           <FoodCardButton v-if="!isDashboard && !isCalorieDay && page.url != '/'" @click.stop="deleteItem()"

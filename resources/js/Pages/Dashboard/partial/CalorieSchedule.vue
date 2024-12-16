@@ -1,5 +1,6 @@
 <script setup>
 import CalorieRatioSelector from "@/Components/FoodComponents/CalorieRatioSelector.vue";
+import FoodItemRatioResults from "@/Components/FoodComponents/FoodItemRatioResults.vue";
 import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
 
 
@@ -25,6 +26,12 @@ const props = defineProps(['account', 'foodItems'])
     </div>
 
     <CalorieRatioSelector />
+
+    <FoodItemRatioResults>Breakfast</FoodItemRatioResults>
+    <FoodItemRatioResults>Lunch</FoodItemRatioResults>
+    <FoodItemRatioResults>Dinner</FoodItemRatioResults>
+    <FoodItemRatioResults>Snack</FoodItemRatioResults>
+    <FoodItemRatioResults>Beverage</FoodItemRatioResults>
 
     <div>
       Find Meals that work for you.

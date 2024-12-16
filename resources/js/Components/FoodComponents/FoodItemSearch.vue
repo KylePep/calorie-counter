@@ -1,17 +1,12 @@
 <script setup>
 import InputError from "@/Components/Form/InputError.vue";
-import TextInput from "@/Components/Form/TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
-import { computed, reactive, ref } from "vue";
-import { FoodSearchResponse } from "../../models/FoodSearchResponse.js";
-import { BrandedFoodItem } from "../../models/BrandedFoodItem.js";
-import Dropdown from "../Form/Dropdown.vue";
-import Checkbox from "../Form/Checkbox.vue";
-import UsdaFoodCard from "./UsdaFoodCard.vue";
+import { computed, ref } from "vue";
 import Modal from "../Form/Modal.vue";
-import BarcodeScanner from "../BarcodeScanner.vue";
-import InputLabel from "../Form/InputLabel.vue";
+import FoodCard from "./FoodCard.vue";
+import NumberInput from "../Form/NumberInput.vue";
+import Dropdown from "../Form/Dropdown.vue";
 
 const emit = defineEmits(['setActive']);
 
@@ -27,23 +22,17 @@ const closeModal = () => {
 
 const form = useForm({
   query: '',
-  type: 'Branded',
-  requireAllWords: true
+  count: 0,
+  type: 'Breakfast',
 });
 
-const usdaResponse = reactive({
-  /** @type {FoodSearchResponse} */
-  foodSearchResponse: new FoodSearchResponse({
-    totalHits: 0,
-    currentPage: 0,
-    totalPages: 0,
-  }),
-  /** @type {BrandedFoodItem[]} */
-  foods: []
-})
+const foodSearchResponse = ref({
+  "totalHits": 10,
+  "currentPage": 1,
+  "totalPages": 1
+});
 
-const foodSearchResponse = computed(() => usdaResponse.foodSearchResponse);
-const foods = computed(() => usdaResponse.foods);
+const foodsList = ref([]);
 
 const loading = ref(false);
 
@@ -52,49 +41,6 @@ const loadingClasses = computed(() => {
     return 'animate-pulse';
   } else return '';
 })
-
-const typeName = computed(() => {
-  return {
-    "SR Legacy": 'Legacy',
-    Foundation: 'Foundation',
-    Branded: 'Branded',
-    App: 'App'
-  }[form.type]
-})
-
-async function fetchFoodData(page = 1) {
-  try {
-    loading.value = true;
-    let query = form.query.replace(/"/g, '').trim();
-
-    if (form.requireAllWords) {
-      let newArray = query.split(' ').map(a => '+' + a);
-      query = newArray.join(' ');
-    }
-
-    const response = await axios.get('/search-foodUsda', {
-      params: {
-        query: query,
-        pageNumber: page,
-        pageSize: 10,
-        dataType: form.type
-      },
-    });
-
-    loading.value = false;
-
-    const foodSearchResponse = new FoodSearchResponse(response.data);
-    const foods = response.data.foods.map(f => new BrandedFoodItem(f));
-    usdaResponse.foodSearchResponse = foodSearchResponse;
-    usdaResponse.foods = foods;
-
-    showResults();
-
-  } catch (error) {
-    loading.value = false;
-    console.error(error, '[Error fetching food data]');
-  }
-}
 
 async function fetchUserFoodItems(page = 1) {
   try {
@@ -111,12 +57,12 @@ async function fetchUserFoodItems(page = 1) {
     loading.value = false;
 
     const foods = response.data;
-    usdaResponse.foodSearchResponse = {
+    foodSearchResponse.value = {
       "totalHits": 10,
       "currentPage": 1,
       "totalPages": 1
     };
-    usdaResponse.foods = foods;
+    foodsList.value = foods;
 
     showResults();
 
@@ -126,18 +72,8 @@ async function fetchUserFoodItems(page = 1) {
   }
 }
 
-
-function parseFetchType() {
-  if (form.type != 'App') {
-    fetchFoodData(1)
-  } else {
-    fetchUserFoodItems(1)
-  }
-}
-
 function setActive(item) {
-  const type = form.type != 'App' ? 'usda' : 'app'
-  emit('setActive', type, item);
+  emit('setActive', 'app', item);
   closeModal();
 }
 
@@ -151,8 +87,12 @@ function buttonClasses(value) {
 
 <template>
 
-  <div class="bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
-    <form @submit.prevent="parseFetchType" class="grid grid-cols-10 gap-1 ">
+  <div class="bg-neutral border-x border-dark rounded -mb-0.5 p-1.5">
+    <form @submit.prevent="fetchUserFoodItems" class="grid grid-cols-9 gap-1 ">
+
+      <div class="col-span-3 text-light-text text-base font-bold flex items-center w-full h-8">
+        Search App
+      </div>
 
       <div class="col-span-3 lg:col-span-2 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
@@ -162,7 +102,7 @@ function buttonClasses(value) {
               class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
               <p class="flex-1 flex items-center text-center">
-                {{ typeName }}
+                {{ form.type }}
               </p>
               <i class="mdi mdi-menu-down text-lg"></i>
             </button>
@@ -170,44 +110,25 @@ function buttonClasses(value) {
 
           <template #content>
             <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
-              <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'Branded'">Branded</button>
-              <button class="text-start p-1" :class="[form.type == 'App' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'App'">App</button>
-              <button class="text-start p-1"
-                :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
-                @click="form.type = 'Foundation'">Foundational</button>
-              <button class="text-start p-1" :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'SR Legacy'">Legacy</button>
+              <button class="text-start p-1" :class="[form.type == 'Breakfast' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'Breakfast'">Breakfast</button>
+              <button class="text-start p-1" :class="[form.type == 'Lunch' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'Lunch'">Lunch</button>
+              <button class="text-start p-1" :class="[form.type == 'Dinner' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'Dinner'">Dinneral</button>
+              <button class="text-start p-1" :class="[form.type == 'Snack' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'Snack'">Snack</button>
+              <button class="text-start p-1" :class="[form.type == 'Beverage' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'Beverage'">Beverage</button>
             </div>
           </template>
 
         </Dropdown>
       </div>
 
-      <div v-if="form.type != 'App'"
-        class="col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
-        <span
-          class="block lg:hidden ps-1 text-[6px] leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
-          <br>
-          All <br>
-          Words</span>
-        <span
-          class="hidden lg:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
-          All
-          Words</span>
-        <Checkbox name="requireAllWords" aria-label="require all words" class="h-6 w-6 group-hover:text-accent"
-          v-model:checked="form.requireAllWords" />
-      </div>
-      <div v-else class="col-span-3">
-
-      </div>
-
-
-
-      <div class="col-span-4 lg:col-span-5 relative flex items-center ">
-        <TextInput id="query" aria-label="Food query text" type="text" class="w-full h-8 rounded text-xs lg:text-sm"
-          v-model="form.query" required />
+      <div class="col-span-3 relative flex items-center ">
+        <NumberInput id="query" aria-label="Food query text" type="text" class="w-full h-8 rounded text-xs lg:text-sm"
+          v-model="form.query" required placeholder="Calorie Count" />
         <InputError :message="form.errors.query" />
         <button aria-label="Search for food" id="search" class="absolute right-0">
           <i
@@ -216,10 +137,6 @@ function buttonClasses(value) {
       </div>
 
     </form>
-
-    <div class="lg:hidden mt-1.5">
-      <BarcodeScanner @set-active="setActive" />
-    </div>
   </div>
 
   <Modal :show="showModal" @close="closeModal">
@@ -253,15 +170,17 @@ function buttonClasses(value) {
         class="break-inside-avoid relative flex flex-col justify-center w-full text-sm sm:text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg min-h-24 rounded">
         {{ !loading ? 'Search for an item to begin counting calories!' : 'Searching' }}
       </div>
-      <div v-if="foodSearchResponse.currentPage && foods.length == 0"
+      <div v-if="foodSearchResponse.currentPage && foodsList.length == 0"
         class="break-inside-avoid relative flex flex-col justify-center w-full text-light-text text-xl font-bold bg-dark p-3 border-2 border-light drop-shadow-lg min-h-24 rounded">
         No results found
       </div>
 
-      <div v-for="foodItem in foods">
-        <UsdaFoodCard :food-item="foodItem" @set-active="setActive" />
+      <div v-for="foodItem in foodsList">
+        <FoodCard :foodItem="foodItem" @set-active="setActive" />
       </div>
 
     </div>
+
   </Modal>
+
 </template>
