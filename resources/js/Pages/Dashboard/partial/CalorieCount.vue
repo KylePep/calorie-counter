@@ -38,23 +38,30 @@ const props = defineProps(['account', 'calorieDay']);
   </div>
 
 
-  <div v-else class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-8 ">
+  <div v-else class="flex flex-col text-center justify-center items-center  py-8 space-y-4 rounded shadow-xl">
+    <p
+      class="text-transparent text-5xl font-bold bg-gradient-to-r from-accent-dark via-accent to-accent-light bg-clip-text">
+      Calorie Calculator</p>
+    <p class="text-lg">Calorie Counter uses your goal and information entered in your account to help you track your
+      calories.</p>
+    <p class="text-lg pb-10">Please calculate your goal using the provided calculator or you can manually enter your
+      goal
+      on
+      the profile
+      page!</p>
 
-    <h1 class="font-bold">
-      Calorie Counter
-    </h1>
 
-    <div>
-      Get counting! Finish setting up your account, this is important to properly count your calories.
-    </div>
+    <Link :href="route('calculator')"
+      class="text-white font-bold uppercase bg-gradient-to-r from-accent-dark via-accent to-accent-light w-1/2 py-4 duration-300 rounded-sm hover:ring ring-accent">
+    get your bmr!
+    </Link>
 
-    <div>
-      <Link class="font-bold" :href="route('calculator')">
-      <PrimaryButton>
-        calculate your goal!
-      </PrimaryButton>
-      </Link>
-    </div>
+    <p>or</p>
+
+    <Link :href="route('account.index')"
+      class="text-white font-bold uppercase bg-gradient-to-r from-accent-dark via-accent to-accent-light w-1/2 py-4 duration-300 rounded-sm hover:ring ring-accent">
+    enter goal
+    </Link>
   </div>
 
 
