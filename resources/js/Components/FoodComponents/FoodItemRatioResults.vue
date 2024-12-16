@@ -1,10 +1,14 @@
-<script setup></script>
+<script setup>
+
+const props = defineProps(['bgColor'])
+
+</script>
 
 
 <template>
   <div>
 
-    <div class="bg-light text-dark-text px-2 py-1 rounded">
+    <div :class="props.bgColor" class=" text-dark-text px-2 py-1 rounded">
       <slot />
     </div>
 

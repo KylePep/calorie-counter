@@ -27,11 +27,11 @@ const props = defineProps(['account', 'foodItems'])
 
     <CalorieRatioSelector :account />
 
-    <FoodItemRatioResults>Breakfast</FoodItemRatioResults>
-    <FoodItemRatioResults>Lunch</FoodItemRatioResults>
-    <FoodItemRatioResults>Dinner</FoodItemRatioResults>
-    <FoodItemRatioResults>Snack</FoodItemRatioResults>
-    <FoodItemRatioResults>Beverage</FoodItemRatioResults>
+    <FoodItemRatioResults bgColor="bg-accent-light/50">Breakfast</FoodItemRatioResults>
+    <FoodItemRatioResults bgColor="bg-accent/50">Lunch</FoodItemRatioResults>
+    <FoodItemRatioResults bgColor="bg-accent-dark/50">Dinner</FoodItemRatioResults>
+    <FoodItemRatioResults bgColor="bg-special/50">Snack</FoodItemRatioResults>
+    <FoodItemRatioResults bgColor="bg-special/50">Beverage</FoodItemRatioResults>
 
     <div>
       Find Meals that work for you.
