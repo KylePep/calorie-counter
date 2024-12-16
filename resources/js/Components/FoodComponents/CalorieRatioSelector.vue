@@ -1,13 +1,12 @@
 <script setup>
 import { computed, ref } from "vue";
-import InputLabel from "../Form/InputLabel.vue";
 import NumberInput from "../Form/NumberInput.vue";
 
 const props = defineProps(["account"]);
 
-const breakfastPercentage = ref(0);
-const lunchPercentage = ref(0);
-const dinnerPercentage = ref(0);
+const breakfastPercentage = ref(props.account.percentages ? props.account.percentages.breakfast : 30);
+const lunchPercentage = ref(props.account.percentages ? props.account.percentages.lunch : 30);
+const dinnerPercentage = ref(props.account.percentages ? props.account.percentages.dinner : 30);
 const otherPercentage = computed(() => {
   const total = breakfastPercentage.value + lunchPercentage.value + dinnerPercentage.value;
   return total > 100 ? 0 : 100 - total;
@@ -38,7 +37,6 @@ function cellClasses(index) {
 </script>
 
 <template>
-  {{ props.account.bmr }}
 
   <section id="calorie display" class="z-10 relative p-1.5 rounded border border border-light drop-shadow-xl bg-main"
     :class="calorieCount < bmr ? 'sticky top-20 lg:top-32' : ''">
@@ -51,7 +49,6 @@ function cellClasses(index) {
       <div v-for="cell in cellCount" :class="cellClasses(cell)"
         class="h-6 sm:h-10 flex justify-center items-center text-sm  border-4 rounded-sm font-bold  duration-500"
         :title="cell * 100">
-        <!-- 100 -->
       </div>
     </div>
 
