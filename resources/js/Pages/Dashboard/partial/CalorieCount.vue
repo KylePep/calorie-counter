@@ -1,5 +1,6 @@
 <script setup>
 import CalorieDisplay from "@/Components/FoodComponents/CalorieDisplay.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import NoAccountCard from "@/Components/NoAccountCard.vue";
 import { Link } from "@inertiajs/vue3";
 
@@ -10,7 +11,7 @@ const props = defineProps(['account', 'calorieDay']);
 
 
 <template>
-  <div v-if="account" class="text-neutral-text p-4 lg:p-8">
+  <div v-if="account && calorieDay" class="text-neutral-text p-4 lg:p-8">
     <h1 class="text-2xl font-bold  mb-3">
       Calorie Counter
     </h1>
@@ -38,7 +39,22 @@ const props = defineProps(['account', 'calorieDay']);
     </Link>
   </div>
 
-  <div v-else>
+  <div v-else class="text-neutral-text p-4 lg:p-8 space-y-8">
+    <h1 class="text-2xl font-bold  mb-3">
+      Calorie Counter
+    </h1>
+
+    <div>No counter yet today.</div>
+
+    <div>
+      <Link :href="route('calorieDay.index')">
+      <PrimaryButton>Start counting Today</PrimaryButton>
+      </Link>
+    </div>
+
+  </div>
+
+  <div v-if="!account">
     <NoAccountCard />
   </div>
 
