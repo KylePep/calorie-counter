@@ -78,7 +78,7 @@ function transparencyClass(color, index) {
       </h2>
     </div>
     <div v-if="successful.length" class="space-y-2">
-      <h3 class="font-semibold bg-light px-2 py-1 rounded-sm">
+      <h3 class="text-dark-text font-semibold bg-light px-2 py-1 rounded-sm">
         Within your goals range
       </h3>
 
@@ -102,7 +102,7 @@ function transparencyClass(color, index) {
 
 
     <div v-if="tooLow.length" class="space-y-2">
-      <h4 class="font-semibold bg-light px-2 py-1 rounded-sm">
+      <h4 class="text-dark-text font-semibold bg-light px-2 py-1 rounded-sm">
         Lower than your goal - {{ account.goal }}
       </h4>
 
@@ -125,7 +125,7 @@ function transparencyClass(color, index) {
 
 
     <div v-if="tooHigh.length" class="space-y-2">
-      <h5 class="font-semibold bg-light px-2 py-1 rounded-sm">
+      <h5 class="text-dark-text font-semibold bg-light px-2 py-1 rounded-sm">
         Higher than your BMR - {{ account.bmr }}
       </h5>
 
