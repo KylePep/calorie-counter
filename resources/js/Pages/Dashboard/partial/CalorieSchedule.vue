@@ -1,10 +1,34 @@
 <script setup>
 import CalorieRatioSelector from "@/Components/FoodComponents/CalorieRatioSelector.vue";
+import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 import FoodItemRatioResults from "@/Components/FoodComponents/FoodItemRatioResults.vue";
 import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
 
+const breakfastFoods = [];
+const lunchFoods = [];
+const dinnerFoods = [];
+const snackFoods = [];
+const beverageFoods = [];
 
-const props = defineProps(['account', 'foodItems'])
+
+const props = defineProps(['account', 'foodItems']);
+
+const showModal = ref(false);
+const modalContent = ref('foodDetails');
+const ActiveFoodItem = ref({});
+
+function setActive(type, foodItem) {
+  modalContent.value = type;
+  showModal.value = true;
+  if (foodItem) {
+    ActiveFoodItem.value = foodItem;
+  }
+}
+
+const closeModal = () => {
+  showModal.value = false;
+  ActiveFoodItem.value = {};
+}
 </script>
 
 
@@ -29,11 +53,21 @@ const props = defineProps(['account', 'foodItems'])
 
     <CalorieRatioSelector :account />
 
-    <FoodItemRatioResults mealType="breakfast" bgColor="bg-accent-light/50">Breakfast</FoodItemRatioResults>
-    <FoodItemRatioResults mealType="Lunch" bgColor="bg-accent/50">Lunch</FoodItemRatioResults>
-    <FoodItemRatioResults mealType="Dinner" bgColor="bg-accent-dark/50">Dinner</FoodItemRatioResults>
-    <FoodItemRatioResults mealType="Snack" bgColor="bg-special/50">Snack</FoodItemRatioResults>
-    <FoodItemRatioResults mealType="Beverage" bgColor="bg-special/50">Beverage</FoodItemRatioResults>
+    <FoodItemRatioResults mealType="breakfast" :foodItems="breakfastFoods" bgColor="bg-accent-light/50"
+      @setActive="setActive('foodItem', item)">Breakfast
+    </FoodItemRatioResults>
+    <FoodItemRatioResults mealType="lunch" :foodItems="lunchFoods" bgColor="bg-accent/50"
+      @setActive="setActive('foodItem', item)">Lunch
+    </FoodItemRatioResults>
+    <FoodItemRatioResults mealType="dinner" :foodItems="dinnerFoods" bgColor="bg-accent-dark/50"
+      @setActive="setActive('foodItem', item)">Dinner
+    </FoodItemRatioResults>
+    <FoodItemRatioResults mealType="snack" :foodItems="snackFoods" bgColor="bg-special/50"
+      @setActive="setActive('foodItem', item)">Snack
+    </FoodItemRatioResults>
+    <FoodItemRatioResults mealType="beverage" :foodItems="beverageFoods" bgColor="bg-special/50"
+      @setActive="setActive('foodItem', item)">Beverage
+    </FoodItemRatioResults>
 
     <div>
       Based on the ratios derived from your goal/bmr you can then search for food items from the apps ecosystem to help
@@ -41,6 +75,8 @@ const props = defineProps(['account', 'foodItems'])
     </div>
     <FoodItemSearch />
   </div>
+
+  <FoodCopyModal v-if="modalContent == 'app'" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
 </template>
 
 

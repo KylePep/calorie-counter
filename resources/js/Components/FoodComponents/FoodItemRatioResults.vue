@@ -1,7 +1,9 @@
 <script setup>
+import FoodCard from "./FoodCard.vue";
 
-const props = defineProps(['mealType', 'bgColor'])
+const props = defineProps(['mealType', 'foodItems', 'bgColor'])
 
+const emit = defineEmits(['setActive']);
 </script>
 
 
@@ -12,8 +14,8 @@ const props = defineProps(['mealType', 'bgColor'])
       <slot />
     </div>
 
-    <div>
-      Results
+    <div v-for="item in foodItems">
+      <FoodCard :foodItem="item" @set-active="setActive" />
     </div>
 
   </div>
