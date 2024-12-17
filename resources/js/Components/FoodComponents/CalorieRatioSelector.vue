@@ -5,6 +5,8 @@ import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const props = defineProps(["account"]);
 
+const emit = defineEmits(['setSearch']);
+
 const breakfastPercentage = ref(props.account.percentages ? props.account.percentages.breakfast : 30);
 const lunchPercentage = ref(props.account.percentages ? props.account.percentages.lunch : 30);
 const dinnerPercentage = ref(props.account.percentages ? props.account.percentages.dinner : 30);
@@ -24,6 +26,7 @@ const lunchRange = computed(() => calculateCellRange(lunchPercentage.value));
 const dinnerRange = computed(() => calculateCellRange(dinnerPercentage.value));
 const otherRange = computed(() => allCellsTotal.value - (breakfastRange.value + lunchRange.value + dinnerRange.value));
 
+
 function cellClasses(index) {
   if (index < breakfastRange.value) {
     return "bg-accent-light/50 border-accent-light";
@@ -34,6 +37,16 @@ function cellClasses(index) {
   } else {
     return "bg-special/50 border-special";
   }
+}
+
+function setSearch() {
+  const ranges = {
+    breakfast: breakfastPercentage,
+    lunch: lunchPercentage,
+    dinner: dinnerPercentage,
+    other: otherPercentage
+  }
+  emit('setSearch', ranges);
 }
 </script>
 
@@ -55,27 +68,27 @@ function cellClasses(index) {
   </section>
 
   <section id="input-fields" class="mt-4">
-    <div class="grid grid-cols-4 gap-2">
+    <form @submit.prevent="setSearch" class="grid grid-cols-4 gap-2">
 
       <div class="flex flex-col gap-1">
         <div class="bg-accent-light/50 p-1 rounded font-bold text-center">
           <label for="breakfast">Breakfast</label>
         </div>
-        <NumberInput id="breakfast" v-model="breakfastPercentage" min="0" max="100" class="text-center" />
+        <NumberInput id="breakfast" v-model="breakfastPercentage" min="0" max="100" required class="text-center" />
       </div>
 
       <div class="flex flex-col gap-1">
         <div class="bg-accent/50 p-1 rounded font-bold text-center">
           <label for="lunch">Lunch</label>
         </div>
-        <NumberInput id="lunch" v-model="lunchPercentage" min="0" max="100" class="text-center" />
+        <NumberInput id="lunch" v-model="lunchPercentage" min="0" max="100" required class="text-center" />
       </div>
 
       <div class="flex flex-col gap-1">
         <div class="bg-accent-dark/50 p-1 rounded font-bold text-center">
           <label for="dinner">Dinner</label>
         </div>
-        <NumberInput id="dinner" v-model="dinnerPercentage" min="0" max="100" class="text-center" />
+        <NumberInput id="dinner" v-model="dinnerPercentage" min="0" max="100" required class="text-center" />
       </div>
 
       <div class="flex flex-col gap-1">
@@ -86,11 +99,12 @@ function cellClasses(index) {
       </div>
 
       <div class="col-span-4">
-        <PrimaryButton class="w-full flex justify-center">Update your calorie schedule</PrimaryButton>
+        <PrimaryButton class="w-full flex justify-center">Update your calorie schedule
+        </PrimaryButton>
 
       </div>
 
-    </div>
+    </form>
   </section>
 
 </template>

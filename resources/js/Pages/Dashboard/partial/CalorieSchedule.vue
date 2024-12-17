@@ -6,6 +6,7 @@ import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import { ref } from "vue";
 
+const searchPerformed = ref();
 const breakfastFoods = [];
 const lunchFoods = [];
 const dinnerFoods = [];
@@ -26,6 +27,12 @@ function setActive(foodItem) {
   }
 }
 
+const scheduleRanges = ref()
+
+function searchSchedule(ranges) {
+  scheduleRanges.value = ranges
+}
+
 const closeModal = () => {
   showModal.value = false;
   ActiveFoodItem.value = {};
@@ -40,35 +47,28 @@ const closeModal = () => {
       Calorie Schedule
     </h1>
 
-    <h2>
-      Designate where you would like your calories to go.
-    </h2>
+    <CalorieRatioSelector :account @setSearch="searchSchedule" />
+    {{ scheduleRanges }}
 
-    <div>
-      Find Meals that work for you.
+    <div v-if="scheduleRanges" class="space-y-8">
+      <FoodItemRatioResults mealType="breakfast" :foodItems="breakfastFoods" bgColor="bg-accent-light/50"
+        @setActive="setActive(item)">Breakfast
+      </FoodItemRatioResults>
+      <FoodItemRatioResults mealType="lunch" :foodItems="lunchFoods" bgColor="bg-accent/50"
+        @setActive="setActive(item)">
+        Lunch
+      </FoodItemRatioResults>
+      <FoodItemRatioResults mealType="dinner" :foodItems="dinnerFoods" bgColor="bg-accent-dark/50"
+        @setActive="setActive(item)">Dinner
+      </FoodItemRatioResults>
+      <FoodItemRatioResults mealType="snack" :foodItems="snackFoods" bgColor="bg-special/50"
+        @setActive="setActive(item)">
+        Snack
+      </FoodItemRatioResults>
+      <FoodItemRatioResults mealType="beverage" :foodItems="beverageFoods" bgColor="bg-special/50"
+        @setActive="setActive(item)">Beverage
+      </FoodItemRatioResults>
     </div>
-
-    <div>
-      Decide and set calorie ratios - Breakfast, Lunch, Dinner, Snack (Beverage)
-    </div>
-
-    <CalorieRatioSelector :account />
-
-    <FoodItemRatioResults mealType="breakfast" :foodItems="breakfastFoods" bgColor="bg-accent-light/50"
-      @setActive="setActive(item)">Breakfast
-    </FoodItemRatioResults>
-    <FoodItemRatioResults mealType="lunch" :foodItems="lunchFoods" bgColor="bg-accent/50" @setActive="setActive(item)">
-      Lunch
-    </FoodItemRatioResults>
-    <FoodItemRatioResults mealType="dinner" :foodItems="dinnerFoods" bgColor="bg-accent-dark/50"
-      @setActive="setActive(item)">Dinner
-    </FoodItemRatioResults>
-    <FoodItemRatioResults mealType="snack" :foodItems="snackFoods" bgColor="bg-special/50" @setActive="setActive(item)">
-      Snack
-    </FoodItemRatioResults>
-    <FoodItemRatioResults mealType="beverage" :foodItems="beverageFoods" bgColor="bg-special/50"
-      @setActive="setActive(item)">Beverage
-    </FoodItemRatioResults>
 
     <div>
       Based on the ratios derived from your goal/bmr you can then search for food items from the apps ecosystem to help
