@@ -1,6 +1,6 @@
 <script setup>
 
-const props = defineProps(['bgColor'])
+const props = defineProps(['mealType', 'bgColor'])
 
 </script>
 

@@ -19,7 +19,9 @@ const props = defineProps(['account', 'foodItems'])
       Designate where you would like your calories to go.
     </h2>
 
-
+    <div>
+      Find Meals that work for you.
+    </div>
 
     <div>
       Decide and set calorie ratios - Breakfast, Lunch, Dinner, Snack (Beverage)
@@ -27,15 +29,11 @@ const props = defineProps(['account', 'foodItems'])
 
     <CalorieRatioSelector :account />
 
-    <FoodItemRatioResults bgColor="bg-accent-light/50">Breakfast</FoodItemRatioResults>
-    <FoodItemRatioResults bgColor="bg-accent/50">Lunch</FoodItemRatioResults>
-    <FoodItemRatioResults bgColor="bg-accent-dark/50">Dinner</FoodItemRatioResults>
-    <FoodItemRatioResults bgColor="bg-special/50">Snack</FoodItemRatioResults>
-    <FoodItemRatioResults bgColor="bg-special/50">Beverage</FoodItemRatioResults>
-
-    <div>
-      Find Meals that work for you.
-    </div>
+    <FoodItemRatioResults mealType="breakfast" bgColor="bg-accent-light/50">Breakfast</FoodItemRatioResults>
+    <FoodItemRatioResults mealType="Lunch" bgColor="bg-accent/50">Lunch</FoodItemRatioResults>
+    <FoodItemRatioResults mealType="Dinner" bgColor="bg-accent-dark/50">Dinner</FoodItemRatioResults>
+    <FoodItemRatioResults mealType="Snack" bgColor="bg-special/50">Snack</FoodItemRatioResults>
+    <FoodItemRatioResults mealType="Beverage" bgColor="bg-special/50">Beverage</FoodItemRatioResults>
 
     <div>
       Based on the ratios derived from your goal/bmr you can then search for food items from the apps ecosystem to help
