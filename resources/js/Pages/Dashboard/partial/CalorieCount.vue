@@ -44,11 +44,11 @@ const props = defineProps(['account', 'calorieDay']);
       Calorie Counter
     </h1>
 
-    <div>No counter yet today.</div>
+    <div>No counter today, yet.</div>
 
     <div>
       <Link :href="route('calorieDay.index')">
-      <PrimaryButton>Start counting Today</PrimaryButton>
+      <PrimaryButton>Start Today's Count</PrimaryButton>
       </Link>
     </div>
 

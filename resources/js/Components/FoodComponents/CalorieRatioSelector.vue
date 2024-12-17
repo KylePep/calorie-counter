@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import NumberInput from "../Form/NumberInput.vue";
+import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const props = defineProps(["account"]);
 
@@ -85,45 +86,12 @@ function cellClasses(index) {
         <span class="text-lg py-1.5 text-center">{{ otherPercentage }}</span>
       </div>
 
+      <div class="col-span-4">
+        <PrimaryButton class="w-full flex justify-center">Update your calorie schedule</PrimaryButton>
+
+      </div>
+
     </div>
   </section>
 
 </template>
-
-<!-- <style scoped>
-.bg-breakfast {
-  background-color: #f8b400;
-  /* Breakfast color */
-}
-
-.border-breakfast {
-  border-color: #e09b00;
-}
-
-.bg-lunch {
-  background-color: #4caf50;
-  /* Lunch color */
-}
-
-.border-lunch {
-  border-color: #388e3c;
-}
-
-.bg-dinner {
-  background-color: #2196f3;
-  /* Dinner color */
-}
-
-.border-dinner {
-  border-color: #1976d2;
-}
-
-.bg-other {
-  background-color: #9e9e9e;
-  /* Other color */
-}
-
-.border-other {
-  border-color: #757575;
-}
-</style> -->
