@@ -3,6 +3,8 @@ import CalorieRatioSelector from "@/Components/FoodComponents/CalorieRatioSelect
 import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 import FoodItemRatioResults from "@/Components/FoodComponents/FoodItemRatioResults.vue";
 import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
+import Modal from "@/Components/Form/Modal.vue";
+import { ref } from "vue";
 
 const breakfastFoods = [];
 const lunchFoods = [];
@@ -14,11 +16,9 @@ const beverageFoods = [];
 const props = defineProps(['account', 'foodItems']);
 
 const showModal = ref(false);
-const modalContent = ref('foodDetails');
 const ActiveFoodItem = ref({});
 
-function setActive(type, foodItem) {
-  modalContent.value = type;
+function setActive(foodItem) {
   showModal.value = true;
   if (foodItem) {
     ActiveFoodItem.value = foodItem;
@@ -54,19 +54,19 @@ const closeModal = () => {
     <CalorieRatioSelector :account />
 
     <FoodItemRatioResults mealType="breakfast" :foodItems="breakfastFoods" bgColor="bg-accent-light/50"
-      @setActive="setActive('foodItem', item)">Breakfast
+      @setActive="setActive(item)">Breakfast
     </FoodItemRatioResults>
-    <FoodItemRatioResults mealType="lunch" :foodItems="lunchFoods" bgColor="bg-accent/50"
-      @setActive="setActive('foodItem', item)">Lunch
+    <FoodItemRatioResults mealType="lunch" :foodItems="lunchFoods" bgColor="bg-accent/50" @setActive="setActive(item)">
+      Lunch
     </FoodItemRatioResults>
     <FoodItemRatioResults mealType="dinner" :foodItems="dinnerFoods" bgColor="bg-accent-dark/50"
-      @setActive="setActive('foodItem', item)">Dinner
+      @setActive="setActive(item)">Dinner
     </FoodItemRatioResults>
-    <FoodItemRatioResults mealType="snack" :foodItems="snackFoods" bgColor="bg-special/50"
-      @setActive="setActive('foodItem', item)">Snack
+    <FoodItemRatioResults mealType="snack" :foodItems="snackFoods" bgColor="bg-special/50" @setActive="setActive(item)">
+      Snack
     </FoodItemRatioResults>
     <FoodItemRatioResults mealType="beverage" :foodItems="beverageFoods" bgColor="bg-special/50"
-      @setActive="setActive('foodItem', item)">Beverage
+      @setActive="setActive(item)">Beverage
     </FoodItemRatioResults>
 
     <div>
@@ -76,7 +76,9 @@ const closeModal = () => {
     <FoodItemSearch />
   </div>
 
-  <FoodCopyModal v-if="modalContent == 'app'" @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+  <Modal :show="showModal" @close="closeModal">
+    <FoodCopyModal @close-modal="closeModal" :foodItem="ActiveFoodItem" />
+  </Modal>
 </template>
 
 

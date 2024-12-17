@@ -4,6 +4,10 @@ import FoodCard from "./FoodCard.vue";
 const props = defineProps(['mealType', 'foodItems', 'bgColor'])
 
 const emit = defineEmits(['setActive']);
+
+function setActive(item) {
+  emit('setActive', item);
+}
 </script>
 
 

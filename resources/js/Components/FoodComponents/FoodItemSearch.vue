@@ -73,7 +73,7 @@ async function fetchUserFoodItems(page = 1) {
 }
 
 function setActive(item) {
-  emit('setActive', 'app', item);
+  emit('setActive', item);
   closeModal();
 }
 
