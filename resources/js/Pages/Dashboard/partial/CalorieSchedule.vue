@@ -48,25 +48,24 @@ const closeModal = () => {
     </h1>
 
     <CalorieRatioSelector :account @setSearch="searchSchedule" />
-    {{ scheduleRanges }}
 
     <div v-if="scheduleRanges" class="space-y-8">
-      <FoodItemRatioResults mealType="breakfast" :foodItems="breakfastFoods" bgColor="bg-accent-light/50"
-        @setActive="setActive(item)">Breakfast
+      <FoodItemRatioResults :account mealType="breakfast" :foodItems="breakfastFoods"
+        :percent="scheduleRanges.breakfast" bgColor="bg-accent-light/50" @setActive="setActive(item)">Breakfast
       </FoodItemRatioResults>
-      <FoodItemRatioResults mealType="lunch" :foodItems="lunchFoods" bgColor="bg-accent/50"
-        @setActive="setActive(item)">
+      <FoodItemRatioResults :account mealType="lunch" :foodItems="lunchFoods" :percent="scheduleRanges.lunch"
+        bgColor="bg-accent/50" @setActive="setActive(item)">
         Lunch
       </FoodItemRatioResults>
-      <FoodItemRatioResults mealType="dinner" :foodItems="dinnerFoods" bgColor="bg-accent-dark/50"
-        @setActive="setActive(item)">Dinner
+      <FoodItemRatioResults :account mealType="dinner" :foodItems="dinnerFoods" :percent="scheduleRanges.dinner"
+        bgColor="bg-accent-dark/50" @setActive="setActive(item)">Dinner
       </FoodItemRatioResults>
-      <FoodItemRatioResults mealType="snack" :foodItems="snackFoods" bgColor="bg-special/50"
-        @setActive="setActive(item)">
+      <FoodItemRatioResults :account mealType="snack" :foodItems="snackFoods" :percent="scheduleRanges.other"
+        bgColor="bg-special/50" @setActive="setActive(item)">
         Snack
       </FoodItemRatioResults>
-      <FoodItemRatioResults mealType="beverage" :foodItems="beverageFoods" bgColor="bg-special/50"
-        @setActive="setActive(item)">Beverage
+      <FoodItemRatioResults :account mealType="beverage" :foodItems="beverageFoods" :percent="scheduleRanges.other"
+        bgColor="bg-special/50" @setActive="setActive(item)">Beverage
       </FoodItemRatioResults>
     </div>
 

@@ -1,7 +1,7 @@
 <script setup>
 import FoodCard from "./FoodCard.vue";
 
-const props = defineProps(['mealType', 'foodItems', 'bgColor'])
+const props = defineProps(['account', 'mealType', 'foodItems', 'percent', 'bgColor'])
 
 const emit = defineEmits(['setActive']);
 
@@ -15,7 +15,7 @@ function setActive(item) {
   <div>
 
     <div :class="props.bgColor" class=" text-dark-text px-2 py-1 rounded">
-      <slot />
+      <slot /> - Calories {{ account.goal * (percent / 100) }}
     </div>
 
     <div v-for="item in foodItems">
