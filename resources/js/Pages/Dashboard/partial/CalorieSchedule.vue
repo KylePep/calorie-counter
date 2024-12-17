@@ -19,6 +19,7 @@ const showModal = ref(false);
 const ActiveFoodItem = ref({});
 
 function setActive(foodItem) {
+  console.log(foodItem)
   showModal.value = true;
   if (foodItem) {
     ActiveFoodItem.value = foodItem;
@@ -73,7 +74,7 @@ const closeModal = () => {
       Based on the ratios derived from your goal/bmr you can then search for food items from the apps ecosystem to help
       meet your goals.
     </div>
-    <FoodItemSearch />
+    <FoodItemSearch @setActive="setActive" />
   </div>
 
   <Modal :show="showModal" @close="closeModal">
