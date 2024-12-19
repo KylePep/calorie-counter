@@ -15,7 +15,7 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
             Calories? Counted <i class="mdi mdi-heart-box"></i>
         </template>
 
-        <div class="min-h-screen flex flex-col justify-between space-y-60 lg:space-y-80 my-80 lg:my-48">
+        <div class="min-h-screen flex flex-col justify-between space-y-60 lg:space-y-80 my-40 lg:my-48">
 
             <section class="text-center text-neutral sm:min-h-96">
                 <UsdaFeature />
