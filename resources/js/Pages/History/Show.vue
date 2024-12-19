@@ -59,15 +59,11 @@ onMounted(() => {
       </div>
     </section>
 
-    <template #leftSide>
-      <div v-if="props.account">
-        <WeighInHistory :weighIns="props.weighIns" />
-      </div>
-    </template>
-
-    <template #rightSide>
-      <div v-if="props.account" class="hidden lg:block">
+    <template #aside>
+      <div v-if="props.account" class="hidden lg:block space-y-1 lg:space-y-3 ">
         <NewDay />
+
+        <WeighInHistory :weighIns="props.weighIns" />
       </div>
     </template>
 

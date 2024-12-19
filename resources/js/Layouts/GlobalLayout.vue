@@ -44,23 +44,18 @@ document.body.setAttribute('body-theme', theme);
     <main class="grid grid-cols-4 flex-1 mt-10 lg:mt-14">
 
 
-      <div class="col-span-4 lg:col-span-1 mb-3 lg:mb-0">
-        <div v-if="$slots.leftSide" class="sticky top-32 px-6 lg:px-4">
-          <slot name="leftSide" />
+      <div v-if="$slots.aside" class="col-span-4 lg:col-span-1 mb-3 lg:mb-0">
+        <div class="sticky top-32 px-6 lg:px-4">
+          <slot name="aside" />
         </div>
       </div>
 
-      <section class="col-span-4 lg:col-span-2">
+      <section class="" :class="$slots.aside ? 'col-span-4 lg:col-span-3' : 'col-span-4 lg:col-span-2 lg:col-start-2'">
         <div class="space-y-4 max-w-7xl mx-auto px-6 lg:px-8">
           <slot />
         </div>
       </section>
 
-      <div class="col-span-4 lg:col-span-1 mt-3 sm:mt-0">
-        <div v-if="$slots.rightSide" class="sticky top-32 px-6 lg:px-4">
-          <slot name="rightSide" />
-        </div>
-      </div>
     </main>
 
     <footer class="mt-20">

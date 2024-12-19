@@ -1,7 +1,6 @@
 <script setup>
 import CalorieCalculator from "@/Pages/Calculator/Partials/CalorieCalculator.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import Side from "@/Components/Displays/Side.vue";
 import CollapsableFolder from "@/Components/Displays/CollapsableFolder.vue";
 
 const props = defineProps(['canLogin', 'canRegister', 'account']);
@@ -22,8 +21,8 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
       <CalorieCalculator :account="account" />
     </section>
 
-    <template #leftSide>
 
+    <template #aside>
       <div class="space-y-1 lg:space-y-3">
 
 
@@ -109,23 +108,20 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
             </template>
           </CollapsableFolder>
         </div>
-      </div>
-    </template>
 
-    <template #rightSide>
+        <div class="w-full p-2 bg-light border-2 border-light rounded space-y-4 text-xs text-dark-text">
 
-      <div class="w-full p-2 bg-light border-2 border-light rounded space-y-4 text-xs text-dark-text">
+          <p>This calculation is based on widely-accepted formulas, but it is not a prescription for your health and
+            nutrition. Consult with your doctor before making a change to your nutrition or diet</p>
 
-        <p>This calculation is based on widely-accepted formulas, but it is not a prescription for your health and
-          nutrition. Consult with your doctor before making a change to your nutrition or diet</p>
-
-        <p>All content presented are provided for informational and educational purposes only, and are not intended to
-          approximate or replace professional medical advice, diagnosis, or treatment. Always seek the advice of your
-          physician or other qualified healthcare provider with any questions you may have regarding a medical
-          condition.
-          Never disregard or delay seeking professional medical advice because of something you have read within the
-          website
-          content. If you think you may have a medical emergency, call 911 immediately.</p>
+          <p>All content presented are provided for informational and educational purposes only, and are not intended to
+            approximate or replace professional medical advice, diagnosis, or treatment. Always seek the advice of your
+            physician or other qualified healthcare provider with any questions you may have regarding a medical
+            condition.
+            Never disregard or delay seeking professional medical advice because of something you have read within the
+            website
+            content. If you think you may have a medical emergency, call 911 immediately.</p>
+        </div>
       </div>
 
 

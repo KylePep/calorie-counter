@@ -3,7 +3,6 @@ import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
-import Side from "@/Components/Displays/Side.vue";
 import MenuButton from "@/Components/Menu/MenuButton.vue";
 
 const props = defineProps(['mustVerifyEmail', 'status']);
@@ -35,7 +34,7 @@ const props = defineProps(['mustVerifyEmail', 'status']);
             </div>
         </div>
 
-        <template #rightSide>
+        <template #aside>
             <div>
                 <Link :href="route('account.index')" class="w-full">
                 <MenuButton>

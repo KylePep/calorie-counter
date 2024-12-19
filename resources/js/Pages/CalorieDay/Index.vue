@@ -2,7 +2,6 @@
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head, } from '@inertiajs/vue3';
 import { computed, ref } from "vue";
-import Side from "@/Components/Displays/Side.vue";
 import JournalEntry from "@/Components/Displays/JournalEntry.vue";
 import CarrotDisplay from '@/Components/Displays/CarrotDisplay.vue'
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
@@ -44,9 +43,7 @@ const renderHeroImage = computed(() => {
             Today: {{ new Date().toLocaleDateString() }}
         </CalorieDayLayout>
 
-        <template #leftSide></template>
-
-        <template #rightSide>
+        <template #aside>
             <div v-if="props.account" class="hidden lg:block space-y-1 lg:space-y-3">
                 <WeighInEntry :weighIn="weighIn" />
                 <JournalEntry :calorieDay="calorieDay" />

@@ -81,10 +81,7 @@ const closeModal = () => {
       </ItemsDisplay>
     </section>
 
-
-    <template #leftSide></template>
-
-    <template #rightSide>
+    <template #aside>
       <div class="hidden lg:block" v-if="props.account">
         <FoodMenuArray :foodItems />
       </div>

@@ -43,7 +43,7 @@ const account = computed(() => props.account);
       </div>
     </div>
 
-    <template #rightSide>
+    <template #aside>
       <Link :href="route('profile.edit')" class="w-full">
       <MenuButton>
         Edit Account

@@ -1,6 +1,5 @@
 <script setup>
 import JournalEntry from "@/Components/Displays/JournalEntry.vue";
-import Side from "@/Components/Displays/Side.vue";
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
 import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { Head } from "@inertiajs/vue3";
@@ -38,9 +37,7 @@ const getDayOfWeek = (date) => {
 
     </CalorieDayLayout>
 
-    <template #leftSide></template>
-
-    <template #rightSide>
+    <template #aside>
       <div v-if="props.account" class="hidden lg:block space-y-1 lg:space-y-3">
         <WeighInEntry :weighIn="weighIn" :date="new Date(calorieDay.created_at)" />
         <JournalEntry :calorieDay="calorieDay" />
