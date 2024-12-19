@@ -23,7 +23,7 @@ const props = defineProps(['canLogin', 'canRegister', 'account']);
 
 
     <template #aside>
-      <div class="space-y-1 lg:space-y-3">
+      <div class="space-y-3">
 
 
         <div class="w-full">
