@@ -11,7 +11,6 @@ import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import Modal from "../Form/Modal.vue";
 import BarcodeScanner from "../BarcodeScanner.vue";
-import InputLabel from "../Form/InputLabel.vue";
 
 const emit = defineEmits(['setActive']);
 
@@ -55,9 +54,9 @@ const loadingClasses = computed(() => {
 
 const typeName = computed(() => {
   return {
-    "SR Legacy": 'Legacy',
-    Foundation: 'Foundation',
-    Branded: 'Branded',
+    "SR Legacy": 'USDA - Legacy',
+    Foundation: 'USDA - Foundation',
+    Branded: 'USDA - Branded',
     App: 'App'
   }[form.type]
 })
@@ -159,7 +158,7 @@ function buttonClasses(value) {
 
           <template #trigger>
             <button type="button"
-              class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
+              class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-[10px] lg:text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
               <p class="flex-1 flex items-center text-center">
                 {{ typeName }}
@@ -171,14 +170,14 @@ function buttonClasses(value) {
           <template #content>
             <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
               <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'Branded'">Branded</button>
-              <button class="text-start p-1" :class="[form.type == 'App' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'App'">App</button>
+                type="button" @click="form.type = 'Branded'">USDA - Branded</button>
               <button class="text-start p-1"
                 :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
-                @click="form.type = 'Foundation'">Foundational</button>
+                @click="form.type = 'Foundation'">USDA - Foundational</button>
               <button class="text-start p-1" :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'SR Legacy'">Legacy</button>
+                type="button" @click="form.type = 'SR Legacy'">USDA - Legacy</button>
+              <button class="text-start p-1" :class="[form.type == 'App' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.type = 'App'">App</button>
             </div>
           </template>
 
@@ -186,26 +185,21 @@ function buttonClasses(value) {
       </div>
 
       <div v-if="form.type != 'App'"
-        class="col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
+        class="col-span-4 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
         <span
-          class="block lg:hidden ps-1 text-[6px] leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
-          <br>
-          All <br>
-          Words</span>
-        <span
-          class="hidden lg:block text-xs font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
+          class="ps-1 text-[10px] lg:text-xs leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
           All
           Words</span>
         <Checkbox name="requireAllWords" aria-label="require all words" class="h-6 w-6 group-hover:text-accent"
           v-model:checked="form.requireAllWords" />
       </div>
-      <div v-else class="col-span-3">
+      <div v-else class="col-span-4">
 
       </div>
 
 
 
-      <div class="col-span-4 lg:col-span-5 relative flex items-center ">
+      <div class="col-span-3 lg:col-span-5 relative flex items-center ">
         <TextInput id="query" aria-label="Food query text" type="text" class="w-full h-8 rounded text-xs lg:text-sm"
           v-model="form.query" required />
         <InputError :message="form.errors.query" />
