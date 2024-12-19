@@ -59,12 +59,13 @@ function cellsOverClasses(value) {
   <section id="calorie display" class="z-10 relative p-1.5 rounded border border border-light drop-shadow-xl bg-main"
     :class="calorieCount < bmr ? 'sticky top-20 lg:top-32' : ''">
     <div class="grid grid-cols-10 gap-1">
-      <div v-for="cell in allCellsTotal" class="h-6 sm:h-10 text-sm bg-light/10 border-4 border-light/10 rounded-sm">
+      <div v-for="cell, index in allCellsTotal" :key="index"
+        class="h-6 sm:h-10 text-sm bg-light/10 border-4 border-light/10 rounded-sm">
       </div>
     </div>
 
     <div class="absolute top-0 left-0 w-full grid grid-cols-10 gap-1 p-1.5">
-      <div v-for="cell in cellCount" :class="cellClasses(cell)"
+      <div v-for="cell, index in cellCount" :key="index" :class="cellClasses(cell)"
         class="h-6 sm:h-10 flex justify-center items-center text-sm  border-4 rounded-sm font-bold  duration-500"
         :title="cell * 100">
         100
@@ -77,7 +78,7 @@ function cellsOverClasses(value) {
     class="sticky top-20 z-20 p-1.5 rounded border border-light drop-shadow-xl bg-main">
 
     <div class=" grid grid-cols-10 gap-1">
-      <div v-for="index in 20" :class="cellsOverClasses(index)"
+      <div v-for="index in 20" :key="index" :class="cellsOverClasses(index)"
         class="h-6 sm:h-10 flex justify-center items-center text-sm border-4 rounded-sm font-bold  duration-500"
         :title="index * 100 + bmr">
         100

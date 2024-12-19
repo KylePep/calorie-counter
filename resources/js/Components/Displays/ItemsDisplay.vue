@@ -142,7 +142,7 @@ const stopDragging = () => {
     :class="currentSizeClass" @mousedown="startDragging" @mousemove="drag" @mouseup="stopDragging"
     @mouseleave="stopDragging">
 
-    <div v-for="foodItem in filteredList">
+    <div v-for="foodItem in filteredList" :key="foodItem.id">
       <FoodCard :foodItem="foodItem" :calorieDay @set-active="setActive" />
     </div>
 

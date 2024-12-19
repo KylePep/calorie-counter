@@ -118,7 +118,7 @@ function blockClass(block) {
 
     <section :class="foodItem.photo ? 'bg-gradient-to-t from-black to-transparent' : ''"
       class="grid grid-cols-10 gap-0.5 p-1  group-hover:bg-dark/90 duration-300 border border-t-0 border-light rounded-b">
-      <div v-for="block in Math.ceil(foodItem.calories / 100) " title="100 Calories"
+      <div v-for="block, index in Math.ceil(foodItem.calories / 100)" :key="index" title="100 Calories"
         class="h-3 border border-light rounded-sm" :class="blockClass(block)">
       </div>
     </section>

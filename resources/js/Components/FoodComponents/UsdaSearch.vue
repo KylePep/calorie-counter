@@ -258,7 +258,7 @@ function buttonClasses(value) {
         No results found
       </div>
 
-      <div v-for="foodItem in foods">
+      <div v-for="foodItem in foods" :key="foodItem.id">
         <UsdaFoodCard :food-item="foodItem" @set-active="setActive" />
       </div>
 

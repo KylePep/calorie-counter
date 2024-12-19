@@ -77,7 +77,7 @@ const formattedDate = () => {
         <h3 class="font-bold text-dark-text">
           Food Eaten</h3>
         <div class="bg-white border border-2 border-light/50 p-0.5 pb-1 rounded">
-          <p v-for="item in calorieDay.food_items"
+          <p v-for="item, index in calorieDay.food_items" :key="index"
             class="inline-block bg-light/20  rounded px-1 mx-1 lowercase text-sm text-dark-text">
             {{ item.description }} - {{ item.count }}
           </p>

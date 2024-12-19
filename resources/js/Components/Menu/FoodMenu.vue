@@ -134,7 +134,7 @@ async function deleteItem(foodItem) {
 
     <section v-else>
 
-      <div v-for="foodItem in filteredList">
+      <div v-for="foodItem in filteredList" :key="foodItem.id">
         <div class="grid grid-cols-10 min-h-8 bg-white border border-light rounded text-xs p-2 ps-0 sm:ps-2 my-1">
 
           <div class="col-span-1 text-start font-bold my-auto ps-2 tabular-nums">{{ foodItem.calories }} cal</div>
@@ -145,7 +145,7 @@ async function deleteItem(foodItem) {
             </div>
             <div class="col-span-4 lg:col-span-1">{{ foodItem.foodCategory }} - {{ foodItem.servingSize }}{{
               foodItem.servingSizeUnit
-            }}
+              }}
             </div>
           </div>
 

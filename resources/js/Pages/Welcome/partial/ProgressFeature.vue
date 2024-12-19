@@ -64,7 +64,7 @@ const getAnimationClass = (item) => {
           <p class="text-neutral-text text-center text-xl font-bold">Goal:1600, BMR: 1800</p>
           <div
             class="grid grid-cols-10 gap-1 text-transparent sm:text-neutral px-1.5 py-0.5 rounded ring-1 ring-main ring-inset border-2  border border-light drop-shadow-xl bg-gradient-to-b from-main via-light to-light">
-            <div v-for="index in 20" class="flex flex-col justify-center items-center h-10 sm:h-14 border"
+            <div v-for="index in 20" :key="index" class="flex flex-col justify-center items-center h-10 sm:h-14 border"
               :class="index < 8 ? 'bg-accent border-neutral' : '', index >= 8 && index <= 16 ? ' border-neutral ' : '', index > 16 && index <= 18 ? 'border-4 border-accent-light ' : '', index > 18 ? 'border-1 bg-neutral border-dark' : ''">
               {{ index >= 8 && index <= 18 ? '100' : '' }} </div>
             </div>
@@ -101,7 +101,7 @@ const getAnimationClass = (item) => {
       <div class="col-span-2 sm:col-span-1 flex flex-col mb-2 order-2 sm:order-3 px-2">
         <div class="border-2 rounded border-neutral bg-light overflow-x-auto h-full">
           <div class=" p-2 grid grid-rows-2 text-center  whitespace-nowrap gap-1 ">
-            <div v-for="rowIndex in 2" class="flex space-x-1">
+            <div v-for="rowIndex in 2" :key="rowIndex" class="flex space-x-1">
               <div v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
                 :class="representativeWidth(item)" :title="`${item.description}  -${item.count} Calories`"
                 class="h-8 inline-block bg-main border border-light rounded-sm px-2 flex items-center justify-center duration-500 overflow-hidden shadow-lg">

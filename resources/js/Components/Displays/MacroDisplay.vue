@@ -51,7 +51,7 @@ function macroClass(index) {
 <template>
 
   <div :class="gridClass(macros)" class="gap-x-2">
-    <div v-for="macro, index in macros" class="relative bg-white h-6">
+    <div v-for="macro, index in macros" :key="index" class="relative bg-white h-6">
 
       <div class="absolute h-full rounded-md" :class="macroClass(index)"
         :style="{ width: `${Math.min(calorieDayMacros[index] / macro * 100, 100)}%` }">
@@ -76,7 +76,7 @@ function macroClass(index) {
 
     </div>
 
-    <div v-for="macro, index in macros" class="text-center text-xs font-bold text-dark-text uppercase">
+    <div v-for="macro, index in macros" :key="index" class="text-center text-xs font-bold text-dark-text uppercase">
       {{ index }}
     </div>
   </div>

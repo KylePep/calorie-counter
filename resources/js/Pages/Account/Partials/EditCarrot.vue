@@ -148,7 +148,8 @@ const closeModal = () => {
 
     <h2 v-if="uncompletedCarrots.length" class="font-bold mdi mdi-human-male">Uncompleted</h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-      <div v-for="carrot in uncompletedCarrots" class="flex justify-between text-xs bg-light/50 rounded px-2 py-2">
+      <div v-for="carrot in uncompletedCarrots" :key="carrot.id"
+        class="flex justify-between text-xs bg-light/50 rounded px-2 py-2">
         <p class="font-semibold">{{ carrot.description }} : <span class="font-normal">{{ carrot.goalPost }}</span> </p>
         <div class="flex space-x-4">
           <button aria-label="Edit Carrot" @click="setEditForm(carrot)"
@@ -163,7 +164,7 @@ const closeModal = () => {
 
     <h3 v-if="completedCarrots.length" class="font-bold mdi mdi-weight-lifter">Completed</h3>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
-      <div v-for="carrot in completedCarrots"
+      <div v-for="carrot in completedCarrots" :key="carrot.id"
         class="flex justify-between text-xs bg-neutral text-light-text rounded px-2 py-1">
         <p>{{ carrot.description }} : {{ carrot.goalPost }} </p>
         <div class="flex space-x-1">

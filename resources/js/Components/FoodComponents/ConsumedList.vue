@@ -87,7 +87,7 @@ async function removeAndSubtractFoodItem(item) {
 
   <section>
     <div class=" py-2 grid grid-rows-2 text-center overflow-x-auto whitespace-nowrap gap-1 ">
-      <div v-for="rowIndex in 2" class="flex space-x-1">
+      <div v-for="rowIndex, index in 2" :key="index" class="flex space-x-1">
         <button v-for="(item, index) in rowIndex == 1 ? firstRow : secondRow" :key="index"
           @click="removeAndSubtractFoodItem(item)" :class="representativeWidth(item)"
           :title="`${item.description}  -${item.count} Calories`"
