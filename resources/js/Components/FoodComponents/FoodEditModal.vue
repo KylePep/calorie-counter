@@ -95,7 +95,7 @@ const closeModal = () => {
 
 
 <template>
-  <FoodDetailsForm :formData="form" @cancel="closeModal" @imageState="setImageState" :imageState="currentImageState">
+  <FoodDetailsForm :formData="form" @cancel="closeModal" @imageState="setImageState" :currentImageState="imageState">
     <template #title>
       <h1 class="text-center text-xl font-bold">Updating {{ form.description }}
       </h1>

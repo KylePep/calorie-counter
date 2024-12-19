@@ -37,10 +37,6 @@ onMounted(() => {
       Your History
     </template>
 
-    <section v-if="props.account && isSmallScreen">
-      <NewDay />
-    </section>
-
     <section>
       <SearchBar :results="results" :displayMode="displayMode" />
     </section>
@@ -60,10 +56,12 @@ onMounted(() => {
     </section>
 
     <template #aside>
-      <div v-if="props.account" class="hidden lg:block space-y-1 lg:space-y-3 ">
+      <div v-if="props.account" class="space-y-3 ">
+
         <NewDay />
 
         <WeighInHistory :weighIns="props.weighIns" />
+
       </div>
     </template>
 

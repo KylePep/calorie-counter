@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 
 const model = defineModel({
-    type: String,
     required: true,
 });
 

@@ -70,7 +70,7 @@ const closeModal = () => {
   <MenuButton class="" @click="confirmFoodDetails">Create Food</MenuButton>
 
   <Modal :show="showCreateForm" @close="closeModal">
-    <FoodDetailsForm :formData="form" @cancel="closeModal" @imageState="setImageState" :imageState="currentImageState">
+    <FoodDetailsForm :formData="form" @cancel="closeModal" @imageState="setImageState" :currentImageState="imageState">
 
       <template #title>
         <h1 class="text-center text-xl font-bold">Create a Food</h1>
