@@ -72,28 +72,28 @@ function setSearch() {
     <form @submit.prevent="setSearch" class="grid grid-cols-4 gap-2">
 
       <div class="flex flex-col gap-1">
-        <div class="bg-accent-light/50 p-1 rounded font-bold text-center">
+        <div class="bg-accent-light/50 p-1 rounded font-bold text-xs lg:text-base text-center">
           <label for="breakfast">Breakfast</label>
         </div>
         <NumberInput id="breakfast" v-model="breakfastPercentage" min="0" max="100" required class="text-center" />
       </div>
 
       <div class="flex flex-col gap-1">
-        <div class="bg-accent/50 p-1 rounded font-bold text-center">
+        <div class="bg-accent/50 p-1 rounded font-bold text-xs lg:text-base text-center">
           <label for="lunch">Lunch</label>
         </div>
         <NumberInput id="lunch" v-model="lunchPercentage" min="0" max="100" required class="text-center" />
       </div>
 
       <div class="flex flex-col gap-1">
-        <div class="bg-accent-dark/50 p-1 rounded font-bold text-center">
+        <div class="bg-accent-dark/50 p-1 rounded font-bold text-xs lg:text-base text-center">
           <label for="dinner">Dinner</label>
         </div>
         <NumberInput id="dinner" v-model="dinnerPercentage" min="0" max="100" required class="text-center" />
       </div>
 
       <div class="flex flex-col gap-1">
-        <div class="bg-special/50 p-1 rounded font-bold text-center">
+        <div class="bg-special/50 p-1 rounded font-bold text-xs lg:text-base text-center">
           <label>Other</label>
         </div>
         <span class="text-lg py-1.5 text-center">{{ otherPercentage }}</span>
