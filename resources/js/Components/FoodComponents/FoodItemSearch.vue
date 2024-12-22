@@ -24,6 +24,7 @@ const form = useForm({
   query: '',
   count: 0,
   type: 'Breakfast',
+  macro: 'noMacro',
 });
 
 const foodSearchResponse = ref({
@@ -83,6 +84,16 @@ function buttonClasses(value) {
     : 'bg-gradient-to-br from-accent to-accent-light border border-dark rounded font-bold text-dark-text hover:from-dark hover:to-neutral focus:from-dark focus:to-neutral hover:text-white focus:text-white active:bg-gray-900 transition ease-in-out duration-150 shadow-inner shadow-accent-light/20';
 }
 
+const macroName = computed(() => {
+  return {
+    highProtein: 'High Protein',
+    lowCarbs: 'Low Carbs',
+    lowFats: 'Low Fats',
+    noMacro: 'No Macro'
+  }[form.macro]
+})
+
+
 </script>
 
 <template>
@@ -90,8 +101,35 @@ function buttonClasses(value) {
   <div class="bg-neutral border-x border-dark rounded -mb-0.5 p-1.5">
     <form @submit.prevent="fetchUserFoodItems" class="grid grid-cols-9 gap-1 ">
 
-      <div class="col-span-3 text-light-text text-base font-bold flex items-center w-full h-8">
-        Search App
+      <div class="col-span-3 lg:col-span-2 flex items-center ">
+        <Dropdown align="left" width="100" class="w-full">
+
+          <template #trigger>
+            <button type="button"
+              class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
+
+              <p class="flex-1 flex items-center text-center">
+                {{ macroName }}
+              </p>
+              <i class="mdi mdi-menu-down text-lg"></i>
+            </button>
+          </template>
+
+          <template #content>
+            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
+              <button class="text-start p-1" :class="[form.macro == 'noMacro' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.macro = 'noMacro'">No Macro</button>
+              <button class="text-start p-1"
+                :class="[form.macro == 'highProtein' ? 'border border-black/25 rounded' : '']" type="button"
+                @click="form.macro = 'highProtein'">High Protein</button>
+              <button class="text-start p-1" :class="[form.macro == 'lowCarbs' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.macro = 'lowCarbs'">Low Carbs</button>
+              <button class="text-start p-1" :class="[form.macro == 'lowFats' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.macro = 'lowFats'">Low Fats</button>
+            </div>
+          </template>
+
+        </Dropdown>
       </div>
 
       <div class="col-span-3 lg:col-span-2 flex items-center ">
@@ -115,7 +153,7 @@ function buttonClasses(value) {
               <button class="text-start p-1" :class="[form.type == 'Lunch' ? 'border border-black/25 rounded' : '']"
                 type="button" @click="form.type = 'Lunch'">Lunch</button>
               <button class="text-start p-1" :class="[form.type == 'Dinner' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'Dinner'">Dinneral</button>
+                type="button" @click="form.type = 'Dinner'">Dinner</button>
               <button class="text-start p-1" :class="[form.type == 'Snack' ? 'border border-black/25 rounded' : '']"
                 type="button" @click="form.type = 'Snack'">Snack</button>
               <button class="text-start p-1" :class="[form.type == 'Beverage' ? 'border border-black/25 rounded' : '']"

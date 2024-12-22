@@ -70,10 +70,11 @@ const closeModal = () => {
     </div>
 
     <div>
-      Based on the ratios derived from your goal/bmr you can then search for food items from the apps ecosystem to help
-      meet your goals.
+      <p class="mb-2">
+        Search the apps database for food that fits your needs, submitted by users like you!
+      </p>
+      <FoodItemSearch @setActive="setActive" />
     </div>
-    <FoodItemSearch @setActive="setActive" />
   </div>
 
   <Modal :show="showModal" @close="closeModal">

@@ -29,7 +29,7 @@ const renderHeroImage = computed(() => {
       </h2>
     </template>
 
-    <div class="space-y-12">
+    <div class="space-y-32 my-16">
 
       <CalorieCount :account :calorieDay />
 
