@@ -22,5 +22,9 @@ function setActive(item) {
       <FoodCard :foodItem="item" @set-active="setActive" />
     </div>
 
+    <div v-if="!foodItems.length">
+      No Items match your ratio, sorry :/
+    </div>
+
   </div>
 </template>

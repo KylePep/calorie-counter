@@ -47,7 +47,6 @@ function setSearch() {
     snack: otherPercentage.value,
     beverage: otherPercentage.value
   }
-  console.log('[EMIT RANGES]', ranges)
   emit('setSearch', ranges);
 }
 </script>
