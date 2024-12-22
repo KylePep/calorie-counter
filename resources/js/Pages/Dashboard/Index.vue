@@ -21,7 +21,7 @@ const renderHeroImage = computed(() => {
   <GlobalLayout head="Dashboard" :heroImage="renderHeroImage" heroHeight="20">
 
     <template #header>
-      <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Dashboard</h2>
+      <h2 v-if="props.account">Dashboard</h2>
       <h2 v-else>
         <Link :href="route('calculator')" class="text-accent-light hover:text-white hover:animate-none duration-300">
         Set a Goal <i class="mdi mdi-checkbox-marked-circle-plus-outline"></i>
