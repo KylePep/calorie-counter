@@ -13,7 +13,7 @@ const props = defineProps(['account', 'calorieDay']);
 <template>
   <div v-if="account && calorieDay" class="text-neutral-text p-4 lg:p-8">
     <h1 class="text-2xl font-bold  mb-3">
-      Calorie Counter
+      Today's calorie counter
     </h1>
     <div
       class="grid grid-cols-3 xl:grid-cols-4 font-bold text-xs xl:text-base text-neutral-text text-center bg-main border border-light border-b-0 rounded-t px-1 sm:px-3 py-1 uppercase">
