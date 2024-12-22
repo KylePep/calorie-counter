@@ -49,7 +49,7 @@ onUnmounted(() => {
       </div>
 
       <div v-else
-        class="h-32 lg:h-32 flex justify-center items-end font-semibold text-xl leading-tight space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 uppercase duration-1000"
+        class="h-40 lg:h-32 flex justify-center items-end font-semibold lg:text-xl leading-tight space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 uppercase duration-1000"
         :class="isAtTop ? 'text-white' : 'text-transparent'">
         <slot name="header"></slot>
       </div>

@@ -44,7 +44,7 @@ onUnmounted(() => {
     <nav class="duration-1000 "
         :class="[showingNavigationDropdown ? 'bg-dark py-2' : isAtTop ? 'bg-gradient-to-b from-dark/100 via-dark/50 to-transparent py-4 lg:py-8' : 'bg-dark py-2']">
 
-        <div class="absolute w-full h-16 font-semibold text-xl leading-tight text-center uppercase duration-1000"
+        <div class="absolute w-full h-16 font-semibold lg:text-xl leading-tight text-center uppercase duration-1000"
             :class="[showingNavigationDropdown ? 'text-white py-5 lg:py-4' : isAtTop ? ' text-transparent lg:py-4' : 'py-5 lg:py-4 text-white']">
             <h1>
                 {{ props.header }}
@@ -63,7 +63,7 @@ onUnmounted(() => {
 
 
             <NavLink :href="route('calorieDay.index')" :active="route().current('calorieDay.index')"
-                class="lg:hidden text-sm -my-2 me-4">
+                class="lg:hidden text-xs -my-2 me-2">
                 Count
             </NavLink>
 
@@ -138,7 +138,7 @@ onUnmounted(() => {
 
         <!-- Responsive Navigation Menu -->
         <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="lg:hidden">
-            <div class="pt-2 pb-3 space-y-1">
+            <div class="pt-8 pb-3 space-y-1">
                 <ResponsiveNavLink :href="route('calculator')" :active="route().current('calculator')">
                     Calculator
                 </ResponsiveNavLink>
@@ -159,7 +159,7 @@ onUnmounted(() => {
                 </div>
 
                 <div class="mt-4 space-y-1">
-                    <ResponsiveNavLink :href="route('account.index')"> Profile - {{ $page.props.auth.user.name }}
+                    <ResponsiveNavLink :href="route('account.index')"> Profile
                     </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Log Out
