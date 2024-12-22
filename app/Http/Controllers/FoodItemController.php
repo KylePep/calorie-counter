@@ -59,6 +59,78 @@ class FoodItemController extends Controller
         return $foodItems;
     }
 
+    public function ratio(Request $request)
+{
+    $user = Auth::user(); 
+    $goal = $user->account->goal ?? 2000; 
+
+    $ranges = $request->input('ranges');
+
+    // Initialize an empty collection to store results
+    $filteredFoodItems = collect();
+
+    // Define the categories
+    $categories = ['breakfast', 'lunch', 'dinner', 'snack', 'beverage'];
+
+    foreach ($categories as $category) {
+        if (isset($ranges[$category])) {
+            $rangePercentage = $ranges[$category] / 100;
+
+            $foodItems = FoodItem::with('user')
+                ->whereColumn('user_id', 'creator_id')
+                ->where('user_id', '!=', $user->id)
+                ->where('foodCategory', $category)
+                ->whereRaw('ABS(calories - ?) < ?', [
+                    $goal * $rangePercentage,
+                    50, // Threshold to determine "close to goal" (adjust as needed)
+                ])
+                ->get();
+
+            $filteredFoodItems = $filteredFoodItems->merge($foodItems);
+        }
+    }
+
+    return response()->json($filteredFoodItems);
+}
+
+
+    // public function ratio(Request $request)
+    // {
+
+    //     $user = User::find(Auth::id());
+
+    //     $account = $user->account;
+    //     $goal = $account ? $account->goal : 2000;
+
+    //     $ranges = $request->input('ranges');
+
+    //     if (!$ranges || !is_array($ranges)) {
+    //         return response()->json(['error' => 'Invalid or missing ranges'], 400);
+    //     }
+
+    //     $results = [];
+
+    //     foreach (['breakfast', 'lunch', 'dinner', 'snack', 'beverage'] as $category) {
+    //         if (!isset($ranges[$category])) {
+    //             continue; // Skip if the range for the category is not provided
+    //         }
+    
+    //         $range = $ranges[$category]; // Range for the current category
+    //         $targetCalories = $goal * ($range / 100); // Calculate target calories for this category
+    
+    //         $foodItems = FoodItem::with('user')
+    //             ->whereColumn('user_id', 'creator_id') // Ensure food items are created by the user
+    //             ->where('user_id', '!=', $user->id) // Exclude the authenticated user's food items
+    //             ->where('category', $category) // Match the food category
+    //             ->whereBetween('calories', [$targetCalories - 50, $targetCalories + 50]) // Filter by calorie range
+    //             ->get();
+    
+    //         $results[$category] = $foodItems; // Store the results for this category
+    //     }
+    
+    //     return response()->json($results);
+    // }
+
     public function store(StoreFoodItemRequest $request)
     {
         $user = User::find(Auth::id());

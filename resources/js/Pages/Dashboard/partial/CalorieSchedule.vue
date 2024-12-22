@@ -4,14 +4,19 @@ import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 import FoodItemRatioResults from "@/Components/FoodComponents/FoodItemRatioResults.vue";
 import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
 import Modal from "@/Components/Form/Modal.vue";
+import Pop from "@/utils/Pop.js";
+import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const searchPerformed = ref();
-const breakfastFoods = [];
-const lunchFoods = [];
-const dinnerFoods = [];
-const snackFoods = [];
-const beverageFoods = [];
+
+const foods = ref({
+  breakfast: [],
+  lunch: [],
+  dinner: [],
+  snack: [],
+  beverage: []
+})
 
 
 const props = defineProps(['account', 'foodItems']);
@@ -27,16 +32,42 @@ function setActive(foodItem) {
   }
 }
 
-const scheduleRanges = ref()
+const scheduleRanges = ref({
+  breakfast: 0,
+  lunch: 0,
+  dinner: 0,
+  snack: 0,
+  beverage: 0
+});
+
+
 
 function searchSchedule(ranges) {
-  scheduleRanges.value = ranges
+
+  scheduleRanges.value = ranges;
+
+  const form = useForm(() => {
+    ranges;
+  });
+
+  form.get(route('foodItem.ratio'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      console.log('filteredFoodItems', form.data)
+      foods.value = form.data.filteredFoodItems;
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
+
 }
 
 const closeModal = () => {
   showModal.value = false;
   ActiveFoodItem.value = {};
 }
+
 </script>
 
 
@@ -50,21 +81,26 @@ const closeModal = () => {
     <CalorieRatioSelector :account @setSearch="searchSchedule" />
 
     <div v-if="scheduleRanges" class="space-y-8">
-      <FoodItemRatioResults :account mealType="breakfast" :foodItems="breakfastFoods"
+
+      <FoodItemRatioResults :account mealType="breakfast" :foodItems="foods.breakfast"
         :percent="scheduleRanges.breakfast" bgColor="bg-accent-light/50" @setActive="setActive(item)">Breakfast
       </FoodItemRatioResults>
-      <FoodItemRatioResults :account mealType="lunch" :foodItems="lunchFoods" :percent="scheduleRanges.lunch"
+
+      <FoodItemRatioResults :account mealType="lunch" :foodItems="foods.lunch" :percent="scheduleRanges.lunch"
         bgColor="bg-accent/50" @setActive="setActive(item)">
         Lunch
       </FoodItemRatioResults>
-      <FoodItemRatioResults :account mealType="dinner" :foodItems="dinnerFoods" :percent="scheduleRanges.dinner"
+
+      <FoodItemRatioResults :account mealType="dinner" :foodItems="foods.dinner" :percent="scheduleRanges.dinner"
         bgColor="bg-accent-dark/50" @setActive="setActive(item)">Dinner
       </FoodItemRatioResults>
-      <FoodItemRatioResults :account mealType="snack" :foodItems="snackFoods" :percent="scheduleRanges.other"
+
+      <FoodItemRatioResults :account mealType="snack" :foodItems="foods.snack" :percent="scheduleRanges.snack"
         bgColor="bg-special/50" @setActive="setActive(item)">
         Snack
       </FoodItemRatioResults>
-      <FoodItemRatioResults :account mealType="beverage" :foodItems="beverageFoods" :percent="scheduleRanges.other"
+
+      <FoodItemRatioResults :account mealType="beverage" :foodItems="foods.beverage" :percent="scheduleRanges.beverage"
         bgColor="bg-special/50" @setActive="setActive(item)">Beverage
       </FoodItemRatioResults>
     </div>

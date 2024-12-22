@@ -41,11 +41,13 @@ function cellClasses(index) {
 
 function setSearch() {
   const ranges = {
-    breakfast: breakfastPercentage,
-    lunch: lunchPercentage,
-    dinner: dinnerPercentage,
-    other: otherPercentage
+    breakfast: breakfastPercentage.value,
+    lunch: lunchPercentage.value,
+    dinner: dinnerPercentage.value,
+    snack: otherPercentage.value,
+    beverage: otherPercentage.value
   }
+  console.log('[EMIT RANGES]', ranges)
   emit('setSearch', ranges);
 }
 </script>

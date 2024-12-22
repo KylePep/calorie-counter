@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/foodItem', [FoodItemController::class, 'index'])->name('foodItem.index');
     Route::get('/foodItem/search', [FoodItemController::class, 'search'])->name('foodItem.search');
+    Route::get('/foodItem/ratio', [FoodItemController::class, 'ratio'])->name('foodItem.ratio');
     Route::post('/foodItem', [FoodItemController::class, 'store'])->name('foodItem.store');
     Route::match(['PUT', 'POST'], '/foodItem/{foodItem}', [FoodItemController::class, 'update'])->name('foodItem.update');
     Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
