@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CalorieDayController;
 use App\Http\Controllers\CarrotController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\FoodUsdaController;
 use App\Http\Controllers\HistoryController;
@@ -24,6 +25,9 @@ Route::get('/calculator', [CalculatorController::class, 'create'])->name('calcul
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
     Route::get('/history', [HistoryController::class, 'show'])
         ->name('history');
     Route::get('/history/search', [HistoryController::class, 'searchHistory'])
@@ -31,6 +35,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/foodItem', [FoodItemController::class, 'index'])->name('foodItem.index');
     Route::get('/foodItem/search', [FoodItemController::class, 'search'])->name('foodItem.search');
+    Route::get('/foodItem/ratio', [FoodItemController::class, 'ratio'])->name('foodItem.ratio');
     Route::post('/foodItem', [FoodItemController::class, 'store'])->name('foodItem.store');
     Route::match(['PUT', 'POST'], '/foodItem/{foodItem}', [FoodItemController::class, 'update'])->name('foodItem.update');
     Route::delete('/foodItem/{foodItem}', [FoodItemController::class, 'destroy'])->name('foodItem.destroy');
@@ -45,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/account', [AccountController::class, 'index'])->name('account.index');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
+    Route::patch('/account/{account}', [AccountController::class, 'patch'])->name('account.patch');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
 
     Route::post('/weighIn', [WeighInController::class, 'store'])->name('weighIn.store');

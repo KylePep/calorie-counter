@@ -66,7 +66,7 @@ function updateAccount() {
 
 
 <template>
-  <div v-if="account?.id" class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12 space-y-4">
+  <div v-if="account?.id" class="p-4 lg:p-8 space-y-4">
 
     <div class="grid grid-cols-5">
       <h1 class="font-bold mb-3 col-span-5 lg:col-span-3">Macros</h1>

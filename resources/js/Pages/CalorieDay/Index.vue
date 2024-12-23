@@ -27,7 +27,7 @@ const renderHeroImage = computed(() => {
         <meta type="description" content="Calorie Count Day" head-key="Calorie Day">
     </Head>
 
-    <GlobalLayout :heroImage="renderHeroImage" heroHeight="20">
+    <GlobalLayout head="Counter" :heroImage="renderHeroImage" heroHeight="20">
         <template #header>
             <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Today's Calorie Counter</h2>
             <h2 v-else>

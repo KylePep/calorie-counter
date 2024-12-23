@@ -22,7 +22,7 @@ const getDayOfWeek = (date) => {
     <meta type="description" content="Edit a Calorie Day" head-key="CalorieDay">
   </Head>
 
-  <GlobalLayout>
+  <GlobalLayout head="Counter">
 
     <template #header>
       <h2 v-if="props.account" class="font-semibold text-xl leading-tight">Calorie Counter - {{ getDayOfWeek(new

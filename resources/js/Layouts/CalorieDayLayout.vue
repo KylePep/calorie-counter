@@ -10,6 +10,7 @@ import MacroDisplay from "@/Components/Displays/MacroDisplay.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import MenuArray from "@/Components/Menu/MenuArray.vue";
 import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
+import NoAccountCard from "@/Components/NoAccountCard.vue";
 
 const props = defineProps(['account', 'calorieDay', 'foodItems', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
 
@@ -43,12 +44,11 @@ const closeModal = () => {
 <template>
 
   <section class="lg:sticky top-24 z-10">
-    <div v-if="!props.account" class="pb-3">
-      Please complete setting up your account to begin tracking your progress or begin by
-      <Link class="font-bold" :href="route('calculator')">
-      calculating your goal!
-      </Link>
+
+    <div v-if="!props.account">
+      <NoAccountCard />
     </div>
+
 
     <div v-else>
       <div

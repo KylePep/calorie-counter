@@ -4,12 +4,27 @@ import AuthenticatedNav from "@/Components/Nav/AuthenticatedNav.vue";
 import GuestNav from "@/Components/Nav/GuestNav.vue";
 import { Head, usePage } from "@inertiajs/vue3";
 import FooterContent from "./Partials/FooterContent.vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps(['canLogin', 'canRegister', 'head', 'heroImage', 'heroHeight']);
 
 const { props: pageProps } = usePage();
 const theme = pageProps.auth?.account?.theme ?? 'theme-sunRise';
 document.body.setAttribute('body-theme', theme);
+
+const isAtTop = ref(true);
+
+const handleScroll = () => {
+  isAtTop.value = Math.round(window.scrollY == 0);
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+});
 
 </script>
 
@@ -18,12 +33,12 @@ document.body.setAttribute('body-theme', theme);
   <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
     <nav class="fixed top-0 z-20 w-full">
       <GuestNav v-if="!$page.props.auth?.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
-      <AuthenticatedNav v-else></AuthenticatedNav>
+      <AuthenticatedNav :header="props.head" v-else></AuthenticatedNav>
     </nav>
 
     <Head :title="$props.head" content="description required" :head-key="$props.head" />
 
-    <header class="bg-neutral text-light-text shadow-xl" v-if="$slots.header">
+    <header class=" bg-neutral shadow-xl" v-if="$slots.header">
 
       <div v-if="heroImage" class="flex justify-center items-center h-96 space-x-3 mx-auto py-6 px-4 sm:px-6 lg:px-8 "
         :style="{ backgroundImage: `linear-gradient(to top, rgba(var(--hero-gradient), 0) 10%, rgba(var(--hero-gradient), 0.5) 80%, rgba(var(--hero-gradient), 0.6) 100%), url(${heroImage})`, backgroundPosition: `50% ${heroHeight}%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">
@@ -34,8 +49,11 @@ document.body.setAttribute('body-theme', theme);
       </div>
 
       <div v-else
-        class="h-40 sm:h-44 flex justify-center items-end space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 uppercase">
+        class="h-40 lg:h-32 flex justify-center items-end font-semibold lg:text-xl leading-tight space-x-3 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 uppercase duration-1000"
+        :class="isAtTop ? 'text-white' : 'text-transparent'">
+        <slot name="header"></slot>
       </div>
+
 
       <CalculateBanner position="header" />
 

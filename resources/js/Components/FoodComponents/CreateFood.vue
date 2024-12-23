@@ -35,13 +35,48 @@ const form = useForm({
     { nutrientName: "sodium", value: 0, unitName: 'MG' },
   ],
   ingredients: '',
-  photo: ''
+  photo: '',
+  qualities: ''
 });
+
+function evaluateQualities() {
+  const calories = form.calories;
+
+  const protein = form.foodNutrients.find(f => f.nutrientName == 'protein');
+  const carbs = form.foodNutrients.find(f => f.nutrientName == 'carbohydrates');
+  const fats = form.foodNutrients.find(f => f.nutrientName == 'fats');
+  protein.title = "Protein"
+  carbs.title = "Carb"
+  fats.title = "Fat"
+
+  const macros = [protein, carbs, fats];
+  const percentages = [.10, .26, .30];
+
+  let qualities = '';
+  macros.forEach((m, index) => {
+    if (m.value != 0) {
+      if (calories * percentages[index] <= m.value) {
+        qualities += ('high' + m.title + ',')
+      } else {
+        qualities += ('low' + m.title + ',')
+      }
+    }
+  });
+
+  return qualities
+}
 
 
 const createFoodItem = () => {
+
   if (imageState == 'selected') return
-  form.post(route('foodItem.store'), {
+
+  const evaluatedQualities = evaluateQualities()
+
+  form.transform((data) => ({
+    ...data,
+    qualities: evaluatedQualities
+  })).post(route('foodItem.store'), {
     onSuccess: () => {
       Pop.success(`${form.description} created`);
       form.reset();

@@ -46,18 +46,74 @@ class FoodItemController extends Controller
         $user = User::find(Auth::id());
 
         $query = $request->input('query');
-        $pageNumber = $request->input('pageNumber',1);
-        $pageSize = $request->input('pageSize', 10);
-        $dataType = $request->input('dataType', 'Branded');
+        $count = $request->input('count');
+        $category = $request->input('category');
+        $macro = $request->input('macro');
 
-        $foodItems = FoodItem::with(['user'])
-        ->where('description', 'LIKE', '%'.$query.'%')
+        $foodItemsQuery = FoodItem::with(['user'])
         ->whereColumn('user_id', 'creator_id')
-        ->where('user_id', '!=', $user->id)
-        ->get();
+        ->where('user_id', '!=', $user->id);
+        
 
-        return $foodItems;
+        if (!empty($query)) {
+            $foodItemsQuery->where('description', 'LIKE', '%' . $query . '%');
+        }
+
+        if (!empty($category)) {
+            $foodItemsQuery->where('foodCategory', $category);
+        }
+
+        if (!empty($macro)) {
+            $foodItemsQuery->where('qualities', 'LIKE', '%' . $macro . '%'  );
+        }
+
+        if (!empty($count)) {
+            $foodItemsQuery->whereRaw('ABS(calories - ?) < ?', [
+                $count,
+                100, // Threshold to determine "close to count"
+            ]);
+        }
+
+        $foodItems = $foodItemsQuery->take(10)->get();
+
+        return response()->json($foodItems);
     }
+
+    public function ratio(Request $request)
+        {
+            $user = Auth::user(); 
+            $goal = $user->account->goal ?? 2000; 
+
+            $ranges = $request->input('ranges');
+
+            $filteredFoodItemsByCategory = [];
+
+            $categories = ['breakfast', 'lunch', 'dinner', 'snack', 'beverage'];
+
+            foreach ($categories as $category) {
+                if (isset($ranges[$category])) {
+                    $rangePercentage = $ranges[$category] / 100;
+
+                    $foodItems = FoodItem::with('user')
+                        ->whereColumn('user_id', 'creator_id')
+                        ->where('user_id', '!=', $user->id)
+                        ->where('foodCategory', $category)
+                        ->whereRaw('ABS(calories - ?) < ?', [
+                            $goal * $rangePercentage,
+                            100, // Threshold to determine "close to goal"
+                        ])
+                        ->get();
+
+                      // Store the items under the corresponding category key
+            $filteredFoodItemsByCategory[$category] = $foodItems;
+        } else {
+            // Ensure all categories are included in the response, even if empty
+            $filteredFoodItemsByCategory[$category] = [];
+        }
+    }
+            return response()->json($filteredFoodItemsByCategory);
+        }
+
 
     public function store(StoreFoodItemRequest $request)
     {
@@ -73,6 +129,7 @@ class FoodItemController extends Controller
             'foodCategory' => ['required'],
             'calories' => ['required'],
             'foodNutrients' => ['nullable'],
+            'qualities' => ['nullable'],
             'ingredients' => ['nullable'], 
             'photo' => [ 'nullable',
                 function ($attribute, $value, $fail) {
@@ -114,6 +171,7 @@ class FoodItemController extends Controller
             'foodCategory' => $validated['foodCategory'],
             'calories' => $validated['calories'],
             'foodNutrients' => $validated['foodNutrients'], 
+            'qualities' => $validated['qualities'], 
             'ingredients' => $validated['ingredients'],
             'photo' => $photoPath,
             'creator_id' => $validated['creator_id'],
@@ -141,6 +199,7 @@ class FoodItemController extends Controller
             'foodCategory' => ['required'],
             'calories' => ['required'],
             'foodNutrients' => ['nullable'], 
+            'qualities' => ['nullable'], 
             'ingredients' => ['nullable'],
             'photo' => [ 'nullable',
                 function ($attribute, $value, $fail) {
@@ -182,6 +241,7 @@ class FoodItemController extends Controller
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => $attributes['foodNutrients'], 
+            'qualities' => $attributes['qualities'], 
             'ingredients' => $attributes['ingredients'],
             'photo' => $photoPath,
         ]);

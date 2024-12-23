@@ -76,7 +76,7 @@ const updateAccount = () => {
 
 <template>
 
-  <div class="p-4 sm:p-8 bg-main border-2 border-light rounded-lg shadow-xl p-12">
+  <div class="p-4 lg:p-8">
 
     <div class="space-y-3">
 
