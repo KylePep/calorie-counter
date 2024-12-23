@@ -24,7 +24,7 @@ const closeModal = () => {
 const form = useForm({
   query: null,
   count: 0,
-  category: 'breakfast',
+  category: null,
   macro: null,
 });
 
@@ -114,14 +114,16 @@ const macroName = computed(() => {
               class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
               <p class=" flex-1 flex items-center lg:justify-center">
-                {{ form.category }}
+                {{ form.category ? form.category : 'Any' }}
               </p>
               <i class="mdi mdi-menu-down text-lg"></i>
             </button>
           </template>
 
           <template #content>
-            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
+            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs space-y-2">
+              <button class="text-start p-1" :class="[form.category == '' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.category = ''">any</button>
               <button class="text-start p-1"
                 :class="[form.category == 'breakfast' ? 'border border-black/25 rounded' : '']" type="button"
                 @click="form.category = 'breakfast'">breakfast</button>
@@ -156,7 +158,7 @@ const macroName = computed(() => {
           </template>
 
           <template #content>
-            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
+            <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs space-y-2">
               <button class="text-start p-1" :class="[form.macro == 'noMacro' ? 'border border-black/25 rounded' : '']"
                 type="button" @click="form.macro = 'noMacro'">No Macro</button>
               <button class="text-start p-1"
