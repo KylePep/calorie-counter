@@ -71,7 +71,7 @@ const createFoodItem = () => {
 
   if (imageState == 'selected') return
 
-  const evaluatedQualities = evaluateQualities()
+  const evaluatedQualities = evaluateQualities();
 
   form.transform((data) => ({
     ...data,

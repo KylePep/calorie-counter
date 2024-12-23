@@ -129,14 +129,45 @@ function useItem() {
   });
 };
 
+function evaluateQualities() {
+  const calories = form.calories;
+
+  const protein = form.foodNutrients.find(f => f.nutrientName == 'protein');
+  const carbs = form.foodNutrients.find(f => f.nutrientName == 'carbohydrates');
+  const fats = form.foodNutrients.find(f => f.nutrientName == 'fats');
+  protein.title = "Protein"
+  carbs.title = "Carb"
+  fats.title = "Fat"
+
+  const macros = [protein, carbs, fats];
+  const percentages = [.10, .26, .30];
+
+  let qualities = '';
+  macros.forEach((m, index) => {
+    if (m.value != 0) {
+      if (calories * percentages[index] <= m.value) {
+        qualities += ('high' + m.title + ',')
+      } else {
+        qualities += ('low' + m.title + ',')
+      }
+    }
+  });
+
+  return qualities
+}
+
 function createFoodItem() {
 
   if (!form.servingSizeUnit) {
     form.servingSize = form.portionModifier;
     form.servingSizeUnit = 'g';
   }
+
+  const evaluatedQualities = evaluateQualities();
+
   form.transform((data) => ({
     ...data,
+    qualities: evaluatedQualities,
     calories: Math.round(data.calories * data.portionModifier / 100),
     foodNutrients: data.foodNutrients.map(n => ({
       ...n,
