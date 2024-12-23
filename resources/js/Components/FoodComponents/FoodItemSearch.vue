@@ -81,17 +81,11 @@ function setActive(item) {
   closeModal();
 }
 
-function buttonClasses(value) {
-  return value
-    ? 'bg-neutral text-light-text'
-    : 'bg-gradient-to-br from-accent to-accent-light border border-dark rounded font-bold text-dark-text hover:from-dark hover:to-neutral focus:from-dark focus:to-neutral hover:text-white focus:text-white active:bg-gray-900 transition ease-in-out duration-150 shadow-inner shadow-accent-light/20';
-}
-
 const macroName = computed(() => {
   return {
-    highProtein: 'High Protein',
-    lowCarbs: 'Low Carbs',
-    lowFats: 'Low Fats',
+    "highProtein": 'High Protein',
+    "lowCarb": 'Low Carbs',
+    "lowFat": 'Low Fats',
     noMacro: 'No Macro'
   }[form.macro]
 })
@@ -164,10 +158,10 @@ const macroName = computed(() => {
               <button class="text-start p-1"
                 :class="[form.macro == 'highProtein' ? 'border border-black/25 rounded' : '']" type="button"
                 @click="form.macro = 'highProtein'">High Protein</button>
-              <button class="text-start p-1" :class="[form.macro == 'lowCarbs' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.macro = 'lowCarbs'">Low Carbs</button>
-              <button class="text-start p-1" :class="[form.macro == 'lowFats' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.macro = 'lowFats'">Low Fats</button>
+              <button class="text-start p-1" :class="[form.macro == 'lowCarb' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.macro = 'lowCarb'">Low Carbs</button>
+              <button class="text-start p-1" :class="[form.macro == 'lowFat' ? 'border border-black/25 rounded' : '']"
+                type="button" @click="form.macro = 'lowFat'">Low Fats</button>
             </div>
           </template>
 

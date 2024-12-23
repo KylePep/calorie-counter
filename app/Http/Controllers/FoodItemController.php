@@ -48,7 +48,7 @@ class FoodItemController extends Controller
         $query = $request->input('query');
         $count = $request->input('count');
         $category = $request->input('category');
-        // $macro = $request->input('macro');
+        $macro = $request->input('macro');
 
         $foodItemsQuery = FoodItem::with(['user'])
         ->whereColumn('user_id', 'creator_id')
@@ -63,10 +63,9 @@ class FoodItemController extends Controller
             $foodItemsQuery->where('foodCategory', $category);
         }
 
-        // if (!empty($macro)) {
-        //     // Example: Filter based on a specific macro field, adjust as needed
-        //     $foodItemsQuery->where('macro', $macro);
-        // }
+        if (!empty($macro)) {
+            $foodItemsQuery->where('qualities', 'LIKE', '%' . $macro . '%'  );
+        }
 
         if (!empty($count)) {
             $foodItemsQuery->whereRaw('ABS(calories - ?) < ?', [
