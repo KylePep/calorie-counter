@@ -46,17 +46,38 @@ class FoodItemController extends Controller
         $user = User::find(Auth::id());
 
         $query = $request->input('query');
-        $pageNumber = $request->input('pageNumber',1);
-        $pageSize = $request->input('pageSize', 10);
-        $dataType = $request->input('dataType', 'Branded');
+        $count = $request->input('count');
+        $category = $request->input('category');
+        // $macro = $request->input('macro');
 
-        $foodItems = FoodItem::with(['user'])
-        ->where('description', 'LIKE', '%'.$query.'%')
+        $foodItemsQuery = FoodItem::with(['user'])
         ->whereColumn('user_id', 'creator_id')
-        ->where('user_id', '!=', $user->id)
-        ->get();
+        ->where('user_id', '!=', $user->id);
+        
 
-        return $foodItems;
+        if (!empty($query)) {
+            $foodItemsQuery->where('description', 'LIKE', '%' . $query . '%');
+        }
+
+        if (!empty($category)) {
+            $foodItemsQuery->where('foodCategory', $category);
+        }
+
+        // if (!empty($macro)) {
+        //     // Example: Filter based on a specific macro field, adjust as needed
+        //     $foodItemsQuery->where('macro', $macro);
+        // }
+
+        if (!empty($count)) {
+            $foodItemsQuery->whereRaw('ABS(calories - ?) < ?', [
+                $count,
+                100, // Threshold to determine "close to count"
+            ]);
+        }
+
+        $foodItems = $foodItemsQuery->take(10)->get();
+
+        return response()->json($foodItems);
     }
 
     public function ratio(Request $request)
@@ -66,10 +87,8 @@ class FoodItemController extends Controller
 
             $ranges = $request->input('ranges');
 
-            // Initialize an empty collection to store results
             $filteredFoodItemsByCategory = [];
 
-            // Define the categories
             $categories = ['breakfast', 'lunch', 'dinner', 'snack', 'beverage'];
 
             foreach ($categories as $category) {
@@ -82,7 +101,7 @@ class FoodItemController extends Controller
                         ->where('foodCategory', $category)
                         ->whereRaw('ABS(calories - ?) < ?', [
                             $goal * $rangePercentage,
-                            100, // Threshold to determine "close to goal" (adjust as needed)
+                            100, // Threshold to determine "close to goal"
                         ])
                         ->get();
 

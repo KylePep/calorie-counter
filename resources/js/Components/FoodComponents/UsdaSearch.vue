@@ -11,7 +11,6 @@ import Checkbox from "../Form/Checkbox.vue";
 import UsdaFoodCard from "./UsdaFoodCard.vue";
 import Modal from "../Form/Modal.vue";
 import BarcodeScanner from "../BarcodeScanner.vue";
-import InputLabel from "../Form/InputLabel.vue";
 
 const emit = defineEmits(['setActive']);
 
@@ -206,12 +205,12 @@ function buttonClasses(value) {
 
 
       <div class="col-span-4 lg:col-span-5 relative flex items-center ">
-        <TextInput id="query" aria-label="Food query text" type="text" class="w-full h-8 rounded text-xs lg:text-sm"
+        <TextInput id="query" aria-label="Food query text" class="w-full h-8 rounded text-xs lg:text-sm"
           v-model="form.query" required />
         <InputError :message="form.errors.query" />
         <button aria-label="Search for food" id="search" class="absolute right-0">
           <i
-            class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl lg:text-2xl ps-8 pe-2 duration-300"></i>
+            class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl ps-8 pe-2 duration-300"></i>
         </button>
       </div>
 
