@@ -81,16 +81,29 @@ function setActive(item) {
   closeModal();
 }
 
+// function buttonClasses(value) {
+//   return value
+//     ? 'bg-neutral text-light-text'
+//     : 'bg-gradient-to-br from-accent to-accent-light border border-dark rounded font-bold text-dark-text hover:from-dark hover:to-neutral focus:from-dark focus:to-neutral hover:text-white focus:text-white active:bg-gray-900 transition ease-in-out duration-150 shadow-inner shadow-accent-light/20';
+// }
+
 const macroName = computed(() => {
   return {
-    "highProtein": 'High Protein',
-    "lowCarb": 'Low Carbs',
-    "lowFat": 'Low Fats',
+    highProtein: 'High Protein',
+    lowCarb: 'Low Carbs',
+    lowFat: 'Low Fats',
     noMacro: 'No Macro'
   }[form.macro]
 })
 
-
+// const macroName = computed(() => {
+//   return {
+//     "protein$gte%10": 'High Protein',
+//     "carbohydrates$lte%26": 'Low Carbs',
+//     "fats$lte%30": 'Low Fats',
+//     noMacro: 'No Macro'
+//   }[form.macro]
+// })
 </script>
 
 <template>

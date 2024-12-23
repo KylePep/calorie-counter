@@ -24,7 +24,8 @@ const form = useForm({
   calories: 0,
   foodNutrients: [],
   ingredients: '',
-  photo: ''
+  photo: '',
+  qualities: ''
 });
 
 function setForm() {
@@ -39,9 +40,37 @@ function setForm() {
     form.ingredients = props.foodItem.ingredients || '',
 
     form.foodNutrients = props.foodItem.foodNutrients,
-    form.photo = props.foodItem.photo;
+    form.photo = props.foodItem.photo,
+    form.qualities = props.foodItem.qualities
 }
 setForm();
+
+function evaluateQualities() {
+  const calories = form.calories;
+
+  const protein = form.foodNutrients.find(f => f.nutrientName == 'protein');
+  const carbs = form.foodNutrients.find(f => f.nutrientName == 'carbohydrates');
+  const fats = form.foodNutrients.find(f => f.nutrientName == 'fats');
+  protein.title = "Protein"
+  carbs.title = "Carb"
+  fats.title = "Fat"
+
+  const macros = [protein, carbs, fats];
+  const percentages = [.10, .26, .30];
+
+  let qualities = '';
+  macros.forEach((m, index) => {
+    if (m.value != 0) {
+      if (calories * percentages[index] <= m.value) {
+        qualities += ('high' + m.title + ',')
+      } else {
+        qualities += ('low' + m.title + ',')
+      }
+    }
+  });
+
+  return qualities
+}
 
 async function deleteItem() {
   const confirmDelete = await Pop.confirm(`Delete ${form.description}?`)
@@ -65,7 +94,12 @@ async function updateItem() {
 
   if (imageState == 'selected') return
 
-  form.post(route('foodItem.update', props.foodItem.id), {
+  const evaluatedQualities = evaluateQualities()
+
+  form.transform((data) => ({
+    ...data,
+    qualities: evaluatedQualities
+  })).post(route('foodItem.update', props.foodItem.id), {
     preserveScroll: true,
     data: {
       _method: 'PUT',

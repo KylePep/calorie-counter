@@ -129,6 +129,7 @@ class FoodItemController extends Controller
             'foodCategory' => ['required'],
             'calories' => ['required'],
             'foodNutrients' => ['nullable'],
+            'qualities' => ['nullable'],
             'ingredients' => ['nullable'], 
             'photo' => [ 'nullable',
                 function ($attribute, $value, $fail) {
@@ -170,6 +171,7 @@ class FoodItemController extends Controller
             'foodCategory' => $validated['foodCategory'],
             'calories' => $validated['calories'],
             'foodNutrients' => $validated['foodNutrients'], 
+            'qualities' => $validated['qualities'], 
             'ingredients' => $validated['ingredients'],
             'photo' => $photoPath,
             'creator_id' => $validated['creator_id'],
@@ -197,6 +199,7 @@ class FoodItemController extends Controller
             'foodCategory' => ['required'],
             'calories' => ['required'],
             'foodNutrients' => ['nullable'], 
+            'qualities' => ['nullable'], 
             'ingredients' => ['nullable'],
             'photo' => [ 'nullable',
                 function ($attribute, $value, $fail) {
@@ -238,6 +241,7 @@ class FoodItemController extends Controller
             'foodCategory' => $attributes['foodCategory'],
             'calories' => $attributes['calories'],
             'foodNutrients' => $attributes['foodNutrients'], 
+            'qualities' => $attributes['qualities'], 
             'ingredients' => $attributes['ingredients'],
             'photo' => $photoPath,
         ]);
