@@ -34,6 +34,7 @@ const scheduleRanges = ref();
 
 async function searchSchedule(ranges) {
   scheduleRanges.value = ranges
+  console.log(scheduleRanges.value)
   try {
     const response = await axios.get('/foodItem/ratio', {
       params: {
