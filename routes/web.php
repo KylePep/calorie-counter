@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/account', [AccountController::class, 'index'])->name('account.index');
     Route::post('/account', [AccountController::class, 'store'])->name('account.store');
+    Route::patch('/account/{account}', [AccountController::class, 'patch'])->name('account.patch');
     Route::put('/account/{account}', [AccountController::class, 'update'])->name('account.update');
 
     Route::post('/weighIn', [WeighInController::class, 'store'])->name('weighIn.store');

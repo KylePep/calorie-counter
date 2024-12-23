@@ -4,7 +4,6 @@ import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 import FoodItemRatioResults from "@/Components/FoodComponents/FoodItemRatioResults.vue";
 import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
 import Modal from "@/Components/Form/Modal.vue";
-import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import { ref } from "vue";
 

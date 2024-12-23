@@ -12,7 +12,8 @@ class Account extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'macros' => 'object'
+        'macros' => 'object',
+        'ratios' => 'object'
     ];
 
     public function user()

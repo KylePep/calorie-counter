@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('account', function (Blueprint $table) {
+        Schema::table('accounts', function (Blueprint $table) {
             $table->json('ratios')->default(json_encode(['breakfast'=>30, 'lunch'=>30, 'dinner'=>30, 'snack'=>10, 'beverage'=>10]));
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('account', function (Blueprint $table) {
+        Schema::table('accounts', function (Blueprint $table) {
             $table->dropColumn('ratio');
         });
     }

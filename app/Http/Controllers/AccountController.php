@@ -138,6 +138,23 @@ class AccountController extends Controller
         return Redirect::route('account.index');
     }
 
+    public function patch(UpdateAccountRequest $request, Account $account)
+    {
+
+        Gate::authorize('update', $account);
+
+        $attributes = $request->validate([
+            'ratios' => ['array', 'nullable'],
+        ]);
+
+        $filteredAttributes = array_filter($attributes, fn($value)=> !is_null($value));
+
+        $account->update($filteredAttributes);
+
+        return redirect()->back()->with('success', 'Account has been patched.');
+
+    }
+
     /**
      * Remove the specified resource from storage.
      */

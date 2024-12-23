@@ -2,14 +2,16 @@
 import { computed, ref } from "vue";
 import NumberInput from "../Form/NumberInput.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
+import Pop from "@/utils/Pop.js";
+import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps(["account"]);
 
 const emit = defineEmits(['setSearch']);
 
-const breakfastPercentage = ref(props.account.percentages ? props.account.percentages.breakfast : 30);
-const lunchPercentage = ref(props.account.percentages ? props.account.percentages.lunch : 30);
-const dinnerPercentage = ref(props.account.percentages ? props.account.percentages.dinner : 30);
+const breakfastPercentage = ref(props.account.ratios ? props.account.ratios.breakfast : 30);
+const lunchPercentage = ref(props.account.ratios ? props.account.ratios.lunch : 30);
+const dinnerPercentage = ref(props.account.ratios ? props.account.ratios.dinner : 30);
 const otherPercentage = computed(() => {
   const total = breakfastPercentage.value + lunchPercentage.value + dinnerPercentage.value;
   return total > 100 ? 0 : 100 - total;
@@ -47,7 +49,21 @@ function setSearch() {
     snack: otherPercentage.value,
     beverage: otherPercentage.value
   }
+  updateAccountRatios(ranges)
   emit('setSearch', ranges);
+}
+
+function updateAccountRatios(ranges) {
+  const form = useForm({ ratios: ranges });
+  form.patch(route('account.patch', props.account.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      Pop.success(`Ratio's updated`);
+    },
+    onError: (errors) => {
+      console.log(errors);
+    },
+  });
 }
 </script>
 
