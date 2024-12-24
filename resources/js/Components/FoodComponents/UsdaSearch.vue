@@ -110,10 +110,14 @@ function buttonClasses(value) {
 
 <template>
 
-  <div class="bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
+  <div class="bg-neutral rounded -mb-0.5 text-xs p-1.5">
+    <div class="lg:hidden mb-1.5">
+      <BarcodeScanner @set-active="setActive" />
+    </div>
     <form @submit.prevent="fetchFoodData()" class="grid grid-cols-10 gap-1 ">
 
-      <div class="col-span-3 lg:col-span-2 flex items-center ">
+
+      <div class="col-span-5 lg:col-span-3 lg:col-span-2 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
 
           <template #trigger>
@@ -144,8 +148,8 @@ function buttonClasses(value) {
         </Dropdown>
       </div>
 
-      <div v-if="form.type != 'App'"
-        class="col-span-4 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
+      <div
+        class="col-span-5 lg:col-span-4 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
         <span
           class="ps-1 text-[10px] lg:text-xs leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
           All
@@ -153,13 +157,10 @@ function buttonClasses(value) {
         <Checkbox name="requireAllWords" aria-label="require all words" class="h-6 w-6 group-hover:text-accent"
           v-model:checked="form.requireAllWords" />
       </div>
-      <div v-else class="col-span-4">
-
-      </div>
 
 
 
-      <div class="col-span-3 lg:col-span-4 relative flex items-center ">
+      <div class="col-span-10 lg:col-span-4 relative flex items-center ">
         <TextInput id="query" aria-label="Food query text" type="text" class="w-full h-8 rounded text-xs lg:text-sm"
           v-model="form.query" required />
         <InputError :message="form.errors.query" />
@@ -171,9 +172,7 @@ function buttonClasses(value) {
 
     </form>
 
-    <div class="lg:hidden mt-1.5">
-      <BarcodeScanner @set-active="setActive" />
-    </div>
+
   </div>
 
   <Modal :show="showModal" @close="closeModal">

@@ -81,12 +81,6 @@ function setActive(item) {
   closeModal();
 }
 
-// function buttonClasses(value) {
-//   return value
-//     ? 'bg-neutral text-light-text'
-//     : 'bg-gradient-to-br from-accent to-accent-light border border-dark rounded font-bold text-dark-text hover:from-dark hover:to-neutral focus:from-dark focus:to-neutral hover:text-white focus:text-white active:bg-gray-900 transition ease-in-out duration-150 shadow-inner shadow-accent-light/20';
-// }
-
 const macroName = computed(() => {
   return {
     highProtein: 'High Protein',
@@ -95,25 +89,16 @@ const macroName = computed(() => {
     noMacro: 'No Macro'
   }[form.macro]
 })
-
-// const macroName = computed(() => {
-//   return {
-//     "protein$gte%10": 'High Protein',
-//     "carbohydrates$lte%26": 'Low Carbs',
-//     "fats$lte%30": 'Low Fats',
-//     noMacro: 'No Macro'
-//   }[form.macro]
-// })
 </script>
 
 <template>
 
-  <div class="bg-neutral border-x border-dark rounded -mb-0.5 p-1.5">
-    <form @submit.prevent="fetchUserFoodItems" class="grid grid-cols-9 gap-1 ">
+  <div class="bg-neutral rounded -mb-0.5 p-1.5">
+    <form @submit.prevent="fetchUserFoodItems" class="grid grid-cols-10 gap-1 ">
 
 
 
-      <div class="col-span-4  flex items-center ">
+      <div class="col-span-5 lg:col-span-3  flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
 
           <template #trigger>
@@ -150,7 +135,7 @@ const macroName = computed(() => {
         </Dropdown>
       </div>
 
-      <div class="col-span-5 flex items-center ">
+      <div class="col-span-5 lg:col-span-4 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
 
           <template #trigger>
@@ -181,15 +166,16 @@ const macroName = computed(() => {
         </Dropdown>
       </div>
 
-      <div class="col-span-7 flex items-center ">
-        <NumberInput id="count" aria-label="Food count value" class="w-full h-8 rounded text-xs lg:text-sm"
+      <div class="col-span-10 lg:col-span-3 relative flex items-center ">
+        <NumberInput id="count" aria-label="Food count value" class="w-full h-8 rounded font-bold text-xs lg:text-sm"
           v-model="form.count" placeholder="Calorie Quantity" />
         <InputError :message="form.errors.count" />
+        <button aria-label="Search for food" id="search" class="absolute right-0">
+          <i
+            class="mdi mdi-magnify bg-gradient-to-l from-main via-main h-8 rounded text-accent hover:text-dark-text text-2xl lg:text-2xl ps-8 pe-2 duration-300"></i>
+        </button>
       </div>
 
-      <PrimaryButton aria-label="Search for food" id="search" class="col-span-2 relative">
-        <i class="mdi mdi-magnify absolute w-full left-0 text-2xl"></i>
-      </PrimaryButton>
     </form>
   </div>
 

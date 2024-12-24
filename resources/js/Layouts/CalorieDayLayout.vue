@@ -11,6 +11,7 @@ import Modal from "@/Components/Form/Modal.vue";
 import MenuArray from "@/Components/Menu/MenuArray.vue";
 import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 import NoAccountCard from "@/Components/NoAccountCard.vue";
+import FoodSearchBar from "@/Components/FoodComponents/FoodSearchBar.vue";
 
 const props = defineProps(['account', 'calorieDay', 'foodItems', 'with_fdcId', 'without_fdcId', 'carrots', 'weighIn']);
 
@@ -94,7 +95,10 @@ const closeModal = () => {
 
     <section v-if="props.account">
       <h1 class="mb-2">Foods</h1>
-      <UsdaSearch @set-active="setActive" />
+
+      <section>
+        <FoodSearchBar @set-active="setActive" />
+      </section>
 
       <ItemsDisplay size="sm" :list="props.foodItems" :calorieDay @set-active="(item) => setActive('foodItem', item)">
         <h1>Your Foods</h1>
