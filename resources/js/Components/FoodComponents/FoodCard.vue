@@ -77,19 +77,29 @@ function blockClass(block) {
   }
 }
 
+function foodCategoryColoring() {
+  return {
+    breakfast: 'border-accent-light',
+    lunch: 'border-accent',
+    dinner: 'border-accent-dark',
+    beverage: 'border-special',
+    snack: 'border-special'
+  }[props.foodItem.foodCategory]
+}
+
 
 
 </script>
 
 <template>
   <div :style="{ backgroundImage: 'url(' + foodItem.photo + ')' }"
-    :class="foodItem.photo ? 'text-white' : 'text-dark-text'"
-    class="group flex flex-col h-full w-32 sm:w-52 drop-shadow-lg bg-center bg-cover rounded duration-300">
+    :class="[foodItem.photo ? 'text-white' : 'text-dark-text', foodCategoryColoring()]"
+    class="group flex flex-col h-full w-32 sm:w-52 hover:text-white border-4 hover:border-dark drop-shadow-lg bg-center bg-cover rounded-lg duration-300">
 
     <section :class="foodItem.photo ? 'bg-gradient-to-b from-black to-transparent' : ''"
-      class="flex flex-col flex-1  group-hover:bg-dark/90 rounded-t duration-300">
+      class="flex flex-col flex-1  group-hover:bg-dark/90 rounded-t duration-300 py-1">
 
-      <div class="flex  justify-between items-end sm:py-1 px-1 sm:px-2 rounded-t border border-b-0 border-light">
+      <div class="flex  justify-between items-end sm:py-1 px-1 sm:px-2 rounded-t">
 
         <div class="font-bold ">
           {{ foodItem.calories }}
@@ -106,7 +116,7 @@ function blockClass(block) {
 
       </div>
 
-      <button @click="setActive(foodItem)" class="flex-1 py-1 px-2 sm:p-3 border-x border-light">
+      <button @click="setActive(foodItem)" class="flex-1 py-1 px-2 sm:p-3">
         <h1 :class="foodItem.photo ? 'radial-gradient' : ''"
           class="text-xs sm:text-sm truncate sm:text-balance font-bold px-1">
           {{
@@ -117,7 +127,7 @@ function blockClass(block) {
     </section>
 
     <section :class="foodItem.photo ? 'bg-gradient-to-t from-black to-transparent' : ''"
-      class="grid grid-cols-10 gap-0.5 p-1  group-hover:bg-dark/90 duration-300 border border-t-0 border-light rounded-b">
+      class="grid grid-cols-10 gap-0.5 p-1  group-hover:bg-dark/90 duration-300 rounded-b">
       <div v-for="block, index in Math.ceil(foodItem.calories / 100)" :key="index" title="100 Calories"
         class="h-3 border border-light rounded-sm" :class="blockClass(block)">
       </div>
