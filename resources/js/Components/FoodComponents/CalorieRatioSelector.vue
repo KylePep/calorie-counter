@@ -4,8 +4,9 @@ import NumberInput from "../Form/NumberInput.vue";
 import PrimaryButton from "../Form/PrimaryButton.vue";
 import Pop from "@/utils/Pop.js";
 import { useForm } from "@inertiajs/vue3";
+import SecondaryButton from "../Form/SecondaryButton.vue";
 
-const props = defineProps(["account"]);
+const props = defineProps(["account", "calorieDay"]);
 
 const emit = defineEmits(['setSearch']);
 
@@ -69,20 +70,37 @@ function updateAccountRatios(ranges) {
 
 <template>
 
-  <section id="calorie display" class="z-10 relative p-1.5 rounded border border border-light drop-shadow-xl bg-main">
-    <div class="grid grid-cols-10 gap-1">
-      <div v-for="cell in allCellsTotal" class="h-6 sm:h-10 text-sm bg-light/10 border-4 border-light/10 rounded-sm">
-      </div>
+  <div>
+    <div
+      class="grid grid-cols-3 xl:grid-cols-4 font-bold text-xs xl:text-base text-neutral-text text-center bg-main border border-light border-b-0 rounded-t px-1 sm:px-3 py-1 uppercase">
+      <p>
+        calories:
+        {{ props.calorieDay.count }}
+      </p>
+      <p>
+        Goal:
+        {{ props.account.goal }}
+      </p>
+      <p>
+        BMR:
+        {{ props.calorieDay.bmr }}
+      </p>
     </div>
-
-    <div class="absolute top-0 left-0 w-full grid grid-cols-10 gap-1 p-1.5">
-      <div v-for="cell in cellCount" :class="cellClasses(cell)"
-        class="h-6 sm:h-10 flex justify-center items-center text-sm  border-4 rounded-sm font-bold  duration-500"
-        :title="cell * 100">
+    <section id="calorie display" class="z-10 relative p-1.5 rounded border border border-light drop-shadow-xl bg-main">
+      <div class="grid grid-cols-10 gap-1">
+        <div v-for="cell in allCellsTotal" class="h-6 sm:h-10 text-sm bg-light/10 border-4 border-light/10 rounded-sm">
+        </div>
       </div>
-    </div>
 
-  </section>
+      <div class="absolute top-0 left-0 w-full grid grid-cols-10 gap-1 p-1.5">
+        <div v-for="cell in cellCount" :class="cellClasses(cell)"
+          class="h-6 sm:h-10 flex justify-center items-center text-sm  border-4 rounded-sm font-bold  duration-500"
+          :title="cell * 100">
+        </div>
+      </div>
+
+    </section>
+  </div>
 
   <section id="input-fields" class="mt-4">
     <form @submit.prevent="setSearch" class="grid grid-cols-4 gap-2">
@@ -115,10 +133,15 @@ function updateAccountRatios(ranges) {
         <span class="text-lg py-1.5 text-center">{{ otherPercentage }}</span>
       </div>
 
-      <div class="col-span-4">
+      <div v-if="breakfastPercentage + lunchPercentage + dinnerPercentage + otherPercentage <= 100" class="col-span-4">
         <PrimaryButton class="w-full flex justify-center">Update your calorie schedule
         </PrimaryButton>
+      </div>
 
+      <div v-else class="col-span-4">
+        <SecondaryButton type="button" class="w-full flex justify-center">
+          All values must total 100
+        </SecondaryButton>
       </div>
 
     </form>

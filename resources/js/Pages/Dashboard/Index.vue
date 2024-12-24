@@ -3,9 +3,13 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import CalorieCount from "./partial/CalorieCount.vue";
 import CalorieSchedule from "./partial/CalorieSchedule.vue";
 import ConsumedReport from "./partial/ConsumedReport.vue";
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
+import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
 
 const props = defineProps(['account', 'calorieDay', 'calorieDays', 'foodItems']);
+
+const editCalorieSchedule = ref(false);
 
 const renderHeroImage = computed(() => {
   if (props.account) {
@@ -30,10 +34,24 @@ const renderHeroImage = computed(() => {
     </template>
 
     <div class="space-y-4 my-4">
+      <div class="relative space-y-4">
 
-      <CalorieCount :account :calorieDay />
+        <CalorieCount v-if="!editCalorieSchedule" :account :calorieDay />
 
-      <CalorieSchedule v-if="account" :account :foodItems />
+        <CalorieSchedule v-if="account && editCalorieSchedule" :account :foodItems :calorieDay />
+
+        <div v-if="account" class="absolute top-0 right-0">
+          <PrimaryButton v-if="!editCalorieSchedule" @click="editCalorieSchedule = true">
+            Set
+            calorie
+            schedule
+          </PrimaryButton>
+          <SecondaryButton v-else @click="editCalorieSchedule = false">
+            Cancel
+          </SecondaryButton>
+        </div>
+
+      </div>
 
       <ConsumedReport v-if="account" :account :calorieDays />
 

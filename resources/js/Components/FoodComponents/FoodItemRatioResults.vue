@@ -14,7 +14,7 @@ function setActive(item) {
 <template>
   <div>
 
-    <div :class="props.bgColor" class=" text-dark-text px-2 py-1 rounded">
+    <div :class="props.bgColor" class=" text-dark-text px-2 py-1 mb-2 rounded">
       <slot /> - Calories {{ (account.goal * (percent / 100)).toFixed(0) }}
     </div>
 

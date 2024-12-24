@@ -17,9 +17,6 @@ const props = defineProps(['account', 'calorieDay']);
     </h1>
     <div
       class="grid grid-cols-3 xl:grid-cols-4 font-bold text-xs xl:text-base text-neutral-text text-center bg-main border border-light border-b-0 rounded-t px-1 sm:px-3 py-1 uppercase">
-      <p class="col-span-3 xl:col-span-1">
-        Today: {{ new Date().toLocaleDateString() }}
-      </p>
       <p>
         calories:
         {{ props.calorieDay.count }}

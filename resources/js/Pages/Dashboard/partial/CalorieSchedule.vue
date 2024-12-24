@@ -7,7 +7,7 @@ import Modal from "@/Components/Form/Modal.vue";
 import axios from "axios";
 import { ref } from "vue";
 
-const props = defineProps(['account', 'foodItems']);
+const props = defineProps(['account', 'foodItems', 'calorieDay']);
 
 const foods = ref({
   breakfast: [],
@@ -63,7 +63,7 @@ const closeModal = () => {
       Calorie Schedule
     </h1>
 
-    <CalorieRatioSelector :account @set-search="searchSchedule" />
+    <CalorieRatioSelector :account :calorieDay @set-search="searchSchedule" />
 
     <div v-if="scheduleRanges" class="space-y-8">
 
