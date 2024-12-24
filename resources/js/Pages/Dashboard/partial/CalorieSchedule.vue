@@ -90,12 +90,6 @@ const closeModal = () => {
       </FoodItemRatioResults>
     </div>
 
-    <div>
-      <p class="mb-2">
-        Search the apps database for food that fits your needs, submitted by users like you!
-      </p>
-      <FoodItemSearch @setActive="setActive" />
-    </div>
   </div>
 
   <Modal :show="showModal" @close="closeModal">

@@ -54,10 +54,9 @@ const loadingClasses = computed(() => {
 
 const typeName = computed(() => {
   return {
-    "SR Legacy": 'USDA - Legacy',
-    Foundation: 'USDA - Foundation',
-    Branded: 'USDA - Branded',
-    App: 'App'
+    "SR Legacy": 'Legacy',
+    Foundation: 'Foundation',
+    Branded: 'Branded'
   }[form.type]
 })
 
@@ -95,45 +94,6 @@ async function fetchFoodData(page = 1) {
   }
 }
 
-async function fetchUserFoodItems(page = 1) {
-  try {
-    loading.value = true;
-
-    const response = await axios.get('/foodItem/search', {
-      params: {
-        query: form.query,
-        pageNumber: page,
-        pageSize: 10,
-      },
-    });
-
-    loading.value = false;
-
-    const foods = response.data;
-    usdaResponse.foodSearchResponse = {
-      "totalHits": 10,
-      "currentPage": 1,
-      "totalPages": 1
-    };
-    usdaResponse.foods = foods;
-
-    showResults();
-
-  } catch (error) {
-    loading.value = false;
-    console.error(error, '[Error fetching food data]');
-  }
-}
-
-
-function parseFetchType() {
-  if (form.type != 'App') {
-    fetchFoodData(1)
-  } else {
-    fetchUserFoodItems(1)
-  }
-}
-
 function setActive(item) {
   const type = form.type != 'App' ? 'usda' : 'app'
   emit('setActive', type, item);
@@ -151,7 +111,7 @@ function buttonClasses(value) {
 <template>
 
   <div class="bg-neutral border-x border-dark rounded -mb-0.5 text-xs p-1.5">
-    <form @submit.prevent="parseFetchType" class="grid grid-cols-10 gap-1 ">
+    <form @submit.prevent="fetchFoodData()" class="grid grid-cols-10 gap-1 ">
 
       <div class="col-span-3 lg:col-span-2 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
@@ -170,12 +130,12 @@ function buttonClasses(value) {
           <template #content>
             <div class="flex flex-col p-2 bg-neutral rounded text-light-text text-xs">
               <button class="text-start p-1" :class="[form.type == 'Branded' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'Branded'">USDA - Branded</button>
+                type="button" @click="form.type = 'Branded'">Branded</button>
               <button class="text-start p-1"
                 :class="[form.type == 'Foundation' ? 'border border-black/25 rounded' : '']" type="button"
-                @click="form.type = 'Foundation'">USDA - Foundational</button>
+                @click="form.type = 'Foundation'">Foundational</button>
               <button class="text-start p-1" :class="[form.type == 'SR Legacy' ? 'border border-black/25 rounded' : '']"
-                type="button" @click="form.type = 'SR Legacy'">USDA - Legacy</button>
+                type="button" @click="form.type = 'SR Legacy'">Legacy</button>
               <button class="text-start p-1" :class="[form.type == 'App' ? 'border border-black/25 rounded' : '']"
                 type="button" @click="form.type = 'App'">App</button>
             </div>

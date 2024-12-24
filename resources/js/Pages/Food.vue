@@ -9,6 +9,9 @@ import UsdaSearch from "@/Components/FoodComponents/UsdaSearch.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import FoodMenuArray from "@/Components/Menu/FoodMenuArray.vue";
 import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
+import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
+import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
+import FoodSearchBar from "@/Components/FoodComponents/FoodSearchBar.vue";
 
 const props = defineProps(['account', 'with_fdcId', 'without_fdcId']);
 
@@ -59,12 +62,8 @@ const closeModal = () => {
       </div>
     </section>
 
-    <section v-if="props.account && isSmallScreen" class="">
-      <FoodMenuArray :foodItems />
-    </section>
-
     <section>
-      <UsdaSearch @set-active="setActive" />
+      <FoodSearchBar @set-active="setActive" />
     </section>
 
     <section v-if="props.account">
@@ -82,7 +81,7 @@ const closeModal = () => {
     </section>
 
     <template #aside>
-      <div class="hidden lg:block" v-if="props.account">
+      <div v-if="props.account">
         <FoodMenuArray :foodItems />
       </div>
     </template>
