@@ -105,7 +105,7 @@ const macroName = computed(() => {
             <button type="button"
               class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
-              <p class=" flex-1 flex items-center lg:justify-center">
+              <p class=" flex-1 flex items-center">
                 {{ form.category ? form.category : 'Any' }}
               </p>
               <i class="mdi mdi-menu-down text-lg"></i>
@@ -135,14 +135,14 @@ const macroName = computed(() => {
         </Dropdown>
       </div>
 
-      <div class="col-span-5 lg:col-span-4 flex items-center ">
+      <div class="col-span-5 lg:col-span-3 flex items-center ">
         <Dropdown align="left" width="100" class="w-full">
 
           <template #trigger>
             <button type="button"
               class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
-              <p class="flex-1 flex items-center lg:justify-center">
+              <p class="flex-1 flex items-center">
                 {{ form.macro ? macroName : 'No Macro' }}
               </p>
               <i class="mdi mdi-menu-down text-lg"></i>
@@ -166,7 +166,7 @@ const macroName = computed(() => {
         </Dropdown>
       </div>
 
-      <div class="col-span-10 lg:col-span-3 relative flex items-center ">
+      <div class="col-span-10 lg:col-span-4 relative flex items-center ">
         <NumberInput id="count" aria-label="Food count value" class="w-full h-8 rounded font-bold text-xs lg:text-sm"
           v-model="form.count" placeholder="Calorie Quantity" />
         <InputError :message="form.errors.count" />

@@ -124,7 +124,7 @@ function buttonClasses(value) {
             <button type="button"
               class="w-full h-8 flex justify-between items-center px-2 py-2  rounded text-[10px] lg:text-xs font-bold text-light-text hover:text-accent uppercase hover:bg-dark transition ease-in-out duration-150">
 
-              <p class="flex-1 flex items-center text-center">
+              <p class="flex-1 flex items-center">
                 {{ typeName }}
               </p>
               <i class="mdi mdi-menu-down text-lg"></i>
@@ -149,7 +149,7 @@ function buttonClasses(value) {
       </div>
 
       <div
-        class="col-span-5 lg:col-span-4 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
+        class="col-span-5 lg:col-span-3 flex justify-center items-center h-8 group hover:bg-dark rounded space-x-4 duration-300">
         <span
           class="ps-1 text-[10px] lg:text-xs leading-tight font-bold text-light-text group-hover:text-accent duration-300 uppercase">Require
           All
