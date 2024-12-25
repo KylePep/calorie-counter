@@ -135,16 +135,25 @@ const closeModal = () => {
 
 
 <template>
-  <div v-if="account?.id" class="p-4 lg:p-8 space-y-3">
-    <h1 class="font-bold">
-      Create a carrot:
-    </h1>
-    <p>A carrot is a reward that you give yourself once you've reached your goal.</p>
 
-    <div v-if="!showCreateForm">
-      <PrimaryButton @click="confirmCarrotDetails">Create</PrimaryButton>
+  <div v-if="account?.id" class="p-4 lg:p-8 space-y-3">
+
+
+    <div class="grid grid-cols-5 bg-light rounded p-1">
+      <h1 class="font-bold col-span-4 flex items-center ms-1">
+        Create a carrot
+      </h1>
+
+      <div class="flex justify-end">
+        <PrimaryButton v-if="!showCreateForm" @click="confirmCarrotDetails"
+          class="relative lg:block h-8 w-8 lg:h-min lg:w-full">
+          <span class="hidden lg:block">Create</span>
+          <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-plus-thick"></span>
+        </PrimaryButton>
+      </div>
     </div>
 
+    <p>A carrot is a reward that you give yourself once you've reached your goal.</p>
 
     <h2 v-if="uncompletedCarrots.length" class="font-bold mdi mdi-human-male">Uncompleted</h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">

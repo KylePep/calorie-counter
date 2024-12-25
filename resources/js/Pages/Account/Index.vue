@@ -44,11 +44,13 @@ const account = computed(() => props.account);
     </div>
 
     <template #aside>
-      <Link :href="route('profile.edit')" class="w-full">
-      <MenuButton>
-        Edit Account
-      </MenuButton>
-      </Link>
+      <div class="mx-4">
+        <Link :href="route('profile.edit')" class="w-full">
+        <MenuButton>
+          Edit Account
+        </MenuButton>
+        </Link>
+      </div>
     </template>
 
   </GlobalLayout>

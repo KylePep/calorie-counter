@@ -70,15 +70,16 @@ function transparencyClass(color, index) {
 <template>
   <div class="text-neutral-text p-4 lg:p-8 space-y-8">
     <div>
-      <h1 class="text-lg lg:text-2xl font-bold mb-3">
+      <h1 class="text-lg lg:text-2xl font-bold mb-3 bg-light px-2 py-1 rounded">
         Consumed Report
       </h1>
       <h2>
         From the last 31 available entries here are the foods that showed up the most.
       </h2>
     </div>
-    <div v-if="successful.length" class="space-y-2">
-      <h3 class="text-dark-text font-semibold bg-light px-2 py-1 rounded-sm">
+
+    <div v-if="successful.length" class="space-y-2 px-2">
+      <h3 class="text-dark-text font-semibold py-1 rounded-sm">
         Within your goals range
       </h3>
 
@@ -101,8 +102,8 @@ function transparencyClass(color, index) {
     </div>
 
 
-    <div v-if="tooLow.length" class="space-y-2">
-      <h4 class="text-dark-text font-semibold bg-light px-2 py-1 rounded-sm">
+    <div v-if="tooLow.length" class="space-y-2 px-2">
+      <h4 class="text-dark-text font-semibold py-1">
         Lower than your goal - {{ account.goal }}
       </h4>
 
@@ -124,8 +125,8 @@ function transparencyClass(color, index) {
     </div>
 
 
-    <div v-if="tooHigh.length" class="space-y-2">
-      <h5 class="text-dark-text font-semibold bg-light px-2 py-1 rounded-sm">
+    <div v-if="tooHigh.length" class="space-y-2 px-2">
+      <h5 class="text-dark-text font-semibold py-1">
         Higher than your BMR - {{ account.bmr }}
       </h5>
 
@@ -147,7 +148,7 @@ function transparencyClass(color, index) {
     </div>
 
     <div v-if="!successful.length && !tooLow.length && !tooHigh.length">
-      <h6 class="fond-semibold bg-light px-2 py-1 rounded-sm text-center">Not enough food items entered to generate
+      <h6 class="fond-semibold bg-light py-1 text-center">Not enough food items entered to generate
         report, Keep
         counting!</h6>
     </div>

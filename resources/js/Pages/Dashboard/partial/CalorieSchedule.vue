@@ -58,7 +58,7 @@ const closeModal = () => {
 <template>
   <div class="text-neutral-text p-4 lg:p-8">
 
-    <h1 class="text-lg lg:text-2xl font-bold mb-3">
+    <h1 class="text-lg lg:text-2xl font-bold mb-3 bg-light px-2 py-1 rounded">
       Calorie Schedule
     </h1>
 

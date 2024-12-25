@@ -80,18 +80,32 @@ const updateAccount = () => {
 
     <div class="space-y-3">
 
-      <div class="grid grid-cols-5">
+      <div class="grid grid-cols-5 bg-light rounded p-1">
+        <h1 class="font-bold col-span-4 flex items-center ms-1">
 
-        <h1 class="font-bold mb-3 col-span-5 lg:col-span-3">
           {{ !account?.goal ? 'No calorie goal yet' : 'Current Calorie Goal:' }} <span>{{
-            props.account?.goal }}</span> </h1>
-        <PrimaryButton v-if="!edit" @click="edit = true" class="col-span-3 lg:col-span-2 justify-center">
+            props.account?.goal }}</span>
+        </h1>
+
+        <div class="flex justify-end">
+          <PrimaryButton v-if="!edit" @click="edit = true" class="relative lg:block h-8 w-8 lg:h-min lg:w-full">
+            <span class="hidden lg:block">{{ !account?.goal ? 'Create' : 'Change' }} Goal</span>
+            <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-pencil"></span>
+          </PrimaryButton>
+
+          <SecondaryButton v-else @click="edit = false" class="relative lg:block h-8 w-8 lg:h-fit lg:w-fit">
+            <span class="hidden lg:block">Cancel</span>
+            <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-close-thick"></span>
+          </SecondaryButton>
+        </div>
+
+        <!-- <PrimaryButton v-if="!edit" @click="edit = true" class="col-span-3 lg:col-span-1 justify-center">
           {{ !account?.goal ? 'Create' : 'Change' }} Goal
 
         </PrimaryButton>
-        <SecondaryButton v-else @click="edit = false" class="col-span-3 lg:col-span-2 justify-center">
+        <SecondaryButton v-else @click="edit = false" class="col-span-3 lg:col-span-1 justify-center">
           Cancel
-        </SecondaryButton>
+        </SecondaryButton> -->
       </div>
 
       <div v-if="account?.goal && !edit" class="max-w-xl my-3">

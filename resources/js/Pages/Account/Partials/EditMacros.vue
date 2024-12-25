@@ -68,14 +68,23 @@ function updateAccount() {
 <template>
   <div v-if="account?.id" class="p-4 lg:p-8 space-y-4">
 
-    <div class="grid grid-cols-5">
-      <h1 class="font-bold mb-3 col-span-5 lg:col-span-3">Macros</h1>
+    <div class="grid grid-cols-5 bg-light rounded p-1">
+      <h1 class="font-bold col-span-4 flex items-center ms-1">
+        Macros
+      </h1>
 
-      <PrimaryButton v-if="!edit" @click="edit = true" class="col-span-3 lg:col-span-2 justify-center">Change Macros
-      </PrimaryButton>
 
-      <SecondaryButton v-else @click="edit = false" class="col-span-3 lg:col-span-2 justify-center">Cancel
-      </SecondaryButton>
+      <div class="flex justify-end">
+        <PrimaryButton v-if="!edit" @click="edit = true" class="relative lg:block h-8 w-8 lg:h-min lg:w-full">
+          <span class="hidden lg:block">Change Macros</span>
+          <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-pencil"></span>
+        </PrimaryButton>
+
+        <SecondaryButton v-else @click="edit = false" class="relative lg:block h-8 w-8 lg:h-fit lg:w-fit">
+          <span class="hidden lg:block">Cancel</span>
+          <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-close-thick"></span>
+        </SecondaryButton>
+      </div>
     </div>
 
     <p class="mt-2">
