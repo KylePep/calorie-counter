@@ -73,7 +73,7 @@ const closeModal = () => {
     </div>
   </section>
 
-  <CalorieDisplay v-if="props.account" :goal="goal" :calorieCount="calorieCount" :bmr="bmr" />
+  <CalorieDisplay v-if="props.account" :account :goal :calorieCount :bmr :foodItems="calorieDay.food_items" />
 
   <section class="space-y-4">
 

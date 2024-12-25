@@ -18,8 +18,8 @@ const otherPercentage = computed(() => {
   return total > 100 ? 0 : 100 - total;
 });
 
-const cellCount = ref(Math.ceil(props.account.bmr / 100));
-const calorieCountRows = ref(Math.ceil(props.account.bmr / 1000));
+const cellCount = ref(Math.ceil(props.account.goal / 100));
+const calorieCountRows = ref(Math.ceil(props.account.goal / 1000));
 const allCellsTotal = computed(() => calorieCountRows.value * 10);
 
 const calculateCellRange = (percentage) => Math.round((percentage / 100) * cellCount.value);
@@ -42,20 +42,24 @@ function cellClasses(index) {
   }
 }
 
-function setSearch() {
+function setSearch(track) {
   const ranges = {
     breakfast: breakfastPercentage.value,
     lunch: lunchPercentage.value,
     dinner: dinnerPercentage.value,
     snack: otherPercentage.value,
-    beverage: otherPercentage.value
+    beverage: otherPercentage.value,
+    tracking: track
   }
   updateAccountRatios(ranges)
-  emit('setSearch', ranges);
+  if (track) {
+    emit('setSearch', ranges);
+  }
 }
 
 function updateAccountRatios(ranges) {
   const form = useForm({ ratios: ranges });
+
   form.patch(route('account.patch', props.account.id), {
     preserveScroll: true,
     onSuccess: () => {
@@ -86,6 +90,7 @@ function updateAccountRatios(ranges) {
         {{ props.calorieDay.bmr }}
       </p>
     </div>
+
     <section id="calorie display" class="z-10 relative p-1.5 rounded border border border-light drop-shadow-xl bg-main">
       <div class="grid grid-cols-10 gap-1">
         <div v-for="cell in allCellsTotal" class="h-6 sm:h-10 text-sm bg-light/10 border-4 border-light/10 rounded-sm">
@@ -103,7 +108,7 @@ function updateAccountRatios(ranges) {
   </div>
 
   <section id="input-fields" class="mt-4">
-    <form @submit.prevent="setSearch" class="grid grid-cols-4 gap-2">
+    <form @submit.prevent="setSearch(true)" class="grid grid-cols-4 gap-2">
 
       <div class="flex flex-col gap-1">
         <div class="bg-accent-light/50 p-1 rounded font-bold text-xs lg:text-base text-center">
@@ -133,12 +138,24 @@ function updateAccountRatios(ranges) {
         <span class="text-lg py-1.5 text-center">{{ otherPercentage }}</span>
       </div>
 
-      <div v-if="breakfastPercentage + lunchPercentage + dinnerPercentage + otherPercentage <= 100" class="col-span-4">
+      <div v-if="props.account.ratios.tracking" class="col-span-4 lg:col-span-2">
+        <PrimaryButton type="button" @click="setSearch(false)" class="w-full flex justify-center">Remove Schedule
+        </PrimaryButton>
+      </div>
+
+      <div v-else class="col-span-4 lg:col-span-2">
+        <SecondaryButton type="button" class="w-full flex justify-center">
+          No Schedule
+        </SecondaryButton>
+      </div>
+
+      <div v-if="breakfastPercentage + lunchPercentage + dinnerPercentage + otherPercentage <= 100"
+        class="col-span-4 lg:col-span-2">
         <PrimaryButton class="w-full flex justify-center">Update your calorie schedule
         </PrimaryButton>
       </div>
 
-      <div v-else class="col-span-4">
+      <div v-else class="col-span-4 lg:col-span-2">
         <SecondaryButton type="button" class="w-full flex justify-center">
           All values must total 100
         </SecondaryButton>

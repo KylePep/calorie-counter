@@ -24,6 +24,7 @@ function useItem() {
     count: props.foodItem.calories,
     food_items: [{
       description: props.foodItem.description,
+      category: props.foodItem.foodCategory,
       count: props.foodItem.calories,
       protein: Number(protein.value),
       carbohydrates: Number(carbohydrates.value),

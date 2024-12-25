@@ -12,6 +12,7 @@
   --color-accent-light: 246 163 39;
   --color-accent-dark: 210 46 10;
   --color-special: 89 109 155;
+  --color-alert: 89 109 155;
 }
 
 /* Default theme */
@@ -29,6 +30,7 @@ body[body-theme="theme-sunRise"] {
   --color-accent-light: 246 163 39;
   --color-accent-dark: 210 46 10;
   --color-special: 89 109 155;
+  --color-alert: 26 164 171;
 }
 
 body[body-theme="theme-coolTides"] {
@@ -45,6 +47,7 @@ body[body-theme="theme-coolTides"] {
   --color-accent-light: 168 218 242;
   --color-accent-dark: 29 53 138;
   --color-special: 230 57 70;
+  --color-alert: 229 85 149;
 }
 
 body[body-theme="theme-sketchPad"] {
@@ -61,4 +64,5 @@ body[body-theme="theme-sketchPad"] {
   --color-accent-light: 205 220 250;
   --color-accent-dark: 32 62 161;
   --color-special: 147 36 48;
+  --color-alert: 26 164 171;
 }

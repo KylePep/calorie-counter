@@ -32,7 +32,8 @@ export default {
                     light: "rgb(var(--color-accent-light))",
                     dark: "rgb(var(--color-accent-dark))"
                 },
-                special: 'rgb(var(--color-special))'
+                special: 'rgb(var(--color-special))',
+                alert: 'rgb(var(--color-alert))'
             },
             animation: {
                 'marquee-start': 'marquee-start 15s linear infinite',

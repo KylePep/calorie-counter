@@ -31,8 +31,8 @@ const props = defineProps(['account', 'calorieDay']);
       </p>
     </div>
     <Link :href="route('calorieDay.index')" class="w-full">
-    <CalorieDisplay v-if="props.account" :goal="props.account.goal" :calorieCount="props.calorieDay.count"
-      :bmr="props.calorieDay.bmr" />
+    <CalorieDisplay v-if="props.account" :account :goal="props.account.goal" :calorieCount="props.calorieDay.count"
+      :bmr="props.calorieDay.bmr" :foodItems="props.calorieDay.food_items" />
     </Link>
   </div>
 
