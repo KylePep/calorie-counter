@@ -41,13 +41,15 @@ const renderHeroImage = computed(() => {
 
         <CalorieSchedule v-if="account && editCalorieSchedule" :account :foodItems :calorieDay />
 
-        <div v-if="account" class="absolute top-0 right-0">
+        <div v-if="account && calorieDay" class="absolute top-0 right-0">
+
           <PrimaryButton v-if="!editCalorieSchedule" aria-label="toggle calorie schedule"
             @click="editCalorieSchedule = true"
             class="relative lg:block h-8 w-8 lg:h-fit lg:w-fit mx-5 my-0.5 lg:mx-9 lg:my-5">
             <span class="hidden lg:block">Set Calorie Schedule</span>
             <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-calendar"></span>
           </PrimaryButton>
+
           <SecondaryButton v-else @click="editCalorieSchedule = false"
             class="relative lg:block h-8 w-8 lg:h-fit lg:w-fit mx-5 my-0.5 lg:mx-9 lg:my-5">
             <span class="hidden lg:block">Cancel</span>
