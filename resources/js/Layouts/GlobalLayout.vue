@@ -32,7 +32,8 @@ onUnmounted(() => {
 <template>
   <div class="relative flex flex-col bg-page min-h-screen" style="scrollbar-gutter: stable;">
     <nav class="fixed top-0 z-20 w-full">
-      <GuestNav v-if="!$page.props.auth?.user?.name" :canLogin="canLogin" :canRegister="canRegister" />
+      <GuestNav v-if="!$page.props.auth?.user?.name" :canLogin="canLogin" :canRegister="canRegister"
+        :header="props.head" />
       <AuthenticatedNav :header="props.head" v-else></AuthenticatedNav>
     </nav>
 

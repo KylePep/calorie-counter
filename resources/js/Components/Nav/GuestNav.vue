@@ -4,7 +4,7 @@ import NavLink from "./NavLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
 import ApplicationLogo from "../ApplicationLogo.vue";
 
-const props = defineProps(['canLogin', 'canRegister']);
+const props = defineProps(['canLogin', 'canRegister', 'header']);
 
 const showingNavigationDropdown = ref(false);
 
@@ -29,8 +29,16 @@ onUnmounted(() => {
 
   <nav class="duration-1000"
     :class="[showingNavigationDropdown ? 'bg-dark py-2' : isAtTop ? 'bg-gradient-to-b from-dark/100 via-dark/50 to-transparent py-4 sm:py-8' : 'bg-dark py-2']">
+
+    <div class="absolute w-full h-16 font-semibold lg:text-xl leading-tight text-center uppercase duration-1000"
+      :class="[showingNavigationDropdown ? 'text-white py-5 lg:py-4' : isAtTop ? ' text-transparent lg:py-4' : 'py-5 lg:py-4 text-white']">
+      <h1>
+        {{ props.header }}
+      </h1>
+    </div>
+
     <!-- Primary Navigation Menu -->
-    <div class="flex justify-between h-16 mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative flex justify-between h-16 mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Logo -->
       <div class="flex w-full -my-2">

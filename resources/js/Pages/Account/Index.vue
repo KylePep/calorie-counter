@@ -19,7 +19,7 @@ const account = computed(() => props.account);
 
 <template>
 
-  <GlobalLayout head="Account">
+  <GlobalLayout head="Profile">
 
     <template #header>
       <h2 class="font-semibold text-xl leading-tight">Profile</h2>
