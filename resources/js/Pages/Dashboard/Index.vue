@@ -34,6 +34,7 @@ const renderHeroImage = computed(() => {
     </template>
 
     <div class="space-y-4 my-4">
+
       <div class="relative space-y-4">
 
         <CalorieCount v-if="!editCalorieSchedule" :account :calorieDay />
@@ -41,13 +42,16 @@ const renderHeroImage = computed(() => {
         <CalorieSchedule v-if="account && editCalorieSchedule" :account :foodItems :calorieDay />
 
         <div v-if="account" class="absolute top-0 right-0">
-          <PrimaryButton v-if="!editCalorieSchedule" @click="editCalorieSchedule = true">
-            Set
-            calorie
-            schedule
+          <PrimaryButton v-if="!editCalorieSchedule" aria-label="toggle calorie schedule"
+            @click="editCalorieSchedule = true"
+            class="relative lg:block h-8 w-8 lg:h-fit lg:w-fit mx-4 lg:mx-8 lg:my-4">
+            <span class="hidden lg:block">Set Calorie Schedule</span>
+            <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-calendar"></span>
           </PrimaryButton>
-          <SecondaryButton v-else @click="editCalorieSchedule = false">
-            Cancel
+          <SecondaryButton v-else @click="editCalorieSchedule = false"
+            class="relative lg:block h-8 w-8 lg:h-fit lg:w-fit mx-4 lg:mx-8 lg:my-4">
+            <span class="hidden lg:block">Set Calorie Schedule</span>
+            <span class="absolute left-1.5 lg:hidden text-xl mdi mdi-close"></span>
           </SecondaryButton>
         </div>
 

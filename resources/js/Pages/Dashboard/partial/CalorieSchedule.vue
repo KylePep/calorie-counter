@@ -2,7 +2,6 @@
 import CalorieRatioSelector from "@/Components/FoodComponents/CalorieRatioSelector.vue";
 import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 import FoodItemRatioResults from "@/Components/FoodComponents/FoodItemRatioResults.vue";
-import FoodItemSearch from "@/Components/FoodComponents/FoodItemSearch.vue";
 import Modal from "@/Components/Form/Modal.vue";
 import axios from "axios";
 import { ref } from "vue";
@@ -57,9 +56,9 @@ const closeModal = () => {
 
 
 <template>
-  <div class="text-neutral-text p-4 lg:p-8 space-y-8">
+  <div class="text-neutral-text p-4 lg:p-8">
 
-    <h1 class="text-2xl font-bold  mb-3">
+    <h1 class="text-lg lg:text-2xl font-bold mb-3">
       Calorie Schedule
     </h1>
 
