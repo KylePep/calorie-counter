@@ -184,7 +184,7 @@ const macroName = computed(() => {
       Refined search results
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-2 min-[1600px]:grid-cols-3 gap-2 text-center ">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2 text-center ">
 
       <div v-if="!foodSearchResponse.currentPage" :class="loadingClasses"
         class="break-inside-avoid relative flex flex-col justify-center w-full text-sm sm:text-xl font-bold bg-neutral text-light-text border-2 border-light p-3 drop-shadow-lg min-h-24 rounded">
@@ -196,7 +196,7 @@ const macroName = computed(() => {
       </div>
 
       <div v-for="foodItem in foodsList">
-        <FoodCard :foodItem="foodItem" @set-active="setActive" />
+        <FoodCard :foodItem="foodItem" :is-search-result="true" @set-active="setActive" />
       </div>
 
     </div>

@@ -6,8 +6,9 @@ import ConsumedReport from "./partial/ConsumedReport.vue";
 import { computed, ref } from "vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
+import FoodRecommendations from "./partial/FoodRecommendations.vue";
 
-const props = defineProps(['account', 'calorieDay', 'calorieDays', 'foodItems']);
+const props = defineProps(['account', 'calorieDay', 'calorieDays', 'foodItems', 'foodRecommendations']);
 
 const editCalorieSchedule = ref(false);
 
@@ -58,6 +59,8 @@ const renderHeroImage = computed(() => {
         </div>
 
       </div>
+
+      <FoodRecommendations v-if="props.account.ratios.tracking" :account :foodRecommendations />
 
       <ConsumedReport v-if="account" :account :calorieDays />
 

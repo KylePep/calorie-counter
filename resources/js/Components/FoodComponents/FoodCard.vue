@@ -3,7 +3,7 @@ import { useForm, usePage } from "@inertiajs/vue3";
 import FoodCardButton from "./FoodCardButton.vue";
 import Pop from "@/utils/Pop.js";
 
-const props = defineProps(['foodItem', 'calorieDay']);
+const props = defineProps(['foodItem', 'calorieDay', 'isSearchResult']);
 const emit = defineEmits(['setActive']);
 
 function setActive(item) {
@@ -106,7 +106,7 @@ function foodCategoryColoring() {
           {{ foodItem.calories }}
         </div>
 
-        <div class="flex space-x-2">
+        <div v-if="!isSearchResult" class="flex space-x-2">
           <FoodCardButton v-if="isCalorieDay" @click.stop="useItem()" icon="plus">
             Add
           </FoodCardButton>

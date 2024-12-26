@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FoodItem;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -41,12 +42,42 @@ class DashboardController extends Controller
             $foodItems = $user->foodItems()->orderBy('created_at', 'desc')->get();
         }
 
+        $goal = $account->goal ?? 2000;
+        $ranges = $account->ratios;
+
+        $filteredFoodItemsByCategory = [];
+
+        $categories = ['breakfast', 'lunch', 'dinner', 'snack', 'beverage'];
+
+        foreach ($categories as $category) {
+            if (isset($ranges->$category)) {
+                $rangePercentage = $ranges->$category / 100;
+
+                $foods = FoodItem::with('user')
+                    ->whereColumn('user_id', 'creator_id')
+                    ->where('user_id', '!=', $user->id)
+                    ->where('foodCategory', $category)
+                    ->whereRaw('ABS(calories - ?) < ?', [
+                        $goal * $rangePercentage,
+                        100, // Threshold to determine "close to goal"
+                    ])
+                    ->get();
+
+                  // Store the items under the corresponding category key
+        $filteredFoodItemsByCategory[$category] = $foods;
+    } else {
+        // Ensure all categories are included in the response, even if empty
+        $filteredFoodItemsByCategory[$category] = [];
+    }
+}
+
 
         return Inertia::render('Dashboard/Index', [
             'account' => $account,
             'calorieDay' => $calorieDay ? $calorieDay : null,
             'calorieDays' => $calorieDays ? $calorieDays : [],
             'foodItems' => $foodItems ? $foodItems : [],
+            'foodRecommendations' => $filteredFoodItemsByCategory ? $filteredFoodItemsByCategory : []
         ]);
     }
 }
