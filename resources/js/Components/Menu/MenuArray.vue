@@ -19,11 +19,11 @@ const ActiveFoodItem = ref({});
 const menuOptions = computed(() => {
   return {
     weighIn: { name: `${props.weighIn ? props.weighIn.weight : 'Weigh In'}`, specialClass: 'lg:hidden' },
+    journalEntry: { name: 'Journal Entry', specialClass: 'lg:hidden' },
     macroList: { name: 'Macro List', specialClass: 'lg:col-span-2' },
     consumedList: { name: 'Consumed List', specialClass: 'lg:col-span-2' },
     foodList: { name: 'Your Foods', specialClass: 'lg:col-span-2' },
-    journalEntry: { name: 'Journal Entry', specialClass: 'lg:hidden' },
-    carrots: { name: 'Carrots', specialClass: 'lg:hidden' },
+    carrots: { name: 'Carrots', specialClass: [props.carrots ? 'lg:hidden' : 'hidden'] },
   }
 });
 
@@ -47,7 +47,7 @@ const closeModal = () => {
       </MenuButton>
     </div>
 
-    <div class="col-span-2">
+    <div :class="carrots ? 'col-span-2' : 'col-span-1'">
       <CreateFood />
     </div>
 

@@ -30,7 +30,7 @@ const getDayOfWeek = (date) => {
           Date(calorieDay.created_at).toLocaleDateString() }}</h2>
     </template>
 
-    <CalorieDayLayout :account="account" :calorieDay :foodItems :carrots>
+    <CalorieDayLayout :account="account" :calorieDay :foodItems>
 
       {{ getDayOfWeek(new Date(calorieDay.created_at).getDay()) }}, {{ new
         Date(calorieDay.created_at).toLocaleDateString() }}

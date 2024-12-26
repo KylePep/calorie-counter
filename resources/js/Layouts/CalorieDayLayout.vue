@@ -2,7 +2,6 @@
 import { computed, ref } from "vue";
 import ConsumedList from "@/Components/FoodComponents/ConsumedList.vue";
 import FoodEditModal from "@/Components/FoodComponents/FoodEditModal.vue";
-import UsdaSearch from "@/Components/FoodComponents/UsdaSearch.vue";
 import UsdaFoodEditModal from "@/Components/FoodComponents/UsdaFoodEditModal.vue";
 import ItemsDisplay from "@/Components/Displays/ItemsDisplay.vue";
 import CalorieDisplay from '@/Components/FoodComponents/CalorieDisplay.vue'
@@ -88,9 +87,6 @@ const closeModal = () => {
 
     <section v-if="props.account">
       <ConsumedList :foodItems="calorieDay.food_items" :calorieDay />
-    </section>
-
-    <section>
     </section>
 
     <section v-if="props.account">
