@@ -47,7 +47,7 @@ const closeModal = () => {
       </MenuButton>
     </div>
 
-    <div :class="carrots ? 'col-span-2' : 'col-span-1'">
+    <div :class="carrots ? 'col-span-2' : 'col-span-1 lg:col-span-2'">
       <CreateFood />
     </div>
 

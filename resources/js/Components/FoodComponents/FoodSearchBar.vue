@@ -8,8 +8,7 @@ const displayMode = ref('app')
 
 const emit = defineEmits(['setActive']);
 
-function setActive(item) {
-  const type = form.type != 'App' ? 'usda' : 'app'
+function setActive(type, item) {
   emit('setActive', type, item);
 }
 

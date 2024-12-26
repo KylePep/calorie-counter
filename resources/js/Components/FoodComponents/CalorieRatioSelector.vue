@@ -151,7 +151,7 @@ function updateAccountRatios(ranges) {
 
       <div v-if="breakfastPercentage + lunchPercentage + dinnerPercentage + otherPercentage <= 100"
         class="col-span-4 lg:col-span-2">
-        <PrimaryButton class="w-full flex justify-center">Update your calorie schedule
+        <PrimaryButton class="w-full flex justify-center">Update schedule
         </PrimaryButton>
       </div>
 

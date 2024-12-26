@@ -7,7 +7,6 @@ import Modal from "../Form/Modal.vue";
 import FoodCard from "./FoodCard.vue";
 import NumberInput from "../Form/NumberInput.vue";
 import Dropdown from "../Form/Dropdown.vue";
-import PrimaryButton from "../Form/PrimaryButton.vue";
 
 const emit = defineEmits(['setActive']);
 
@@ -77,7 +76,8 @@ async function fetchUserFoodItems() {
 }
 
 function setActive(item) {
-  emit('setActive', item);
+  const type = 'app'
+  emit('setActive', type, item);
   closeModal();
 }
 

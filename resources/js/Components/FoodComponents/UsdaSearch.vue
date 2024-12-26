@@ -95,7 +95,7 @@ async function fetchFoodData(page = 1) {
 }
 
 function setActive(item) {
-  const type = form.type != 'App' ? 'usda' : 'app'
+  const type = 'usda'
   emit('setActive', type, item);
   closeModal();
 }
