@@ -2,12 +2,14 @@
 import FoodCopyModal from "@/Components/FoodComponents/FoodCopyModal.vue";
 import FoodItemRatioResults from "@/Components/FoodComponents/FoodItemRatioResults.vue";
 import Modal from "@/Components/Form/Modal.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps(['account', 'foodRecommendations']);
 
 const showModal = ref(false);
 const ActiveFoodItem = ref({});
+
+const tracking = computed(() => props.account.ratios.tracking)
 
 function setActive(foodItem) {
   showModal.value = true;
@@ -25,7 +27,7 @@ const closeModal = () => {
 
 
 <template>
-  <div class="text-neutral-text p-4 lg:p-8">
+  <div v-if="tracking" class="text-neutral-text p-4 lg:p-8">
 
     <h1 class="text-lg lg:text-2xl font-bold mb-3 bg-light px-2 py-1 rounded">
       Food Recommendations

@@ -60,7 +60,7 @@ const renderHeroImage = computed(() => {
 
       </div>
 
-      <FoodRecommendations v-if="props.account.ratios.tracking" :account :foodRecommendations />
+      <FoodRecommendations v-if="account" :account :foodRecommendations />
 
       <ConsumedReport v-if="account" :account :calorieDays />
 

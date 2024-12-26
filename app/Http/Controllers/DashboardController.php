@@ -43,7 +43,8 @@ class DashboardController extends Controller
         }
 
         $goal = $account->goal ?? 2000;
-        $ranges = $account->ratios;
+
+        $ranges = $account->ratios ?? null;
 
         $filteredFoodItemsByCategory = [];
 
