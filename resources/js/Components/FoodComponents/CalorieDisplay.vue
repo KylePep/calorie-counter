@@ -98,11 +98,11 @@ function usageClass(value) {
   if (!ratiosActive.value) {
     return 'bg-accent/75 text-transparent border-accent'
   } else {
-    if (value < calculateCategoryRange.value.breakfast) {
+    if (value <= calculateCategoryRange.value.breakfast) {
       return "bg-accent-light/75 border-accent-light text-transparent";
-    } else if (value < calculateCategoryRange.value.breakfast + calculateCategoryRange.value.lunch) {
+    } else if (value <= calculateCategoryRange.value.breakfast + calculateCategoryRange.value.lunch) {
       return "bg-accent/75 border-accent text-transparent";
-    } else if (value < calculateCategoryRange.value.breakfast + calculateCategoryRange.value.lunch + calculateCategoryRange.value.dinner) {
+    } else if (value <= calculateCategoryRange.value.breakfast + calculateCategoryRange.value.lunch + calculateCategoryRange.value.dinner) {
       return "bg-accent-dark/75 border-accent-dark text-transparent";
     } else {
       return "bg-special/75 border-special text-transparent";

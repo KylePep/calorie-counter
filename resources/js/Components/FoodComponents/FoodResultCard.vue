@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from "vue";
 
-
 const props = defineProps(['foodItem', 'calorieDay', 'isSearchResult']);
 const emit = defineEmits(['setActive']);
 
