@@ -4,9 +4,9 @@ import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import { computed, ref } from "vue";
 import Modal from "../Form/Modal.vue";
-import FoodCard from "./FoodCard.vue";
 import NumberInput from "../Form/NumberInput.vue";
 import Dropdown from "../Form/Dropdown.vue";
+import FoodResultCard from "./FoodResultCard.vue";
 
 const emit = defineEmits(['setActive']);
 
@@ -196,7 +196,7 @@ const macroName = computed(() => {
       </div>
 
       <div v-for="foodItem in foodsList">
-        <FoodCard :foodItem="foodItem" :is-search-result="true" @set-active="setActive" />
+        <FoodResultCard :foodItem="foodItem" :is-search-result="true" @set-active="setActive" />
       </div>
 
     </div>
