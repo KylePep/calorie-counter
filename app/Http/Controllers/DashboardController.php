@@ -17,6 +17,8 @@ class DashboardController extends Controller
 
         $account = $user->account;
 
+        $carrots = $user->carrots()->get();
+
         $calorieDay = null;
         $calorieDays = [];
         $foodItems = [];
@@ -75,6 +77,7 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard/Index', [
             'account' => $account,
+            'carrots' => $carrots,
             'calorieDay' => $calorieDay ? $calorieDay : null,
             'calorieDays' => $calorieDays ? $calorieDays : [],
             'foodItems' => $foodItems ? $foodItems : [],

@@ -1,5 +1,5 @@
 <script setup>
-import FoodCard from "./FoodCard.vue";
+import FoodResultCard from "./FoodResultCard.vue";
 
 const props = defineProps(['account', 'mealType', 'foodItems', 'percent', 'bgColor'])
 
@@ -18,8 +18,10 @@ function setActive(item) {
       <slot /> - Calories {{ (account.goal * (percent / 100)).toFixed(0) }}
     </div>
 
-    <div v-for="item in foodItems">
-      <FoodCard :foodItem="item" @set-active="setActive" />
+    <div class="grid grid-cols-2 lg:grid-cols-3">
+      <div v-for="item in foodItems">
+        <FoodResultCard :foodItem="item" @set-active="setActive" />
+      </div>
     </div>
 
     <div v-if="!foodItems.length">

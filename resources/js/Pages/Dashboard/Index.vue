@@ -7,8 +7,11 @@ import { computed, ref } from "vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
 import FoodRecommendations from "./partial/FoodRecommendations.vue";
+import EditCarrot from "../Account/Partials/EditCarrot.vue";
+import EditMacros from "../Account/Partials/EditMacros.vue";
+import DashboardCard from "./partial/DashboardCard.vue";
 
-const props = defineProps(['account', 'calorieDay', 'calorieDays', 'foodItems', 'foodRecommendations']);
+const props = defineProps(['account', 'carrots', 'calorieDay', 'calorieDays', 'foodItems', 'foodRecommendations']);
 
 const editCalorieSchedule = ref(false);
 
@@ -59,12 +62,20 @@ const renderHeroImage = computed(() => {
         </div>
 
       </div>
+      <EditMacros :account />
+      <EditCarrot :account :carrots />
 
       <FoodRecommendations v-if="account" :account :foodRecommendations />
 
       <ConsumedReport v-if="account" :account :calorieDays />
 
     </div>
+
+    <template #aside>
+      <div v-if="props.account">
+        <DashboardCard :account />
+      </div>
+    </template>
 
   </GlobalLayout>
 </template>
