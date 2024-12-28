@@ -140,7 +140,7 @@ const closeModal = () => {
 
 
     <div class="grid grid-cols-5 bg-light rounded p-1">
-      <h1 class="font-bold col-span-4 flex items-center ms-1">
+      <h1 class="font-bold col-span-4 flex items-center ms-1 text-neutral-text">
         Create a carrot
       </h1>
 

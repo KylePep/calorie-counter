@@ -69,7 +69,7 @@ function updateAccount() {
   <div v-if="account?.id" class="p-4 lg:p-8 space-y-4">
 
     <div class="grid grid-cols-5 bg-light rounded p-1">
-      <h1 class="font-bold col-span-4 flex items-center ms-1">
+      <h1 class="font-bold col-span-4 flex items-center ms-1 text-neutral-text">
         Macros
       </h1>
 
