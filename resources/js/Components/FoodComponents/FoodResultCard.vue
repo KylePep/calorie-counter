@@ -55,7 +55,7 @@ function foodCategoryColoring() {
     <section :class="foodItem.photo ? 'bg-gradient-to-b from-black to-transparent' : ''"
       class="flex flex-col flex-1  group-hover:bg-dark/90 rounded-t duration-300 py-1">
 
-      <div class="flex justify-between items-end sm:py-1 px-2 rounded-t">
+      <div class="flex justify-between items-end lg:py-1 px-2 rounded-t">
 
         <div class="font-bold">
           {{ foodItem.calories }} Cal
@@ -63,7 +63,7 @@ function foodCategoryColoring() {
 
       </div>
 
-      <div class="flex justify-around items-end py-2 px-2">
+      <div class="flex justify-around items-end py-1 lg:py-2 px-2">
         <div v-if="protein.value > 0" class="font-bold text-sm">
           {{ protein.value }}g Protein
         </div>
@@ -75,13 +75,13 @@ function foodCategoryColoring() {
         </div>
       </div>
 
-      <button @click="setActive(foodItem)" class="flex-1 py-4 px-2">
+      <button @click="setActive(foodItem)" class="flex-1 py-1 lg:py-4 px-2">
         <h1 :class="foodItem.photo ? 'radial-gradient' : ''" class="lg:text-lg truncate font-bold px-1 py-2">
           {{ foodItem.description }}
         </h1>
       </button>
 
-      <div class="flex justify-around items-end py-2 px-2 text-sm">
+      <div class="flex justify-around items-end py-1 px-2 text-sm">
         <div v-for="quality in foodQualities" class="capitalize">
           {{ quality }}
         </div>
