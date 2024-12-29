@@ -28,11 +28,48 @@ const calorieDaysStatus = computed(() => {
       goodDays++;
     }
   });
-  return { goodDays: goodDays, validDays: validDays };
+  const percent = Math.round((goodDays / validDays) * 100)
+  return { goodDays: goodDays, validDays: validDays, percent: percent };
+});
+
+const macros = computed(() => {
+  return Object.fromEntries(
+    Object.entries(props.account.macros).filter(([key, value]) => value > 0)
+  );
+});
+
+const calorieMacroStatus = computed(() => {
+  if (!props.account.trackMacros || !props.account.macros) return
+  let goodDays = { protein: 0, carbohydrates: 0, fats: 0 };
+  let validDays = 0;
+  const macroGoals = props.account.macros
+
+  props.calorieDays.forEach(cd => {
+    if (cd.count != 0) {
+      validDays++;
+
+      const totalMacros = { protein: 0, carbohydrates: 0, fats: 0 }
+      cd.food_items.forEach((fi) => {
+        totalMacros.protein += fi.protein
+        totalMacros.carbohydrates += fi.carbohydrates
+        totalMacros.fats += fi.fats
+      });
+      if (totalMacros.protein >= macroGoals.protein) goodDays.protein++;
+      if (totalMacros.carbohydrates >= macroGoals.carbohydrates) goodDays.carbohydrates++;
+      if (totalMacros.fats >= macroGoals.fats) goodDays.fats++;
+    };
+  });
+  const percent = {
+    protein: Math.round((goodDays.protein / validDays) * 100),
+    carbohydrates: Math.round((goodDays.carbohydrates / validDays) * 100),
+    fats: Math.round((goodDays.fats / validDays) * 100)
+  }
+
+  return { goodDays: goodDays, validDays: validDays, percent: percent };
 });
 
 const calorieReadout = computed(() => {
-  const percent = Math.round((calorieDaysStatus.value.goodDays / calorieDaysStatus.value.validDays) * 100);
+  const percent = calorieDaysStatus.value.percent;
   let message = '';
   if (percent >= 90) {
     message = `You're doing great!`;
@@ -45,7 +82,15 @@ const calorieReadout = computed(() => {
   }
 
   return message;
-})
+});
+
+function macroClass(index) {
+  return {
+    protein: 'bg-accent/50',
+    carbohydrates: 'bg-accent-dark/50',
+    fats: 'bg-accent-light/50'
+  }[index]
+};
 
 </script>
 
@@ -78,17 +123,62 @@ const calorieReadout = computed(() => {
       </div>
 
       <div>
-        {{ calorieReadout }}
-        {{ Math.round((calorieDaysStatus.goodDays / calorieDaysStatus.validDays) * 100) }}%
+        <div>
+          {{ calorieReadout }}
+        </div>
+
+        <div class="relative bg-white h-6">
+
+          <div class=" bg-special/50 absolute h-full rounded-md"
+            :style="{ width: `${Math.min(calorieDaysStatus.percent, 100)}%` }">
+          </div>
+
+
+          <div
+            class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-md py-1 px-3 text-xs">
+
+            <span class="text-start font-bold text-dark-text col-span-4 sm:col-span-2">
+              <p>{{ calorieDaysStatus.percent }} %</p>
+            </span>
+
+            <span class="hidden sm:block text-center font-bold text-dark-text col-span-2 ">
+              <p>{{ calorieDaysStatus.goodDays }} Good days</p>
+            </span>
+
+            <span class=" col-span-2 sm:col-span-2 text-end font-bold text-dark-text">
+              <p>{{ calorieDaysStatus.validDays }} days</p>
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
       <div v-if="account.trackMacros">
         Macro Goals
-        <div v-for="macro, index in account.macros">
-          <div v-if="macro > 0">
-            <span class="capitalize">{{ index }}: </span>
-            <span> {{ macro }}g</span>
+        <div v-for="macro, index in macros" :key="index" class="relative bg-white h-6">
+
+          <div class="absolute h-full rounded-md" :class="macroClass(index)"
+            :style="{ width: `${calorieMacroStatus.percent[index]}%` }">
           </div>
+
+
+          <div
+            class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-md py-1 px-3 text-xs">
+
+            <span class="text-start font-bold text-dark-text col-span-4 sm:col-span-2">
+              <p>{{ calorieMacroStatus.percent[index] }} %</p>
+            </span>
+
+            <span class="hidden sm:block text-center font-bold text-dark-text col-span-2 ">
+              <p>{{ calorieMacroStatus.goodDays[index] }} good days</p>
+            </span>
+
+            <span class=" col-span-2 sm:col-span-2 text-end font-bold text-dark-text">
+              <p>{{ macro }}g</p>
+            </span>
+          </div>
+
         </div>
       </div>
 
