@@ -73,10 +73,8 @@ const renderHeroImage = computed(() => {
 
     </div>
 
-    <template #aside>
-      <div v-if="props.account">
-        <DashboardCard :account :calorieDays :carrots />
-      </div>
+    <template #aside v-if="props.account">
+      <DashboardCard :account :calorieDays :carrots />
     </template>
 
   </GlobalLayout>

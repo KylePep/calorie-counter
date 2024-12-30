@@ -135,7 +135,7 @@ class AccountController extends Controller
             $latestCalorieDay->save();
         }
 
-        return Redirect::route('account.index');
+        return redirect()->back()->with('success', 'Account has been updated.');
     }
 
     public function patch(UpdateAccountRequest $request, Account $account)
