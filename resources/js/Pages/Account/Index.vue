@@ -3,9 +3,7 @@ import GlobalLayout from "@/Layouts/GlobalLayout.vue";
 import { computed } from "vue";
 import EditGoal from "./Partials/EditGoal.vue";
 import EditStats from "./Partials/EditStats.vue";
-import EditCarrot from "./Partials/EditCarrot.vue";
 import EditTheme from "./Partials/EditTheme.vue";
-import EditMacros from "./Partials/EditMacros.vue";
 import MenuButton from "@/Components/Menu/MenuButton.vue";
 
 const props = defineProps(['status', 'account', 'calorieDays', 'carrots']);
@@ -33,12 +31,7 @@ const account = computed(() => props.account);
 
         <EditGoal :account="account" />
 
-        <EditMacros :account="account" />
-
         <EditStats :account="account" />
-
-        <EditCarrot :account="account" :carrots="carrots" />
-
 
       </div>
     </div>

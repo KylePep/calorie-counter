@@ -68,8 +68,7 @@ const calorieMacroStatus = computed(() => {
   return { goodDays: goodDays, validDays: validDays, percent: percent };
 });
 
-const calorieReadout = computed(() => {
-  const percent = calorieDaysStatus.value.percent;
+function resultReadout(percent) {
   let message = '';
   if (percent >= 90) {
     message = `You're doing great!`;
@@ -82,7 +81,7 @@ const calorieReadout = computed(() => {
   }
 
   return message;
-});
+};
 
 function macroClass(index) {
   return {
@@ -106,25 +105,29 @@ function macroClass(index) {
       </div>
     </h1>
 
-    <div class="p-2 border border-light rounded">
+    <div class="p-2 border border-light rounded space-y-2">
 
       <div class="flex justify-between">
 
-        <div>
-          Weight: {{ account.weight }}lbs
-        </div>
-        <div>
-          Goal: {{ account.goal }}cal
+        <div class="font-bold">
+          Goal:
+          <span class="font-normal">{{ account.goal }}cal</span>
         </div>
 
-        <div>
-          BMR: {{ account.bmr }}cal
+        <div class="font-bold">
+          BMR:
+          <span class="font-normal">{{ account.bmr }}cal</span>
         </div>
       </div>
 
+      <div class="font-bold text-center">
+        Weight:
+        <span class="font-normal">{{ account.weight }}lbs</span>
+      </div>
+
       <div>
-        <div>
-          {{ calorieReadout }}
+        <div class="font-bold">
+          Day Results:
         </div>
 
         <div class="relative bg-white h-6">
@@ -151,20 +154,24 @@ function macroClass(index) {
           </div>
 
         </div>
-
+        <div class="text-sm">
+          {{ resultReadout(calorieDaysStatus.percent) }}
+        </div>
       </div>
 
       <div v-if="account.trackMacros">
-        Macro Goals
-        <div v-for="macro, index in macros" :key="index" class="relative bg-white h-6">
+        <div class="font-bold">
+          Macro Results:
+        </div>
+        <div v-for="macro, index in macros" :key="index" class="relative bg-white h-12">
 
-          <div class="absolute h-full rounded-md" :class="macroClass(index)"
+          <div class="absolute h-1/2 rounded-md" :class="macroClass(index)"
             :style="{ width: `${calorieMacroStatus.percent[index]}%` }">
           </div>
 
 
           <div
-            class="absolute w-full h-full grid grid-cols-6 text-neutral-text border border-light rounded-md py-1 px-3 text-xs">
+            class="absolute w-full h-1/2 grid grid-cols-6 text-neutral-text border border-light rounded-md py-1 px-3 text-xs">
 
             <span class="text-start font-bold text-dark-text col-span-4 sm:col-span-2">
               <p>{{ calorieMacroStatus.percent[index] }} %</p>
@@ -175,15 +182,20 @@ function macroClass(index) {
             </span>
 
             <span class=" col-span-2 sm:col-span-2 text-end font-bold text-dark-text">
-              <p>{{ macro }}g</p>
+              <p>{{ calorieMacroStatus.validDays }} days</p>
             </span>
+          </div>
+
+          <div class="absolute top-6 text-sm bg-main w-full pb-1">
+            {{ resultReadout(calorieMacroStatus.percent[index]) }}
           </div>
 
         </div>
       </div>
 
-      <div>
-        <div>Carrots: {{ carrotStatus.complete }} | {{ carrotStatus.incomplete }}</div>
+      <div class="font-bold">
+        Carrots:
+        <span class="font-normal">{{ carrotStatus.complete }} | {{ carrotStatus.incomplete }}</span>
       </div>
 
     </div>

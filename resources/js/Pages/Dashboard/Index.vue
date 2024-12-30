@@ -7,8 +7,8 @@ import { computed, ref } from "vue";
 import PrimaryButton from "@/Components/Form/PrimaryButton.vue";
 import SecondaryButton from "@/Components/Form/SecondaryButton.vue";
 import FoodRecommendations from "./partial/FoodRecommendations.vue";
-import EditCarrot from "../Account/Partials/EditCarrot.vue";
-import EditMacros from "../Account/Partials/EditMacros.vue";
+import EditCarrot from "./partial/EditCarrot.vue";
+import EditMacros from "./partial/EditMacros.vue";
 import DashboardCard from "./partial/DashboardCard.vue";
 
 const props = defineProps(['account', 'carrots', 'calorieDay', 'calorieDays', 'foodItems', 'foodRecommendations']);
