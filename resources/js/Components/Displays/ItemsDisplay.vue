@@ -14,7 +14,8 @@ const filter = ref('All');
 const filteredList = computed(() => {
   if (filter.value != 'All') {
     return props.list.filter((li) => li.foodCategory == filter.value.toLocaleLowerCase());
-  } else return props.list;
+  } else
+    return props.list;
 });
 
 function setActive(item) {
@@ -143,7 +144,7 @@ const stopDragging = () => {
     @mouseleave="stopDragging">
 
     <div v-for="foodItem in filteredList" :key="foodItem.id">
-      <FoodCard :foodItem="foodItem" :calorieDay @set-active="setActive" />
+      <FoodCard :foodItem :calorieDay @set-active="setActive" />
     </div>
 
 

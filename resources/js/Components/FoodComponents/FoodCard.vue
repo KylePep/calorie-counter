@@ -14,7 +14,7 @@ const page = usePage();
 const isDashboard = page.url.includes('dashboard');
 const isCalorieDay = page.url.includes('calorie-day');
 
-function useItem() {
+async function useItem() {
 
   const protein = props.foodItem.foodNutrients.find((fn) => fn.nutrientName.toLowerCase() == 'protein');
   const carbohydrates = props.foodItem.foodNutrients.find((fn) => fn.nutrientName == 'carbohydrates' || fn.nutrientName.toLowerCase() == 'carbohydrate, by difference');
@@ -31,6 +31,11 @@ function useItem() {
       fats: Number(fats.value)
     }]
   });
+
+  if (!props.calorieDay || !props.calorieDay.id) {
+    console.error('CalorieDay ID is missing or invalid');
+    return;
+  }
 
   useItemForm.put(route('calorieDay.update', props.calorieDay.id), {
     preserveScroll: true,
@@ -91,7 +96,7 @@ function foodCategoryColoring() {
 </script>
 
 <template>
-  <div :style="{ backgroundImage: 'url(' + foodItem.photo + ')' }"
+  <div :style="{ backgroundImage: foodItem.photo ? 'url(' + foodItem.photo + ')' : '' }"
     :class="[foodItem.photo ? 'text-white' : 'text-dark-text', foodCategoryColoring()]"
     class="group flex flex-col h-full w-32 sm:w-52 hover:text-white border-4 hover:border-dark drop-shadow-lg bg-center bg-cover rounded-lg duration-300">
 

@@ -28,8 +28,8 @@ class CalorieDayController extends Controller
                 'account' => $account,
                 'calorieDay' => [],
                 'foodItems' => [],
-                'with_fdcId' => [],
-                'without_fdcId' => [],
+                'carrots' => [],
+                'weighIn' => []
             ]);
         } else {
 
