@@ -21,8 +21,8 @@ const canSetGoal = ref(false);
 const gender = computed(() => props.account?.gender ?? 'Male');
 const weight = computed(() => props.account?.weight ?? 160);
 const height = computed(() => props.account?.height ?? 177.8)
-const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
-const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
+const heightFeet = computed(() => Math.round((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
+const heightInches = computed(() => Math.round((props.account?.height ?? 177.8) / 2.54 % 12) ?? 10);
 const age = computed(() => props.account?.age ?? 25);
 const activity = computed(() => props.account?.activity ?? '1.55');
 const bmr = computed(() => props.account?.bmr ?? 2000);

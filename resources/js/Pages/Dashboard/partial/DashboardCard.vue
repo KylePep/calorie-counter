@@ -28,7 +28,8 @@ const calorieDaysStatus = computed(() => {
       goodDays++;
     }
   });
-  const percent = Math.round((goodDays / validDays) * 100)
+  const result = goodDays / validDays;
+  const percent = isNaN(result) ? 0 : Math.round(result * 100);
   return { goodDays: goodDays, validDays: validDays, percent: percent };
 });
 
@@ -59,10 +60,17 @@ const calorieMacroStatus = computed(() => {
       if (totalMacros.fats >= macroGoals.fats) goodDays.fats++;
     };
   });
+
+  const result = {
+    protein: goodDays.protein / validDays,
+    carbohydrates: goodDays.carbohydrates / validDays,
+    fats: goodDays.fats / validDays
+  }
+
   const percent = {
-    protein: Math.round((goodDays.protein / validDays) * 100),
-    carbohydrates: Math.round((goodDays.carbohydrates / validDays) * 100),
-    fats: Math.round((goodDays.fats / validDays) * 100)
+    protein: isNaN(result.protein) ? 0 : Math.round(result.protein * 100),
+    carbohydrates: isNaN(result.carbohydrates) ? 0 : Math.round(result.carbohydrates * 100),
+    fats: isNaN(result.fats) ? 0 : Math.round(result.fats * 100)
   }
 
   return { goodDays: goodDays, validDays: validDays, percent: percent };

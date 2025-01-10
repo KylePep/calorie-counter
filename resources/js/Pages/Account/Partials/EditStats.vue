@@ -12,7 +12,7 @@ const props = defineProps(['account']);
 const account = computed(() => props.account);
 
 const heightFeet = computed(() => Math.floor((props.account?.height ?? 177.8) / 2.54 / 12) ?? 5);
-const heightInches = computed(() => (props.account?.height ?? 177.8) / 2.54 % 12 ?? 10);
+const heightInches = computed(() => Math.round((props.account?.height ?? 177.8) / 2.54 % 12) ?? 10);
 const displayActivity = computed(() => {
   return {
     1: "Basal Metabolic Rate",
