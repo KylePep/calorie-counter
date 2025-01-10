@@ -7,6 +7,7 @@ import CarrotDisplay from '@/Components/Displays/CarrotDisplay.vue'
 import CalorieDayLayout from "@/Layouts/CalorieDayLayout.vue";
 import WeighInEntry from "@/Components/Displays/WeighInEntry.vue";
 import MenuArray from "@/Components/Menu/MenuArray.vue";
+import NoAccountCard from "@/Components/NoAccountCard.vue";
 
 
 const props = defineProps(['account', 'calorieDay', 'carrots', 'weighIn', 'foodItems', 'without_fdcId', 'with_fdcId']);
@@ -43,7 +44,7 @@ const renderHeroImage = computed(() => {
             Today: {{ new Date().toLocaleDateString() }}
         </CalorieDayLayout>
 
-        <template #aside>
+        <template #aside v-if="props.account">
             <div v-if="props.account" class="hidden lg:block space-y-3">
                 <WeighInEntry :weighIn="weighIn" />
                 <JournalEntry :calorieDay="calorieDay" />
