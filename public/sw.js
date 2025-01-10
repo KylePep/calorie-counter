@@ -1,56 +1,41 @@
-const filesToCache = [
-    '/',
-    '/offline.html'
+const CACHE_NAME = "pwa-cache-v1";
+
+// Files to cache
+const urlsToCache = [
+    "/", // Cache the home page
+    "/offline", // Offline fallback page (create this route in Laravel)
 ];
 
-const preLoad = function () {
-    return caches.open("offline").then(function (cache) {
-        return cache.addAll(filesToCache);
-    });
-};
-
+// Install event - Cache specified files
 self.addEventListener("install", function (event) {
-    event.waitUntil(preLoad());
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(function (cache) {
+            return cache.addAll(urlsToCache);
+        })
+    );
 });
 
-const checkResponse = function (request) {
-    return fetch(request).then(function (response) {
-        if (response.status !== 404) {
-            return response;
-        } else {
-            throw new Error("Not Found");
-        }
-    });
-};
-
-const addToCache = function (request) {
-    return caches.open("offline").then(function (cache) {
-        return fetch(request).then(function (response) {
-            if (response.ok) {
-                return cache.put(request, response.clone());
-            }
-        });
-    });
-};
-
-const returnFromCache = function (request) {
-    return caches.open("offline").then(function (cache) {
-        return cache.match(request).then(function (matching) {
-            return matching || cache.match("/offline.html");
-        });
-    });
-};
-
+// Fetch event - Serve cached files or fallback to offline page
 self.addEventListener("fetch", function (event) {
-    if (event.request.url.startsWith("http")) {
-        event.respondWith(
-            checkResponse(event.request).catch(function () {
-                return returnFromCache(event.request);
-            })
-        );
+    event.respondWith(
+        caches.match(event.request.clone()).then(function (response) {
+            // Return cached response if found, otherwise fetch from network
+            return response || fetch(event.request.clone()).catch(() => caches.match("/offline"));
+        })
+    );
+});
 
-        event.waitUntil(addToCache(event.request));
-    } else {
-        console.warn("Unsupported request scheme:", event.request.url);
-    }
+// Activate event - Clean up old caches
+self.addEventListener("activate", function (event) {
+    event.waitUntil(
+        caches.keys().then(function (cacheNames) {
+            return Promise.all(
+                cacheNames.map(function (cache) {
+                    if (cache !== CACHE_NAME) {
+                        return caches.delete(cache);
+                    }
+                })
+            );
+        })
+    );
 });

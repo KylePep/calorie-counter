@@ -14,7 +14,7 @@ const props = defineProps(['account', 'foodItems', 'calorieDay']);
       Calorie Schedule
     </h1>
 
-    <CalorieRatioSelector :account :calorieDay @set-search="searchSchedule" />
+    <CalorieRatioSelector :account :calorieDay />
 
   </div>
 

@@ -12,6 +12,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeighInController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+Route::get('/offline', function () {
+    return Inertia::render('Offline');
+});
 
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');

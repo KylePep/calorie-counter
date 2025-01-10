@@ -22,7 +22,7 @@ const closeModal = () => {
 
 const form = useForm({
   query: null,
-  count: 0,
+  count: '',
   category: null,
   macro: null,
 });
@@ -52,8 +52,6 @@ async function fetchUserFoodItems() {
         macro: form.macro
       },
     });
-
-    console.log('RESPONSE', response.data, 'PARAMS', response.config.params)
 
     loading.value = false;
 

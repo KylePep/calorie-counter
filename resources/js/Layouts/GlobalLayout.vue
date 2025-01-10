@@ -39,7 +39,7 @@ onUnmounted(() => {
 
     <Head :title="$props.head" content="description required" :head-key="$props.head" />
 
-    <header class=" bg-neutral shadow-xl" v-if="$slots.header">
+    <header class="bg-neutral shadow-xl" v-if="$slots.header">
 
       <div v-if="heroImage" class="flex justify-center items-center h-96 space-x-3 mx-auto py-6 px-4 sm:px-6 lg:px-8 "
         :style="{ backgroundImage: `linear-gradient(to top, rgba(var(--hero-gradient), 0) 10%, rgba(var(--hero-gradient), 0.5) 80%, rgba(var(--hero-gradient), 0.6) 100%), url(${heroImage})`, backgroundPosition: `50% ${heroHeight}%`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">

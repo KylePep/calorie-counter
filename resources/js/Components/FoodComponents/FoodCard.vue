@@ -32,8 +32,6 @@ function useItem() {
     }]
   });
 
-  console.log(useItemForm.food_items[0])
-
   useItemForm.put(route('calorieDay.update', props.calorieDay.id), {
     preserveScroll: true,
     onSuccess: () => {
