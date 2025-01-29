@@ -131,10 +131,11 @@ function useItem() {
 
 function evaluateQualities() {
   const calories = form.calories;
-
-  const protein = form.foodNutrients.find(f => f.nutrientName == 'protein');
-  const carbs = form.foodNutrients.find(f => f.nutrientName == 'carbohydrates');
-  const fats = form.foodNutrients.find(f => f.nutrientName == 'fats');
+  console.log(form.foodNutrients)
+  const protein = form.foodNutrients.find(f => f.nutrientName == 'Protein');
+  const carbs = form.foodNutrients.find(f => f.nutrientName == 'Carbohydrate, by difference');
+  const fats = form.foodNutrients.find(f => f.nutrientName == 'Total lipid (fat)');
+  console.log(calories, protein, carbs, fats)
   protein.title = "Protein"
   carbs.title = "Carb"
   fats.title = "Fat"
