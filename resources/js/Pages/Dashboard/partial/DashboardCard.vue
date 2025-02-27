@@ -172,7 +172,6 @@ function macroClass(index) {
           Macro Results:
         </div>
         <div v-for="macro, index in macros" :key="index" class="relative bg-white h-12">
-
           <div class="absolute h-1/2 rounded-md" :class="macroClass(index)"
             :style="{ width: `${calorieMacroStatus.percent[index]}%` }">
           </div>
@@ -194,8 +193,13 @@ function macroClass(index) {
             </span>
           </div>
 
-          <div class="absolute top-6 text-sm bg-main w-full pb-1">
-            {{ resultReadout(calorieMacroStatus.percent[index]) }}
+          <div class="absolute top-6 text-sm bg-main w-full pb-1 grid grid-cols-2">
+            <span>
+              {{ resultReadout(calorieMacroStatus.percent[index]) }}
+            </span>
+            <span class="text-end">
+              {{ index }}
+            </span>
           </div>
 
         </div>

@@ -47,10 +47,18 @@ setForm();
 
 function evaluateQualities() {
   const calories = form.calories;
-
-  const protein = form.foodNutrients.find(f => f.nutrientName == 'protein');
-  const carbs = form.foodNutrients.find(f => f.nutrientName == 'carbohydrates');
-  const fats = form.foodNutrients.find(f => f.nutrientName == 'fats');
+  let protein = 0;
+  let carbs = 0;
+  let fats = 0;
+  if (!props.foodItem.fdcId) {
+    protein = form.foodNutrients.find(f => f.nutrientName == 'protein');
+    carbs = form.foodNutrients.find(f => f.nutrientName == 'carbohydrates');
+    fats = form.foodNutrients.find(f => f.nutrientName == 'fats');
+  } else {
+    protein = form.foodNutrients.find(f => f.nutrientName == 'Protein');
+    carbs = form.foodNutrients.find(f => f.nutrientName == 'Carbohydrate, by difference');
+    fats = form.foodNutrients.find(f => f.nutrientName == 'Total lipid (fat)');
+  }
   protein.title = "Protein"
   carbs.title = "Carb"
   fats.title = "Fat"
