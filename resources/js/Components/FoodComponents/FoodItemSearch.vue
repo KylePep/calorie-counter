@@ -44,7 +44,7 @@ async function fetchUserFoodItems() {
 
     loading.value = true;
 
-    const response = await axios.get('/foodItem/search', {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/foodItem/search`, {
       params: {
         query: form.query,
         count: form.count,

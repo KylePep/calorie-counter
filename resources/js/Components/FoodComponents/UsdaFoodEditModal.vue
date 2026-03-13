@@ -32,11 +32,11 @@ async function getUsdaFoodById() {
 
 
     if (foodId.length != 12) {
-      const response = await axios.get(`/foodUsda/${foodId}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/foodUsda/${foodId}`);
       const foodItem = new UsdaFoodItem(response.data);
       setForm(foodItem);
     } else {
-      const response = await axios.get(`/foodUsda/${foodId}/upc`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/foodUsda/${foodId}/upc`);
       const foodItem = new UsdaFoodItem(response.data);
       setForm(foodItem);
     }
