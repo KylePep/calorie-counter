@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: 'resources/js/app.js',
-            refresh: false, // turn off hot reload for static build
+            refresh: false, // disable hot reload
         }),
         vue({
             template: {
